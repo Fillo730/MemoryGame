@@ -8,7 +8,8 @@ import { CustomButtonComponent } from '../../components/custom-button/custom-but
 import { NatureGalleryComponent } from '../../components/nature-gallery/nature-gallery.component';
 
 //Services
-import { DifficultiesService } from '../../services/difficulties-service.service';
+import { NavigationService } from '../../services/NavigationService.service';
+
 
 //public
 import { defaultImages } from '../../../../public/DefaultImages';
@@ -24,5 +25,6 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 
 export class HomePage {
+  public navigationService = inject(NavigationService);
   public defaultImages: string[] = defaultImages;
 }

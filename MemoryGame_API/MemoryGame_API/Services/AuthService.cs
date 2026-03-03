@@ -31,9 +31,9 @@ public class AuthService (IUserRepository usersRepository, ITokenService tokenSe
             return null;
         }
 
-        var token = _tokenService.GenerateToken(user);
+        (var token, var expiratesDate) = _tokenService.GenerateToken(user);
 
-        return _authMapper.MapUserToLoginResponseDto(user, token);
+        return _authMapper.MapUserToLoginResponseDto(user, token, expiratesDate);
     }
 
     public async Task<LoginResponseDto?> RegisterUserAsync(RegisterRequestDto registerRequestDto)
@@ -55,8 +55,8 @@ public class AuthService (IUserRepository usersRepository, ITokenService tokenSe
 
         await _usersRepository.SaveChangesAsync();
 
-        var token = _tokenService.GenerateToken(newUser);
+        (var token, var expiratesDate) = _tokenService.GenerateToken(newUser);
 
-        return _authMapper.MapUserToLoginResponseDto(newUser, token);
+        return _authMapper.MapUserToLoginResponseDto(newUser, token, expiratesDate);
     }
 }

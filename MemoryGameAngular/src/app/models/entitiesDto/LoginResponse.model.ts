@@ -6,4 +6,6 @@ export interface LoginResponse {
     username : string,
     email : string,
     userRole : UserRole,
+    id : number,
+    expiresDate : Date
 }

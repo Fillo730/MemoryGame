@@ -1,5 +1,5 @@
 //Angular
-import { inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 //Rxjs
@@ -25,7 +25,16 @@ export class AuthService {
   private API_URL = getApiUrl(this.controllerKey);
   private http = inject(HttpClient);
 
-  public isLoggedIn = signal<boolean>(this.isUserInfoInTheLocalStorage());
+  public isLoggedIn = computed(() => {
+    const user = this.currentUser();
+
+    if(!user || !user.token) return false;
+
+    const now = new Date();
+    const expired = new Date(user.expiresDate);
+
+    return now < expired;
+  });
 
   private _currentUser = signal<LoginResponse | null>(this.getUserInfoInTheLocalStorage());
   public currentUser = this._currentUser.asReadonly();
@@ -53,7 +62,6 @@ export class AuthService {
   public logout() : void {
     if(isLocalStorageValid()) {
       localStorage.removeItem(STORAGE_KEYS.USER_INFO);
-      this.isLoggedIn.set(false);
       this._currentUser.set(null);
     }
   }
@@ -61,22 +69,25 @@ export class AuthService {
   public updateLocalStorageInfo(response : LoginResponse) : void {
     if(isLocalStorageValid()) {
       localStorage.setItem(STORAGE_KEYS.USER_INFO, JSON.stringify(response));
-      this.isLoggedIn.set(true);
       this._currentUser.set(response);
     }
-  }
-
-  private isUserInfoInTheLocalStorage() : boolean {
-    if(isLocalStorageValid()) {
-      return localStorage.getItem(STORAGE_KEYS.USER_INFO) ? true : false;
-    }
-    return false;
   }
 
   private getUserInfoInTheLocalStorage() : LoginResponse | null {
     if(isLocalStorageValid()) {
       const data = localStorage.getItem(STORAGE_KEYS.USER_INFO);
-      return data ? JSON.parse(data) : null;
+      if(!data) return null;
+      
+      const user : LoginResponse = JSON.parse(data);
+      const now = new Date();
+      const expiry = new Date(user.expiresDate);
+
+      if(now >= expiry) {
+        localStorage.removeItem(STORAGE_KEYS.USER_INFO);
+        return null;
+      }
+
+      return user;
     }
     return null;
   }

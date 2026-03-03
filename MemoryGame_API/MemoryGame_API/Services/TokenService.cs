@@ -11,10 +11,12 @@ public class TokenService(IConfiguration config) : ITokenService
 {
     private readonly IConfiguration _config = config;
 
-    public string GenerateToken(User user)
+    public (string Token, DateTime Expiration) GenerateToken(User user)
     {
         var jwtSettings = _config.GetSection("JwtSettings");
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"]!));
+
+        var expirationDate = DateTime.UtcNow.AddHours(3);
 
         var claims = new List<Claim>
         {
@@ -26,7 +28,7 @@ public class TokenService(IConfiguration config) : ITokenService
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.Now.AddDays(7),
+            Expires = expirationDate,
             SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature),
             Issuer = jwtSettings["Issuer"],
             Audience = jwtSettings["Audience"]
@@ -35,6 +37,6 @@ public class TokenService(IConfiguration config) : ITokenService
         var tokenHandler = new JwtSecurityTokenHandler();
         var token = tokenHandler.CreateToken(tokenDescriptor);
 
-        return tokenHandler.WriteToken(token);
+        return (tokenHandler.WriteToken(token),expirationDate) ;
     }
 }

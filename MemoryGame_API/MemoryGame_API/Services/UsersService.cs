@@ -44,9 +44,9 @@ public class UsersService(
         await _usersRepository.SaveChangesAsync();
 
         
-        var token = _tokenService.GenerateToken(user);
+        (var token, var expiratesDate) = _tokenService.GenerateToken(user);
 
         
-        return _authMapper.MapUserToLoginResponseDto(user, token);
+        return _authMapper.MapUserToLoginResponseDto(user, token, expiratesDate);
     }
 }

@@ -12,5 +12,7 @@ public class LoginResponseDto
 
     public UserRoleEnum UserRole { get; set; }
 
+    public DateTime ExpiresDate { get; set; }
+
     public int Id { get; set; }
 }

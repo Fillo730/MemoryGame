@@ -9,7 +9,8 @@
     <div class="display-horizontal normal-max-width">
       <p class="text custom-max-width" [innerHTML]="'Home.WhatIsItText' | translate"></p>
       <custom-button-component 
-        [text]="'Home.PlayNow' | translate">
+        [text]="'Home.PlayNow' | translate"
+        (onClick)="navigationService.goToPlay()">
       </custom-button-component>
     </div>
   </section>

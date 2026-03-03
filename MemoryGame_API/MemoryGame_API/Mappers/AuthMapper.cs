@@ -17,7 +17,7 @@ public class AuthMapper : IAuthMapper
         };
     }
 
-    public LoginResponseDto MapUserToLoginResponseDto(User user, string token)
+    public LoginResponseDto MapUserToLoginResponseDto(User user, string token, DateTime expiratesDate)
     {
         return new LoginResponseDto
         {
@@ -25,7 +25,8 @@ public class AuthMapper : IAuthMapper
             Token = token,
             Username = user.Username,
             Email = user.Email,
-            UserRole = user.Role
+            UserRole = user.Role,
+            ExpiresDate = expiratesDate
         };
     }
 }
