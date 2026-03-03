@@ -1,0 +1,40 @@
+<header-component></header-component>
+
+<div class="display-vertical">
+  <div class="display-center-vertical-nogap">
+    <h1 class="title light-color">{{ 'Profile.Greetings' | translate : {name: currentUser().username} }}</h1>
+    <div class="normal-max-width">
+      <p class="text custom-max-width">
+        {{ 'Profile.Text' | translate }}
+      </p>
+    </div>
+  </div>
+
+  
+  <div class="normal-max-width display-vertical">
+    <div class="text custom-max-width">
+      <p>
+        <label class="big-text light-color">{{ 'Profile.UsernameLabel' | translate: {username: currentUser().username } }}</label><br />
+        <label class="big-text light-color">{{ 'Profile.EmailLabel' | translate: {email: currentUser().email } }}</label><br />
+      </p>
+      <generic-button-component [label]="'Profile.EditProfileButtonLabel' | translate" (click)="handleEditProfile()" />
+    </div>
+
+    <h1 class="medium-title light-color">Games Played</h1>
+      
+    <div class="difficulty-container">
+      @for (stat of userStats(); track stat.difficulty.id) { 
+          <generic-card-component
+              [backTextSmaller]="true"
+              [frontText]="stat.difficulty.label"
+              [backText]="'Profile.DifficultyStatistics' | translate: {total: stat.gamesPlayed, avg: stat.averageMovesPerGame | number:'1.2-2', best: stat.bestScore}"
+          />
+      }
+    </div>
+    <generic-button-component label="Logout" (click)="handleLogout()" />
+  </div>
+</div>
+
+<update-profile-component [isModalOpen]="modalOpen()" (onClose)="handleCloseModal()" [initialData]="userData()" (onSaveProfile)="handleSaveProfile($event)"></update-profile-component>
+
+<footer-component></footer-component>

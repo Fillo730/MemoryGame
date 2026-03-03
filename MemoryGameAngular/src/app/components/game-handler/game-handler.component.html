@@ -1,0 +1,50 @@
+@if(isLoading()) {
+    <state-handler-component type="loading" [text]="'Play.Loading.Text' | translate" [title]="'Play.Loading.Title' | translate"></state-handler-component>
+}
+@else if(hasError()) {
+    <state-handler-component type="error" [text]="'Play.Error.Text' | translate" [title]="'Play.Error.Title' | translate" 
+        [buttonLabel]="'Play.Error.ActionButtonLabel' | translate" (onClick)="handleRetryError()"></state-handler-component>
+} 
+@else {
+    @if (!isDifficultySelected()) {
+    <h1 class="light-color title">{{ 'Play.SelectDifficulty' | translate }}</h1>
+    
+    <p class="text">
+        {{ 'Play.DifficultyDescription' | translate }}<br/>
+        {{ 'Play.ChooseWisely' | translate }}<br/>
+
+        @if (!isLoggedIn()) {
+        <label class="warning-color">
+            <span>{{ 'Common.Note' | translate }}: </span>
+            {{ 'Play.LoginWarning' | translate }}
+        </label>
+        }
+    </p>
+
+    <div class="difficulty-container custom-max-width">
+        @for (difficulty of difficulties; track difficulty.id) {
+            <generic-card-component
+            [frontText]="difficulty.label"
+            [backText]="'Components.GenericCard.CardLabel' | translate: {n: difficulty.numberOfPairs * 2}"
+            (cardClick)="handleClick(difficulty)"
+            />
+        }
+    </div>
+
+    } @else {
+        @if (selectedDifficulty(); as diff) {
+            <h1 class="light-color title">
+                {{ 'Play.SelectedDifficulty' | translate }}: {{ diff.label }}
+            </h1>
+
+            <p class="text">
+                {{ 'Play.PlayInstructions' | translate }}<br/>
+            </p>
+
+            <memory-game-component 
+                [difficulty]="diff" 
+                (goBack)="handleGoBack()">
+            </memory-game-component>
+        }
+    }
+}

@@ -1,0 +1,14 @@
+<div class="dropdown">
+  <button class="dropbtn">
+    <span class="material-symbols-outlined">language</span>
+    <span class="current-code">{{ languageService.language() }}</span>
+  </button>
+  
+  <div class="dropdown-content">
+    @for (lang of languageService.supportedLanguages; track lang.code) {
+      <a (click)="languageService.setLanguage(lang.code)">
+        {{ lang.label }}
+      </a>
+    }
+  </div>
+</div>

@@ -1,0 +1,26 @@
+{
+  "router": {
+    "profile": "profile",
+    "home": "home",
+    "play": "play",
+    "login": "login",
+    "signup": "sign-up"
+  },
+  "Header": {
+    "Home": "Home",
+    "Play": "Play",
+    "About": "About",
+    "Login": "Login",
+    "SignUp": "Sign Up"
+  },
+  "Home": {
+    "WhatIsItTitle": "What is this Memory Game?",
+    "WhatIsItText": "A simple and effective website that allows you to train your brain and mind, and track your statistics and performance over time. The game is simple: you have to find the pairs of cards with the same image.<br/>Good luck and have fun!",
+    "WhyNatureTitle": "Why nature images?",
+    "WhyNatureText": "The images used in this game are all related to nature. Nature is a great source of inspiration and beauty, helping to create a relaxing and enjoyable atmosphere while playing. Additionally, nature images are visually appealing and can help improve memory retention.",
+    "WhereFromTitle": "Where are these images from?",
+    "WhereFromText": "The images used in this game are from Unsplash, a website that provides high-quality, royalty-free images. You can find more information about the images and their authors on the Unsplash website.",
+    "PlayNow": "Play Now",
+    "LoadMore": "Load More"
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "Routes": {
+    "profile": "profilo",
+    "home": "home",
+    "play": "gioca",
+    "login": "accesso",
+    "signup": "registrazione",
+    "about": "informazioni"
+  },
+  "Header": {
+    "Home": "Home",
+    "Play": "Gioca",
+    "About": "Informazioni",
+    "Login": "Accedi",
+    "SignUp": "Registrati",
+    "Greeting": "Ciao {{ name }}"
+  },
+  "About": {
+    "WhoAmITitle": "Chi sono?",
+    "WhoAmIDescription": "Ciao! Sono un ingegnere del software con la passione per il web development e il game design. Ho creato questo memory game come progetto per migliorare le mie competenze e offrire un'esperienza divertente. Spero ti piaccia giocarci quanto a me è piaciuto crearlo!",
+    "SourceCodeTitle": "Codice Sorgente",
+    "SourceCodeDescription": "Se sei interessato al codice sorgente, puoi trovarlo sulla mia repository GitHub. Sentiti libero di dargli un'occhiata, contribuire o usarlo come riferimento.",
+    "ConnectTitle": "Restiamo in contatto",
+    "ConnectDescription": "Mi piacerebbe connettersi con te e ricevere feedback sul gioco!",
+    "githubButtonLabel": "Profilo Github",
+    "LinkedinButtonLabel": "Profilo Linkedin"
+  },
+  "Home": {
+    "WhatIsItTitle": "Cos'è questo Memory Game?",
+    "WhatIsItText": "Un sito web semplice ed efficace che ti permette di allenare il cervello e la mente, monitorando le tue statistiche e performance nel tempo. Il gioco è semplice: devi trovare le coppie di carte con la stessa immagine.<br/>Buona fortuna e buon divertimento!",
+    "WhyNatureTitle": "Perché la natura?",
+    "WhyNatureText": "Le immagini utilizzate in questo gioco sono tutte legate alla natura. La natura è una grande fonte di ispirazione e bellezza, capace di creare un'atmosfera rilassante e piacevole durante il gioco. Inoltre, le immagini naturalistiche sono visivamente stimolanti e possono aiutare a migliorare la ritenzione della memoria.",
+    "WhereFromTitle": "Da dove provengono queste immagini?",
+    "WhereFromText": "Le immagini utilizzate provengono da Unsplash, un sito che fornisce fotografie di alta qualità senza diritti d'autore. Puoi trovare maggiori informazioni sulle immagini e sui loro autori direttamente sul sito di Unsplash.",
+    "PlayNow": "Gioca Ora",
+    "LoadMoreButtonLabel": "Carica altre",
+    "LoadMoreText": "Guarda queste bellissime immagini. Ne abbiamo ben <strong class=\"light-color\">{{numberOfImages}}</strong> disponibili!"
+  },
+  "Play": {
+    "SelectDifficulty": "Seleziona la difficoltà",
+    "DifficultyDescription": "Ogni grande storia inizia con una scelta. Seleziona il livello di sfida e dimostra di avere una memoria da premio Oscar.",
+    "ChooseWisely": "Scegli saggiamente: una sfida troppo semplice non tempra la memoria, una troppo dura potrebbe confonderti.",
+    "LoginWarning": "Non sei loggato, i progressi non verranno salvati.",
+    "SelectedDifficulty": "Hai selezionato la difficoltà",
+    "CurrentAttempts": "Tentativi attuali",
+    "CompletedTitle": "Bravo!",
+    "CompletedMessage": "Hai completato la sfida in {{moves}} mosse!",
+    "NextLevel": "Prossimo Livello",
+    "PlayAgain": "Riprova",
+    "GoBack": "Indietro",
+    "PlayInstructions": "Tutte le carte sono coperte. Clicca su una carta per girarla e cerca la sua compagna. Se fallisci, torneranno coperte: memorizza la loro posizione!",
+    "Loading": {
+      "Title": "Preparazione livelli",
+      "Text": "Stiamo preparando le sfide disponibili. Scegli quella più adatta a te!"
+    },
+    "Error": {
+      "Title": "Ops! Qualcosa è andato storto",
+      "Text": "Impossibile recuperare le difficoltà dal server. Verifica la tua connessione e riprova.",
+      "ActionButtonLabel": "Riprova"
+    }
+  },
+  "Login": {
+    "Title": "Esegui l'accesso",
+    "Label": "Accedi",
+    "SignUpLabel": "Registrazione",
+    "GoBackLabel": "Indietro",
+    "UsernameLabel": "Username",
+    "PasswordLabel": "Password",
+    "LoginError": "Credenziali non corrette",
+    "HttpError": "Impossibile eseguire il login",
+    "Loading": "Caricamento..."
+  },
+  "Signup": {
+    "Label": "Crea Account",
+    "UsernameLabel": "Nome utente",
+    "EmailLabel": "Email",
+    "PasswordLabel": "Password",
+    "SignupLabel": "Registrati",
+    "GoToLoginLabel": "Hai già un account?",
+    "GoBackLabel": "Indietro",
+    "Loading": "Creazione account...",
+    "InvalidForm": "Controlla i dati inseriti prima di inviare.",
+    "HttpError": "Errore durante la registrazione. Riprova più tardi."
+  },
+  "Profile": {
+    "Greetings": "Ciao {{ name }}",
+    "Text": "Questo è il tuo profile utente. Qui puoi vedere tutte le informazioni del tuo account, modificarle e vedere anche le partite giocate, con tutte le informazioni relative.",
+    "UsernameLabel": "Username: {{ username }}",
+    "EmailLabel": "Email: {{ email }}",
+    "EditProfileButtonLabel": "Modifica il profilo",
+    "DifficultyStatistics": "Totale partite giocate: {{ total }}<br/>Tentativi Medi: {{ avg }}<br/>Miglior tentativo: {{ best }} mosse",
+    "EditModal": {
+      "Title": "Modifica Profilo",
+      "Description": "Qui puoi modificare le informazioni del tuo profilo",
+      "UsernameLabel": "Username",
+      "EmailLabel": "Email"
+    }
+  },
+  "Components": {
+    "GenericCard": {
+      "CardLabel": "{{ n }} Carte"
+    }
+  },
+  "Common": {
+    "Note": "Nota",
+    "Save": "Salva",
+    "Cancel": "Annulla"
+  },
+  "Errors": {
+    "Required": "Il campo è obbligatorio",
+    "MinLength": "Il campo deve avere almeno {{ min }} caratteri",
+    "InvalidEmail": "Inserisci un indirizzo email valido"
+  }
+}

@@ -1,0 +1,102 @@
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  background-color: var(--bg-color);
+}
+
+.auth-card {
+  padding: 2rem;
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.auth-title {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: var(--titles-color);
+}
+
+.auth-error {
+  color: #ff4d4d;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.auth-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.auth-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+  text-align: left;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-color);
+  border: 1px solid var(--header-bg-color);
+  border-radius: 4px;
+  padding: 0 10px;
+  transition: border-color 0.3s;
+}
+
+.input-wrapper:focus-within {
+  border-color: var(--button-color);
+}
+
+.input-wrapper:has(input.ng-invalid.ng-touched) {
+  border-color: #ff4d4d;
+}
+
+.input-wrapper input {
+  background: transparent;
+  border: none;
+  color: var(--text-color);
+  padding: 0.75rem;
+  width: 100%;
+  outline: none;
+}
+
+.field-error {
+  color: #ff4d4d;
+  font-size: 0.75rem;
+  margin-top: 0.4rem;
+  text-align: left;
+}
+
+.primary-button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: var(--button-color);
+  border: none;
+  border-radius: 4px;
+  color: var(--button-text-color);
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.primary-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.primary-button:hover:not(:disabled) {
+  background-color: var(--button-hover-color);
+}
+
+.auth-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 1.5rem;
+}

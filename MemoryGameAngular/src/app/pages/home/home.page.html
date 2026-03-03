@@ -1,0 +1,43 @@
+<header-component></header-component>
+
+<main class="display-vertical">
+  
+  <section class="display-center-vertical-nogap">
+    <h1 class="title light-color">
+      {{ 'Home.WhatIsItTitle' | translate }}
+    </h1>
+    <div class="display-horizontal normal-max-width">
+      <p class="text custom-max-width" [innerHTML]="'Home.WhatIsItText' | translate"></p>
+      <custom-button-component 
+        [text]="'Home.PlayNow' | translate">
+      </custom-button-component>
+    </div>
+  </section>
+
+  <section class="display-center-vertical-nogap">
+    <h1 class="title light-color">
+      {{ 'Home.WhyNatureTitle' | translate }}
+    </h1>
+    <p class="text normal-max-width">
+      {{ 'Home.WhyNatureText' | translate }}
+    </p>
+  </section>
+
+  <nature-gallery-component 
+    [defaultImages]="defaultImages"
+    [text]="'Home.LoadMoreText' | translate: {numberOfImages: defaultImages.length}"
+    [buttonLabel]="'Home.LoadMoreButtonLabel' | translate">
+  </nature-gallery-component>
+
+  <section class="display-center-vertical-nogap">
+    <h1 class="title light-color">
+      {{ 'Home.WhereFromTitle' | translate }}
+    </h1>
+    <p class="text normal-max-width">
+      {{ 'Home.WhereFromText' | translate }}
+    </p>
+  </section>
+  
+</main>
+
+<footer-component></footer-component>

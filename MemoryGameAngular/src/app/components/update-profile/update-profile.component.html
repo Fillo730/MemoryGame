@@ -1,0 +1,42 @@
+<modal-component [isOpen]="isModalOpen" (close)="handleCloseModal()">
+    <h2 class="medium-title light-color">{{ 'Profile.EditModal.Title' | translate }}</h2>
+    <p class="text custom-max-width margin-bottom">
+    {{ 'Profile.EditModal.Description' | translate }}
+    </p>
+
+    <form [formGroup]="formGroup">
+    <div class="form-modal margin-bottom">
+        <label class="big-text light-color label-width">{{ 'Profile.EditModal.UsernameLabel' | translate }}:</label>
+        <input
+        type="text"
+        formControlName="username"
+        class="input-field"
+        /><br />
+    </div>
+
+    <div class="form-modal margin-bottom">
+        <label class="big-text light-color label-width">{{ 'Profile.EditModal.EmailLabel' | translate }}:</label>
+        <input
+        type="text"
+        formControlName="email"
+        class="input-field"
+        /><br />
+    </div>
+
+    @if (error()) {
+        <p style="color: red">{{ error() }}</p>
+    }
+
+    <div class="display-horizontal margin-top-big">
+        <generic-button-component 
+        [label]="'Common.Save' | translate" 
+        (click)="handleSaveProfile()">
+        </generic-button-component>
+        
+        <generic-button-component 
+        [label]="'Common.Cancel' | translate" 
+        (click)="handleCloseModal()">
+        </generic-button-component>
+    </div>
+    </form>
+</modal-component>

@@ -1,0 +1,26 @@
+<div class="memory-game-container">
+    
+    <ul class="memory-grid">
+        @for (image of displayArray(); track $index) {
+            <li class="memory-card memory-card-dimension" (click)="handleCardClick($index)">
+                <img [src]="image" alt="memory card" />
+            </li>
+        }
+    </ul>
+
+    @if (!isCompleted()) {
+        <p class="big-text">
+            {{ 'Play.CurrentAttempts' | translate }}: <span class="light-color">{{ moves() }}</span>
+        </p>
+    } @else {
+        <div class="memory-reset">
+            <h2>{{ 'Play.CompletedMessage' | translate: { moves: moves() } }}</h2>
+            
+            <div class="customButton-container">
+                <generic-button-component [label]="'Play.NextLevel' | translate" (onClick)="nextDifficulty.emit(difficulty)"></generic-button-component>
+                <generic-button-component [label]="'Play.PlayAgain' | translate" (onClick)="resetGame()"></generic-button-component>
+                <generic-button-component [label]="'Play.GoBack' | translate" (onClick)="goBack.emit()"></generic-button-component>
+            </div>
+        </div>
+    }
+</div>

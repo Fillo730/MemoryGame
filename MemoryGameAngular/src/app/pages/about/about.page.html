@@ -1,0 +1,27 @@
+<header-component></header-component>
+<div class="display-vertical">
+    <div class="display-center-vertical-nogap">
+        <h1 class="title light-color">{{ 'About.WhoAmITitle' | translate }}</h1>
+        <p class="text normal-max-width">
+            {{ 'About.WhoAmIDescription' | translate }}
+        </p>
+    </div>
+
+    <div class="display-center-vertical-nogap">
+        <h1 class="title light-color">{{ 'About.SourceCodeTitle' | translate }}</h1>
+        <p class="text normal-max-width">
+            {{ 'About.SourceCodeDescription' | translate }}
+        </p>
+        <github-button-component [buttonLabel]="'About.githubButtonLabel' | translate"></github-button-component>
+    </div>
+
+    <div class="display-center-vertical-nogap">
+        <h1 class="title light-color">{{ 'About.ConnectTitle' | translate }}</h1>
+        <p class="text normal-max-width">
+            {{ 'About.ConnectDescription' | translate }}
+        </p>
+        <linkedin-button-component [buttonLabel]="'About.LinkedinButtonLabel' | translate"></linkedin-button-component>
+    </div>
+</div>
+
+<footer-component></footer-component>

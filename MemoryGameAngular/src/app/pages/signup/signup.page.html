@@ -1,0 +1,59 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <h2 class="auth-title">{{ "Signup.Label" | translate }}</h2>
+
+    @if (error()) {
+      <div class="auth-error">{{ error() }}</div>
+    }
+
+    <form [formGroup]="signupForm" (ngSubmit)="signup($event)" class="auth-form">
+      <div class="form-group">
+        <label for="username">{{ "Signup.UsernameLabel" | translate }}</label>
+        <div class="input-wrapper">
+          <input id="username" type="text" formControlName="username" placeholder="Username" />
+        </div>
+        @if (f.username.touched && f.username.invalid) {
+          <div class="field-error">
+            @if (f.username.errors?.['required']) { {{ "Errors.Required" | translate }} }
+            @if (f.username.errors?.['minlength']) { {{ "Errors.MinLength" | translate : { min: 5 } }} }
+          </div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="email">{{ "Signup.EmailLabel" | translate }}</label>
+        <div class="input-wrapper">
+          <input id="email" type="email" formControlName="email" placeholder="Email" />
+        </div>
+        @if (f.email.touched && f.email.invalid) {
+          <div class="field-error">
+            @if (f.email.errors?.['required']) { {{ "Errors.Required" | translate }} }
+            @if (f.email.errors?.['email']) { {{ "Errors.InvalidEmail" | translate }} }
+          </div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="password">{{ "Signup.PasswordLabel" | translate }}</label>
+        <div class="input-wrapper">
+          <input id="password" type="password" formControlName="password" placeholder="Password" />
+        </div>
+        @if (f.password.touched && f.password.invalid) {
+          <div class="field-error">
+            @if (f.password.errors?.['required']) { {{ "Errors.Required" | translate }} }
+            @if (f.password.errors?.['minlength']) { {{ "Errors.MinLength" | translate : { min: 5 } }} }
+          </div>
+        }
+      </div>
+
+      <button type="submit" class="primary-button" [disabled]="isLoading() || signupForm.invalid">
+        {{ isLoading() ? ("Signup.Loading" | translate) : ("Signup.SignupLabel" | translate) }}
+      </button>
+    </form>
+
+    <div class="auth-actions">
+      <generic-button-component [label]="'Signup.GoToLoginLabel' | translate" (onClick)="goToLogin()"></generic-button-component>
+      <generic-button-component [label]="'Signup.GoBackLabel' | translate" (onClick)="handleGoBack()"></generic-button-component>
+    </div>
+  </div>
+</div>

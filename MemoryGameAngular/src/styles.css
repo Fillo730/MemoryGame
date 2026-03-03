@@ -1,0 +1,170 @@
+body {
+    background-color: var(--bg-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-color);
+    margin: 0;
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark-theme {
+    --bg-color: #0b0e14;        
+    --card-bg: #1e293b; 
+    --header-bg-color: #161b22; 
+    --text-color: #ffffff;
+    --button-color: #00bcd4;  
+    --button-hover-color: #0097a7;
+    --button-text-color: #ffffff;
+    --titles-color:  #00bcd4;
+}
+
+.light-theme {
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;       
+    --header-bg-color: #dee1e3;
+    --text-color: #0f172a;
+    --button-color: #1e3a8a;   
+    --button-hover-color: #324988; 
+    --button-text-color: #d4d4d4;
+    --titles-color:  #1e3a8a;
+}
+
+.text-color {
+    color: var(--text-color) !important;
+}
+
+.light-color {
+    color: var(--titles-color) !important;
+}
+
+.warning-color {
+    color: #ff9800;
+}
+
+.active-link {
+    color: var(--button-color) !important;
+    border-bottom: 2px solid var(--button-color);
+}
+
+.material-symbols-outlined {
+  color: inherit; 
+  vertical-align: middle;
+  font-size: 32px;
+  transition: transform 0.3s ease;
+}
+
+.title {
+    font-size: 3rem;
+    letter-spacing: 1px;
+    margin: 0.5rem 0rem;
+}
+
+.medium-title {
+    font-size: 2rem;
+    letter-spacing: 1px;
+    margin: 1rem 0rem;
+}
+
+.text {
+    font-size: 1.2rem;
+    color: var(--text-color);
+    line-height: 1.8;
+    margin-bottom: 0px;
+}
+
+.big-text {
+    font-size: 1.5rem;
+    line-height: 1.8;
+    color: #cccccc;
+}
+
+.normal-max-width {
+    max-width: 1200px;
+}
+
+.custom-max-width {
+    max-width: 950px;
+}
+
+.display-vertical {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.display-horizontal {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+}
+
+.display-center-vertical-nogap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.difficulty-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;    
+    gap: 5rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+    .display-horizontal {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5rem;
+    }
+}
+
+.input-field {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    background-color: #1e1e1e;
+    color: #fff;
+    box-sizing: border-box;
+}
+
+.label-width {
+    width: 50%;
+}
+
+.form-modal {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.margin-top {
+    margin-top: 1rem;
+}
+
+.margin-top-big {
+    margin-top: 3rem;
+}
+
+.margin-bottom {
+    margin-bottom: 1rem;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}

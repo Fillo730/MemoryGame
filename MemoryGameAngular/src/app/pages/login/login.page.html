@@ -1,0 +1,46 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <h2 class="auth-title">{{ "Login.Title" | translate }}</h2>
+
+    @if (error()) {
+      <div class="auth-error">{{ error() }}</div>
+    }
+
+    <form [formGroup]="loginForm" (ngSubmit)="login($event)" class="auth-form">
+      <div class="form-group">
+        <label for="username">{{ "Login.UsernameLabel" | translate }}</label>
+        <div class="input-wrapper">
+          <input id="username" type="text" formControlName="username" placeholder="Username" />
+        </div>
+        @if (f.username.touched && f.username.invalid) {
+          <div class="field-error">
+            @if (f.username.errors?.['required']) { {{ "Errors.Required" | translate }} }
+            @if (f.username.errors?.['minlength']) { {{ "Errors.MinLength" | translate : { min: 5 } }} }
+          </div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="password">{{ "Login.PasswordLabel" | translate }}</label>
+        <div class="input-wrapper">
+          <input id="password" type="password" formControlName="password" placeholder="Password" />
+        </div>
+        @if (f.password.touched && f.password.invalid) {
+          <div class="field-error">
+            @if (f.password.errors?.['required']) { {{ "Errors.Required" | translate }} }
+            @if (f.password.errors?.['minlength']) { {{ "Errors.MinLength" | translate : { min: 5 } }} }
+          </div>
+        }
+      </div>
+
+      <button type="submit" class="primary-button" [disabled]="isLoading() || loginForm.invalid">
+        {{ isLoading() ? ("Login.Loading" | translate) : ("Login.Label" | translate) }}
+      </button>
+    </form>
+
+    <div class="auth-actions">
+      <generic-button-component [label]="'Login.SignUpLabel' | translate" (onClick)="goToRegister()"></generic-button-component>
+      <generic-button-component [label]="'Login.GoBackLabel' | translate" (onClick)="handleGoBack()"></generic-button-component>
+    </div>
+  </div>
+</div>

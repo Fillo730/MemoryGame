@@ -1,0 +1,42 @@
+<div class="header">
+    <ul class="header-list">
+        <nav class="header-list-nav">
+            <li class="header-list-element">
+                <a class="header-list-element-link" [routerLink]="navigationService.getLocalizedRoute(routes.HOME)" routerLinkActive="active-link">
+                    {{ 'Header.Home' | translate }}
+                </a>
+            </li>
+            <li class="header-list-element">
+                <a class="header-list-element-link" [routerLink]="navigationService.getLocalizedRoute(routes.PLAY)" routerLinkActive="active-link">
+                    {{ 'Header.Play' | translate }}
+                </a>
+            </li>
+            <li class="header-list-element">
+                <a class="header-list-element-link" [routerLink]="navigationService.getLocalizedRoute(routes.ABOUT)" routerLinkActive="active-link">
+                    {{ 'Header.About' | translate }}
+                </a>
+            </li>
+        </nav>
+    </ul>
+
+    <div class="header-button-container">
+        @if (!isLoggedIn()) {
+            <generic-button-component [label]="'Header.Login' | translate" [routerLink]="navigationService.getLocalizedRoute(routes.LOGIN)"></generic-button-component>
+            <generic-button-component [label]="'Header.SignUp' | translate" [routerLink]="navigationService.getLocalizedRoute(routes.SIGNUP)"></generic-button-component>
+        } @else {
+            <div class="user-greeting-wrapper cursor-pointer" [routerLink]="navigationService.getLocalizedRoute(routes.PROFILE)">
+            <span class="text user-greeting">
+                {{ "Header.Greeting" | translate: { name: getUsername() } }}
+            </span>
+            <span class="material-symbols-outlined cursor-pointer light-color">
+                account_circle
+            </span>
+        </div>
+        }
+        
+        <span class="material-symbols-outlined cursor-pointer" (click)="themeService.toggleTheme()">
+            {{ themeService.theme() === 'dark' ? 'light_mode' : 'dark_mode' }}
+        </span>
+        <language-picker-component></language-picker-component>
+    </div>
+</div>

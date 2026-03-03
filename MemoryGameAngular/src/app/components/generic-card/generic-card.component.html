@@ -1,0 +1,12 @@
+<div class="card card-dimension" (click)="handleClick()">
+    <div class="first-content">
+        <span>{{ frontText }}</span>
+    </div>
+    <div class="second-content">
+        @if(backTextSmaller) {
+            <p class="text-back" [innerHTML]="backText"></p>
+        }@else {
+            <span>{{ backText }}</span>
+        }
+    </div>
+</div>

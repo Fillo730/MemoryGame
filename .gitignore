@@ -1,0 +1,62 @@
+# --- ANGULAR / NODE ---
+# Ignora i moduli e gli output di build ovunque siano
+**/node_modules/
+**/dist/
+**/.angular/cache/
+**/tmp/
+**/out-tsc/
+**/bazel-out/
+**/npm-debug.log*
+**/yarn-error.log*
+
+# --- .NET / C# ---
+# Ignora le cartelle di compilazione e file utente
+**/bin/
+**/obj/
+**/.vs/
+**/*.user
+**/*.suo
+**/*.userosscache
+**/*.sln.docstates
+**/Debug/
+**/Release/
+
+# --- ENTITY FRAMEWORK & DATABASE ---
+# Ignora database locali e file temporanei di EF
+**/*.db
+**/*.db-shm
+**/*.db-wal
+**/*.log
+**/Migrations/*.designer.cs
+
+# --- IDEs & EDITORS ---
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# Altri Editor
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# --- SYSTEM FILES ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- MISCELLANEOUS ---
+.sass-cache/
+/connect.lock
+/coverage
+/libpeerconnection.log
+testem.log
+/typings
+__screenshots__/

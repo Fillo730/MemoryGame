@@ -1,0 +1,33 @@
+.state-handler-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 70vh;
+  padding: 2rem;
+}
+
+.state-icon {
+  font-size: 4rem;
+}
+
+.state-title {
+  margin-bottom: 0;
+}
+
+.state-actions {
+  padding: 1rem;
+}
+
+.spinning {
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.error .state-icon { color: var(--error-color); }
+.loading .state-icon { color: var(--primary-color); }
