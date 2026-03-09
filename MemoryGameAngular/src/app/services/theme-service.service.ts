@@ -1,12 +1,15 @@
 //Angular
 import { DOCUMENT, effect, inject, Injectable, signal } from '@angular/core';
 
+//Constants
+import { APP_CONFIG } from '../constants/app.config';
+
 //Models
-import { Theme } from '../models/Theme.model';
+import { THEMES, ThemeType } from '../models/types/Theme.model';
 
 //Utils
 import { isLocalStorageValid } from '../utils/window-guart.util';
-import { DEFAULT_THEME, STORAGE_KEYS } from '../utils/storage_keys';
+import { STORAGE_KEYS } from '../constants/storage_keys';
 
 @Injectable({
   providedIn: 'root',
@@ -14,11 +17,11 @@ import { DEFAULT_THEME, STORAGE_KEYS } from '../utils/storage_keys';
 
 export class ThemeService {
     private readonly storageKey : string = STORAGE_KEYS.USER_THEME;
-    private readonly defaultTheme : Theme = DEFAULT_THEME;
+    private readonly defaultTheme : ThemeType = APP_CONFIG.DEFAULT_THEME;
 
     private readonly document = inject(DOCUMENT);
 
-    public theme = signal<Theme>(this.getStoredTheme());
+    public theme = signal<ThemeType>(this.getStoredTheme());
 
     constructor() {
         effect(() => {
@@ -27,7 +30,7 @@ export class ThemeService {
             if(isLocalStorageValid()) {
                 localStorage.setItem(this.storageKey, currentTheme);
 
-                if(currentTheme === "dark") {
+                if(currentTheme === THEMES.DARK) {
                     this.document.body.classList.add("dark-theme");
                     this.document.body.classList.remove("light-theme");
                 } else {
@@ -38,17 +41,17 @@ export class ThemeService {
         })
     }
 
-    public setTheme(newTheme : Theme) : void {
+    public setTheme(newTheme : ThemeType) : void {
         this.theme.set(newTheme);
     }
 
     public toggleTheme() : void {
-        this.theme.update(currentTheme => currentTheme === "dark" ? "light" : "dark");
+        this.theme.update(currentTheme => currentTheme === THEMES.DARK ? THEMES.LIGHT : THEMES.DARK);
     }
 
-    private getStoredTheme() : Theme {
+    private getStoredTheme() : ThemeType {
         if(isLocalStorageValid()) {
-             return (localStorage.getItem(this.storageKey) as Theme) ?? this.defaultTheme; 
+             return (localStorage.getItem(this.storageKey) as ThemeType) ?? this.defaultTheme; 
         }
         return this.defaultTheme;
     }

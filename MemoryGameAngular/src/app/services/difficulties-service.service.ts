@@ -4,10 +4,12 @@ import { inject, Injectable } from "@angular/core";
 //Http
 import { HttpClient } from "@angular/common/http";
 
+//Contants
+import { getApiUrl } from "../constants/app.config";
+
 //Models
 import { Difficulty } from "../models/entitiesDto/Difficulty.model";
 import { ApiResponse } from "../models/ApiResponse.model";
-import { getApiUrl } from "../utils/ApiUrl";
 
 //Rxjs
 import { Observable } from "rxjs";
@@ -17,9 +19,7 @@ import { Observable } from "rxjs";
 })
 
 export class DifficultiesService {
-    private readonly CONTROLLER_KEY = "difficulties";
-
-    private readonly API_URL = getApiUrl(this.CONTROLLER_KEY);
+    private readonly API_URL = getApiUrl("DIFFICULTIES");
 
     private http = inject(HttpClient);
 

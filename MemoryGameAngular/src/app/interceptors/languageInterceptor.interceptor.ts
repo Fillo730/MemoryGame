@@ -1,21 +1,24 @@
 //Angular
 import { HttpInterceptorFn } from "@angular/common/http";
 
+//Constants
+import { APP_CONFIG } from "../constants/app.config";
+
 //Utils
 import { isLocalStorageValid } from "../utils/window-guart.util";
-import { DEFAULT_LANGUAGE, STORAGE_KEYS } from "../utils/storage_keys";
+import { STORAGE_KEYS } from "../constants/storage_keys";
 
 //Models
-import { Language } from "@ngx-translate/core";
+import { LanguageType } from "../models/types/Language.model";
 
 export const languageInterceptor : HttpInterceptorFn = (req, next) => {
     const storagekey : string = STORAGE_KEYS.USER_LANGUAGE;
-    const defaultLanguage : Language = DEFAULT_LANGUAGE;
+    const defaultLanguage : LanguageType = APP_CONFIG.DEFAULT_LANGUAGE;
 
-    let language !: Language; 
+    let language !: LanguageType; 
     
     if(isLocalStorageValid()) {
-        language = (localStorage.getItem(storagekey) ?? defaultLanguage) as Language;
+        language = (localStorage.getItem(storagekey) ?? defaultLanguage) as LanguageType;
     } else {
         language = defaultLanguage;
     }

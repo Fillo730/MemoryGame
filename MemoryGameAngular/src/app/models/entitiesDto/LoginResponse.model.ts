@@ -1,11 +1,11 @@
 //Models
-import { UserRole } from "../UserRoleEnum.model";
+import { UserRoleType } from "../types/UserRoleEnum.model"
 
 export interface LoginResponse {
     token : string,
     username : string,
     email : string,
-    userRole : UserRole,
+    userRole : UserRoleType,
     id : number,
     expiresDate : Date
 }

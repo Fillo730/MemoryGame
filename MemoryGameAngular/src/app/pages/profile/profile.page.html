@@ -20,8 +20,11 @@
       <generic-button-component [label]="'Profile.EditProfileButtonLabel' | translate" (click)="handleEditProfile()" />
     </div>
 
-    <h1 class="medium-title light-color">Games Played</h1>
+    <h1 class="medium-title light-color">{{ 'Profile.GamesPlayedTitle' | translate}}</h1>
+
+    @if(isLoading()) {
       
+    }
     <div class="difficulty-container">
       @for (stat of userStats(); track stat.difficulty.id) { 
           <generic-card-component
@@ -31,7 +34,7 @@
           />
       }
     </div>
-    <generic-button-component label="Logout" (click)="handleLogout()" />
+    <generic-button-component [label]="'Profile.LogoutLabel' | translate" (click)="handleLogout()" />
   </div>
 </div>
 

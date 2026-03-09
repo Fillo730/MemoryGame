@@ -5,8 +5,8 @@
   </button>
   
   <div class="dropdown-content">
-    @for (lang of languageService.supportedLanguages; track lang.code) {
-      <a (click)="languageService.setLanguage(lang.code)">
+    @for (lang of appConfig.LANG_OPTIONS; track lang.value) {
+      <a (click)="languageService.setLanguage(lang.value)">
         {{ lang.label }}
       </a>
     }

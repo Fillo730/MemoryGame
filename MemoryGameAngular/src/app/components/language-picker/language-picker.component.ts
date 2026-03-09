@@ -4,8 +4,11 @@ import { Component, inject } from '@angular/core';
 //Services
 import { LanguageService } from '../../services/language-service.service';
 
+//Constants
+import { APP_CONFIG } from '../../constants/app.config';
+
 //Models
-import { Language } from '../../models/Language.model';
+import { LanguageType } from '../../models/types/Language.model';
 
 @Component({
   selector: 'language-picker-component',
@@ -17,7 +20,9 @@ import { Language } from '../../models/Language.model';
 export class LanguagePickerComponent {
   public languageService = inject(LanguageService);
 
+  public appConfig = APP_CONFIG;
+
   public changeLanguage(lang: string) {
-    this.languageService.setLanguage(lang as Language);
+    this.languageService.setLanguage(lang as LanguageType);
   }
 }

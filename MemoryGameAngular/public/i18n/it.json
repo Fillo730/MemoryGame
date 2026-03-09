@@ -88,6 +88,8 @@
     "UsernameLabel": "Username: {{ username }}",
     "EmailLabel": "Email: {{ email }}",
     "EditProfileButtonLabel": "Modifica il profilo",
+    "GamesPlayedTitle": "Statistiche partite giocate",
+    "LogoutLabel": "Logout",
     "DifficultyStatistics": "Totale partite giocate: {{ total }}<br/>Tentativi Medi: {{ avg }}<br/>Miglior tentativo: {{ best }} mosse",
     "EditModal": {
       "Title": "Modifica Profilo",

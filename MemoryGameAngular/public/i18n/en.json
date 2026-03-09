@@ -1,26 +1,116 @@
 {
-  "router": {
+  "Routes": {
     "profile": "profile",
     "home": "home",
     "play": "play",
     "login": "login",
-    "signup": "sign-up"
+    "signup": "signup",
+    "about": "about"
   },
   "Header": {
     "Home": "Home",
     "Play": "Play",
     "About": "About",
     "Login": "Login",
-    "SignUp": "Sign Up"
+    "SignUp": "Sign Up",
+    "Greeting": "Hi {{ name }}"
+  },
+  "About": {
+    "WhoAmITitle": "Who am I?",
+    "WhoAmIDescription": "Hi! I am a software engineer with a passion for web development and game design. I created this memory game as a project to improve my skills and offer a fun experience. I hope you enjoy playing it as much as I enjoyed creating it!",
+    "SourceCodeTitle": "Source Code",
+    "SourceCodeDescription": "If you are interested in the source code, you can find it on my GitHub repository. Feel free to take a look, contribute, or use it as a reference.",
+    "ConnectTitle": "Let's stay in touch",
+    "ConnectDescription": "I would love to connect with you and receive feedback on the game!",
+    "githubButtonLabel": "Github Profile",
+    "LinkedinButtonLabel": "Linkedin Profile"
   },
   "Home": {
     "WhatIsItTitle": "What is this Memory Game?",
-    "WhatIsItText": "A simple and effective website that allows you to train your brain and mind, and track your statistics and performance over time. The game is simple: you have to find the pairs of cards with the same image.<br/>Good luck and have fun!",
-    "WhyNatureTitle": "Why nature images?",
-    "WhyNatureText": "The images used in this game are all related to nature. Nature is a great source of inspiration and beauty, helping to create a relaxing and enjoyable atmosphere while playing. Additionally, nature images are visually appealing and can help improve memory retention.",
-    "WhereFromTitle": "Where are these images from?",
-    "WhereFromText": "The images used in this game are from Unsplash, a website that provides high-quality, royalty-free images. You can find more information about the images and their authors on the Unsplash website.",
+    "WhatIsItText": "A simple and effective website that allows you to train your brain and mind, tracking your stats and performance over time. The game is simple: you have to find pairs of cards with the same image.<br/>Good luck and have fun!",
+    "WhyNatureTitle": "Why nature?",
+    "WhyNatureText": "The images used in this game are all related to nature. Nature is a great source of inspiration and beauty, capable of creating a relaxing and pleasant atmosphere during the game. Furthermore, nature-themed images are visually stimulating and can help improve memory retention.",
+    "WhereFromTitle": "Where do these images come from?",
+    "WhereFromText": "The images used come from Unsplash, a site that provides high-quality photography without copyright. You can find more information about the images and their authors directly on the Unsplash website.",
     "PlayNow": "Play Now",
-    "LoadMore": "Load More"
+    "LoadMoreButtonLabel": "Load more",
+    "LoadMoreText": "Look at these beautiful images. We have <strong class=\"light-color\">{{numberOfImages}}</strong> available!"
+  },
+  "Play": {
+    "SelectDifficulty": "Select difficulty",
+    "DifficultyDescription": "Every great story begins with a choice. Select the challenge level and prove you have an award-winning memory.",
+    "ChooseWisely": "Choose wisely: a challenge that's too simple doesn't strengthen the memory, one that's too hard might confuse you.",
+    "LoginWarning": "You are not logged in, progress will not be saved.",
+    "SelectedDifficulty": "You selected the difficulty",
+    "CurrentAttempts": "Current attempts",
+    "CompletedTitle": "Well done!",
+    "CompletedMessage": "You completed the challenge in {{moves}} moves!",
+    "NextLevel": "Next Level",
+    "PlayAgain": "Try Again",
+    "GoBack": "Back",
+    "PlayInstructions": "All cards are face down. Click on a card to flip it and look for its match. If you fail, they will turn back face down: memorize their position!",
+    "Loading": {
+      "Title": "Preparing levels",
+      "Text": "We are preparing the available challenges. Choose the one that suits you best!"
+    },
+    "Error": {
+      "Title": "Oops! Something went wrong",
+      "Text": "Unable to retrieve difficulties from server. Check your connection and try again.",
+      "ActionButtonLabel": "Retry"
+    }
+  },
+  "Login": {
+    "Title": "Log in",
+    "Label": "Login",
+    "SignUpLabel": "Sign Up",
+    "GoBackLabel": "Back",
+    "UsernameLabel": "Username",
+    "PasswordLabel": "Password",
+    "LoginError": "Incorrect credentials",
+    "HttpError": "Unable to log in",
+    "Loading": "Loading..."
+  },
+  "Signup": {
+    "Label": "Create Account",
+    "UsernameLabel": "Username",
+    "EmailLabel": "Email",
+    "PasswordLabel": "Password",
+    "SignupLabel": "Sign Up",
+    "GoToLoginLabel": "Already have an account?",
+    "GoBackLabel": "Back",
+    "Loading": "Creating account...",
+    "InvalidForm": "Check the entered data before submitting.",
+    "HttpError": "Error during registration. Please try again later."
+  },
+  "Profile": {
+    "Greetings": "Hi {{ name }}",
+    "Text": "This is your user profile. Here you can see all your account information, edit it, and also see the games played with all related information.",
+    "UsernameLabel": "Username: {{ username }}",
+    "EmailLabel": "Email: {{ email }}",
+    "EditProfileButtonLabel": "Edit profile",
+    "GamesPlayedTitle": "Played games statistics",
+    "LogoutLabel": "Logout",
+    "DifficultyStatistics": "Total games played: {{ total }}<br/>Average Attempts: {{ avg }}<br/>Best attempt: {{ best }} moves",
+    "EditModal": {
+      "Title": "Edit Profile",
+      "Description": "Here you can edit your profile information",
+      "UsernameLabel": "Username",
+      "EmailLabel": "Email"
+    }
+  },
+  "Components": {
+    "GenericCard": {
+      "CardLabel": "{{ n }} Cards"
+    }
+  },
+  "Common": {
+    "Note": "Note",
+    "Save": "Save",
+    "Cancel": "Cancel"
+  },
+  "Errors": {
+    "Required": "This field is required",
+    "MinLength": "This field must have at least {{ min }} characters",
+    "InvalidEmail": "Enter a valid email address"
   }
 }

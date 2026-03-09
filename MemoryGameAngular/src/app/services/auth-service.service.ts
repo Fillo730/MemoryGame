@@ -9,10 +9,12 @@ import { Observable, tap } from 'rxjs';
 import { LoginResponse } from '../models/entitiesDto/LoginResponse.model';
 import { LoginRequest } from '../models/requests/LoginRequest.model';
 
+//Constants
+import { getApiUrl } from '../constants/app.config';
+
 //Utils
-import { getApiUrl } from '../utils/ApiUrl';
 import { isLocalStorageValid } from '../utils/window-guart.util';
-import { STORAGE_KEYS } from '../utils/storage_keys';
+import { STORAGE_KEYS } from '../constants/storage_keys';
 import { RegisterRequest } from '../models/requests/RegisterRequest.model';
 import { ApiResponse } from '../models/ApiResponse.model';
 
@@ -21,8 +23,7 @@ import { ApiResponse } from '../models/ApiResponse.model';
 })
 
 export class AuthService {
-  private controllerKey = "auth";
-  private API_URL = getApiUrl(this.controllerKey);
+  private API_URL = getApiUrl("AUTH");
   private http = inject(HttpClient);
 
   public isLoggedIn = computed(() => {

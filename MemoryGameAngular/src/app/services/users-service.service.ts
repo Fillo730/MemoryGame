@@ -8,8 +8,8 @@ import { Observable, tap } from "rxjs";
 //Services
 import { AuthService } from "./auth-service.service";
 
-//Utils
-import { getApiUrl } from "../utils/ApiUrl";
+//Constants
+import { getApiUrl } from "../constants/app.config";
 
 //Models
 import { UpdateRequest } from "../models/requests/UpdateRequest.model";
@@ -21,8 +21,7 @@ import { ApiResponse } from "../models/ApiResponse.model";
 })
 
 export class UsersService {
-    private controllerKey : string = "users";
-    private API_URL = getApiUrl(this.controllerKey);
+    private API_URL = getApiUrl("USERS");
 
     private http = inject(HttpClient);
     private authService = inject(AuthService);
