@@ -15,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseSqlite(connectionString));
 
 builder.Services.AddSingleton<IDifficultiesMapper, DifficultiesMapper>();
 builder.Services.AddSingleton<IAuthMapper, AuthMapper>();
