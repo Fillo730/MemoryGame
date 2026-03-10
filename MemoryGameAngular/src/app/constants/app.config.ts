@@ -1,3 +1,5 @@
+import { environment } from "../../environments/environment";
+
 //Models
 import { LANGUAGES } from "../models/types/Language.model";
 import { THEMES } from "../models/types/Theme.model";
@@ -12,7 +14,7 @@ export const APP_CONFIG = {
     DEFAULT_THEME: THEMES.DARK,
 } as const;
 
-export const API_BASE_URL = 'https://localhost:7015/api';
+export const API_BASE_URL = environment.apiBaseUrl;
 
 export const API_ENDPOINTS =  {
     AUTH: "auth",

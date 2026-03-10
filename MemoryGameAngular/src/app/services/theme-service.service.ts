@@ -21,11 +21,13 @@ export class ThemeService {
 
     private readonly document = inject(DOCUMENT);
 
-    public theme = signal<ThemeType>(this.getStoredTheme());
+    private _theme = signal<ThemeType>(this.getStoredTheme());
+
+    public theme = this._theme.asReadonly();
 
     constructor() {
         effect(() => {
-            const currentTheme = this.theme();
+            const currentTheme = this._theme();
             
             if(isLocalStorageValid()) {
                 localStorage.setItem(this.storageKey, currentTheme);
@@ -42,11 +44,11 @@ export class ThemeService {
     }
 
     public setTheme(newTheme : ThemeType) : void {
-        this.theme.set(newTheme);
+        this._theme.set(newTheme);
     }
 
     public toggleTheme() : void {
-        this.theme.update(currentTheme => currentTheme === THEMES.DARK ? THEMES.LIGHT : THEMES.DARK);
+        this._theme.update(currentTheme => currentTheme === THEMES.DARK ? THEMES.LIGHT : THEMES.DARK);
     }
 
     private getStoredTheme() : ThemeType {

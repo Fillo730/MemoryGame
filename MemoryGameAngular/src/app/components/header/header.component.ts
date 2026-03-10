@@ -8,13 +8,14 @@ import { GenericButtonComponent } from '../generic-button/generic-button.compone
 //Services
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { NavigationService, AppRoutes} from '../../services/NavigationService.service';
+import { ThemeService } from '../../services/theme-service.service';
+import { AuthService } from '../../services/auth-service.service';
 
 //i18n
 import { TranslateModule} from '@ngx-translate/core';
 
-//Services
-import { ThemeService } from '../../services/theme-service.service';
-import { AuthService } from '../../services/auth-service.service';
+//Models
+import { THEMES } from '../../models/types/Theme.model';
 
 @Component({
   selector: 'header-component',
@@ -29,6 +30,8 @@ export class HeaderComponent {
   private authService = inject(AuthService)
 
   public routes = AppRoutes;
+
+  public themes = THEMES;
   
   public isLoggedIn() : boolean {
     return this.authService.isLoggedIn();

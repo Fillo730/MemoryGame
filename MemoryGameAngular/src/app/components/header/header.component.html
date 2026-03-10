@@ -35,7 +35,7 @@
         }
         
         <span class="material-symbols-outlined cursor-pointer" (click)="themeService.toggleTheme()">
-            {{ themeService.theme() === 'dark' ? 'light_mode' : 'dark_mode' }}
+            {{ themeService.theme() === themes.DARK ? 'light_mode' : 'dark_mode' }}
         </span>
         <language-picker-component></language-picker-component>
     </div>
