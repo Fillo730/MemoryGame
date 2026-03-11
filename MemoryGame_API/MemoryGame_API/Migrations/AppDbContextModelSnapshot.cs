@@ -29,6 +29,53 @@ namespace MemoryGame_API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Difficulties");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            NumberOfPairs = 4
+                        },
+                        new
+                        {
+                            Id = 2,
+                            NumberOfPairs = 6
+                        },
+                        new
+                        {
+                            Id = 3,
+                            NumberOfPairs = 8
+                        },
+                        new
+                        {
+                            Id = 4,
+                            NumberOfPairs = 10
+                        },
+                        new
+                        {
+                            Id = 5,
+                            NumberOfPairs = 12
+                        },
+                        new
+                        {
+                            Id = 6,
+                            NumberOfPairs = 15
+                        },
+                        new
+                        {
+                            Id = 7,
+                            NumberOfPairs = 18
+                        },
+                        new
+                        {
+                            Id = 8,
+                            NumberOfPairs = 21
+                        },
+                        new
+                        {
+                            Id = 9,
+                            NumberOfPairs = 25
+                        });
                 });
 
             modelBuilder.Entity("MemoryGame_API.Models.DifficultyTranslation", b =>
@@ -53,6 +100,134 @@ namespace MemoryGame_API.Migrations
                     b.HasIndex("DifficultyId");
 
                     b.ToTable("DifficultyTranslations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DifficultyId = 1,
+                            Label = "Easy",
+                            LanguageCode = "en"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DifficultyId = 1,
+                            Label = "Facile",
+                            LanguageCode = "it"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DifficultyId = 2,
+                            Label = "Medium",
+                            LanguageCode = "en"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            DifficultyId = 2,
+                            Label = "Medio",
+                            LanguageCode = "it"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            DifficultyId = 3,
+                            Label = "Hard",
+                            LanguageCode = "en"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            DifficultyId = 3,
+                            Label = "Difficile",
+                            LanguageCode = "it"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            DifficultyId = 4,
+                            Label = "Extreme",
+                            LanguageCode = "en"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            DifficultyId = 4,
+                            Label = "Estremo",
+                            LanguageCode = "it"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            DifficultyId = 5,
+                            Label = "Impossible",
+                            LanguageCode = "en"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            DifficultyId = 5,
+                            Label = "Impossibile",
+                            LanguageCode = "it"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            DifficultyId = 6,
+                            Label = "Legendary",
+                            LanguageCode = "en"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            DifficultyId = 6,
+                            Label = "Leggendario",
+                            LanguageCode = "it"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            DifficultyId = 7,
+                            Label = "Mythical",
+                            LanguageCode = "en"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            DifficultyId = 7,
+                            Label = "Mitico",
+                            LanguageCode = "it"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            DifficultyId = 8,
+                            Label = "Divine",
+                            LanguageCode = "en"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            DifficultyId = 8,
+                            Label = "Divino",
+                            LanguageCode = "it"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            DifficultyId = 9,
+                            Label = "Godlike",
+                            LanguageCode = "en"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            DifficultyId = 9,
+                            Label = "Sovrumano",
+                            LanguageCode = "it"
+                        });
                 });
 
             modelBuilder.Entity("MemoryGame_API.Models.GameResult", b =>
