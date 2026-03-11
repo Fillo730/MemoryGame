@@ -9,6 +9,7 @@ import { GenericButtonComponent } from '../../components/generic-button/generic-
 
 //Services
 import { AuthService } from '../../services/auth-service.service';
+import { NavigationService } from '../../services/NavigationService.service';
 
 //Models
 import { RegisterRequest } from '../../models/requests/RegisterRequest.model';
@@ -17,7 +18,6 @@ import { RegisterRequest } from '../../models/requests/RegisterRequest.model';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 //Utils
-import { windowGoBack } from '../../helpers/windowFunctions.helper';
 import { finalize } from 'rxjs';
 
 @Component({
@@ -37,6 +37,7 @@ export class SignupPage {
   private authService = inject(AuthService);
   private router = inject(Router);
   private translateService = inject(TranslateService);
+  public navigationService = inject(NavigationService);
 
   public signupForm = new FormGroup({
     username: new FormControl<string>('', {
@@ -87,13 +88,5 @@ export class SignupPage {
         this.error.set(this.translateService.instant("Signup.HttpError"));
       }
     });
-  }
-
-  goToLogin() {
-    this.router.navigate(['/login']);
-  }
-
-  handleGoBack() {
-    windowGoBack();
   }
 }

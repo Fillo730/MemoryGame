@@ -14,9 +14,10 @@ import { NavigationService } from '../../services/NavigationService.service';
 //i18n
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
-//Utils
-import { windowGoBack } from '../../helpers/windowFunctions.helper';
+//Models
 import { LoginRequest } from '../../models/requests/LoginRequest.model';
+
+//rxjs
 import { finalize, tap } from 'rxjs';
 
 @Component({
@@ -83,13 +84,5 @@ export class LoginPage {
         this.error.set(this.translateService.instant("Login.HttpError"));
       }
     });
-  }
-
-  goToRegister() {
-    this.navigationService.goToSignUp();
-  }
-
-  handleGoBack() {
-    windowGoBack();
   }
 }

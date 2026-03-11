@@ -13,9 +13,14 @@ import { Difficulty } from '../../models/entitiesDto/Difficulty.model';
 import { DifficultiesService } from '../../services/difficulties-service.service';
 import { AuthService } from '../../services/auth-service.service';
 
+//rxjs
+import { finalize, pipe } from 'rxjs';
+
 //i18n
 import { TranslateModule } from '@ngx-translate/core';
-import { finalize, pipe } from 'rxjs';
+
+//Helpers
+import { isLastElement } from '../../helpers/arrayFunctions.helper';
 
 @Component({
   selector: 'game-handler-component',
@@ -25,7 +30,7 @@ import { finalize, pipe } from 'rxjs';
 })
 export class GameHandlerComponent {
   private difficultiesService = inject(DifficultiesService);
-  private authService = inject(AuthService);
+  public authService = inject(AuthService);
 
   public difficulties !: Difficulty[];
   public isLoading = signal(false);
@@ -46,13 +51,18 @@ export class GameHandlerComponent {
     this.loadDifficulties();
   }
 
-  public isLoggedIn() : boolean {
-    return this.authService.isLoggedIn();
-  }
-
   public handleClick(difficulty : Difficulty) : void {
     this.isDifficultySelected.set(true);
     this.selectedDifficulty.set(difficulty);
+  }
+
+  public isLastDiffuculty() : boolean {
+    return isLastElement(this.difficulties, this.selectedDifficulty());
+  }
+
+  public goToNextDifficulty() : void {
+    const currentIndex = this.difficulties.findIndex(difficulty => difficulty.id == this.selectedDifficulty()?.id);
+    this.selectedDifficulty.set(this.difficulties.at(currentIndex+1)!);
   }
 
   private loadDifficulties() {

@@ -7,6 +7,7 @@ import { GenericButtonComponent } from '../generic-button/generic-button.compone
 
 //Models
 import { Difficulty } from '../../models/entitiesDto/Difficulty.model';
+import { GameResult } from '../../models/entitiesDto/GameResult.model';
 
 //Services
 import { AuthService } from '../../services/auth-service.service';
@@ -15,10 +16,10 @@ import { GameResultsService } from '../../services/gameResults-service.service';
 
 //Helpers
 import { shuffleArray, sampleArray } from '../../helpers/arrayFunctions.helper';
+import { scrollToBottom } from '../../helpers/scrollFunctions.helper';
 
 //public
 import { defaultImages, placeholder } from '../../../../public/DefaultImages';
-import { GameResult } from '../../models/entitiesDto/GameResult.model';
 
 @Component({
   selector: 'memory-game-component',
@@ -28,11 +29,12 @@ import { GameResult } from '../../models/entitiesDto/GameResult.model';
   styleUrl: './memory-game.component.css'
 })
 
-export class MemoryGameComponent implements OnInit {
+export class MemoryGameComponent {
   private authService = inject(AuthService);
   private gameResultsService = inject(GameResultsService)
 
   @Input({ required: true }) difficulty!: Difficulty;
+  @Input() nextDifficultyDisabled : boolean = false;
   @Output() goBack = new EventEmitter<void>();
   @Output() nextDifficulty = new EventEmitter<Difficulty>();
 
@@ -49,9 +51,13 @@ export class MemoryGameComponent implements OnInit {
         this.saveScore();
       }
     });
+
+    effect(() => {
+      if(this.isCompleted()) scrollToBottom();
+    })
   }
 
-  ngOnInit() {
+  ngOnChanges() {
     this.resetGame();
   }
 

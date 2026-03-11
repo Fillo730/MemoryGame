@@ -11,3 +11,8 @@ export function sampleArray<T>(array: T[], n : number) : T[] {
 
     return shuffledArray.slice(0, size);
 }
+
+export function isLastElement<T>(array: T[], element : T) : boolean {
+    if(array.length == 0) return false;
+    return array.at(array.length-1) === element;
+}

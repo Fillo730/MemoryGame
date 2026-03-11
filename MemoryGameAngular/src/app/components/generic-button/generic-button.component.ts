@@ -10,6 +10,7 @@ import { RouterLink } from "@angular/router";
 export class GenericButtonComponent {
   @Input() label!: string;
   @Input() routerLink : string | null = null;
+  @Input() disabled : boolean = false;
 
   @Output() onClick = new EventEmitter<void>();
 

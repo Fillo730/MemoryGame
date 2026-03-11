@@ -13,7 +13,7 @@
         {{ 'Play.DifficultyDescription' | translate }}<br/>
         {{ 'Play.ChooseWisely' | translate }}<br/>
 
-        @if (!isLoggedIn()) {
+        @if (!authService.isLoggedIn()) {
         <label class="warning-color">
             <span>{{ 'Common.Note' | translate }}: </span>
             {{ 'Play.LoginWarning' | translate }}
@@ -42,7 +42,9 @@
             </p>
 
             <memory-game-component 
-                [difficulty]="diff" 
+                [difficulty]="diff"
+                [nextDifficultyDisabled]="isLastDiffuculty()" 
+                (nextDifficulty)="goToNextDifficulty()"
                 (goBack)="handleGoBack()">
             </memory-game-component>
         }

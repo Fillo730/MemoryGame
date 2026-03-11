@@ -17,7 +17,7 @@
             <h2>{{ 'Play.CompletedMessage' | translate: { moves: moves() } }}</h2>
             
             <div class="customButton-container">
-                <generic-button-component [label]="'Play.NextLevel' | translate" (onClick)="nextDifficulty.emit(difficulty)"></generic-button-component>
+                <generic-button-component [label]="'Play.NextLevel' | translate" (onClick)="nextDifficulty.emit(difficulty)" [disabled]="nextDifficultyDisabled"></generic-button-component>
                 <generic-button-component [label]="'Play.PlayAgain' | translate" (onClick)="resetGame()"></generic-button-component>
                 <generic-button-component [label]="'Play.GoBack' | translate" (onClick)="goBack.emit()"></generic-button-component>
             </div>

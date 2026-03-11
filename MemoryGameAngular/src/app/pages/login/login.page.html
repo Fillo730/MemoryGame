@@ -39,8 +39,8 @@
     </form>
 
     <div class="auth-actions">
-      <generic-button-component [label]="'Login.SignUpLabel' | translate" (onClick)="goToRegister()"></generic-button-component>
-      <generic-button-component [label]="'Login.GoBackLabel' | translate" (onClick)="handleGoBack()"></generic-button-component>
+      <generic-button-component [label]="'Login.SignUpLabel' | translate" (onClick)="navigationService.goToSignUp()"></generic-button-component>
+      <generic-button-component [label]="'Login.GoBackLabel' | translate" (onClick)="navigationService.goBack()"></generic-button-component>
     </div>
   </div>
 </div>

@@ -1,9 +1,9 @@
 @if (routerLink) {
-  <button class="generic-button" [routerLink]="routerLink"> 
+  <button class="generic-button" [routerLink]="routerLink" [disabled]="disabled"> 
     {{ label }}
   </button>
 } @else {
-  <button class="generic-button" (click)="handleClick()">
+  <button class="generic-button" (click)="handleClick()" [disabled]="disabled">
     {{ label }}
   </button>
 }
