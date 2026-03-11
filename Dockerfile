@@ -7,21 +7,22 @@ COPY ./MemoryGameAngular/ ./
 RUN npm run build -- --configuration production
 
 # --- STAGE 2: Build .NET ---
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-backend
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build-backend
 WORKDIR /src/backend
-COPY ./MemoryGame_API/*.csproj ./
+
+# Modifica qui: copiamo tutto il contenuto della cartella API subito
+COPY ./MemoryGame_API/MemoryGame_API ./
+# Ora il restore troverà sicuramente il file .csproj
 RUN dotnet restore
-COPY ./MemoryGame_API/ ./
 RUN dotnet publish -c Release -o /app/publish
 
 # --- STAGE 3: Runtime Finale ---
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+FROM mcr.microsoft.com/dotnet/aspnet:10.0
 WORKDIR /app
 
 COPY --from=build-backend /app/publish .
 
-# PERCORSO AGGIORNATO: Usiamo MemoryGame come hai indicato
-# Nota: se dopo il build non trovi la cartella /browser, rimuovila dal percorso qui sotto
+# Verifica che il percorso dist/MemoryGame/browser sia corretto dopo il build
 COPY --from=build-frontend /src/frontend/dist/MemoryGame/browser ./wwwroot
 
 RUN mkdir /app/data
