@@ -61,7 +61,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("RenderPolicy", policy =>
     {
-        policy.WithOrigins("https://memorygame-xnn6.onrender.com")
+        policy.WithOrigins("https://memorygame-xnn6.onrender.com", "http://localhost:4200")
         .AllowAnyHeader()
         .AllowAnyMethod();
     });
