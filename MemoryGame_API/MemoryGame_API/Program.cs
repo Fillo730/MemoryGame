@@ -71,6 +71,13 @@ var app = builder.Build();
 
 app.UseCors("AngularPolicy");
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
+app.UseRouting();
+
+app.MapFallbackToFile("index.html");
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
