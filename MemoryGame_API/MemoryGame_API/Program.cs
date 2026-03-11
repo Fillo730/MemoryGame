@@ -59,9 +59,9 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AngularPolicy", policy =>
+    options.AddPolicy("RenderPolicy", policy =>
     {
-        policy.WithOrigins("http://localhost:4200")
+        policy.WithOrigins("https://memorygame-xnn6.onrender.com")
         .AllowAnyHeader()
         .AllowAnyMethod();
     });
@@ -75,7 +75,7 @@ using (var scope = app.Services.CreateScope())
     db.Database.Migrate();
 }
 
-app.UseCors("AngularPolicy");
+app.UseCors("RenderPolicy");
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
