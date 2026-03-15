@@ -71,8 +71,27 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    db.Database.Migrate();
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<AppDbContext>();
+    var config = services.GetRequiredService<IConfiguration>();
+
+    string connString = config.GetConnectionString("DefaultConnection") ?? "NULL";
+    Console.WriteLine($"[DEBUG] Connection String: {connString}");
+
+    try
+    {
+        Console.WriteLine("[DEBUG] Avvio migrazioni...");
+        context.Database.Migrate();
+        Console.WriteLine("[DEBUG] Migrazioni completate con successo.");
+
+        // Verifica se le tabelle esistono davvero
+        var canConnect = context.Database.CanConnect();
+        Console.WriteLine($"[DEBUG] Il database è raggiungibile: {canConnect}");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"[ERROR] Errore durante la migrazione: {ex.Message}");
+    }
 }
 
 app.UseCors("RenderPolicy");

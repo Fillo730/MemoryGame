@@ -16,13 +16,11 @@ RUN dotnet publish -c Release -o /app/publish
 # --- STAGE 3: Runtime Finale ---
 FROM mcr.microsoft.com/dotnet/aspnet:10.0
 WORKDIR /app
-
 COPY --from=build-backend /app/publish .
 COPY --from=build-frontend /src/frontend/dist/MemoryGame/browser ./wwwroot
-
 # --- CORREZIONE PERMESSI ---
 # Creiamo la cartella e assegniamo i permessi all'utente che farà girare l'app
-RUN mkdir -p /app/data && chmod 777 /app/data
+RUN mkdir -p /app/data && chmod -R 777 /app/data
 
 ENV ConnectionStrings__DefaultConnection="Data Source=/app/data/IlTuoDatabase.db"
 ENV ASPNETCORE_URLS=http://+:80
