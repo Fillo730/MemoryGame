@@ -29,7 +29,7 @@ export const routes: Routes = [
             { path: 'home', component: HomePage },
             { path: 'play', component: PlayPage },
             { path: 'login', component: LoginPage },
-            { path: 'sign-up', component: SignupPage },
+            { path: 'signup', component: SignupPage },
             { path: 'about', component: AboutPage},
             { path: 'profile', component: ProfilePage, canActivate: [authGuard] },
             { path: '', redirectTo: 'home', pathMatch: 'full' }
