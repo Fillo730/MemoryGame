@@ -1,5 +1,5 @@
 //Angular
-import { Component, inject, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 
 //Components
 import { GenericCardComponent } from '../generic-card/generic-card.component';
@@ -12,6 +12,7 @@ import { Difficulty } from '../../models/entitiesDto/Difficulty.model';
 //Services
 import { DifficultiesService } from '../../services/difficulties-service.service';
 import { AuthService } from '../../services/auth-service.service';
+import { LanguageService } from '../../services/language-service.service';
 
 //rxjs
 import { finalize, pipe } from 'rxjs';
@@ -30,6 +31,7 @@ import { isLastElement } from '../../helpers/arrayFunctions.helper';
 })
 export class GameHandlerComponent {
   private difficultiesService = inject(DifficultiesService);
+  private languageService = inject(LanguageService)
   public authService = inject(AuthService);
 
   public difficulties !: Difficulty[];
@@ -37,6 +39,15 @@ export class GameHandlerComponent {
   public hasError = signal(false);
   public isDifficultySelected = signal(false);
   public selectedDifficulty = signal<Difficulty | null>(null);
+
+  constructor() {
+    effect(() => {
+      this.languageService.language();
+      if(this.selectedDifficulty() == null) {
+        this.loadDifficulties();
+      }
+    })
+  }
 
   ngOnInit() {
     this.loadDifficulties();

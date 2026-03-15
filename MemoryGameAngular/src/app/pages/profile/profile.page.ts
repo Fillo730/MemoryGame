@@ -1,5 +1,5 @@
 //Angular
-import { Component, computed, inject, signal, Signal } from '@angular/core';
+import { Component, computed, effect, inject, signal, Signal } from '@angular/core';
 
 //Components
 import { HeaderComponent } from '../../components/header/header.component';
@@ -19,10 +19,12 @@ import { AuthService } from '../../services/auth-service.service';
 import { GameResultsService } from '../../services/gameResults-service.service';
 import { NavigationService } from '../../services/NavigationService.service';
 import { UsersService } from '../../services/users-service.service';
+import { LanguageService } from '../../services/language-service.service';
+
+//rxjs
+import { finalize } from 'rxjs';
 
 //Models
-import { LoginResponse } from '../../models/entitiesDto/LoginResponse.model';
-import { finalize } from 'rxjs';
 import { UserStats } from '../../models/stats/userStats.dto';
 import { UpdateProfile } from '../../models/components/UpdateProfile.model';
 import { UpdateRequest } from '../../models/requests/UpdateRequest.model';
@@ -38,6 +40,7 @@ export class ProfilePage {
   private gameResultsService = inject(GameResultsService);
   private navigationService = inject(NavigationService);
   private usersService = inject(UsersService);
+  private languageService = inject(LanguageService);
 
   public currentUser = computed(() => this.authService.currentUser()!);
   public userData = computed<UpdateProfile>(() => ({
@@ -48,6 +51,13 @@ export class ProfilePage {
   public error = signal<string | null>(null);
   public userStats = signal<UserStats[] | null>(null);
   public modalOpen = signal<boolean>(false);
+
+  constructor() {
+    effect(() => {
+      this.languageService.language();
+      this.loadData();
+    })
+  }
 
   ngOnInit() {
     this.loadData();
