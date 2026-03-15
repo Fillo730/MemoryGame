@@ -24,7 +24,7 @@ COPY --from=build-frontend /src/frontend/dist/MemoryGame/browser ./wwwroot
 # Creiamo la cartella e assegniamo i permessi all'utente che farà girare l'app
 RUN mkdir -p /app/data && chmod 777 /app/data
 
-ENV ConnectionStrings__DefaultConnection="Data Source=/app/data/memorygame.db"
+ENV ConnectionStrings__DefaultConnection="Data Source=/app/data/IlTuoDatabase.db"
 ENV ASPNETCORE_URLS=http://+:80
 
 EXPOSE 80
