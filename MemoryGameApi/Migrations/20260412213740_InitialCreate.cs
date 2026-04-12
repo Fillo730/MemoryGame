@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace MemoryGame_API.Migrations
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
+namespace MemoryGameApi.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreateForSqlite : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -88,6 +90,47 @@ namespace MemoryGame_API.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Difficulties",
+                columns: new[] { "Id", "NumberOfPairs" },
+                values: new object[,]
+                {
+                    { 1, 4 },
+                    { 2, 6 },
+                    { 3, 8 },
+                    { 4, 10 },
+                    { 5, 12 },
+                    { 6, 15 },
+                    { 7, 18 },
+                    { 8, 21 },
+                    { 9, 25 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "DifficultyTranslations",
+                columns: new[] { "Id", "DifficultyId", "Label", "LanguageCode" },
+                values: new object[,]
+                {
+                    { 1, 1, "Easy", "en" },
+                    { 2, 1, "Facile", "it" },
+                    { 3, 2, "Medium", "en" },
+                    { 4, 2, "Medio", "it" },
+                    { 5, 3, "Hard", "en" },
+                    { 6, 3, "Difficile", "it" },
+                    { 7, 4, "Extreme", "en" },
+                    { 8, 4, "Estremo", "it" },
+                    { 9, 5, "Impossible", "en" },
+                    { 10, 5, "Impossibile", "it" },
+                    { 11, 6, "Legendary", "en" },
+                    { 12, 6, "Leggendario", "it" },
+                    { 13, 7, "Mythical", "en" },
+                    { 14, 7, "Mitico", "it" },
+                    { 15, 8, "Divine", "en" },
+                    { 16, 8, "Divino", "it" },
+                    { 17, 9, "Godlike", "en" },
+                    { 18, 9, "Sovrumano", "it" }
                 });
 
             migrationBuilder.CreateIndex(

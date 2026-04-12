@@ -32,10 +32,10 @@ builder.Services.AddScoped<IGameResultsRepository, GameResultsRepository>();
 builder.Services.AddScoped<IUsersService, UsersService>();
 
 builder.Services.AddControllers();
-builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
-
 var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]!);
 
 builder.Services.AddAuthentication(options =>
@@ -73,47 +73,32 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<AppDbContext>();
-    var config = services.GetRequiredService<IConfiguration>();
-
-    string connString = config.GetConnectionString("DefaultConnection") ?? "NULL";
-    Console.WriteLine($"[DEBUG] Connection String: {connString}");
-
     try
     {
-        Console.WriteLine("[DEBUG] Avvio migrazioni...");
         context.Database.Migrate();
-        Console.WriteLine("[DEBUG] Migrazioni completate con successo.");
-
-        // Verifica se le tabelle esistono davvero
-        var canConnect = context.Database.CanConnect();
-        Console.WriteLine($"[DEBUG] Il database è raggiungibile: {canConnect}");
     }
     catch (Exception ex)
     {
-        Console.WriteLine($"[ERROR] Errore durante la migrazione: {ex.Message}");
+        Console.WriteLine($"Error: {ex.Message}");
     }
 }
 
 app.UseCors("RenderPolicy");
-
 app.UseDefaultFiles();
 app.UseStaticFiles();
-
 app.UseRouting();
-
-app.MapFallbackToFile("index.html");
 
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
-
-
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapFallbackToFile("index.html");
 
 app.Run();
