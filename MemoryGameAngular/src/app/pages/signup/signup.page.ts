@@ -2,7 +2,6 @@
 import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
 
 //Components
 import { GenericButtonComponent } from '../../components/generic-button/generic-button.component';
@@ -35,7 +34,6 @@ import { finalize } from 'rxjs';
 })
 export class SignupPage {
   private authService = inject(AuthService);
-  private router = inject(Router);
   private translateService = inject(TranslateService);
   public navigationService = inject(NavigationService);
 
@@ -80,7 +78,7 @@ export class SignupPage {
       next: (response) => {
         if (response.success) {
           this.isLoading.set(false);
-          this.router.navigate(['/home']);
+          this.navigationService.goToHome();
         }
       },
       error: () => {
