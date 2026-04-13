@@ -20,7 +20,7 @@ WORKDIR /app
 COPY --from=build-backend /app/publish .
 
 
-COPY --from=build-frontend /app/frontend/dist/memory-game/browser ./wwwroot
+COPY --from=build-frontend /app/frontend/dist/MemoryGame ./wwwroot
 USER root
 RUN chmod -R 777 /app
 
