@@ -19,8 +19,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build-backend /app/publish .
 
-
-COPY --from=build-frontend /app/frontend/dist/MemoryGame ./wwwroot
+COPY --from=build-frontend /app/frontend/dist/MemoryGame/. ./wwwroot
 USER root
 RUN chmod -R 777 /app
 
