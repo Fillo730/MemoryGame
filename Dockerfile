@@ -1,5 +1,5 @@
 # --- STEP 1: Build Angular ---
-FROM node:18 AS build-frontend
+FROM node:22 AS build-frontend
 WORKDIR /app/frontend
 COPY MemoryGameAngular/package*.json ./
 RUN npm install
