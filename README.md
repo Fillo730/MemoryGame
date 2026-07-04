@@ -2,7 +2,7 @@
 
 An engaging web-based memory game with user accounts, saved scores, a global leaderboard, dark/light themes and full IT/EN localization.
 
-**[▶ Play it live](https://memorygame-xnn6.onrender.com)**
+**[▶ Play it live](https://memorygame-xrxa.onrender.com/)**
 
 ---
 
