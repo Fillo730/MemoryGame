@@ -1,0 +1,14 @@
+<div class="gallery-container">
+    @for (image of randomImages.slice(0, numberOfImagesShowed); track $index) {
+        <img 
+          class="gallery-item" 
+          [src]="image" [alt]="'Nature ' + ($index + 1)"/>
+    } 
+</div>
+
+<p class="big-text" [innerHTML]="text"></p>
+
+<custom-button-component 
+    [text]="buttonLabel" 
+    (onClick)="handleClick()">
+</custom-button-component>

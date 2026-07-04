@@ -1,0 +1,16 @@
+<div class="state-handler-container" [ngClass]="type">
+  
+  <span class="material-symbols-outlined state-icon" 
+        [class.spinning]="type === 'loading'">
+    {{ getDefaultIcon() }}
+  </span>
+
+  <h2 class="state-title">{{ title }}</h2>
+  <p class="state-text">{{ text }}</p>
+
+  @if(!(type == "loading")) {
+    <div class="state-actions">
+      <generic-button-component [label]="buttonLabel" (onClick)="handleClik()"></generic-button-component>
+    </div>
+  }
+</div>

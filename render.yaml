@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: memory-game
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: JwtSettings__Key
+        generateValue: true
+      - key: ConnectionStrings__DefaultConnection
+        value: "Data Source=/var/data/MemoryGame.db"
+    disk:
+      name: memory-game-data
+      mountPath: /var/data
+      sizeGB: 1

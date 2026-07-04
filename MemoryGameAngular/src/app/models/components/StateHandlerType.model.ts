@@ -1,0 +1,1 @@
+export type StateHandlerType = "loading" | "noResult" | "error";

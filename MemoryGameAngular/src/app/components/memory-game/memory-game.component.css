@@ -1,0 +1,224 @@
+.memory-game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  width: 100%;
+}
+
+.game-hud {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-full);
+  padding: 0.6rem 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.hud-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.hud-group:not(:last-child) {
+  padding-right: 1.5rem;
+  border-right: 1px solid var(--glass-border);
+}
+
+.hud-label {
+  font-size: 1rem;
+}
+
+.hud-value {
+  min-width: 1.5rem;
+  text-align: center;
+  font-weight: 700;
+  color: var(--titles-color);
+}
+
+.grid-control-button {
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  border: none;
+  background: var(--button-color);
+  color: var(--button-text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.grid-control-button .material-symbols-outlined {
+  font-size: 1.1rem !important;
+}
+
+.grid-control-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.grid-control-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.memory-grid {
+  display: grid;
+  grid-template-columns: auto repeat(var(--cols), minmax(0, 1fr));
+  grid-auto-rows: minmax(0, 1fr);
+  gap: 0.75rem;
+  padding: 0;
+  margin: 0 auto 2rem auto;
+  width: 100%;
+  max-width: 1150px;
+  overflow-x: auto;
+}
+
+.grid-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text-color);
+  opacity: 0.5;
+}
+
+.grid-corner {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.memory-card {
+  all: unset;
+  box-sizing: border-box;
+  display: block;
+  cursor: pointer;
+  perspective: 1000px;
+  transition: transform 0.25s ease;
+}
+
+.memory-card-dimension {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-width: 220px;
+  justify-self: center;
+}
+
+.memory-card:hover:not(:disabled) {
+  transform: translateY(-4px);
+}
+
+.memory-card:focus-visible {
+  outline: 3px solid var(--button-color);
+  outline-offset: 4px;
+  border-radius: var(--radius-lg);
+}
+
+.memory-card:disabled {
+  cursor: default;
+}
+
+.flip-card-inner {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.flip-card-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+.flip-card-face {
+  position: absolute;
+  inset: 0;
+  display: block;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.25s ease, opacity 0.25s ease;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+.flip-card-face img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.memory-card:hover:not(:disabled) .flip-card-face {
+  box-shadow: var(--shadow-lg);
+}
+
+.memory-card.matched .flip-card-face {
+  opacity: 0.6;
+}
+
+.completion-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 2.5rem;
+  max-width: 500px;
+  margin: 0 auto;
+  animation: auth-card-in 0.35s ease;
+}
+
+.completion-icon {
+  font-size: 3rem !important;
+  width: 5rem;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background: var(--button-color);
+  color: var(--button-text-color);
+  box-shadow: var(--shadow-md);
+  margin-bottom: 1rem;
+}
+
+.completion-title {
+  margin: 0 0 0.5rem 0;
+}
+
+.customButton-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+  gap: 1rem;
+}
+
+@keyframes auth-card-in {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}

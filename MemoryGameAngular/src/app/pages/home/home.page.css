@@ -1,0 +1,13 @@
+.home-image {
+    max-width: 50%;
+    height: auto;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    margin-left: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+.home-image:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: var(--shadow-lg);
+}

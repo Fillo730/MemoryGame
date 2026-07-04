@@ -1,0 +1,80 @@
+<header-component></header-component>
+
+<div class="display-vertical">
+  <div class="display-center-vertical-nogap">
+    <h1 class="title light-color">{{ 'Dashboard.Title' | translate }}</h1>
+    <div class="normal-max-width">
+      <p class="text custom-max-width">
+        {{ 'Dashboard.Text' | translate }}
+      </p>
+    </div>
+  </div>
+
+  @if (isLoading()) {
+    <state-handler-component
+      type="loading"
+      [title]="'Dashboard.Loading.Title' | translate"
+      [text]="'Dashboard.Loading.Text' | translate"
+    />
+  } @else if (hasError()) {
+    <state-handler-component
+      type="error"
+      [title]="'Dashboard.Error.Title' | translate"
+      [text]="'Dashboard.Error.Text' | translate"
+      [buttonLabel]="'Dashboard.Error.ActionButtonLabel' | translate"
+      (onClick)="loadLeaderboard()"
+    />
+  } @else if (!hasData()) {
+    <state-handler-component
+      type="noResult"
+      [title]="'Dashboard.NoResultTitle' | translate"
+      [text]="'Dashboard.NoResultText' | translate"
+      [buttonLabel]="'Home.PlayNow' | translate"
+      (onClick)="handleGoToPlay()"
+    />
+  } @else {
+    <div class="normal-max-width display-vertical dashboard-section">
+      <h2 class="medium-title light-color">{{ 'Dashboard.TopPlayersTitle' | translate }}</h2>
+      <ol class="ranking-list custom-max-width">
+        @for (player of leaderboard()!.topPlayers; track player.username; let i = $index) {
+          <li class="ranking-item">
+            <span class="ranking-position">{{ i + 1 }}</span>
+            <span class="ranking-name text-color">{{ player.username }}</span>
+            <span class="ranking-value text">{{ 'Dashboard.TopPlayersRank' | translate: { games: player.gamesCompleted } }}</span>
+          </li>
+        }
+      </ol>
+    </div>
+
+    <div class="normal-max-width display-vertical dashboard-section">
+      <h2 class="medium-title light-color">{{ 'Dashboard.GamesPerDifficultyTitle' | translate }}</h2>
+      <div class="chart-container custom-max-width">
+        <canvas baseChart [data]="chartData()" [options]="chartOptions()" type="bar"></canvas>
+      </div>
+    </div>
+
+    <div class="normal-max-width display-vertical dashboard-section">
+      <h2 class="medium-title light-color">{{ 'Dashboard.BestScoresTitle' | translate }}</h2>
+      <div class="difficulty-container">
+        @for (entry of leaderboard()!.bestScoresPerDifficulty; track entry.difficulty.id) {
+          @if (entry.topScores.length > 0) {
+            <div class="best-score-card">
+              <h3 class="light-color">{{ entry.difficulty.label }}</h3>
+              <ol class="ranking-list">
+                @for (score of entry.topScores; track score.username + score.moves; let i = $index) {
+                  <li class="ranking-item">
+                    <span class="ranking-position">{{ i + 1 }}</span>
+                    <span class="ranking-name text-color">{{ score.username }}</span>
+                    <span class="ranking-value text">{{ 'Dashboard.BestScoresEntry' | translate: { moves: score.moves } }}</span>
+                  </li>
+                }
+              </ol>
+            </div>
+          }
+        }
+      </div>
+    </div>
+  }
+</div>
+
+<footer-component></footer-component>

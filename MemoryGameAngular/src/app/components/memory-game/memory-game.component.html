@@ -1,0 +1,78 @@
+<div class="memory-game-container">
+
+    <div class="game-hud">
+        <div class="hud-group">
+            <span class="hud-label">{{ 'Play.ColumnsLabel' | translate }}</span>
+            <button
+                class="grid-control-button"
+                type="button"
+                (click)="decreaseColumns()"
+                [disabled]="columns() <= 2"
+            >
+                <span class="material-symbols-outlined">remove</span>
+            </button>
+            <span class="hud-value">{{ columns() }}</span>
+            <button
+                class="grid-control-button"
+                type="button"
+                (click)="increaseColumns()"
+                [disabled]="columns() >= getMaxColumns()"
+            >
+                <span class="material-symbols-outlined">add</span>
+            </button>
+        </div>
+
+        <div class="hud-group">
+            <span class="hud-label">{{ 'Play.CurrentAttempts' | translate }}</span>
+            <span class="hud-value">{{ moves() }}</span>
+        </div>
+    </div>
+
+    <div class="memory-grid" [style.--cols]="columns()">
+        <div class="grid-header grid-corner" aria-hidden="true"></div>
+
+        @for (col of getColumnNumbers(); track col) {
+            <div class="grid-header" aria-hidden="true" style="grid-row: 1;" [style.grid-column]="col + 1">{{ col }}</div>
+        }
+
+        @for (row of getRowNumbers(); track row) {
+            <div class="grid-header" aria-hidden="true" style="grid-column: 1;" [style.grid-row]="row + 1">{{ row }}</div>
+        }
+
+        @for (image of shuffledImages(); track $index) {
+            <button
+                type="button"
+                class="memory-card memory-card-dimension"
+                [class.matched]="isCardMatched($index)"
+                [style.grid-row]="getCardGridRow($index)"
+                [style.grid-column]="getCardGridColumn($index)"
+                [disabled]="isCardMatched($index)"
+                [attr.aria-label]="getCardAriaLabel($index)"
+                (click)="handleCardClick($index)"
+            >
+                <span class="flip-card-inner" [class.flipped]="isCardFlipped($index)">
+                    <span class="flip-card-face flip-card-front">
+                        <img [src]="placeholderImage" alt="" />
+                    </span>
+                    <span class="flip-card-face flip-card-back">
+                        <img [src]="image" alt="" />
+                    </span>
+                </span>
+            </button>
+        }
+    </div>
+
+    @if (isCompleted()) {
+        <div class="completion-panel">
+            <span class="material-symbols-outlined completion-icon">emoji_events</span>
+            <h2 class="completion-title light-color">{{ 'Play.CompletedTitle' | translate }}</h2>
+            <p class="text">{{ 'Play.CompletedMessage' | translate: { moves: moves() } }}</p>
+
+            <div class="customButton-container">
+                <generic-button-component [label]="'Play.NextLevel' | translate" (onClick)="nextDifficulty.emit(difficulty)" [disabled]="nextDifficultyDisabled"></generic-button-component>
+                <generic-button-component [label]="'Play.PlayAgain' | translate" (onClick)="resetGame()"></generic-button-component>
+                <generic-button-component [label]="'Play.GoBack' | translate" (onClick)="goBack.emit()"></generic-button-component>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,44 @@
+.state-handler-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 70vh;
+  padding: 2rem;
+}
+
+.state-icon {
+  font-size: 3rem;
+  width: 5.5rem;
+  height: 5.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 0.5rem;
+}
+
+.state-title {
+  margin-bottom: 0;
+}
+
+.state-actions {
+  padding: 1rem;
+}
+
+.spinning {
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.error .state-icon { color: var(--error-color); }
+.loading .state-icon { color: var(--button-color); }
+.noResult .state-icon { color: var(--text-color); }
