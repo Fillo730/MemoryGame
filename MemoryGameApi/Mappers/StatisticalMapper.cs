@@ -15,7 +15,7 @@ public class StatisticalMapper (IDifficultiesMapper difficultiesMapper) : IStati
             GamesPlayed = userStats.GamesPlayed,
             TotalMoves = userStats.TotalMoves,
             BestScore = userStats.BestScore,
-            AverageMovesPerGame = userStats.BestScore == 0 ? 0 : ((double)userStats.TotalMoves / userStats.BestScore)
+            AverageMovesPerGame = userStats.GamesPlayed == 0 ? 0 : ((double)userStats.TotalMoves / userStats.GamesPlayed)
         };
     }
 

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/pages/home/home.page.css"],
+  "sourcesContent": [".home-image {\n    max-width: 50%;\n    height: auto;\n    border-radius: var(--radius-lg);\n    box-shadow: var(--shadow-md);\n    margin-left: 2rem;\n    transition: transform 0.3s ease, box-shadow 0.3s ease;\n  }\n\n.home-image:hover {\n    transform: translateY(-4px) scale(1.02);\n    box-shadow: var(--shadow-lg);\n}"],
+  "mappings": ";AAAA,CAAC;AACG,aAAW;AACX,UAAQ;AACR,iBAAe,IAAI;AACnB,cAAY,IAAI;AAChB,eAAa;AACb,cAAY,UAAU,KAAK,IAAI,EAAE,WAAW,KAAK;AACnD;AAEF,CATC,UASU;AACP,aAAW,WAAW,MAAM,MAAM;AAClC,cAAY,IAAI;AACpB;",
+  "names": []
+}

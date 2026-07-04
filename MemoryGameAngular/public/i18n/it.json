@@ -93,12 +93,23 @@
   "Profile": {
     "Greetings": "Ciao {{ name }}",
     "Text": "Questo è il tuo profile utente. Qui puoi vedere tutte le informazioni del tuo account, modificarle e vedere anche le partite giocate, con tutte le informazioni relative.",
-    "UsernameLabel": "Username: {{ username }}",
-    "EmailLabel": "Email: {{ email }}",
     "EditProfileButtonLabel": "Modifica il profilo",
     "GamesPlayedTitle": "Statistiche partite giocate",
     "LogoutLabel": "Logout",
-    "DifficultyStatistics": "Totale partite giocate: {{ total }}<br/>Tentativi Medi: {{ avg }}<br/>Miglior tentativo: {{ best }} mosse",
+    "NoGamesTitle": "Nessuna partita ancora",
+    "NoGamesText": "Non hai ancora giocato nessuna partita. Gioca la tua prima sfida!",
+    "Stats": {
+      "GamesPlayed": "Partite giocate",
+      "AverageMoves": "Media mosse",
+      "BestScore": "Miglior punteggio"
+    },
+    "Loading": {
+      "Title": "Caricamento statistiche",
+      "Text": "Stiamo recuperando le tue partite."
+    },
+    "Error": {
+      "Title": "Ops! Qualcosa è andato storto"
+    },
     "EditModal": {
       "Title": "Modifica Profilo",
       "Description": "Qui puoi modificare le informazioni del tuo profilo",

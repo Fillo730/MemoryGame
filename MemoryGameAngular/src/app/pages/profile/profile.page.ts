@@ -1,11 +1,11 @@
 //Angular
-import { Component, computed, effect, inject, signal, Signal } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 
 //Components
 import { HeaderComponent } from '../../components/header/header.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { GenericButtonComponent } from '../../components/generic-button/generic-button.component';
-import { GenericCardComponent } from '../../components/generic-card/generic-card.component';
+import { StateHandlerComponent } from '../../components/state-handler/state-handler.component';
 import { UpdateProfileComponent } from '../../components/update-profile/update-profile.component';
 
 //pipe
@@ -31,7 +31,7 @@ import { UpdateRequest } from '../../models/requests/UpdateRequest.model';
 
 @Component({
   selector: 'profile.page',
-  imports: [TranslatePipe, HeaderComponent, FooterComponent, GenericButtonComponent,GenericCardComponent,DecimalPipe,UpdateProfileComponent],
+  imports: [TranslatePipe, HeaderComponent, FooterComponent, GenericButtonComponent, StateHandlerComponent, DecimalPipe, UpdateProfileComponent],
   templateUrl: './profile.page.html',
   styleUrl: './profile.page.css',
 })
@@ -47,6 +47,10 @@ export class ProfilePage {
     username: this.currentUser().username,
     email: this.currentUser().email
   }))
+  public initials = computed(() => this.currentUser().username.slice(0, 2).toUpperCase());
+  public playedStats = computed(() => (this.userStats() ?? []).filter(stat => stat.gamesPlayed > 0));
+  public hasPlayedAnyGame = computed(() => this.playedStats().length > 0);
+
   public isLoading = signal<boolean>(false);
   public error = signal<string | null>(null);
   public userStats = signal<UserStats[] | null>(null);
@@ -59,13 +63,9 @@ export class ProfilePage {
     })
   }
 
-  ngOnInit() {
-    this.loadData();
-  }
-
   public loadData(): void {
     this.isLoading.set(true);
-    this.error.set(null); 
+    this.error.set(null);
 
     this.gameResultsService.getUserStats().pipe(
       finalize(() => this.isLoading.set(false))
@@ -73,13 +73,11 @@ export class ProfilePage {
       next: (response) => {
         if (response.success) {
           this.userStats.set(response.data);
-          console.log(response.data);
         } else {
           this.error.set(response.message || 'Errore nel caricamento dati');
         }
       },
-      error: (err) => {
-        console.error('Errore API:', err);
+      error: () => {
         this.error.set('Impossibile connettersi al server.');
       }
     });
@@ -94,11 +92,13 @@ export class ProfilePage {
     this.navigationService.goToHome();
   }
 
+  public handleGoToPlay() : void {
+    this.navigationService.goToPlay();
+  }
+
   public handleSaveProfile(updateRequest : UpdateRequest) : void {
     this.modalOpen.set(false);
-    this.usersService.updateUser(updateRequest).subscribe(response => {
-      console.log(response);
-    })
+    this.usersService.updateUser(updateRequest).subscribe();
   }
 
   public handleCloseModal() : void {
