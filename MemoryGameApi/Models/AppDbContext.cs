@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MemoryGame_API.Utils;
 
 namespace MemoryGame_API.Models;
 
@@ -69,5 +70,43 @@ public class AppDbContext : DbContext
             new() { Id = 18, DifficultyId = 9, LanguageCode = "it", Label = "Sovrumano" }
         };
         modelBuilder.Entity<DifficultyTranslation>().HasData(translations);
+
+        // Demo seed data so a fresh database (local dev, or a new deploy) doesn't
+        // start with an empty leaderboard. Password for both is "Demo1234!".
+        var seedUsers = new List<User>
+        {
+            new User
+            {
+                Id = 1,
+                Username = "demo_player1",
+                Email = "demo1@example.com",
+                PasswordHash = "$2a$11$5XPr6Kjk/jJmse1wP71jpO06ZLsknX/zDDRhp4Q8S..hOhUSXgwLC",
+                CreatedAt = new DateTime(2025, 6, 1, 0, 0, 0, DateTimeKind.Utc),
+                Role = UserRoleEnum.User
+            },
+            new User
+            {
+                Id = 2,
+                Username = "demo_player2",
+                Email = "demo2@example.com",
+                PasswordHash = "$2a$11$5XPr6Kjk/jJmse1wP71jpO06ZLsknX/zDDRhp4Q8S..hOhUSXgwLC",
+                CreatedAt = new DateTime(2025, 6, 1, 0, 0, 0, DateTimeKind.Utc),
+                Role = UserRoleEnum.User
+            }
+        };
+        modelBuilder.Entity<User>().HasData(seedUsers);
+
+        var seedGameResults = new List<GameResult>
+        {
+            new GameResult { Id = 1, Moves = 6, PlayedAt = new DateTime(2025, 6, 1, 10, 0, 0, DateTimeKind.Utc), UserId = 1, DifficultyId = 1 },
+            new GameResult { Id = 2, Moves = 8, PlayedAt = new DateTime(2025, 6, 2, 10, 0, 0, DateTimeKind.Utc), UserId = 1, DifficultyId = 1 },
+            new GameResult { Id = 3, Moves = 14, PlayedAt = new DateTime(2025, 6, 3, 10, 0, 0, DateTimeKind.Utc), UserId = 1, DifficultyId = 2 },
+            new GameResult { Id = 4, Moves = 20, PlayedAt = new DateTime(2025, 6, 4, 10, 0, 0, DateTimeKind.Utc), UserId = 1, DifficultyId = 3 },
+            new GameResult { Id = 5, Moves = 5, PlayedAt = new DateTime(2025, 6, 1, 12, 0, 0, DateTimeKind.Utc), UserId = 2, DifficultyId = 1 },
+            new GameResult { Id = 6, Moves = 12, PlayedAt = new DateTime(2025, 6, 2, 12, 0, 0, DateTimeKind.Utc), UserId = 2, DifficultyId = 2 },
+            new GameResult { Id = 7, Moves = 10, PlayedAt = new DateTime(2025, 6, 5, 12, 0, 0, DateTimeKind.Utc), UserId = 2, DifficultyId = 2 },
+            new GameResult { Id = 8, Moves = 35, PlayedAt = new DateTime(2025, 6, 6, 12, 0, 0, DateTimeKind.Utc), UserId = 2, DifficultyId = 4 }
+        };
+        modelBuilder.Entity<GameResult>().HasData(seedGameResults);
     }
 }
