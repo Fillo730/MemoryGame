@@ -17,5 +17,5 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrl: './about.page.css',
 })
 export class AboutPage {
-
+  public techStack: string[] = ['Angular', 'TypeScript', '.NET 8', 'Entity Framework', 'Docker'];
 }

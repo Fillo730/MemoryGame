@@ -11,5 +11,5 @@ import { BackToTopButton } from '../back-to-top-button/back-to-top-button.compon
   styleUrl: './footer.component.css',
 })
 export class FooterComponent {
-
+  public currentYear = new Date().getFullYear();
 }

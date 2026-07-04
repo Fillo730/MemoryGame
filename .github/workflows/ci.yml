@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  frontend:
+    name: Build frontend (Angular)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: MemoryGameAngular
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: MemoryGameAngular/package-lock.json
+
+      - run: npm ci
+      - run: npx ng build --configuration production
+
+  backend:
+    name: Build backend (.NET)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: MemoryGameApi
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - run: dotnet restore
+      - run: dotnet build --configuration Release --no-restore
