@@ -11,6 +11,9 @@ public class AppDbContext : DbContext
     public DbSet<GameResult> GameResults { get; set; }
     public DbSet<Difficulty> Difficulties { get; set; }
     public DbSet<DifficultyTranslation> DifficultyTranslations { get; set; }
+    public DbSet<Achievement> Achievements { get; set; }
+    public DbSet<AchievementTranslation> AchievementTranslations { get; set; }
+    public DbSet<UserAchievement> UserAchievements { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -32,6 +35,24 @@ public class AppDbContext : DbContext
             .HasOne(g => g.Difficulty)
             .WithMany(d => d.GameResults)
             .HasForeignKey(g => g.DifficultyId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<AchievementTranslation>()
+            .HasOne(t => t.Achievement)
+            .WithMany(a => a.Translations)
+            .HasForeignKey(t => t.AchievementId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<UserAchievement>()
+            .HasOne(ua => ua.User)
+            .WithMany()
+            .HasForeignKey(ua => ua.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<UserAchievement>()
+            .HasOne(ua => ua.Achievement)
+            .WithMany(a => a.UserAchievements)
+            .HasForeignKey(ua => ua.AchievementId)
             .OnDelete(DeleteBehavior.Restrict);
 
         var difficulties = new List<Difficulty>
@@ -70,6 +91,40 @@ public class AppDbContext : DbContext
             new() { Id = 18, DifficultyId = 9, LanguageCode = "it", Label = "Sovrumano" }
         };
         modelBuilder.Entity<DifficultyTranslation>().HasData(translations);
+
+        var achievements = new List<Achievement>
+        {
+            new Achievement { Id = 1, Code = "FIRST_WIN", Icon = "flag" },
+            new Achievement { Id = 2, Code = "TEN_GAMES", Icon = "local_fire_department" },
+            new Achievement { Id = 3, Code = "FIFTY_GAMES", Icon = "military_tech" },
+            new Achievement { Id = 4, Code = "HUNDRED_GAMES", Icon = "workspace_premium" },
+            new Achievement { Id = 5, Code = "FLAWLESS", Icon = "bolt" },
+            new Achievement { Id = 6, Code = "ALL_DIFFICULTIES", Icon = "travel_explore" },
+            new Achievement { Id = 7, Code = "HARDEST_DIFFICULTY", Icon = "emoji_events" },
+            new Achievement { Id = 8, Code = "NIGHT_OWL", Icon = "nightlight" }
+        };
+        modelBuilder.Entity<Achievement>().HasData(achievements);
+
+        var achievementTranslations = new List<AchievementTranslation>
+        {
+            new() { Id = 1, AchievementId = 1, LanguageCode = "en", Name = "First Steps", Description = "Complete your first game." },
+            new() { Id = 2, AchievementId = 1, LanguageCode = "it", Name = "Primi Passi", Description = "Completa la tua prima partita." },
+            new() { Id = 3, AchievementId = 2, LanguageCode = "en", Name = "Regular", Description = "Play 10 games." },
+            new() { Id = 4, AchievementId = 2, LanguageCode = "it", Name = "Habitué", Description = "Gioca 10 partite." },
+            new() { Id = 5, AchievementId = 3, LanguageCode = "en", Name = "Veteran", Description = "Play 50 games." },
+            new() { Id = 6, AchievementId = 3, LanguageCode = "it", Name = "Veterano", Description = "Gioca 50 partite." },
+            new() { Id = 7, AchievementId = 4, LanguageCode = "en", Name = "Legend", Description = "Play 100 games." },
+            new() { Id = 8, AchievementId = 4, LanguageCode = "it", Name = "Leggenda", Description = "Gioca 100 partite." },
+            new() { Id = 9, AchievementId = 5, LanguageCode = "en", Name = "Iron Memory", Description = "Complete a game without a single wrong guess." },
+            new() { Id = 10, AchievementId = 5, LanguageCode = "it", Name = "Memoria di Ferro", Description = "Completa una partita senza sbagliare nemmeno una mossa." },
+            new() { Id = 11, AchievementId = 6, LanguageCode = "en", Name = "Explorer", Description = "Win at least one game on every difficulty." },
+            new() { Id = 12, AchievementId = 6, LanguageCode = "it", Name = "Esploratore", Description = "Vinci almeno una partita per ogni difficoltà." },
+            new() { Id = 13, AchievementId = 7, LanguageCode = "en", Name = "Godlike", Description = "Win a game on the hardest difficulty." },
+            new() { Id = 14, AchievementId = 7, LanguageCode = "it", Name = "Sovrumano", Description = "Vinci una partita nella difficoltà più alta." },
+            new() { Id = 15, AchievementId = 8, LanguageCode = "en", Name = "Night Owl", Description = "Complete a game between midnight and 5 AM." },
+            new() { Id = 16, AchievementId = 8, LanguageCode = "it", Name = "Nottambulo", Description = "Completa una partita tra mezzanotte e le 5 del mattino." }
+        };
+        modelBuilder.Entity<AchievementTranslation>().HasData(achievementTranslations);
 
         // Demo seed data so a fresh database (local dev, or a new deploy) doesn't
         // start with an empty leaderboard. Password for both is "Demo1234!".

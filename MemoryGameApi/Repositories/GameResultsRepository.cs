@@ -17,6 +17,7 @@ public class GameResultsRepository (AppDbContext dbContext) : BaseRepository(dbC
     {
         return await _dbContext.GameResults
             .Where(g => g.UserId == id)
+            .Include(g => g.Difficulty)
             .ToListAsync();
     }
 

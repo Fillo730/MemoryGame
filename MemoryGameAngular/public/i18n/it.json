@@ -92,7 +92,6 @@
   },
   "Profile": {
     "Greetings": "Ciao {{ name }}",
-    "Text": "Questo è il tuo profile utente. Qui puoi vedere tutte le informazioni del tuo account, modificarle e vedere anche le partite giocate, con tutte le informazioni relative.",
     "EditProfileButtonLabel": "Modifica il profilo",
     "GamesPlayedTitle": "Statistiche partite giocate",
     "LogoutLabel": "Logout",
@@ -102,6 +101,11 @@
       "GamesPlayed": "Partite giocate",
       "AverageMoves": "Media mosse",
       "BestScore": "Miglior punteggio"
+    },
+    "Kpi": {
+      "TotalGames": "Partite totali",
+      "Achievements": "Achievement",
+      "FavoriteDifficulty": "Difficoltà preferita"
     },
     "Loading": {
       "Title": "Caricamento statistiche",
@@ -115,6 +119,10 @@
       "Description": "Qui puoi modificare le informazioni del tuo profilo",
       "UsernameLabel": "Username",
       "EmailLabel": "Email"
+    },
+    "Achievements": {
+      "Title": "Achievement",
+      "Text": "Sblocca i badge giocando e migliorando le tue partite."
     }
   },
   "Dashboard": {

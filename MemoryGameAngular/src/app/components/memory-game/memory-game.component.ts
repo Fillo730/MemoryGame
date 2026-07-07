@@ -184,7 +184,11 @@ export class MemoryGameComponent {
 
     this.gameResultsService.saveGameResults(gameResult).subscribe({
         next: (response) => {
-            console.log('Risultato salvato con ID:', response.data.id);
+            if (response.success) {
+                
+            } else {
+                console.error('Errore nel salvataggio:', response.message);
+            }
         },
         error: (err) => console.error('Errore nel salvataggio:', err)
     });

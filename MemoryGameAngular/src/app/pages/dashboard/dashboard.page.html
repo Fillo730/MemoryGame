@@ -1,13 +1,9 @@
 <header-component></header-component>
 
-<div class="display-vertical">
-  <div class="display-center-vertical-nogap">
+<div class="dashboard-page">
+  <div class="dashboard-hero">
     <h1 class="title light-color">{{ 'Dashboard.Title' | translate }}</h1>
-    <div class="normal-max-width">
-      <p class="text custom-max-width">
-        {{ 'Dashboard.Text' | translate }}
-      </p>
-    </div>
+    <p class="text custom-max-width">{{ 'Dashboard.Text' | translate }}</p>
   </div>
 
   @if (isLoading()) {
@@ -33,28 +29,53 @@
       (onClick)="handleGoToPlay()"
     />
   } @else {
-    <div class="normal-max-width display-vertical dashboard-section">
-      <h2 class="medium-title light-color">{{ 'Dashboard.TopPlayersTitle' | translate }}</h2>
-      <ol class="ranking-list custom-max-width">
-        @for (player of leaderboard()!.topPlayers; track player.username; let i = $index) {
-          <li class="ranking-item">
-            <span class="ranking-position">{{ i + 1 }}</span>
-            <span class="ranking-name text-color">{{ player.username }}</span>
-            <span class="ranking-value text">{{ 'Dashboard.TopPlayersRank' | translate: { games: player.gamesCompleted } }}</span>
-          </li>
+    <div class="dashboard-layout">
+      <section class="dashboard-panel glass-panel">
+        <h2 class="medium-title light-color section-title">
+          <span class="material-symbols-outlined">leaderboard</span>
+          {{ 'Dashboard.TopPlayersTitle' | translate }}
+        </h2>
+
+        <div class="podium">
+          @for (player of topThreePlayers(); track player.username; let i = $index) {
+            <div class="podium-place" [class.podium-place-1]="i === 0" [class.podium-place-2]="i === 1" [class.podium-place-3]="i === 2">
+              <span class="material-symbols-outlined podium-medal">military_tech</span>
+              <span class="podium-rank">#{{ i + 1 }}</span>
+              <span class="podium-name text-color">{{ player.username }}</span>
+              <span class="podium-value">{{ 'Dashboard.TopPlayersRank' | translate: { games: player.gamesCompleted } }}</span>
+            </div>
+          }
+        </div>
+
+        @if (restPlayers().length > 0) {
+          <ol class="ranking-list">
+            @for (player of restPlayers(); track player.username; let i = $index) {
+              <li class="ranking-item">
+                <span class="ranking-position">{{ i + 4 }}</span>
+                <span class="ranking-name text-color">{{ player.username }}</span>
+                <span class="ranking-value text">{{ 'Dashboard.TopPlayersRank' | translate: { games: player.gamesCompleted } }}</span>
+              </li>
+            }
+          </ol>
         }
-      </ol>
+      </section>
+
+      <section class="dashboard-panel glass-panel">
+        <h2 class="medium-title light-color section-title">
+          <span class="material-symbols-outlined">bar_chart</span>
+          {{ 'Dashboard.GamesPerDifficultyTitle' | translate }}
+        </h2>
+        <div class="chart-container">
+          <canvas baseChart [data]="chartData()" [options]="chartOptions()" type="bar"></canvas>
+        </div>
+      </section>
     </div>
 
-    <div class="normal-max-width display-vertical dashboard-section">
-      <h2 class="medium-title light-color">{{ 'Dashboard.GamesPerDifficultyTitle' | translate }}</h2>
-      <div class="chart-container custom-max-width">
-        <canvas baseChart [data]="chartData()" [options]="chartOptions()" type="bar"></canvas>
-      </div>
-    </div>
-
-    <div class="normal-max-width display-vertical dashboard-section">
-      <h2 class="medium-title light-color">{{ 'Dashboard.BestScoresTitle' | translate }}</h2>
+    <div class="dashboard-section">
+      <h2 class="medium-title light-color section-title">
+        <span class="material-symbols-outlined">emoji_events</span>
+        {{ 'Dashboard.BestScoresTitle' | translate }}
+      </h2>
       <div class="difficulty-container">
         @for (entry of leaderboard()!.bestScoresPerDifficulty; track entry.difficulty.id) {
           @if (entry.topScores.length > 0) {
@@ -63,7 +84,7 @@
               <ol class="ranking-list">
                 @for (score of entry.topScores; track score.username + score.moves; let i = $index) {
                   <li class="ranking-item">
-                    <span class="ranking-position">{{ i + 1 }}</span>
+                    <span class="ranking-position" [class]="getRankClass(i)">{{ i + 1 }}</span>
                     <span class="ranking-name text-color">{{ score.username }}</span>
                     <span class="ranking-value text">{{ 'Dashboard.BestScoresEntry' | translate: { moves: score.moves } }}</span>
                   </li>

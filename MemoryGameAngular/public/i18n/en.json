@@ -92,7 +92,6 @@
   },
   "Profile": {
     "Greetings": "Hi {{ name }}",
-    "Text": "This is your user profile. Here you can see all your account information, edit it, and also see the games played with all related information.",
     "EditProfileButtonLabel": "Edit profile",
     "GamesPlayedTitle": "Played games statistics",
     "LogoutLabel": "Logout",
@@ -102,6 +101,11 @@
       "GamesPlayed": "Games played",
       "AverageMoves": "Average moves",
       "BestScore": "Best score"
+    },
+    "Kpi": {
+      "TotalGames": "Total games",
+      "Achievements": "Achievements",
+      "FavoriteDifficulty": "Favorite difficulty"
     },
     "Loading": {
       "Title": "Loading statistics",
@@ -115,6 +119,10 @@
       "Description": "Here you can edit your profile information",
       "UsernameLabel": "Username",
       "EmailLabel": "Email"
+    },
+    "Achievements": {
+      "Title": "Achievements",
+      "Text": "Unlock badges by playing and improving your games."
     }
   },
   "Dashboard": {

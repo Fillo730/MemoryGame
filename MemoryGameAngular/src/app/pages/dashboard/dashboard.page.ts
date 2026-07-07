@@ -43,6 +43,8 @@ export class DashboardPage {
   public leaderboard = signal<Leaderboard | null>(null);
 
   public hasData = computed(() => (this.leaderboard()?.topPlayers.length ?? 0) > 0);
+  public topThreePlayers = computed(() => this.leaderboard()?.topPlayers.slice(0, 3) ?? []);
+  public restPlayers = computed(() => this.leaderboard()?.topPlayers.slice(3) ?? []);
 
   public chartData = computed<ChartData<'bar'>>(() => {
     const gamesPerDifficulty = this.leaderboard()?.gamesPerDifficulty ?? [];
@@ -104,6 +106,10 @@ export class DashboardPage {
 
   public handleGoToPlay(): void {
     this.navigationService.goToPlay();
+  }
+
+  public getRankClass(index: number): string {
+    return index === 0 ? 'rank-gold' : index === 1 ? 'rank-silver' : index === 2 ? 'rank-bronze' : '';
   }
 
   public loadLeaderboard(): void {

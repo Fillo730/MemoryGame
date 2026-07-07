@@ -1,79 +1,152 @@
 .profile-page {
-    gap: 2rem;
-    padding-bottom: 1rem;
+    display: block;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 3rem;
+    box-sizing: border-box;
+    text-align: left;
 }
 
-.profile-hero {
+.profile-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.profile-sidebar {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.75rem;
+    text-align: center;
+    gap: 0.5rem;
+    padding: 2rem 1.5rem;
+    position: sticky;
+    top: 1.5rem;
+    box-sizing: border-box;
 }
 
 .profile-avatar {
-    width: 96px;
-    height: 96px;
+    width: 88px;
+    height: 88px;
     border-radius: var(--radius-full);
-    background: var(--button-color);
+    background: linear-gradient(135deg, var(--button-color), var(--titles-color));
     color: var(--button-text-color);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: 800;
     letter-spacing: 1px;
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-md), 0 0 0 6px var(--accent-glow);
+}
+
+.profile-username {
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    margin: 0.75rem 0 0;
+}
+
+.profile-greeting {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.7;
+    margin: 0 0 0.5rem;
 }
 
 .profile-info-card {
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 0.6rem;
     background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
-    padding: 1.25rem 2rem;
+    padding: 1rem 1.25rem;
     margin-top: 0.5rem;
+    box-sizing: border-box;
 }
 
 .profile-info-row {
     display: flex;
     align-items: center;
     gap: 0.6rem;
-    font-size: 1.1rem;
+    font-size: 0.95rem;
+    overflow: hidden;
+}
+
+.profile-info-row span:last-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .profile-info-row .material-symbols-outlined {
-    font-size: 1.3rem !important;
+    font-size: 1.2rem !important;
     opacity: 0.7;
+    flex-shrink: 0;
 }
 
 .profile-actions {
     display: flex;
-    gap: 1rem;
-    margin-top: 0.5rem;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    width: 100%;
 }
 
-.profile-stats-section {
+.profile-main {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    min-width: 0;
+}
+
+.profile-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+}
+
+.profile-kpi-card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
+    text-align: center;
+    gap: 0.35rem;
+    padding: 1.25rem 1rem;
+}
+
+.profile-kpi-icon {
+    font-size: 1.7rem !important;
+    color: var(--titles-color);
+}
+
+.profile-kpi-value {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--titles-color);
+}
+
+.profile-kpi-label {
+    font-size: 0.85rem;
+    opacity: 0.7;
+}
+
+.profile-section {
+    display: flex;
+    flex-direction: column;
 }
 
 .profile-stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 1.5rem;
-    max-width: 1000px;
     width: 100%;
     margin-top: 1rem;
-    padding: 0 1rem;
     box-sizing: border-box;
 }
 
@@ -104,18 +177,162 @@
 .profile-stat-row {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: center;
     border-top: 1px solid var(--glass-border);
     padding-top: 0.5rem;
 }
 
 .profile-stat-label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
     font-size: 0.9rem;
     opacity: 0.7;
+}
+
+.stat-icon {
+    font-size: 1.1rem !important;
+    opacity: 0.8;
 }
 
 .profile-stat-value {
     font-size: 1.3rem;
     font-weight: 800;
     color: var(--titles-color);
+}
+
+.achievements-progress {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    max-width: 320px;
+    margin-top: 1.25rem;
+}
+
+.achievements-progress-label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--titles-color);
+    white-space: nowrap;
+}
+
+.achievements-progress-track {
+    flex: 1;
+    height: 8px;
+    border-radius: var(--radius-full);
+    background: var(--glass-border);
+    overflow: hidden;
+}
+
+.achievements-progress-fill {
+    height: 100%;
+    border-radius: var(--radius-full);
+    background: linear-gradient(90deg, var(--button-color), var(--titles-color));
+    transition: width 0.4s ease;
+}
+
+.profile-achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    margin-top: 1.5rem;
+    box-sizing: border-box;
+}
+
+.achievement-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: 1.5rem;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+}
+
+.achievement-card:not(.locked) {
+    border-color: color-mix(in srgb, var(--titles-color) 35%, var(--glass-border));
+    box-shadow: var(--shadow-sm), 0 0 20px var(--accent-glow);
+}
+
+.achievement-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.achievement-card.locked {
+    opacity: 0.6;
+}
+
+.achievement-lock {
+    position: absolute;
+    top: 0.85rem;
+    right: 0.85rem;
+    font-size: 1.1rem !important;
+    opacity: 0.45;
+}
+
+.achievement-icon-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: var(--radius-full);
+    background: linear-gradient(135deg, var(--button-color), var(--titles-color));
+    box-shadow: var(--shadow-sm);
+}
+
+.achievement-card.locked .achievement-icon-badge {
+    background: var(--glass-border);
+    box-shadow: none;
+}
+
+.achievement-icon {
+    font-size: 2rem !important;
+    color: var(--button-text-color);
+}
+
+.achievement-card.locked .achievement-icon {
+    color: var(--text-color);
+    opacity: 0.5;
+}
+
+.achievement-card h3 {
+    margin: 0;
+}
+
+.achievement-description {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin: 0;
+}
+
+.achievement-unlocked-at {
+    font-size: 0.8rem;
+    opacity: 0.6;
+    margin-top: 0.25rem;
+}
+
+.profile-section ::ng-deep .state-handler-container {
+    min-height: 220px;
+    padding: 1.5rem 1rem;
+}
+
+@media (max-width: 900px) {
+    .profile-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-sidebar {
+        position: static;
+    }
 }

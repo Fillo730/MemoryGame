@@ -23,6 +23,8 @@ builder.Services.AddSingleton<IGameResultsMapper, GameResultsMapper>();
 builder.Services.AddSingleton<ITokenService, TokenService>();
 builder.Services.AddSingleton<IStatisticalMapper, StatisticalMapper>();
 builder.Services.AddSingleton<ILeaderboardMapper, LeaderboardMapper>();
+builder.Services.AddSingleton<IAchievementsMapper, AchievementsMapper>();
+builder.Services.AddSingleton<IAchievementRulesEvaluator, AchievementRulesEvaluator>();
 
 builder.Services.AddScoped<IDifficultiesService, DifficultiesService>();
 builder.Services.AddScoped<IDifficultiesRepository, DifficultiesRepository>();
@@ -33,6 +35,8 @@ builder.Services.AddScoped<IGameResultsRepository, GameResultsRepository>();
 builder.Services.AddScoped<IUsersService, UsersService>();
 builder.Services.AddScoped<ILeaderboardService, LeaderboardService>();
 builder.Services.AddScoped<ILeaderboardRepository, LeaderboardRepository>();
+builder.Services.AddScoped<IAchievementsService, AchievementsService>();
+builder.Services.AddScoped<IAchievementsRepository, AchievementsRepository>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

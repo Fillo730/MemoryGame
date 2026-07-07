@@ -5,13 +5,15 @@ using MemoryGame_API.IServices;
 
 namespace MemoryGame_API.Services;
 
-public class GameResultsService (IGameResultsRepository gameResultsRepository, IGameResultsMapper gameResultsMapper, IStatisticalMapper statisticalMapper): IGameResultsService
+public class GameResultsService (IGameResultsRepository gameResultsRepository, IGameResultsMapper gameResultsMapper, IStatisticalMapper statisticalMapper, IAchievementsService achievementsService): IGameResultsService
 {
     private readonly IGameResultsRepository _gameResultsRepository = gameResultsRepository;
 
     private readonly IGameResultsMapper _gameResultsMapper = gameResultsMapper;
 
     private readonly IStatisticalMapper _statisticalMapper = statisticalMapper;
+
+    private readonly IAchievementsService _achievementsService = achievementsService;
     public async Task<GameResultDto> AddGameResutlAsync(GameResultDto gameResultDto, int userId)
     {
         var gameResultEntity = _gameResultsMapper.MapDtoToEntity(gameResultDto, userId);
@@ -19,6 +21,12 @@ public class GameResultsService (IGameResultsRepository gameResultsRepository, I
         await _gameResultsRepository.AddGameResultAsync(gameResultEntity);
 
         await _gameResultsRepository.SaveChangesAsync();
+
+        await _achievementsService.EvaluateAndUnlockNewAsync(userId);
+
+        await _gameResultsRepository.SaveChangesAsync();
+
+        gameResultDto.Id = gameResultEntity.Id;
 
         return gameResultDto;
     }

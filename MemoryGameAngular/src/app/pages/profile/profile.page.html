@@ -1,77 +1,146 @@
 <header-component></header-component>
 
-<div class="display-vertical profile-page">
-  <div class="profile-hero">
-    <div class="profile-avatar">{{ initials() }}</div>
-    <h1 class="title light-color">{{ 'Profile.Greetings' | translate : {name: currentUser().username} }}</h1>
-    <p class="text normal-max-width">
-      {{ 'Profile.Text' | translate }}
-    </p>
+<div class="profile-page">
+  <div class="profile-layout">
+    <aside class="profile-sidebar glass-panel">
+      <div class="profile-avatar">{{ initials() }}</div>
+      <h1 class="profile-username light-color">{{ currentUser().username }}</h1>
+      <p class="profile-greeting">{{ 'Profile.Greetings' | translate : {name: currentUser().username} }}</p>
 
-    <div class="profile-info-card">
-      <div class="profile-info-row">
-        <span class="material-symbols-outlined">person</span>
-        <span>{{ currentUser().username }}</span>
+      <div class="profile-info-card">
+        <div class="profile-info-row">
+          <span class="material-symbols-outlined">person</span>
+          <span>{{ currentUser().username }}</span>
+        </div>
+        <div class="profile-info-row">
+          <span class="material-symbols-outlined">mail</span>
+          <span>{{ currentUser().email }}</span>
+        </div>
       </div>
-      <div class="profile-info-row">
-        <span class="material-symbols-outlined">mail</span>
-        <span>{{ currentUser().email }}</span>
+
+      <div class="profile-actions">
+        <generic-button-component [label]="'Profile.EditProfileButtonLabel' | translate" (onClick)="handleEditProfile()" />
+        <generic-button-component [label]="'Profile.LogoutLabel' | translate" (onClick)="handleLogout()" />
       </div>
-    </div>
+    </aside>
 
-    <div class="profile-actions">
-      <generic-button-component [label]="'Profile.EditProfileButtonLabel' | translate" (onClick)="handleEditProfile()" />
-      <generic-button-component [label]="'Profile.LogoutLabel' | translate" (onClick)="handleLogout()" />
-    </div>
-  </div>
+    <main class="profile-main">
+      @if (hasPlayedAnyGame()) {
+        <div class="profile-kpi-grid">
+          <div class="profile-kpi-card glass-panel">
+            <span class="material-symbols-outlined profile-kpi-icon">sports_esports</span>
+            <span class="profile-kpi-value">{{ totalGamesPlayed() }}</span>
+            <span class="profile-kpi-label">{{ 'Profile.Kpi.TotalGames' | translate }}</span>
+          </div>
+          <div class="profile-kpi-card glass-panel">
+            <span class="material-symbols-outlined profile-kpi-icon">emoji_events</span>
+            <span class="profile-kpi-value">{{ unlockedAchievementsCount() }}/{{ totalAchievementsCount() }}</span>
+            <span class="profile-kpi-label">{{ 'Profile.Kpi.Achievements' | translate }}</span>
+          </div>
+          <div class="profile-kpi-card glass-panel">
+            <span class="material-symbols-outlined profile-kpi-icon">favorite</span>
+            <span class="profile-kpi-value">{{ favoriteDifficulty()?.label }}</span>
+            <span class="profile-kpi-label">{{ 'Profile.Kpi.FavoriteDifficulty' | translate }}</span>
+          </div>
+        </div>
+      }
 
-  <div class="profile-stats-section">
-    <h2 class="medium-title light-color">{{ 'Profile.GamesPlayedTitle' | translate }}</h2>
+      <section class="profile-section">
+        <h2 class="medium-title light-color section-title">
+          <span class="material-symbols-outlined">bar_chart</span>
+          {{ 'Profile.GamesPlayedTitle' | translate }}
+        </h2>
 
-    @if (isLoading()) {
-      <state-handler-component
-        type="loading"
-        [title]="'Profile.Loading.Title' | translate"
-        [text]="'Profile.Loading.Text' | translate"
-      />
-    } @else if (error()) {
-      <state-handler-component
-        type="error"
-        [title]="'Profile.Error.Title' | translate"
-        [text]="error()!"
-        [buttonLabel]="'Play.Error.ActionButtonLabel' | translate"
-        (onClick)="loadData()"
-      />
-    } @else if (!hasPlayedAnyGame()) {
-      <state-handler-component
-        type="noResult"
-        [title]="'Profile.NoGamesTitle' | translate"
-        [text]="'Profile.NoGamesText' | translate"
-        [buttonLabel]="'Home.PlayNow' | translate"
-        (onClick)="handleGoToPlay()"
-      />
-    } @else {
-      <div class="profile-stats-grid">
-        @for (stat of playedStats(); track stat.difficulty.id) {
-          <div class="profile-stat-card">
-            <h3 class="light-color">{{ stat.difficulty.label }}</h3>
+        @if (isLoading()) {
+          <state-handler-component
+            type="loading"
+            [title]="'Profile.Loading.Title' | translate"
+            [text]="'Profile.Loading.Text' | translate"
+          />
+        } @else if (error()) {
+          <state-handler-component
+            type="error"
+            [title]="'Profile.Error.Title' | translate"
+            [text]="error()!"
+            [buttonLabel]="'Play.Error.ActionButtonLabel' | translate"
+            (onClick)="loadData()"
+          />
+        } @else if (!hasPlayedAnyGame()) {
+          <state-handler-component
+            type="noResult"
+            [title]="'Profile.NoGamesTitle' | translate"
+            [text]="'Profile.NoGamesText' | translate"
+            [buttonLabel]="'Home.PlayNow' | translate"
+            (onClick)="handleGoToPlay()"
+          />
+        } @else {
+          <div class="profile-stats-grid">
+            @for (stat of playedStats(); track stat.difficulty.id) {
+              <div class="profile-stat-card">
+                <h3 class="light-color">{{ stat.difficulty.label }}</h3>
 
-            <div class="profile-stat-row">
-              <span class="profile-stat-label">{{ 'Profile.Stats.GamesPlayed' | translate }}</span>
-              <span class="profile-stat-value">{{ stat.gamesPlayed }}</span>
-            </div>
-            <div class="profile-stat-row">
-              <span class="profile-stat-label">{{ 'Profile.Stats.AverageMoves' | translate }}</span>
-              <span class="profile-stat-value">{{ stat.averageMovesPerGame | number:'1.0-1' }}</span>
-            </div>
-            <div class="profile-stat-row">
-              <span class="profile-stat-label">{{ 'Profile.Stats.BestScore' | translate }}</span>
-              <span class="profile-stat-value">{{ stat.bestScore }}</span>
-            </div>
+                <div class="profile-stat-row">
+                  <span class="profile-stat-label">
+                    <span class="material-symbols-outlined stat-icon">sports_esports</span>
+                    {{ 'Profile.Stats.GamesPlayed' | translate }}
+                  </span>
+                  <span class="profile-stat-value">{{ stat.gamesPlayed }}</span>
+                </div>
+                <div class="profile-stat-row">
+                  <span class="profile-stat-label">
+                    <span class="material-symbols-outlined stat-icon">swipe</span>
+                    {{ 'Profile.Stats.AverageMoves' | translate }}
+                  </span>
+                  <span class="profile-stat-value">{{ stat.averageMovesPerGame | number:'1.0-1' }}</span>
+                </div>
+                <div class="profile-stat-row">
+                  <span class="profile-stat-label">
+                    <span class="material-symbols-outlined stat-icon">emoji_events</span>
+                    {{ 'Profile.Stats.BestScore' | translate }}
+                  </span>
+                  <span class="profile-stat-value">{{ stat.bestScore }}</span>
+                </div>
+              </div>
+            }
           </div>
         }
-      </div>
-    }
+      </section>
+
+      <section class="profile-section">
+        <h2 class="medium-title light-color section-title">
+          <span class="material-symbols-outlined">emoji_events</span>
+          {{ 'Profile.Achievements.Title' | translate }}
+        </h2>
+        <p class="text normal-max-width">{{ 'Profile.Achievements.Text' | translate }}</p>
+
+        @if (achievements()) {
+          <div class="achievements-progress">
+            <span class="achievements-progress-label">{{ unlockedAchievementsCount() }} / {{ totalAchievementsCount() }}</span>
+            <div class="achievements-progress-track">
+              <div class="achievements-progress-fill" [style.width.%]="achievementsProgress()"></div>
+            </div>
+          </div>
+
+          <div class="profile-achievements-grid">
+            @for (achievement of sortedAchievements(); track achievement.id) {
+              <div class="achievement-card" [class.locked]="!achievement.unlocked">
+                @if (!achievement.unlocked) {
+                  <span class="material-symbols-outlined achievement-lock">lock</span>
+                }
+                <span class="achievement-icon-badge">
+                  <span class="material-symbols-outlined achievement-icon">{{ achievement.icon }}</span>
+                </span>
+                <h3 class="light-color">{{ achievement.name }}</h3>
+                <p class="achievement-description">{{ achievement.description }}</p>
+                @if (achievement.unlocked) {
+                  <span class="achievement-unlocked-at">{{ achievement.unlockedAt | date:'dd/MM/yyyy' }}</span>
+                }
+              </div>
+            }
+          </div>
+        }
+      </section>
+    </main>
   </div>
 </div>
 
