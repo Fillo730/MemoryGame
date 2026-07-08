@@ -107,6 +107,12 @@
       "Achievements": "Achievements",
       "FavoriteDifficulty": "Favorite difficulty"
     },
+    "Info": {
+      "Username": "Username",
+      "Email": "Email",
+      "Country": "Country",
+      "BirthDate": "Birth date"
+    },
     "Loading": {
       "Title": "Loading statistics",
       "Text": "We're fetching your games."
@@ -118,7 +124,10 @@
       "Title": "Edit Profile",
       "Description": "Here you can edit your profile information",
       "UsernameLabel": "Username",
-      "EmailLabel": "Email"
+      "EmailLabel": "Email",
+      "CountryLabel": "Country",
+      "BirthDateLabel": "Birth date",
+      "BioLabel": "Bio"
     },
     "Achievements": {
       "Title": "Achievements",
@@ -153,7 +162,9 @@
   "Common": {
     "Note": "Note",
     "Save": "Save",
-    "Cancel": "Cancel"
+    "Cancel": "Cancel",
+    "Previous": "Previous",
+    "Next": "Next"
   },
   "Errors": {
     "Required": "This field is required",

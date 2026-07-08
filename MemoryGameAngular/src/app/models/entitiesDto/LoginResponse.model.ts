@@ -7,5 +7,8 @@ export interface LoginResponse {
     email : string,
     userRole : UserRoleType,
     id : number,
-    expiresDate : Date
+    expiresDate : Date,
+    bio : string | null,
+    country : string | null,
+    birthDate : Date | null
 }

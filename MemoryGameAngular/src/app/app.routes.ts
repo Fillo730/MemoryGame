@@ -37,5 +37,33 @@ export const routes: Routes = [
             { path: 'leaderboard', component: DashboardPage },
             { path: '', redirectTo: 'home', pathMatch: 'full' }
         ]
+    },
+
+    {
+        path: 'fr',
+        children: [
+            { path: 'accueil', component: HomePage },
+            { path: 'jouer', component: PlayPage },
+            { path: 'connexion', component: LoginPage },
+            { path: 'inscription', component: SignupPage },
+            { path: 'a-propos', component: AboutPage},
+            { path: 'profil', component: ProfilePage, canActivate: [authGuard] },
+            { path: 'classement', component: DashboardPage },
+            { path: '', redirectTo: 'accueil', pathMatch: 'full' }
+        ]
+    },
+
+    {
+        path: 'de',
+        children: [
+            { path: 'home', component: HomePage },
+            { path: 'spielen', component: PlayPage },
+            { path: 'anmelden', component: LoginPage },
+            { path: 'registrieren', component: SignupPage },
+            { path: 'info', component: AboutPage},
+            { path: 'profil', component: ProfilePage, canActivate: [authGuard] },
+            { path: 'rangliste', component: DashboardPage },
+            { path: '', redirectTo: 'home', pathMatch: 'full' }
+        ]
     }
 ];

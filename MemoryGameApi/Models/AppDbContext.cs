@@ -88,7 +88,25 @@ public class AppDbContext : DbContext
             new() { Id = 15, DifficultyId = 8, LanguageCode = "en", Label = "Divine" },
             new() { Id = 16, DifficultyId = 8, LanguageCode = "it", Label = "Divino" },
             new() { Id = 17, DifficultyId = 9, LanguageCode = "en", Label = "Godlike" },
-            new() { Id = 18, DifficultyId = 9, LanguageCode = "it", Label = "Sovrumano" }
+            new() { Id = 18, DifficultyId = 9, LanguageCode = "it", Label = "Sovrumano" },
+            new() { Id = 19, DifficultyId = 1, LanguageCode = "fr", Label = "Facile" },
+            new() { Id = 20, DifficultyId = 1, LanguageCode = "de", Label = "Einfach" },
+            new() { Id = 21, DifficultyId = 2, LanguageCode = "fr", Label = "Moyen" },
+            new() { Id = 22, DifficultyId = 2, LanguageCode = "de", Label = "Mittel" },
+            new() { Id = 23, DifficultyId = 3, LanguageCode = "fr", Label = "Difficile" },
+            new() { Id = 24, DifficultyId = 3, LanguageCode = "de", Label = "Schwer" },
+            new() { Id = 25, DifficultyId = 4, LanguageCode = "fr", Label = "Extrême" },
+            new() { Id = 26, DifficultyId = 4, LanguageCode = "de", Label = "Extrem" },
+            new() { Id = 27, DifficultyId = 5, LanguageCode = "fr", Label = "Impossible" },
+            new() { Id = 28, DifficultyId = 5, LanguageCode = "de", Label = "Unmöglich" },
+            new() { Id = 29, DifficultyId = 6, LanguageCode = "fr", Label = "Légendaire" },
+            new() { Id = 30, DifficultyId = 6, LanguageCode = "de", Label = "Legendär" },
+            new() { Id = 31, DifficultyId = 7, LanguageCode = "fr", Label = "Mythique" },
+            new() { Id = 32, DifficultyId = 7, LanguageCode = "de", Label = "Mythisch" },
+            new() { Id = 33, DifficultyId = 8, LanguageCode = "fr", Label = "Divin" },
+            new() { Id = 34, DifficultyId = 8, LanguageCode = "de", Label = "Göttlich" },
+            new() { Id = 35, DifficultyId = 9, LanguageCode = "fr", Label = "Surhumain" },
+            new() { Id = 36, DifficultyId = 9, LanguageCode = "de", Label = "Übermenschlich" }
         };
         modelBuilder.Entity<DifficultyTranslation>().HasData(translations);
 
@@ -101,7 +119,13 @@ public class AppDbContext : DbContext
             new Achievement { Id = 5, Code = "FLAWLESS", Icon = "bolt" },
             new Achievement { Id = 6, Code = "ALL_DIFFICULTIES", Icon = "travel_explore" },
             new Achievement { Id = 7, Code = "HARDEST_DIFFICULTY", Icon = "emoji_events" },
-            new Achievement { Id = 8, Code = "NIGHT_OWL", Icon = "nightlight" }
+            new Achievement { Id = 8, Code = "NIGHT_OWL", Icon = "nightlight" },
+            new Achievement { Id = 9, Code = "FIVE_HUNDRED_GAMES", Icon = "diamond" },
+            new Achievement { Id = 10, Code = "EARLY_BIRD", Icon = "wb_twilight" },
+            new Achievement { Id = 11, Code = "WEEKEND_WARRIOR", Icon = "weekend" },
+            new Achievement { Id = 12, Code = "PERFECT_STREAK", Icon = "auto_awesome" },
+            new Achievement { Id = 13, Code = "MARATHON_DAY", Icon = "directions_run" },
+            new Achievement { Id = 14, Code = "FLAWLESS_LEGEND", Icon = "verified" }
         };
         modelBuilder.Entity<Achievement>().HasData(achievements);
 
@@ -122,7 +146,47 @@ public class AppDbContext : DbContext
             new() { Id = 13, AchievementId = 7, LanguageCode = "en", Name = "Godlike", Description = "Win a game on the hardest difficulty." },
             new() { Id = 14, AchievementId = 7, LanguageCode = "it", Name = "Sovrumano", Description = "Vinci una partita nella difficoltà più alta." },
             new() { Id = 15, AchievementId = 8, LanguageCode = "en", Name = "Night Owl", Description = "Complete a game between midnight and 5 AM." },
-            new() { Id = 16, AchievementId = 8, LanguageCode = "it", Name = "Nottambulo", Description = "Completa una partita tra mezzanotte e le 5 del mattino." }
+            new() { Id = 16, AchievementId = 8, LanguageCode = "it", Name = "Nottambulo", Description = "Completa una partita tra mezzanotte e le 5 del mattino." },
+            new() { Id = 17, AchievementId = 1, LanguageCode = "fr", Name = "Premiers Pas", Description = "Termine ta première partie." },
+            new() { Id = 18, AchievementId = 1, LanguageCode = "de", Name = "Erste Schritte", Description = "Schließe dein erstes Spiel ab." },
+            new() { Id = 19, AchievementId = 2, LanguageCode = "fr", Name = "Habitué", Description = "Joue 10 parties." },
+            new() { Id = 20, AchievementId = 2, LanguageCode = "de", Name = "Stammspieler", Description = "Spiele 10 Partien." },
+            new() { Id = 21, AchievementId = 3, LanguageCode = "fr", Name = "Vétéran", Description = "Joue 50 parties." },
+            new() { Id = 22, AchievementId = 3, LanguageCode = "de", Name = "Veteran", Description = "Spiele 50 Partien." },
+            new() { Id = 23, AchievementId = 4, LanguageCode = "fr", Name = "Légende", Description = "Joue 100 parties." },
+            new() { Id = 24, AchievementId = 4, LanguageCode = "de", Name = "Legende", Description = "Spiele 100 Partien." },
+            new() { Id = 25, AchievementId = 5, LanguageCode = "fr", Name = "Mémoire de Fer", Description = "Termine une partie sans la moindre erreur." },
+            new() { Id = 26, AchievementId = 5, LanguageCode = "de", Name = "Eisernes Gedächtnis", Description = "Schließe eine Partie ohne einen einzigen Fehlversuch ab." },
+            new() { Id = 27, AchievementId = 6, LanguageCode = "fr", Name = "Explorateur", Description = "Gagne au moins une partie à chaque niveau de difficulté." },
+            new() { Id = 28, AchievementId = 6, LanguageCode = "de", Name = "Entdecker", Description = "Gewinne mindestens eine Partie auf jedem Schwierigkeitsgrad." },
+            new() { Id = 29, AchievementId = 7, LanguageCode = "fr", Name = "Surhumain", Description = "Gagne une partie au niveau de difficulté le plus élevé." },
+            new() { Id = 30, AchievementId = 7, LanguageCode = "de", Name = "Übermenschlich", Description = "Gewinne eine Partie auf dem höchsten Schwierigkeitsgrad." },
+            new() { Id = 31, AchievementId = 8, LanguageCode = "fr", Name = "Oiseau de Nuit", Description = "Termine une partie entre minuit et 5 heures du matin." },
+            new() { Id = 32, AchievementId = 8, LanguageCode = "de", Name = "Nachteule", Description = "Schließe eine Partie zwischen Mitternacht und 5 Uhr morgens ab." },
+            new() { Id = 33, AchievementId = 9, LanguageCode = "en", Name = "Unstoppable", Description = "Play 500 games." },
+            new() { Id = 34, AchievementId = 9, LanguageCode = "it", Name = "Inarrestabile", Description = "Gioca 500 partite." },
+            new() { Id = 35, AchievementId = 9, LanguageCode = "fr", Name = "Inarrêtable", Description = "Joue 500 parties." },
+            new() { Id = 36, AchievementId = 9, LanguageCode = "de", Name = "Unaufhaltsam", Description = "Spiele 500 Partien." },
+            new() { Id = 37, AchievementId = 10, LanguageCode = "en", Name = "Early Bird", Description = "Complete a game between 5 AM and 8 AM." },
+            new() { Id = 38, AchievementId = 10, LanguageCode = "it", Name = "Mattiniero", Description = "Completa una partita tra le 5 e le 8 del mattino." },
+            new() { Id = 39, AchievementId = 10, LanguageCode = "fr", Name = "Lève-tôt", Description = "Termine une partie entre 5 h et 8 h du matin." },
+            new() { Id = 40, AchievementId = 10, LanguageCode = "de", Name = "Frühaufsteher", Description = "Schließe eine Partie zwischen 5 und 8 Uhr morgens ab." },
+            new() { Id = 41, AchievementId = 11, LanguageCode = "en", Name = "Weekend Warrior", Description = "Play a game on Saturday or Sunday." },
+            new() { Id = 42, AchievementId = 11, LanguageCode = "it", Name = "Guerriero del Weekend", Description = "Gioca una partita di sabato o domenica." },
+            new() { Id = 43, AchievementId = 11, LanguageCode = "fr", Name = "Guerrier du Week-end", Description = "Joue une partie le samedi ou le dimanche." },
+            new() { Id = 44, AchievementId = 11, LanguageCode = "de", Name = "Wochenendkrieger", Description = "Spiele eine Partie am Samstag oder Sonntag." },
+            new() { Id = 45, AchievementId = 12, LanguageCode = "en", Name = "Perfectionist", Description = "Complete 3 flawless games." },
+            new() { Id = 46, AchievementId = 12, LanguageCode = "it", Name = "Perfezionista", Description = "Completa 3 partite senza errori." },
+            new() { Id = 47, AchievementId = 12, LanguageCode = "fr", Name = "Perfectionniste", Description = "Termine 3 parties sans la moindre erreur." },
+            new() { Id = 48, AchievementId = 12, LanguageCode = "de", Name = "Perfektionist", Description = "Schließe 3 fehlerfreie Partien ab." },
+            new() { Id = 49, AchievementId = 13, LanguageCode = "en", Name = "Marathon Runner", Description = "Play 5 games in a single day." },
+            new() { Id = 50, AchievementId = 13, LanguageCode = "it", Name = "Maratoneta", Description = "Gioca 5 partite in un solo giorno." },
+            new() { Id = 51, AchievementId = 13, LanguageCode = "fr", Name = "Marathonien", Description = "Joue 5 parties en une seule journée." },
+            new() { Id = 52, AchievementId = 13, LanguageCode = "de", Name = "Marathonläufer", Description = "Spiele 5 Partien an einem einzigen Tag." },
+            new() { Id = 53, AchievementId = 14, LanguageCode = "en", Name = "Flawless Legend", Description = "Complete the hardest difficulty flawlessly." },
+            new() { Id = 54, AchievementId = 14, LanguageCode = "it", Name = "Leggenda Perfetta", Description = "Completa la difficoltà più alta senza errori." },
+            new() { Id = 55, AchievementId = 14, LanguageCode = "fr", Name = "Légende Parfaite", Description = "Termine le niveau de difficulté le plus élevé sans la moindre erreur." },
+            new() { Id = 56, AchievementId = 14, LanguageCode = "de", Name = "Makellose Legende", Description = "Schließe den höchsten Schwierigkeitsgrad fehlerfrei ab." }
         };
         modelBuilder.Entity<AchievementTranslation>().HasData(achievementTranslations);
 

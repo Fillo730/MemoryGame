@@ -29,6 +29,23 @@ public class AchievementRulesEvaluator : IAchievementRulesEvaluator
         if (results.Any(r => r.PlayedAt.Hour >= 0 && r.PlayedAt.Hour < 5))
             unlocked.Add(AchievementCodes.NightOwl);
 
+        if (totalGames >= 500) unlocked.Add(AchievementCodes.FiveHundredGames);
+
+        if (results.Any(r => r.PlayedAt.Hour >= 5 && r.PlayedAt.Hour < 8))
+            unlocked.Add(AchievementCodes.EarlyBird);
+
+        if (results.Any(r => r.PlayedAt.DayOfWeek == DayOfWeek.Saturday || r.PlayedAt.DayOfWeek == DayOfWeek.Sunday))
+            unlocked.Add(AchievementCodes.WeekendWarrior);
+
+        if (results.Count(r => r.Moves == r.Difficulty.NumberOfPairs) >= 3)
+            unlocked.Add(AchievementCodes.PerfectStreak);
+
+        if (results.GroupBy(r => r.PlayedAt.Date).Any(g => g.Count() >= 5))
+            unlocked.Add(AchievementCodes.MarathonDay);
+
+        if (results.Any(r => r.DifficultyId == hardestDifficultyId && r.Moves == r.Difficulty.NumberOfPairs))
+            unlocked.Add(AchievementCodes.FlawlessLegend);
+
         return unlocked;
     }
 }

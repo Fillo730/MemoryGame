@@ -48,7 +48,10 @@ export class ProfilePage {
   public currentUser = computed(() => this.authService.currentUser()!);
   public userData = computed<UpdateProfile>(() => ({
     username: this.currentUser().username,
-    email: this.currentUser().email
+    email: this.currentUser().email,
+    bio: this.currentUser().bio,
+    country: this.currentUser().country,
+    birthDate: (this.currentUser().birthDate as unknown as string | null)?.slice(0, 10) ?? null
   }))
   public initials = computed(() => this.currentUser().username.slice(0, 2).toUpperCase());
   public playedStats = computed(() => (this.userStats() ?? []).filter(stat => stat.gamesPlayed > 0));
@@ -74,6 +77,19 @@ export class ProfilePage {
 
     return total === 0 ? 0 : Math.round((this.unlockedAchievementsCount() / total) * 100);
   });
+
+  public readonly achievementsPageSize = 6;
+  public achievementsPage = signal<number>(1);
+  public totalAchievementsPages = computed(() =>
+    Math.max(1, Math.ceil(this.sortedAchievements().length / this.achievementsPageSize))
+  );
+  public pagedAchievements = computed(() => {
+    const start = (this.achievementsPage() - 1) * this.achievementsPageSize;
+    return this.sortedAchievements().slice(start, start + this.achievementsPageSize);
+  });
+  public achievementsPageNumbers = computed(() =>
+    Array.from({ length: this.totalAchievementsPages() }, (_, i) => i + 1)
+  );
 
   public isLoading = signal<boolean>(false);
   public error = signal<string | null>(null);
@@ -111,9 +127,22 @@ export class ProfilePage {
       next: (response) => {
         if (response.success) {
           this.achievements.set(response.data);
+          this.achievementsPage.set(1);
         }
       }
     });
+  }
+
+  public handleAchievementsPrevPage(): void {
+    this.achievementsPage.update(page => Math.max(1, page - 1));
+  }
+
+  public handleAchievementsNextPage(): void {
+    this.achievementsPage.update(page => Math.min(this.totalAchievementsPages(), page + 1));
+  }
+
+  public handleAchievementsGoToPage(page: number): void {
+    this.achievementsPage.set(page);
   }
 
   public handleEditProfile() : void {

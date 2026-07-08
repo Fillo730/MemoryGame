@@ -23,6 +23,34 @@
         /><br />
     </div>
 
+    <div class="form-modal margin-bottom">
+        <label class="big-text light-color label-width">{{ 'Profile.EditModal.CountryLabel' | translate }}:</label>
+        <input
+        type="text"
+        formControlName="country"
+        class="input-field"
+        /><br />
+    </div>
+
+    <div class="form-modal margin-bottom">
+        <label class="big-text light-color label-width">{{ 'Profile.EditModal.BirthDateLabel' | translate }}:</label>
+        <input
+        type="date"
+        formControlName="birthDate"
+        class="input-field"
+        /><br />
+    </div>
+
+    <div class="form-modal margin-bottom">
+        <label class="big-text light-color label-width">{{ 'Profile.EditModal.BioLabel' | translate }}:</label>
+        <textarea
+        formControlName="bio"
+        class="input-field"
+        rows="3"
+        maxlength="280"
+        ></textarea><br />
+    </div>
+
     @if (error()) {
         <p style="color: red">{{ error() }}</p>
     }

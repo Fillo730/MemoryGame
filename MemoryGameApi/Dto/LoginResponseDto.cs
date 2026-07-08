@@ -15,4 +15,10 @@ public class LoginResponseDto
     public DateTime ExpiresDate { get; set; }
 
     public int Id { get; set; }
+
+    public string? Bio { get; set; }
+
+    public string? Country { get; set; }
+
+    public DateTime? BirthDate { get; set; }
 }

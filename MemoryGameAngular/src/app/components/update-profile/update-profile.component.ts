@@ -40,9 +40,14 @@ export class UpdateProfileComponent {
         validators: [Validators.minLength(5), Validators.required]
       }),
       email: new FormControl<string>(this.initialData.email , {
-        nonNullable: true, 
+        nonNullable: true,
         validators: [Validators.email, Validators.required]
-      })
+      }),
+      bio: new FormControl<string | null>(this.initialData.bio, {
+        validators: [Validators.maxLength(280)]
+      }),
+      country: new FormControl<string | null>(this.initialData.country),
+      birthDate: new FormControl<string | null>(this.initialData.birthDate)
     })
   }
 

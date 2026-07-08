@@ -1,13 +1,18 @@
 <div class="dropdown">
   <button class="dropbtn">
-    <span class="material-symbols-outlined">language</span>
+    <span class="flag">{{ currentLangOption()?.flag }}</span>
     <span class="current-code">{{ languageService.language() }}</span>
+    <span class="material-symbols-outlined chevron">expand_more</span>
   </button>
-  
+
   <div class="dropdown-content">
     @for (lang of appConfig.LANG_OPTIONS; track lang.value) {
-      <a (click)="languageService.setLanguage(lang.value)">
-        {{ lang.label }}
+      <a
+        (click)="changeLanguage(lang.value)"
+        [class.active]="lang.value === languageService.language()"
+      >
+        <span class="flag">{{ lang.flag }}</span>
+        <span>{{ lang.label }}</span>
       </a>
     }
   </div>

@@ -6,10 +6,12 @@ import { THEMES } from "../models/types/Theme.model";
 
 export const APP_CONFIG = {
     DEFAULT_LANGUAGE: LANGUAGES.ITALIANO,
-    SUPPORTED_LANGUAGES: [LANGUAGES.ITALIANO, LANGUAGES.ENGLISH],
+    SUPPORTED_LANGUAGES: [LANGUAGES.ITALIANO, LANGUAGES.ENGLISH, LANGUAGES.FRANCESE, LANGUAGES.TEDESCO],
     LANG_OPTIONS: [
-        { label: "Italiano", value: LANGUAGES.ITALIANO },
-        { label: "English", value: LANGUAGES.ENGLISH },
+        { label: "Italiano", value: LANGUAGES.ITALIANO, flag: "🇮🇹" },
+        { label: "English", value: LANGUAGES.ENGLISH, flag: "🇬🇧" },
+        { label: "Français", value: LANGUAGES.FRANCESE, flag: "🇫🇷" },
+        { label: "Deutsch", value: LANGUAGES.TEDESCO, flag: "🇩🇪" },
     ],
     DEFAULT_THEME: THEMES.DARK,
 } as const;

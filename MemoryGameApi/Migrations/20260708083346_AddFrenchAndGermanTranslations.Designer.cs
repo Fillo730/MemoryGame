@@ -3,6 +3,7 @@ using System;
 using MemoryGame_API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MemoryGameApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260708083346_AddFrenchAndGermanTranslations")]
+    partial class AddFrenchAndGermanTranslations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
@@ -83,42 +86,6 @@ namespace MemoryGameApi.Migrations
                             Id = 8,
                             Code = "NIGHT_OWL",
                             Icon = "nightlight"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Code = "FIVE_HUNDRED_GAMES",
-                            Icon = "diamond"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Code = "EARLY_BIRD",
-                            Icon = "wb_twilight"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            Code = "WEEKEND_WARRIOR",
-                            Icon = "weekend"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            Code = "PERFECT_STREAK",
-                            Icon = "auto_awesome"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            Code = "MARATHON_DAY",
-                            Icon = "directions_run"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            Code = "FLAWLESS_LEGEND",
-                            Icon = "verified"
                         });
                 });
 
@@ -405,198 +372,6 @@ namespace MemoryGameApi.Migrations
                             Description = "Schließe eine Partie zwischen Mitternacht und 5 Uhr morgens ab.",
                             LanguageCode = "de",
                             Name = "Nachteule"
-                        },
-                        new
-                        {
-                            Id = 33,
-                            AchievementId = 9,
-                            Description = "Play 500 games.",
-                            LanguageCode = "en",
-                            Name = "Unstoppable"
-                        },
-                        new
-                        {
-                            Id = 34,
-                            AchievementId = 9,
-                            Description = "Gioca 500 partite.",
-                            LanguageCode = "it",
-                            Name = "Inarrestabile"
-                        },
-                        new
-                        {
-                            Id = 35,
-                            AchievementId = 9,
-                            Description = "Joue 500 parties.",
-                            LanguageCode = "fr",
-                            Name = "Inarrêtable"
-                        },
-                        new
-                        {
-                            Id = 36,
-                            AchievementId = 9,
-                            Description = "Spiele 500 Partien.",
-                            LanguageCode = "de",
-                            Name = "Unaufhaltsam"
-                        },
-                        new
-                        {
-                            Id = 37,
-                            AchievementId = 10,
-                            Description = "Complete a game between 5 AM and 8 AM.",
-                            LanguageCode = "en",
-                            Name = "Early Bird"
-                        },
-                        new
-                        {
-                            Id = 38,
-                            AchievementId = 10,
-                            Description = "Completa una partita tra le 5 e le 8 del mattino.",
-                            LanguageCode = "it",
-                            Name = "Mattiniero"
-                        },
-                        new
-                        {
-                            Id = 39,
-                            AchievementId = 10,
-                            Description = "Termine une partie entre 5 h et 8 h du matin.",
-                            LanguageCode = "fr",
-                            Name = "Lève-tôt"
-                        },
-                        new
-                        {
-                            Id = 40,
-                            AchievementId = 10,
-                            Description = "Schließe eine Partie zwischen 5 und 8 Uhr morgens ab.",
-                            LanguageCode = "de",
-                            Name = "Frühaufsteher"
-                        },
-                        new
-                        {
-                            Id = 41,
-                            AchievementId = 11,
-                            Description = "Play a game on Saturday or Sunday.",
-                            LanguageCode = "en",
-                            Name = "Weekend Warrior"
-                        },
-                        new
-                        {
-                            Id = 42,
-                            AchievementId = 11,
-                            Description = "Gioca una partita di sabato o domenica.",
-                            LanguageCode = "it",
-                            Name = "Guerriero del Weekend"
-                        },
-                        new
-                        {
-                            Id = 43,
-                            AchievementId = 11,
-                            Description = "Joue une partie le samedi ou le dimanche.",
-                            LanguageCode = "fr",
-                            Name = "Guerrier du Week-end"
-                        },
-                        new
-                        {
-                            Id = 44,
-                            AchievementId = 11,
-                            Description = "Spiele eine Partie am Samstag oder Sonntag.",
-                            LanguageCode = "de",
-                            Name = "Wochenendkrieger"
-                        },
-                        new
-                        {
-                            Id = 45,
-                            AchievementId = 12,
-                            Description = "Complete 3 flawless games.",
-                            LanguageCode = "en",
-                            Name = "Perfectionist"
-                        },
-                        new
-                        {
-                            Id = 46,
-                            AchievementId = 12,
-                            Description = "Completa 3 partite senza errori.",
-                            LanguageCode = "it",
-                            Name = "Perfezionista"
-                        },
-                        new
-                        {
-                            Id = 47,
-                            AchievementId = 12,
-                            Description = "Termine 3 parties sans la moindre erreur.",
-                            LanguageCode = "fr",
-                            Name = "Perfectionniste"
-                        },
-                        new
-                        {
-                            Id = 48,
-                            AchievementId = 12,
-                            Description = "Schließe 3 fehlerfreie Partien ab.",
-                            LanguageCode = "de",
-                            Name = "Perfektionist"
-                        },
-                        new
-                        {
-                            Id = 49,
-                            AchievementId = 13,
-                            Description = "Play 5 games in a single day.",
-                            LanguageCode = "en",
-                            Name = "Marathon Runner"
-                        },
-                        new
-                        {
-                            Id = 50,
-                            AchievementId = 13,
-                            Description = "Gioca 5 partite in un solo giorno.",
-                            LanguageCode = "it",
-                            Name = "Maratoneta"
-                        },
-                        new
-                        {
-                            Id = 51,
-                            AchievementId = 13,
-                            Description = "Joue 5 parties en une seule journée.",
-                            LanguageCode = "fr",
-                            Name = "Marathonien"
-                        },
-                        new
-                        {
-                            Id = 52,
-                            AchievementId = 13,
-                            Description = "Spiele 5 Partien an einem einzigen Tag.",
-                            LanguageCode = "de",
-                            Name = "Marathonläufer"
-                        },
-                        new
-                        {
-                            Id = 53,
-                            AchievementId = 14,
-                            Description = "Complete the hardest difficulty flawlessly.",
-                            LanguageCode = "en",
-                            Name = "Flawless Legend"
-                        },
-                        new
-                        {
-                            Id = 54,
-                            AchievementId = 14,
-                            Description = "Completa la difficoltà più alta senza errori.",
-                            LanguageCode = "it",
-                            Name = "Leggenda Perfetta"
-                        },
-                        new
-                        {
-                            Id = 55,
-                            AchievementId = 14,
-                            Description = "Termine le niveau de difficulté le plus élevé sans la moindre erreur.",
-                            LanguageCode = "fr",
-                            Name = "Légende Parfaite"
-                        },
-                        new
-                        {
-                            Id = 56,
-                            AchievementId = 14,
-                            Description = "Schließe den höchsten Schwierigkeitsgrad fehlerfrei ab.",
-                            LanguageCode = "de",
-                            Name = "Makellose Legende"
                         });
                 });
 

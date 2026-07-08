@@ -107,6 +107,12 @@
       "Achievements": "Achievement",
       "FavoriteDifficulty": "Difficoltà preferita"
     },
+    "Info": {
+      "Username": "Username",
+      "Email": "Email",
+      "Country": "Paese",
+      "BirthDate": "Data di nascita"
+    },
     "Loading": {
       "Title": "Caricamento statistiche",
       "Text": "Stiamo recuperando le tue partite."
@@ -118,7 +124,10 @@
       "Title": "Modifica Profilo",
       "Description": "Qui puoi modificare le informazioni del tuo profilo",
       "UsernameLabel": "Username",
-      "EmailLabel": "Email"
+      "EmailLabel": "Email",
+      "CountryLabel": "Paese",
+      "BirthDateLabel": "Data di nascita",
+      "BioLabel": "Biografia"
     },
     "Achievements": {
       "Title": "Achievement",
@@ -153,7 +162,9 @@
   "Common": {
     "Note": "Nota",
     "Save": "Salva",
-    "Cancel": "Annulla"
+    "Cancel": "Annulla",
+    "Previous": "Precedente",
+    "Next": "Successivo"
   },
   "Errors": {
     "Required": "Il campo è obbligatorio",

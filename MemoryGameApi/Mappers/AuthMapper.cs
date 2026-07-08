@@ -26,7 +26,10 @@ public class AuthMapper : IAuthMapper
             Username = user.Username,
             Email = user.Email,
             UserRole = user.Role,
-            ExpiresDate = expiratesDate
+            ExpiresDate = expiratesDate,
+            Bio = user.Bio,
+            Country = user.Country,
+            BirthDate = user.BirthDate
         };
     }
 }

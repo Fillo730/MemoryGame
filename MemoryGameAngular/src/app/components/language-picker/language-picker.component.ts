@@ -1,5 +1,5 @@
 //Angular
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 
 //Services
 import { LanguageService } from '../../services/language-service.service';
@@ -21,6 +21,10 @@ export class LanguagePickerComponent {
   public languageService = inject(LanguageService);
 
   public appConfig = APP_CONFIG;
+
+  public currentLangOption = computed(() =>
+    this.appConfig.LANG_OPTIONS.find(lang => lang.value === this.languageService.language())
+  );
 
   public changeLanguage(lang: string) {
     this.languageService.setLanguage(lang as LanguageType);

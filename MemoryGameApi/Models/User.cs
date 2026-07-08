@@ -16,5 +16,11 @@ public class User
 
     public UserRoleEnum Role {  get; set; }
 
+    public string? Bio { get; set; }
+
+    public string? Country { get; set; }
+
+    public DateTime? BirthDate { get; set; }
+
     public virtual ICollection<GameResult> GameResults { get; set; } = new List<GameResult>();
 }

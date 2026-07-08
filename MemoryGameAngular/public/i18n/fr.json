@@ -1,0 +1,175 @@
+{
+  "Routes": {
+    "profile": "profil",
+    "home": "accueil",
+    "play": "jouer",
+    "login": "connexion",
+    "signup": "inscription",
+    "about": "a-propos",
+    "dashboard": "classement"
+  },
+  "Header": {
+    "Home": "Accueil",
+    "Play": "Jouer",
+    "About": "À propos",
+    "Login": "Connexion",
+    "SignUp": "Inscription",
+    "Dashboard": "Classement",
+    "Greeting": "Salut {{ name }}"
+  },
+  "About": {
+    "WhoAmITitle": "Qui suis-je ?",
+    "WhoAmIDescription": "Salut ! Je suis ingénieur logiciel passionné par le développement web et le game design. J'ai créé ce memory game comme projet pour améliorer mes compétences et offrir une expérience amusante. J'espère que vous prendrez autant de plaisir à y jouer que j'en ai eu à le créer !",
+    "SourceCodeTitle": "Code source",
+    "SourceCodeDescription": "Si le code source vous intéresse, vous pouvez le trouver sur mon dépôt GitHub. N'hésitez pas à y jeter un œil, à contribuer ou à l'utiliser comme référence.",
+    "ConnectTitle": "Restons en contact",
+    "ConnectDescription": "J'aimerais échanger avec vous et recevoir vos retours sur le jeu !",
+    "githubButtonLabel": "Profil Github",
+    "LinkedinButtonLabel": "Profil Linkedin"
+  },
+  "Home": {
+    "WhatIsItTitle": "Qu'est-ce que ce Memory Game ?",
+    "WhatIsItText": "Un site simple et efficace qui vous permet d'entraîner votre cerveau et votre esprit, en suivant vos statistiques et vos performances au fil du temps. Le jeu est simple : vous devez retrouver les paires de cartes portant la même image.<br/>Bonne chance et amusez-vous bien !",
+    "WhyNatureTitle": "Pourquoi la nature ?",
+    "WhyNatureText": "Les images utilisées dans ce jeu sont toutes liées à la nature. La nature est une grande source d'inspiration et de beauté, capable de créer une atmosphère relaxante et agréable pendant le jeu. De plus, les images naturelles sont visuellement stimulantes et peuvent aider à améliorer la rétention de la mémoire.",
+    "WhereFromTitle": "D'où viennent ces images ?",
+    "WhereFromText": "Les images utilisées proviennent d'Unsplash, un site qui propose des photographies de haute qualité libres de droits. Vous trouverez plus d'informations sur les images et leurs auteurs directement sur le site d'Unsplash.",
+    "PlayNow": "Jouer maintenant",
+    "LoadMoreButtonLabel": "Charger plus",
+    "LoadMoreText": "Regardez ces magnifiques images. Nous en avons <strong class=\"light-color\">{{numberOfImages}}</strong> disponibles !"
+  },
+  "Play": {
+    "SelectDifficulty": "Sélectionnez la difficulté",
+    "DifficultyDescription": "Chaque grande histoire commence par un choix. Sélectionnez le niveau de défi et prouvez que vous avez une mémoire digne d'un Oscar.",
+    "ChooseWisely": "Choisissez judicieusement : un défi trop simple n'entraîne pas la mémoire, un défi trop difficile pourrait vous embrouiller.",
+    "LoginWarning": "Vous n'êtes pas connecté, votre progression ne sera pas enregistrée.",
+    "SelectedDifficulty": "Vous avez sélectionné la difficulté",
+    "CurrentAttempts": "Tentatives actuelles",
+    "CompletedTitle": "Bravo !",
+    "CompletedMessage": "Vous avez terminé le défi en {{moves}} coups !",
+    "NextLevel": "Niveau suivant",
+    "PlayAgain": "Réessayer",
+    "GoBack": "Retour",
+    "PlayInstructions": "Toutes les cartes sont retournées. Cliquez sur une carte pour la retourner et cherchez sa paire. En cas d'échec, elles se retourneront à nouveau : mémorisez leur position !",
+    "ColumnsLabel": "Colonnes",
+    "CardAriaLabel": "Carte ligne {{ row }}, colonne {{ col }}, {{ state }}",
+    "CardStateCovered": "cachée",
+    "CardStateRevealed": "visible",
+    "CardStateMatched": "associée",
+    "Loading": {
+      "Title": "Préparation des niveaux",
+      "Text": "Nous préparons les défis disponibles. Choisissez celui qui vous convient le mieux !"
+    },
+    "Error": {
+      "Title": "Oups ! Une erreur est survenue",
+      "Text": "Impossible de récupérer les niveaux de difficulté depuis le serveur. Vérifiez votre connexion et réessayez.",
+      "ActionButtonLabel": "Réessayer"
+    }
+  },
+  "Login": {
+    "Title": "Connectez-vous",
+    "Label": "Connexion",
+    "SignUpLabel": "Inscription",
+    "GoBackLabel": "Retour",
+    "UsernameLabel": "Nom d'utilisateur",
+    "PasswordLabel": "Mot de passe",
+    "LoginError": "Identifiants incorrects",
+    "HttpError": "Impossible de se connecter",
+    "Loading": "Chargement..."
+  },
+  "Signup": {
+    "Label": "Créer un compte",
+    "UsernameLabel": "Nom d'utilisateur",
+    "EmailLabel": "Email",
+    "PasswordLabel": "Mot de passe",
+    "ConfirmPasswordLabel": "Confirmez le mot de passe",
+    "SignupLabel": "S'inscrire",
+    "GoToLoginLabel": "Vous avez déjà un compte ?",
+    "GoBackLabel": "Retour",
+    "Loading": "Création du compte...",
+    "InvalidForm": "Vérifiez les données saisies avant d'envoyer.",
+    "HttpError": "Erreur lors de l'inscription. Veuillez réessayer plus tard."
+  },
+  "Profile": {
+    "Greetings": "Salut {{ name }}",
+    "EditProfileButtonLabel": "Modifier le profil",
+    "GamesPlayedTitle": "Statistiques des parties jouées",
+    "LogoutLabel": "Déconnexion",
+    "NoGamesTitle": "Aucune partie pour l'instant",
+    "NoGamesText": "Vous n'avez encore joué à aucune partie. Jouez votre premier défi !",
+    "Stats": {
+      "GamesPlayed": "Parties jouées",
+      "AverageMoves": "Coups moyens",
+      "BestScore": "Meilleur score"
+    },
+    "Kpi": {
+      "TotalGames": "Parties totales",
+      "Achievements": "Succès",
+      "FavoriteDifficulty": "Difficulté préférée"
+    },
+    "Info": {
+      "Username": "Nom d'utilisateur",
+      "Email": "Email",
+      "Country": "Pays",
+      "BirthDate": "Date de naissance"
+    },
+    "Loading": {
+      "Title": "Chargement des statistiques",
+      "Text": "Nous récupérons vos parties."
+    },
+    "Error": {
+      "Title": "Oups ! Une erreur est survenue"
+    },
+    "EditModal": {
+      "Title": "Modifier le profil",
+      "Description": "Vous pouvez modifier ici les informations de votre profil",
+      "UsernameLabel": "Nom d'utilisateur",
+      "EmailLabel": "Email",
+      "CountryLabel": "Pays",
+      "BirthDateLabel": "Date de naissance",
+      "BioLabel": "Biographie"
+    },
+    "Achievements": {
+      "Title": "Succès",
+      "Text": "Débloquez des badges en jouant et en améliorant vos parties."
+    }
+  },
+  "Dashboard": {
+    "Title": "Classement",
+    "Text": "Découvrez qui domine le Memory Game : les joueurs les plus actifs, les difficultés les plus jouées et les meilleurs scores de tous les temps.",
+    "TopPlayersTitle": "Top 10 des joueurs par parties terminées",
+    "TopPlayersRank": "Parties terminées : {{ games }}",
+    "GamesPerDifficultyTitle": "Parties terminées par difficulté",
+    "BestScoresTitle": "Meilleur score par difficulté",
+    "BestScoresEntry": "{{ moves }} coups",
+    "NoResultTitle": "Aucune donnée disponible",
+    "NoResultText": "Aucune partie n'a encore été enregistrée. Jouez un défi pour être le premier au classement !",
+    "Loading": {
+      "Title": "Chargement du classement",
+      "Text": "Nous rassemblons les statistiques de tous les joueurs."
+    },
+    "Error": {
+      "Title": "Oups ! Une erreur est survenue",
+      "Text": "Impossible de récupérer le classement depuis le serveur. Vérifiez votre connexion et réessayez.",
+      "ActionButtonLabel": "Réessayer"
+    }
+  },
+  "Components": {
+    "GenericCard": {
+      "CardLabel": "{{ n }} Cartes"
+    }
+  },
+  "Common": {
+    "Note": "Remarque",
+    "Save": "Enregistrer",
+    "Cancel": "Annuler",
+    "Previous": "Précédent",
+    "Next": "Suivant"
+  },
+  "Errors": {
+    "Required": "Ce champ est obligatoire",
+    "MinLength": "Ce champ doit contenir au moins {{ min }} caractères",
+    "InvalidEmail": "Veuillez saisir une adresse email valide",
+    "PasswordMismatch": "Les mots de passe ne correspondent pas"
+  }
+}

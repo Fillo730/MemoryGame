@@ -39,6 +39,9 @@ public class UsersService(
         
         user.Username = updateRequest.Username;
         user.Email = updateRequest.Email;
+        user.Bio = updateRequest.Bio;
+        user.Country = updateRequest.Country;
+        user.BirthDate = updateRequest.BirthDate;
 
         
         await _usersRepository.SaveChangesAsync();

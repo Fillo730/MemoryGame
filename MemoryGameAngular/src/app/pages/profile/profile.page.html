@@ -7,15 +7,54 @@
       <h1 class="profile-username light-color">{{ currentUser().username }}</h1>
       <p class="profile-greeting">{{ 'Profile.Greetings' | translate : {name: currentUser().username} }}</p>
 
+      @if (currentUser().bio) {
+        <p class="profile-bio">
+          <span class="material-symbols-outlined profile-bio-quote">format_quote</span>
+          {{ currentUser().bio }}
+        </p>
+      }
+
       <div class="profile-info-card">
         <div class="profile-info-row">
-          <span class="material-symbols-outlined">person</span>
-          <span>{{ currentUser().username }}</span>
+          <span class="profile-info-icon">
+            <span class="material-symbols-outlined">person</span>
+          </span>
+          <div class="profile-info-text">
+            <span class="profile-info-label">{{ 'Profile.Info.Username' | translate }}</span>
+            <span class="profile-info-value">{{ currentUser().username }}</span>
+          </div>
         </div>
         <div class="profile-info-row">
-          <span class="material-symbols-outlined">mail</span>
-          <span>{{ currentUser().email }}</span>
+          <span class="profile-info-icon">
+            <span class="material-symbols-outlined">mail</span>
+          </span>
+          <div class="profile-info-text">
+            <span class="profile-info-label">{{ 'Profile.Info.Email' | translate }}</span>
+            <span class="profile-info-value">{{ currentUser().email }}</span>
+          </div>
         </div>
+        @if (currentUser().country) {
+          <div class="profile-info-row">
+            <span class="profile-info-icon">
+              <span class="material-symbols-outlined">public</span>
+            </span>
+            <div class="profile-info-text">
+              <span class="profile-info-label">{{ 'Profile.Info.Country' | translate }}</span>
+              <span class="profile-info-value">{{ currentUser().country }}</span>
+            </div>
+          </div>
+        }
+        @if (currentUser().birthDate) {
+          <div class="profile-info-row">
+            <span class="profile-info-icon">
+              <span class="material-symbols-outlined">cake</span>
+            </span>
+            <div class="profile-info-text">
+              <span class="profile-info-label">{{ 'Profile.Info.BirthDate' | translate }}</span>
+              <span class="profile-info-value">{{ currentUser().birthDate | date:'dd/MM/yyyy' }}</span>
+            </div>
+          </div>
+        }
       </div>
 
       <div class="profile-actions">
@@ -122,7 +161,7 @@
           </div>
 
           <div class="profile-achievements-grid">
-            @for (achievement of sortedAchievements(); track achievement.id) {
+            @for (achievement of pagedAchievements(); track achievement.id) {
               <div class="achievement-card" [class.locked]="!achievement.unlocked">
                 @if (!achievement.unlocked) {
                   <span class="material-symbols-outlined achievement-lock">lock</span>
@@ -138,6 +177,43 @@
               </div>
             }
           </div>
+
+          @if (totalAchievementsPages() > 1) {
+            <div class="pager">
+              <button
+                type="button"
+                class="pager-nav"
+                [disabled]="achievementsPage() === 1"
+                (click)="handleAchievementsPrevPage()"
+                [attr.aria-label]="'Common.Previous' | translate"
+              >
+                <span class="material-symbols-outlined">chevron_left</span>
+              </button>
+
+              <div class="pager-pages">
+                @for (page of achievementsPageNumbers(); track page) {
+                  <button
+                    type="button"
+                    class="pager-page"
+                    [class.active]="achievementsPage() === page"
+                    (click)="handleAchievementsGoToPage(page)"
+                  >
+                    {{ page }}
+                  </button>
+                }
+              </div>
+
+              <button
+                type="button"
+                class="pager-nav"
+                [disabled]="achievementsPage() === totalAchievementsPages()"
+                (click)="handleAchievementsNextPage()"
+                [attr.aria-label]="'Common.Next' | translate"
+              >
+                <span class="material-symbols-outlined">chevron_right</span>
+              </button>
+            </div>
+          }
         }
       </section>
     </main>
