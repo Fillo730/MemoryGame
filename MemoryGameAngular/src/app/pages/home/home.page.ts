@@ -43,8 +43,40 @@ export class HomePage {
   public platformStats = signal<PlatformStats | null>(null);
   public friendsComparison = signal<FriendComparisonEntry[] | null>(null);
   public isComparisonLoading = signal<boolean>(false);
+  public communityStatIndex = signal(0);
 
   public hasFriendsComparison = computed(() => (this.friendsComparison() ?? []).length > 1);
+
+  public communityStatsItems = computed<{ icon: string; value: string | number; isNumber: boolean; labelKey: string }[]>(() => {
+    const stats = this.platformStats();
+    if (!stats) {
+      return [];
+    }
+
+    const items: { icon: string; value: string | number; isNumber: boolean; labelKey: string }[] = [
+      { icon: 'group', value: stats.totalPlayers, isNumber: true, labelKey: 'Home.CommunityPlayers' },
+      { icon: 'sports_esports', value: stats.totalGamesPlayed, isNumber: true, labelKey: 'Home.CommunityGamesPlayed' },
+    ];
+
+    if (stats.mostPopularDifficulty) {
+      items.push({ icon: 'local_fire_department', value: stats.mostPopularDifficulty.label, isNumber: false, labelKey: 'Home.CommunityPopularDifficulty' });
+    }
+
+    return items;
+  });
+
+  public goToCommunityStat(index: number): void {
+    const max = this.communityStatsItems().length - 1;
+    this.communityStatIndex.set(Math.max(0, Math.min(index, max)));
+  }
+
+  public prevCommunityStat(): void {
+    this.goToCommunityStat(this.communityStatIndex() - 1);
+  }
+
+  public nextCommunityStat(): void {
+    this.goToCommunityStat(this.communityStatIndex() + 1);
+  }
 
   constructor() {
     this.leaderboardService.getPlatformStats().subscribe({

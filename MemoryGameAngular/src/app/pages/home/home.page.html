@@ -30,72 +30,96 @@
     </div>
   </section>
 
-  @if (platformStats()) {
-    <section class="home-section">
-      <h2 class="medium-title light-color section-heading">
-        {{ 'Home.CommunityTitle' | translate }}
-      </h2>
-      <div class="community-stats-grid">
-        <div class="community-stat-card glass-panel">
-          <span class="community-stat-icon-badge">
-            <span class="material-symbols-outlined">group</span>
-          </span>
-          <span class="community-stat-value">{{ platformStats()!.totalPlayers | number }}</span>
-          <span class="community-stat-label">{{ 'Home.CommunityPlayers' | translate }}</span>
-        </div>
-        <div class="community-stat-card glass-panel">
-          <span class="community-stat-icon-badge">
-            <span class="material-symbols-outlined">sports_esports</span>
-          </span>
-          <span class="community-stat-value">{{ platformStats()!.totalGamesPlayed | number }}</span>
-          <span class="community-stat-label">{{ 'Home.CommunityGamesPlayed' | translate }}</span>
-        </div>
-        @if (platformStats()!.mostPopularDifficulty) {
-          <div class="community-stat-card glass-panel">
-            <span class="community-stat-icon-badge">
-              <span class="material-symbols-outlined">local_fire_department</span>
-            </span>
-            <span class="community-stat-value">{{ platformStats()!.mostPopularDifficulty!.label }}</span>
-            <span class="community-stat-label">{{ 'Home.CommunityPopularDifficulty' | translate }}</span>
+  <section class="home-section stats-compare-section">
+    <div class="stats-compare-grid">
+      <div class="stats-compare-col">
+        <h2 class="medium-title light-color section-heading">
+          {{ 'Home.CommunityTitle' | translate }}
+        </h2>
+
+        @if (communityStatsItems().length > 0) {
+          <div class="community-carousel">
+            <button
+              type="button"
+              class="carousel-nav carousel-nav-prev"
+              [disabled]="communityStatIndex() === 0"
+              (click)="prevCommunityStat()"
+              [attr.aria-label]="'Common.Previous' | translate">
+              <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+
+            <div class="community-stat-card glass-panel">
+              <span class="community-stat-icon-badge">
+                <span class="material-symbols-outlined">{{ communityStatsItems()[communityStatIndex()].icon }}</span>
+              </span>
+              <span class="community-stat-value">
+                {{ communityStatsItems()[communityStatIndex()].isNumber
+                    ? (communityStatsItems()[communityStatIndex()].value | number)
+                    : communityStatsItems()[communityStatIndex()].value }}
+              </span>
+              <span class="community-stat-label">{{ communityStatsItems()[communityStatIndex()].labelKey | translate }}</span>
+            </div>
+
+            <button
+              type="button"
+              class="carousel-nav carousel-nav-next"
+              [disabled]="communityStatIndex() === communityStatsItems().length - 1"
+              (click)="nextCommunityStat()"
+              [attr.aria-label]="'Common.Next' | translate">
+              <span class="material-symbols-outlined">chevron_right</span>
+            </button>
           </div>
+
+          @if (communityStatsItems().length > 1) {
+            <div class="carousel-dots">
+              @for (item of communityStatsItems(); track item.labelKey; let i = $index) {
+                <button
+                  type="button"
+                  class="carousel-dot"
+                  [class.carousel-dot-active]="communityStatIndex() === i"
+                  (click)="goToCommunityStat(i)">
+                </button>
+              }
+            </div>
+          }
         }
       </div>
-    </section>
-  }
 
-  <section class="home-section">
-    <h2 class="medium-title light-color section-heading">
-      {{ 'Home.CompareTitle' | translate }}
-    </h2>
+      <div class="stats-compare-col">
+        <h2 class="medium-title light-color section-heading">
+          {{ 'Home.CompareTitle' | translate }}
+        </h2>
 
-    <div class="compare-panel glass-panel">
-      @if (!authService.isLoggedIn()) {
-        <p class="text">{{ 'Home.CompareLoginPrompt' | translate }}</p>
-        <div class="display-horizontal">
-          <custom-button-component [text]="'Header.Login' | translate" (onClick)="navigationService.goToLogin()"></custom-button-component>
-          <custom-button-component [text]="'Header.SignUp' | translate" (onClick)="navigationService.goToSignUp()"></custom-button-component>
-        </div>
-      } @else if (isComparisonLoading()) {
-        <p class="text">{{ 'Home.CompareLoading' | translate }}</p>
-      } @else if (!hasFriendsComparison()) {
-        <p class="text">{{ 'Home.CompareNoFriends' | translate }}</p>
-        <custom-button-component [text]="'Home.CompareGoToProfile' | translate" (onClick)="navigationService.goToProfile()"></custom-button-component>
-      } @else {
-        <ol class="comparison-list">
-          @for (entry of friendsComparison(); track entry.userId; let i = $index) {
-            <li class="comparison-item" [class.comparison-item-self]="entry.isCurrentUser">
-              <span class="comparison-position">{{ i + 1 }}</span>
-              <span class="comparison-name text-color">
-                {{ entry.username }}
-                @if (entry.isCurrentUser) {
-                  <span class="comparison-you-tag">{{ 'Home.CompareYouTag' | translate }}</span>
-                }
-              </span>
-              <span class="comparison-value text">{{ 'Home.CompareGamesPlayed' | translate: { games: entry.totalGamesPlayed } }}</span>
-            </li>
+        <div class="compare-panel glass-panel">
+          @if (!authService.isLoggedIn()) {
+            <p class="text">{{ 'Home.CompareLoginPrompt' | translate }}</p>
+            <div class="display-horizontal">
+              <custom-button-component [text]="'Header.Login' | translate" (onClick)="navigationService.goToLogin()"></custom-button-component>
+              <custom-button-component [text]="'Header.SignUp' | translate" (onClick)="navigationService.goToSignUp()"></custom-button-component>
+            </div>
+          } @else if (isComparisonLoading()) {
+            <p class="text">{{ 'Home.CompareLoading' | translate }}</p>
+          } @else if (!hasFriendsComparison()) {
+            <p class="text">{{ 'Home.CompareNoFriends' | translate }}</p>
+            <custom-button-component [text]="'Home.CompareGoToProfile' | translate" (onClick)="navigationService.goToProfile()"></custom-button-component>
+          } @else {
+            <ol class="comparison-list">
+              @for (entry of friendsComparison(); track entry.userId; let i = $index) {
+                <li class="comparison-item" [class.comparison-item-self]="entry.isCurrentUser">
+                  <span class="comparison-position">{{ i + 1 }}</span>
+                  <span class="comparison-name text-color">
+                    {{ entry.username }}
+                    @if (entry.isCurrentUser) {
+                      <span class="comparison-you-tag">{{ 'Home.CompareYouTag' | translate }}</span>
+                    }
+                  </span>
+                  <span class="comparison-value text">{{ 'Home.CompareGamesPlayed' | translate: { games: entry.totalGamesPlayed } }}</span>
+                </li>
+              }
+            </ol>
           }
-        </ol>
-      }
+        </div>
+      </div>
     </div>
   </section>
 

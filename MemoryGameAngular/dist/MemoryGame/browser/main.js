@@ -41827,7 +41827,7 @@ var NatureGalleryComponent = class _NatureGalleryComponent {
   text;
   buttonLabel;
   defaultImages = [];
-  numberOfImagesShowed = 8;
+  numberOfImagesShowed = 4;
   images;
   randomImages = [];
   ngOnInit() {
@@ -41956,13 +41956,14 @@ var placeholder = "https://img.freepik.com/free-photo/gray-painted-background_53
 // src/app/pages/home/home.page.ts
 var _c02 = (a0) => ({ numberOfImages: a0 });
 var _c1 = (a0) => ({ games: a0 });
-var _forTrack02 = ($index, $item) => $item.userId;
+var _forTrack02 = ($index, $item) => $item.labelKey;
+var _forTrack1 = ($index, $item) => $item.userId;
 function HomePage_For_15_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 22)(1, "div", 23);
+    \u0275\u0275elementStart(0, "div", 24)(1, "div", 25);
     \u0275\u0275text(2, "?");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "div", 24)(4, "span", 18);
+    \u0275\u0275elementStart(3, "div", 26)(4, "span", 20);
     \u0275\u0275text(5);
     \u0275\u0275elementEnd()()();
   }
@@ -41974,95 +41975,110 @@ function HomePage_For_15_Template(rf, ctx) {
     \u0275\u0275textInterpolate(icon_r1);
   }
 }
-function HomePage_Conditional_16_Conditional_25_Template(rf, ctx) {
+function HomePage_Conditional_22_Conditional_19_For_2_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 26)(1, "span", 27)(2, "span", 18);
-    \u0275\u0275text(3, "local_fire_department");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(4, "span", 28);
-    \u0275\u0275text(5);
+    const _r5 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 36);
+    \u0275\u0275listener("click", function HomePage_Conditional_22_Conditional_19_For_2_Template_button_click_0_listener() {
+      const \u0275$index_79_r6 = \u0275\u0275restoreView(_r5).$index;
+      const ctx_r3 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r3.goToCommunityStat(\u0275$index_79_r6));
+    });
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(6, "span", 29);
-    \u0275\u0275text(7);
-    \u0275\u0275pipe(8, "translate");
-    \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext(2);
-    \u0275\u0275advance(5);
-    \u0275\u0275textInterpolate(ctx_r2.platformStats().mostPopularDifficulty.label);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(8, 2, "Home.CommunityPopularDifficulty"));
+    const \u0275$index_79_r6 = ctx.$index;
+    const ctx_r3 = \u0275\u0275nextContext(3);
+    \u0275\u0275classProp("carousel-dot-active", ctx_r3.communityStatIndex() === \u0275$index_79_r6);
   }
 }
-function HomePage_Conditional_16_Template(rf, ctx) {
+function HomePage_Conditional_22_Conditional_19_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "section", 10)(1, "h2", 11);
-    \u0275\u0275text(2);
-    \u0275\u0275pipe(3, "translate");
+    \u0275\u0275elementStart(0, "div", 34);
+    \u0275\u0275repeaterCreate(1, HomePage_Conditional_22_Conditional_19_For_2_Template, 1, 2, "button", 35, _forTrack02);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(4, "div", 25)(5, "div", 26)(6, "span", 27)(7, "span", 18);
-    \u0275\u0275text(8, "group");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(9, "span", 28);
-    \u0275\u0275text(10);
-    \u0275\u0275pipe(11, "number");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(12, "span", 29);
-    \u0275\u0275text(13);
-    \u0275\u0275pipe(14, "translate");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(15, "div", 26)(16, "span", 27)(17, "span", 18);
-    \u0275\u0275text(18, "sports_esports");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(19, "span", 28);
-    \u0275\u0275text(20);
-    \u0275\u0275pipe(21, "number");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(22, "span", 29);
-    \u0275\u0275text(23);
-    \u0275\u0275pipe(24, "translate");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275conditionalCreate(25, HomePage_Conditional_16_Conditional_25_Template, 9, 4, "div", 26);
-    \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext();
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(3, 6, "Home.CommunityTitle"), " ");
-    \u0275\u0275advance(8);
-    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(11, 8, ctx_r2.platformStats().totalPlayers));
-    \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(14, 10, "Home.CommunityPlayers"));
-    \u0275\u0275advance(7);
-    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(21, 12, ctx_r2.platformStats().totalGamesPlayed));
-    \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(24, 14, "Home.CommunityGamesPlayed"));
-    \u0275\u0275advance(2);
-    \u0275\u0275conditional(ctx_r2.platformStats().mostPopularDifficulty ? 25 : -1);
+    const ctx_r3 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance();
+    \u0275\u0275repeater(ctx_r3.communityStatsItems());
   }
 }
 function HomePage_Conditional_22_Template(rf, ctx) {
   if (rf & 1) {
-    const _r4 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "p", 13);
+    const _r3 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 27)(1, "button", 28);
+    \u0275\u0275pipe(2, "translate");
+    \u0275\u0275listener("click", function HomePage_Conditional_22_Template_button_click_1_listener() {
+      \u0275\u0275restoreView(_r3);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.prevCommunityStat());
+    });
+    \u0275\u0275elementStart(3, "span", 20);
+    \u0275\u0275text(4, "chevron_left");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(5, "div", 29)(6, "span", 30)(7, "span", 20);
+    \u0275\u0275text(8);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(9, "span", 31);
+    \u0275\u0275text(10);
+    \u0275\u0275pipe(11, "number");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(12, "span", 32);
+    \u0275\u0275text(13);
+    \u0275\u0275pipe(14, "translate");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(15, "button", 33);
+    \u0275\u0275pipe(16, "translate");
+    \u0275\u0275listener("click", function HomePage_Conditional_22_Template_button_click_15_listener() {
+      \u0275\u0275restoreView(_r3);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.nextCommunityStat());
+    });
+    \u0275\u0275elementStart(17, "span", 20);
+    \u0275\u0275text(18, "chevron_right");
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275conditionalCreate(19, HomePage_Conditional_22_Conditional_19_Template, 3, 0, "div", 34);
+  }
+  if (rf & 2) {
+    const ctx_r3 = \u0275\u0275nextContext();
+    \u0275\u0275advance();
+    \u0275\u0275property("disabled", ctx_r3.communityStatIndex() === 0);
+    \u0275\u0275attribute("aria-label", \u0275\u0275pipeBind1(2, 8, "Common.Previous"));
+    \u0275\u0275advance(7);
+    \u0275\u0275textInterpolate(ctx_r3.communityStatsItems()[ctx_r3.communityStatIndex()].icon);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate1(" ", ctx_r3.communityStatsItems()[ctx_r3.communityStatIndex()].isNumber ? \u0275\u0275pipeBind1(11, 10, ctx_r3.communityStatsItems()[ctx_r3.communityStatIndex()].value) : ctx_r3.communityStatsItems()[ctx_r3.communityStatIndex()].value, " ");
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(14, 12, ctx_r3.communityStatsItems()[ctx_r3.communityStatIndex()].labelKey));
+    \u0275\u0275advance(2);
+    \u0275\u0275property("disabled", ctx_r3.communityStatIndex() === ctx_r3.communityStatsItems().length - 1);
+    \u0275\u0275attribute("aria-label", \u0275\u0275pipeBind1(16, 14, "Common.Next"));
+    \u0275\u0275advance(4);
+    \u0275\u0275conditional(ctx_r3.communityStatsItems().length > 1 ? 19 : -1);
+  }
+}
+function HomePage_Conditional_28_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r7 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "p", 15);
     \u0275\u0275text(1);
     \u0275\u0275pipe(2, "translate");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "div", 30)(4, "custom-button-component", 6);
+    \u0275\u0275elementStart(3, "div", 37)(4, "custom-button-component", 6);
     \u0275\u0275pipe(5, "translate");
-    \u0275\u0275listener("onClick", function HomePage_Conditional_22_Template_custom_button_component_onClick_4_listener() {
-      \u0275\u0275restoreView(_r4);
-      const ctx_r2 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r2.navigationService.goToLogin());
+    \u0275\u0275listener("onClick", function HomePage_Conditional_28_Template_custom_button_component_onClick_4_listener() {
+      \u0275\u0275restoreView(_r7);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.navigationService.goToLogin());
     });
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(6, "custom-button-component", 6);
     \u0275\u0275pipe(7, "translate");
-    \u0275\u0275listener("onClick", function HomePage_Conditional_22_Template_custom_button_component_onClick_6_listener() {
-      \u0275\u0275restoreView(_r4);
-      const ctx_r2 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r2.navigationService.goToSignUp());
+    \u0275\u0275listener("onClick", function HomePage_Conditional_28_Template_custom_button_component_onClick_6_listener() {
+      \u0275\u0275restoreView(_r7);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.navigationService.goToSignUp());
     });
     \u0275\u0275elementEnd()();
   }
@@ -42075,9 +42091,9 @@ function HomePage_Conditional_22_Template(rf, ctx) {
     \u0275\u0275property("text", \u0275\u0275pipeBind1(7, 7, "Header.SignUp"));
   }
 }
-function HomePage_Conditional_23_Template(rf, ctx) {
+function HomePage_Conditional_29_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "p", 13);
+    \u0275\u0275elementStart(0, "p", 15);
     \u0275\u0275text(1);
     \u0275\u0275pipe(2, "translate");
     \u0275\u0275elementEnd();
@@ -42087,19 +42103,19 @@ function HomePage_Conditional_23_Template(rf, ctx) {
     \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(2, 1, "Home.CompareLoading"));
   }
 }
-function HomePage_Conditional_24_Template(rf, ctx) {
+function HomePage_Conditional_30_Template(rf, ctx) {
   if (rf & 1) {
-    const _r5 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "p", 13);
+    const _r8 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "p", 15);
     \u0275\u0275text(1);
     \u0275\u0275pipe(2, "translate");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(3, "custom-button-component", 6);
     \u0275\u0275pipe(4, "translate");
-    \u0275\u0275listener("onClick", function HomePage_Conditional_24_Template_custom_button_component_onClick_3_listener() {
-      \u0275\u0275restoreView(_r5);
-      const ctx_r2 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r2.navigationService.goToProfile());
+    \u0275\u0275listener("onClick", function HomePage_Conditional_30_Template_custom_button_component_onClick_3_listener() {
+      \u0275\u0275restoreView(_r8);
+      const ctx_r3 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r3.navigationService.goToProfile());
     });
     \u0275\u0275elementEnd();
   }
@@ -42110,9 +42126,9 @@ function HomePage_Conditional_24_Template(rf, ctx) {
     \u0275\u0275property("text", \u0275\u0275pipeBind1(4, 4, "Home.CompareGoToProfile"));
   }
 }
-function HomePage_Conditional_25_For_2_Conditional_5_Template(rf, ctx) {
+function HomePage_Conditional_31_For_2_Conditional_5_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 35);
+    \u0275\u0275elementStart(0, "span", 42);
     \u0275\u0275text(1);
     \u0275\u0275pipe(2, "translate");
     \u0275\u0275elementEnd();
@@ -42122,44 +42138,44 @@ function HomePage_Conditional_25_For_2_Conditional_5_Template(rf, ctx) {
     \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(2, 1, "Home.CompareYouTag"));
   }
 }
-function HomePage_Conditional_25_For_2_Template(rf, ctx) {
+function HomePage_Conditional_31_For_2_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "li", 32)(1, "span", 33);
+    \u0275\u0275elementStart(0, "li", 39)(1, "span", 40);
     \u0275\u0275text(2);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "span", 34);
+    \u0275\u0275elementStart(3, "span", 41);
     \u0275\u0275text(4);
-    \u0275\u0275conditionalCreate(5, HomePage_Conditional_25_For_2_Conditional_5_Template, 3, 3, "span", 35);
+    \u0275\u0275conditionalCreate(5, HomePage_Conditional_31_For_2_Conditional_5_Template, 3, 3, "span", 42);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(6, "span", 36);
+    \u0275\u0275elementStart(6, "span", 43);
     \u0275\u0275text(7);
     \u0275\u0275pipe(8, "translate");
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const entry_r6 = ctx.$implicit;
-    const \u0275$index_127_r7 = ctx.$index;
-    \u0275\u0275classProp("comparison-item-self", entry_r6.isCurrentUser);
+    const entry_r9 = ctx.$implicit;
+    const \u0275$index_119_r10 = ctx.$index;
+    \u0275\u0275classProp("comparison-item-self", entry_r9.isCurrentUser);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(\u0275$index_127_r7 + 1);
+    \u0275\u0275textInterpolate(\u0275$index_119_r10 + 1);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1(" ", entry_r6.username, " ");
+    \u0275\u0275textInterpolate1(" ", entry_r9.username, " ");
     \u0275\u0275advance();
-    \u0275\u0275conditional(entry_r6.isCurrentUser ? 5 : -1);
+    \u0275\u0275conditional(entry_r9.isCurrentUser ? 5 : -1);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(\u0275\u0275pipeBind2(8, 6, "Home.CompareGamesPlayed", \u0275\u0275pureFunction1(9, _c1, entry_r6.totalGamesPlayed)));
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind2(8, 6, "Home.CompareGamesPlayed", \u0275\u0275pureFunction1(9, _c1, entry_r9.totalGamesPlayed)));
   }
 }
-function HomePage_Conditional_25_Template(rf, ctx) {
+function HomePage_Conditional_31_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "ol", 14);
-    \u0275\u0275repeaterCreate(1, HomePage_Conditional_25_For_2_Template, 9, 11, "li", 31, _forTrack02);
+    \u0275\u0275elementStart(0, "ol", 16);
+    \u0275\u0275repeaterCreate(1, HomePage_Conditional_31_For_2_Template, 9, 11, "li", 38, _forTrack1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext();
+    const ctx_r3 = \u0275\u0275nextContext();
     \u0275\u0275advance();
-    \u0275\u0275repeater(ctx_r2.friendsComparison());
+    \u0275\u0275repeater(ctx_r3.friendsComparison());
   }
 }
 var HomePage = class _HomePage {
@@ -42172,7 +42188,32 @@ var HomePage = class _HomePage {
   platformStats = signal(null, ...ngDevMode ? [{ debugName: "platformStats" }] : []);
   friendsComparison = signal(null, ...ngDevMode ? [{ debugName: "friendsComparison" }] : []);
   isComparisonLoading = signal(false, ...ngDevMode ? [{ debugName: "isComparisonLoading" }] : []);
+  communityStatIndex = signal(0, ...ngDevMode ? [{ debugName: "communityStatIndex" }] : []);
   hasFriendsComparison = computed(() => (this.friendsComparison() ?? []).length > 1, ...ngDevMode ? [{ debugName: "hasFriendsComparison" }] : []);
+  communityStatsItems = computed(() => {
+    const stats = this.platformStats();
+    if (!stats) {
+      return [];
+    }
+    const items = [
+      { icon: "group", value: stats.totalPlayers, isNumber: true, labelKey: "Home.CommunityPlayers" },
+      { icon: "sports_esports", value: stats.totalGamesPlayed, isNumber: true, labelKey: "Home.CommunityGamesPlayed" }
+    ];
+    if (stats.mostPopularDifficulty) {
+      items.push({ icon: "local_fire_department", value: stats.mostPopularDifficulty.label, isNumber: false, labelKey: "Home.CommunityPopularDifficulty" });
+    }
+    return items;
+  }, ...ngDevMode ? [{ debugName: "communityStatsItems" }] : []);
+  goToCommunityStat(index2) {
+    const max = this.communityStatsItems().length - 1;
+    this.communityStatIndex.set(Math.max(0, Math.min(index2, max)));
+  }
+  prevCommunityStat() {
+    this.goToCommunityStat(this.communityStatIndex() - 1);
+  }
+  nextCommunityStat() {
+    this.goToCommunityStat(this.communityStatIndex() + 1);
+  }
   constructor() {
     this.leaderboardService.getPlatformStats().subscribe({
       next: (response) => {
@@ -42197,7 +42238,7 @@ var HomePage = class _HomePage {
   static \u0275fac = function HomePage_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _HomePage)();
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _HomePage, selectors: [["home-page"]], decls: 52, vars: 36, consts: [[1, "home-page"], [1, "hero-section"], [1, "hero-content"], [1, "hero-title"], [1, "text", "hero-text", 3, "innerHTML"], [1, "hero-actions"], [3, "onClick", "text"], ["aria-hidden", "true", 1, "hero-visual"], [1, "hero-card-grid"], [1, "hero-card", 3, "animation-delay"], [1, "home-section"], [1, "medium-title", "light-color", "section-heading"], [1, "compare-panel", "glass-panel"], [1, "text"], [1, "comparison-list"], [1, "home-section", "feature-grid-section"], [1, "feature-card", "glass-panel"], [1, "feature-icon-badge"], [1, "material-symbols-outlined"], [1, "medium-title", "light-color"], [1, "home-section", "gallery-section"], [3, "defaultImages", "text", "buttonLabel"], [1, "hero-card"], [1, "hero-card-face", "hero-card-front"], [1, "hero-card-face", "hero-card-back"], [1, "community-stats-grid"], [1, "community-stat-card", "glass-panel"], [1, "community-stat-icon-badge"], [1, "community-stat-value"], [1, "community-stat-label"], [1, "display-horizontal"], [1, "comparison-item", 3, "comparison-item-self"], [1, "comparison-item"], [1, "comparison-position"], [1, "comparison-name", "text-color"], [1, "comparison-you-tag"], [1, "comparison-value", "text"]], template: function HomePage_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _HomePage, selectors: [["home-page"]], decls: 58, vars: 39, consts: [[1, "home-page"], [1, "hero-section"], [1, "hero-content"], [1, "hero-title"], [1, "text", "hero-text", 3, "innerHTML"], [1, "hero-actions"], [3, "onClick", "text"], ["aria-hidden", "true", 1, "hero-visual"], [1, "hero-card-grid"], [1, "hero-card", 3, "animation-delay"], [1, "home-section", "stats-compare-section"], [1, "stats-compare-grid"], [1, "stats-compare-col"], [1, "medium-title", "light-color", "section-heading"], [1, "compare-panel", "glass-panel"], [1, "text"], [1, "comparison-list"], [1, "home-section", "feature-grid-section"], [1, "feature-card", "glass-panel"], [1, "feature-icon-badge"], [1, "material-symbols-outlined"], [1, "medium-title", "light-color"], [1, "home-section", "gallery-section"], [3, "defaultImages", "text", "buttonLabel"], [1, "hero-card"], [1, "hero-card-face", "hero-card-front"], [1, "hero-card-face", "hero-card-back"], [1, "community-carousel"], ["type", "button", 1, "carousel-nav", "carousel-nav-prev", 3, "click", "disabled"], [1, "community-stat-card", "glass-panel"], [1, "community-stat-icon-badge"], [1, "community-stat-value"], [1, "community-stat-label"], ["type", "button", 1, "carousel-nav", "carousel-nav-next", 3, "click", "disabled"], [1, "carousel-dots"], ["type", "button", 1, "carousel-dot", 3, "carousel-dot-active"], ["type", "button", 1, "carousel-dot", 3, "click"], [1, "display-horizontal"], [1, "comparison-item", 3, "comparison-item-self"], [1, "comparison-item"], [1, "comparison-position"], [1, "comparison-name", "text-color"], [1, "comparison-you-tag"], [1, "comparison-value", "text"]], template: function HomePage_Template(rf, ctx) {
     if (rf & 1) {
       \u0275\u0275element(0, "header-component");
       \u0275\u0275elementStart(1, "main", 0)(2, "section", 1)(3, "div", 2)(4, "h1", 3);
@@ -42215,70 +42256,77 @@ var HomePage = class _HomePage {
       \u0275\u0275elementStart(12, "div", 7)(13, "div", 8);
       \u0275\u0275repeaterCreate(14, HomePage_For_15_Template, 6, 3, "div", 9, \u0275\u0275repeaterTrackByIdentity);
       \u0275\u0275elementEnd()()();
-      \u0275\u0275conditionalCreate(16, HomePage_Conditional_16_Template, 26, 16, "section", 10);
-      \u0275\u0275elementStart(17, "section", 10)(18, "h2", 11);
-      \u0275\u0275text(19);
-      \u0275\u0275pipe(20, "translate");
+      \u0275\u0275elementStart(16, "section", 10)(17, "div", 11)(18, "div", 12)(19, "h2", 13);
+      \u0275\u0275text(20);
+      \u0275\u0275pipe(21, "translate");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(21, "div", 12);
-      \u0275\u0275conditionalCreate(22, HomePage_Conditional_22_Template, 8, 9)(23, HomePage_Conditional_23_Template, 3, 3, "p", 13)(24, HomePage_Conditional_24_Template, 5, 6)(25, HomePage_Conditional_25_Template, 3, 0, "ol", 14);
-      \u0275\u0275elementEnd()();
-      \u0275\u0275elementStart(26, "section", 15)(27, "div", 16)(28, "span", 17)(29, "span", 18);
-      \u0275\u0275text(30, "eco");
-      \u0275\u0275elementEnd()();
-      \u0275\u0275elementStart(31, "h2", 19);
-      \u0275\u0275text(32);
-      \u0275\u0275pipe(33, "translate");
+      \u0275\u0275conditionalCreate(22, HomePage_Conditional_22_Template, 20, 16);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(34, "p", 13);
-      \u0275\u0275text(35);
-      \u0275\u0275pipe(36, "translate");
-      \u0275\u0275elementEnd()();
-      \u0275\u0275elementStart(37, "div", 16)(38, "span", 17)(39, "span", 18);
-      \u0275\u0275text(40, "photo_camera");
-      \u0275\u0275elementEnd()();
-      \u0275\u0275elementStart(41, "h2", 19);
-      \u0275\u0275text(42);
-      \u0275\u0275pipe(43, "translate");
+      \u0275\u0275elementStart(23, "div", 12)(24, "h2", 13);
+      \u0275\u0275text(25);
+      \u0275\u0275pipe(26, "translate");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(44, "p", 13);
-      \u0275\u0275text(45);
-      \u0275\u0275pipe(46, "translate");
-      \u0275\u0275elementEnd()()();
-      \u0275\u0275elementStart(47, "section", 20);
-      \u0275\u0275element(48, "nature-gallery-component", 21);
+      \u0275\u0275elementStart(27, "div", 14);
+      \u0275\u0275conditionalCreate(28, HomePage_Conditional_28_Template, 8, 9)(29, HomePage_Conditional_29_Template, 3, 3, "p", 15)(30, HomePage_Conditional_30_Template, 5, 6)(31, HomePage_Conditional_31_Template, 3, 0, "ol", 16);
+      \u0275\u0275elementEnd()()()();
+      \u0275\u0275elementStart(32, "section", 17)(33, "div", 18)(34, "span", 19)(35, "span", 20);
+      \u0275\u0275text(36, "eco");
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(37, "h2", 21);
+      \u0275\u0275text(38);
+      \u0275\u0275pipe(39, "translate");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(40, "p", 15);
+      \u0275\u0275text(41);
+      \u0275\u0275pipe(42, "translate");
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(43, "div", 18)(44, "span", 19)(45, "span", 20);
+      \u0275\u0275text(46, "photo_camera");
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(47, "h2", 21);
+      \u0275\u0275text(48);
       \u0275\u0275pipe(49, "translate");
-      \u0275\u0275pipe(50, "translate");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(50, "p", 15);
+      \u0275\u0275text(51);
+      \u0275\u0275pipe(52, "translate");
+      \u0275\u0275elementEnd()()();
+      \u0275\u0275elementStart(53, "section", 22);
+      \u0275\u0275element(54, "nature-gallery-component", 23);
+      \u0275\u0275pipe(55, "translate");
+      \u0275\u0275pipe(56, "translate");
       \u0275\u0275elementEnd()();
-      \u0275\u0275element(51, "footer-component");
+      \u0275\u0275element(57, "footer-component");
     }
     if (rf & 2) {
       \u0275\u0275advance(5);
-      \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(6, 13, "Home.WhatIsItTitle"), " ");
+      \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(6, 14, "Home.WhatIsItTitle"), " ");
       \u0275\u0275advance(2);
-      \u0275\u0275property("innerHTML", \u0275\u0275pipeBind1(8, 15, "Home.WhatIsItText"), \u0275\u0275sanitizeHtml);
+      \u0275\u0275property("innerHTML", \u0275\u0275pipeBind1(8, 16, "Home.WhatIsItText"), \u0275\u0275sanitizeHtml);
       \u0275\u0275advance(3);
-      \u0275\u0275property("text", \u0275\u0275pipeBind1(11, 17, "Home.PlayNow"));
+      \u0275\u0275property("text", \u0275\u0275pipeBind1(11, 18, "Home.PlayNow"));
       \u0275\u0275advance(4);
       \u0275\u0275repeater(ctx.heroCardIcons);
+      \u0275\u0275advance(6);
+      \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(21, 20, "Home.CommunityTitle"), " ");
       \u0275\u0275advance(2);
-      \u0275\u0275conditional(ctx.platformStats() ? 16 : -1);
+      \u0275\u0275conditional(ctx.communityStatsItems().length > 0 ? 22 : -1);
       \u0275\u0275advance(3);
-      \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(20, 19, "Home.CompareTitle"), " ");
+      \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(26, 22, "Home.CompareTitle"), " ");
       \u0275\u0275advance(3);
-      \u0275\u0275conditional(!ctx.authService.isLoggedIn() ? 22 : ctx.isComparisonLoading() ? 23 : !ctx.hasFriendsComparison() ? 24 : 25);
+      \u0275\u0275conditional(!ctx.authService.isLoggedIn() ? 28 : ctx.isComparisonLoading() ? 29 : !ctx.hasFriendsComparison() ? 30 : 31);
       \u0275\u0275advance(10);
-      \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(33, 21, "Home.WhyNatureTitle"));
+      \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(39, 24, "Home.WhyNatureTitle"));
       \u0275\u0275advance(3);
-      \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(36, 23, "Home.WhyNatureText"));
+      \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(42, 26, "Home.WhyNatureText"));
       \u0275\u0275advance(7);
-      \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(43, 25, "Home.WhereFromTitle"));
+      \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(49, 28, "Home.WhereFromTitle"));
       \u0275\u0275advance(3);
-      \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(46, 27, "Home.WhereFromText"));
+      \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(52, 30, "Home.WhereFromText"));
       \u0275\u0275advance(3);
-      \u0275\u0275property("defaultImages", ctx.defaultImages)("text", \u0275\u0275pipeBind2(49, 29, "Home.LoadMoreText", \u0275\u0275pureFunction1(34, _c02, ctx.defaultImages.length)))("buttonLabel", \u0275\u0275pipeBind1(50, 32, "Home.LoadMoreButtonLabel"));
+      \u0275\u0275property("defaultImages", ctx.defaultImages)("text", \u0275\u0275pipeBind2(55, 32, "Home.LoadMoreText", \u0275\u0275pureFunction1(37, _c02, ctx.defaultImages.length)))("buttonLabel", \u0275\u0275pipeBind1(56, 35, "Home.LoadMoreButtonLabel"));
     }
-  }, dependencies: [HeaderComponent, FooterComponent, CustomButtonComponent, NatureGalleryComponent, TranslateModule, TranslatePipe, DecimalPipe], styles: ["\n\n.home-page[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  width: 100%;\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 1rem 1.5rem 4rem;\n  box-sizing: border-box;\n  gap: 4.5rem;\n}\n.hero-section[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1.15fr 0.85fr;\n  align-items: center;\n  gap: 3rem;\n  width: 100%;\n  padding: 2rem 0 1rem;\n  text-align: left;\n}\n.hero-content[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  gap: 1.25rem;\n}\n.hero-title[_ngcontent-%COMP%] {\n  font-size: 3.4rem;\n  line-height: 1.1;\n  letter-spacing: 1px;\n  margin: 0;\n  background:\n    linear-gradient(\n      135deg,\n      var(--titles-color),\n      var(--button-color));\n  background-clip: text;\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n}\n.hero-text[_ngcontent-%COMP%] {\n  max-width: 560px;\n  margin: 0;\n}\n.hero-actions[_ngcontent-%COMP%] {\n  margin-top: 0.25rem;\n}\n.hero-visual[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.hero-card-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 1.1rem;\n  perspective: 1200px;\n}\n.hero-card[_ngcontent-%COMP%] {\n  width: 92px;\n  height: 92px;\n  position: relative;\n  transform-style: preserve-3d;\n  animation: _ngcontent-%COMP%_hero-card-flip 6.5s ease-in-out infinite;\n}\n.hero-card-face[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: var(--radius-md);\n  backface-visibility: hidden;\n  box-shadow: var(--shadow-md);\n  box-sizing: border-box;\n}\n.hero-card-front[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n  color: var(--button-text-color);\n  font-size: 2.1rem;\n  font-weight: 800;\n}\n.hero-card-back[_ngcontent-%COMP%] {\n  background: var(--card-bg);\n  border: 1px solid var(--glass-border);\n  transform: rotateY(180deg);\n}\n.hero-card-back[_ngcontent-%COMP%]   .material-symbols-outlined[_ngcontent-%COMP%] {\n  font-size: 2.3rem !important;\n  color: var(--titles-color);\n}\n@keyframes _ngcontent-%COMP%_hero-card-flip {\n  0%, 40% {\n    transform: rotateY(0deg);\n  }\n  50%, 90% {\n    transform: rotateY(180deg);\n  }\n  100% {\n    transform: rotateY(360deg);\n  }\n}\n@media (prefers-reduced-motion: reduce) {\n  .hero-card[_ngcontent-%COMP%] {\n    animation: none;\n  }\n}\n.home-section[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  width: 100%;\n}\n.section-heading[_ngcontent-%COMP%] {\n  margin-bottom: 1.5rem;\n}\n.community-stats-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));\n  gap: 1.25rem;\n  width: 100%;\n  max-width: 800px;\n  box-sizing: border-box;\n}\n.community-stat-card[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  text-align: center;\n  gap: 0.6rem;\n  padding: 1.75rem 1rem;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.community-stat-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  box-shadow: var(--shadow-lg);\n}\n.community-stat-icon-badge[_ngcontent-%COMP%] {\n  width: 56px;\n  height: 56px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: var(--radius-full);\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n}\n.community-stat-icon-badge[_ngcontent-%COMP%]   .material-symbols-outlined[_ngcontent-%COMP%] {\n  font-size: 1.7rem !important;\n  color: var(--button-text-color);\n}\n.community-stat-value[_ngcontent-%COMP%] {\n  font-size: 1.6rem;\n  font-weight: 800;\n  color: var(--titles-color);\n}\n.community-stat-label[_ngcontent-%COMP%] {\n  font-size: 0.85rem;\n  opacity: 0.7;\n}\n.compare-panel[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  width: 100%;\n  max-width: 800px;\n  padding: 2rem;\n  box-sizing: border-box;\n  gap: 1rem;\n}\n.comparison-list[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  width: 100%;\n  list-style: none;\n  margin: 0;\n  padding: 0;\n}\n.comparison-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  background: var(--bg-color);\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-md, 10px);\n  padding: 0.75rem 1.25rem;\n  box-sizing: border-box;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.comparison-item[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: var(--shadow-sm);\n}\n.comparison-item-self[_ngcontent-%COMP%] {\n  border-color: color-mix(in srgb, var(--titles-color) 45%, var(--glass-border));\n  box-shadow: 0 0 16px var(--accent-glow);\n}\n.comparison-position[_ngcontent-%COMP%] {\n  width: 24px;\n  text-align: center;\n  font-weight: 800;\n  color: var(--titles-color);\n  flex-shrink: 0;\n}\n.comparison-name[_ngcontent-%COMP%] {\n  flex: 1;\n  font-weight: 700;\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n.comparison-you-tag[_ngcontent-%COMP%] {\n  font-size: 0.7rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.3px;\n  padding: 0.15rem 0.5rem;\n  border-radius: var(--radius-full);\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n  color: var(--button-text-color);\n}\n.comparison-value[_ngcontent-%COMP%] {\n  flex-shrink: 0;\n  font-size: 0.9rem;\n}\n.feature-grid-section[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(2, 1fr);\n  gap: 2rem;\n  align-items: start;\n  text-align: left;\n}\n.feature-card[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  gap: 0.75rem;\n  padding: 2rem;\n  box-sizing: border-box;\n  height: 100%;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.feature-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  box-shadow: var(--shadow-lg);\n}\n.feature-card[_ngcontent-%COMP%]   .medium-title[_ngcontent-%COMP%] {\n  margin: 0;\n}\n.feature-card[_ngcontent-%COMP%]   .text[_ngcontent-%COMP%] {\n  margin: 0;\n}\n.feature-icon-badge[_ngcontent-%COMP%] {\n  width: 52px;\n  height: 52px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: var(--radius-md);\n  background: var(--accent-glow);\n}\n.feature-icon-badge[_ngcontent-%COMP%]   .material-symbols-outlined[_ngcontent-%COMP%] {\n  font-size: 1.6rem !important;\n  color: var(--titles-color);\n}\n.gallery-section[_ngcontent-%COMP%] {\n  width: 100%;\n}\n@media (max-width: 900px) {\n  .hero-section[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    text-align: center;\n    padding-top: 0.5rem;\n  }\n  .hero-content[_ngcontent-%COMP%] {\n    align-items: center;\n  }\n  .hero-text[_ngcontent-%COMP%] {\n    max-width: 100%;\n  }\n  .hero-visual[_ngcontent-%COMP%] {\n    order: -1;\n  }\n  .hero-card[_ngcontent-%COMP%] {\n    width: 72px;\n    height: 72px;\n  }\n  .feature-grid-section[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .feature-card[_ngcontent-%COMP%] {\n    text-align: left;\n  }\n}\n@media (max-width: 600px) {\n  .home-page[_ngcontent-%COMP%] {\n    gap: 3rem;\n    padding: 1rem 1rem 3rem;\n  }\n  .hero-title[_ngcontent-%COMP%] {\n    font-size: 2.4rem;\n  }\n  .hero-card-grid[_ngcontent-%COMP%] {\n    gap: 0.75rem;\n  }\n  .hero-card[_ngcontent-%COMP%] {\n    width: 60px;\n    height: 60px;\n  }\n  .hero-card-front[_ngcontent-%COMP%] {\n    font-size: 1.5rem;\n  }\n  .hero-card-back[_ngcontent-%COMP%]   .material-symbols-outlined[_ngcontent-%COMP%] {\n    font-size: 1.7rem !important;\n  }\n}\n/*# sourceMappingURL=home.page.css.map */"] });
+  }, dependencies: [HeaderComponent, FooterComponent, CustomButtonComponent, NatureGalleryComponent, TranslateModule, TranslatePipe, DecimalPipe], styles: ["\n\n.home-page[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  width: 100%;\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 1rem 1.5rem 4rem;\n  box-sizing: border-box;\n  gap: 4.5rem;\n}\n.hero-section[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1.15fr 0.85fr;\n  align-items: center;\n  gap: 3rem;\n  width: 100%;\n  padding: 2rem 0 1rem;\n  text-align: left;\n}\n.hero-content[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  gap: 1.25rem;\n}\n.hero-title[_ngcontent-%COMP%] {\n  font-size: 3.4rem;\n  line-height: 1.1;\n  letter-spacing: 1px;\n  margin: 0;\n  background:\n    linear-gradient(\n      135deg,\n      var(--titles-color),\n      var(--button-color));\n  background-clip: text;\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n}\n.hero-text[_ngcontent-%COMP%] {\n  max-width: 560px;\n  margin: 0;\n}\n.hero-actions[_ngcontent-%COMP%] {\n  margin-top: 0.25rem;\n}\n.hero-visual[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.hero-card-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 1.1rem;\n  perspective: 1200px;\n}\n.hero-card[_ngcontent-%COMP%] {\n  width: 92px;\n  height: 92px;\n  position: relative;\n  transform-style: preserve-3d;\n  animation: _ngcontent-%COMP%_hero-card-flip 6.5s ease-in-out infinite;\n}\n.hero-card-face[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: var(--radius-md);\n  backface-visibility: hidden;\n  box-shadow: var(--shadow-md);\n  box-sizing: border-box;\n}\n.hero-card-front[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n  color: var(--button-text-color);\n  font-size: 2.1rem;\n  font-weight: 800;\n}\n.hero-card-back[_ngcontent-%COMP%] {\n  background: var(--card-bg);\n  border: 1px solid var(--glass-border);\n  transform: rotateY(180deg);\n}\n.hero-card-back[_ngcontent-%COMP%]   .material-symbols-outlined[_ngcontent-%COMP%] {\n  font-size: 2.3rem !important;\n  color: var(--titles-color);\n}\n@keyframes _ngcontent-%COMP%_hero-card-flip {\n  0%, 40% {\n    transform: rotateY(0deg);\n  }\n  50%, 90% {\n    transform: rotateY(180deg);\n  }\n  100% {\n    transform: rotateY(360deg);\n  }\n}\n@media (prefers-reduced-motion: reduce) {\n  .hero-card[_ngcontent-%COMP%] {\n    animation: none;\n  }\n}\n.home-section[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  width: 100%;\n}\n.section-heading[_ngcontent-%COMP%] {\n  margin-bottom: 1.5rem;\n}\n.stats-compare-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(2, 1fr);\n  gap: 2rem;\n  align-items: start;\n  width: 100%;\n}\n.stats-compare-col[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  width: 100%;\n}\n.community-carousel[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  width: 100%;\n}\n.carousel-nav[_ngcontent-%COMP%] {\n  flex-shrink: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 40px;\n  height: 40px;\n  border-radius: var(--radius-full);\n  border: 1px solid var(--glass-border);\n  background: var(--glass-bg);\n  color: var(--text-color);\n  cursor: pointer;\n  transition: border-color 0.2s ease, transform 0.2s ease;\n}\n.carousel-nav[_ngcontent-%COMP%]:hover:not(:disabled) {\n  border-color: var(--titles-color);\n  transform: translateY(-2px);\n}\n.carousel-nav[_ngcontent-%COMP%]:disabled {\n  opacity: 0.35;\n  cursor: not-allowed;\n}\n.carousel-nav[_ngcontent-%COMP%]   .material-symbols-outlined[_ngcontent-%COMP%] {\n  font-size: 1.4rem !important;\n}\n.carousel-dots[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  gap: 0.5rem;\n  margin-top: 1rem;\n}\n.carousel-dot[_ngcontent-%COMP%] {\n  width: 8px;\n  height: 8px;\n  padding: 0;\n  border: none;\n  border-radius: var(--radius-full);\n  background: var(--glass-border);\n  cursor: pointer;\n  transition: background-color 0.2s ease, width 0.2s ease;\n}\n.carousel-dot-active[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n  width: 20px;\n}\n.community-stat-card[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  text-align: center;\n  gap: 0.6rem;\n  padding: 1.75rem 1rem;\n  flex: 1;\n  min-width: 0;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.community-stat-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  box-shadow: var(--shadow-lg);\n}\n.community-stat-icon-badge[_ngcontent-%COMP%] {\n  width: 56px;\n  height: 56px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: var(--radius-full);\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n}\n.community-stat-icon-badge[_ngcontent-%COMP%]   .material-symbols-outlined[_ngcontent-%COMP%] {\n  font-size: 1.7rem !important;\n  color: var(--button-text-color);\n}\n.community-stat-value[_ngcontent-%COMP%] {\n  font-size: 1.6rem;\n  font-weight: 800;\n  color: var(--titles-color);\n}\n.community-stat-label[_ngcontent-%COMP%] {\n  font-size: 0.85rem;\n  opacity: 0.7;\n}\n.compare-panel[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  width: 100%;\n  padding: 2rem;\n  box-sizing: border-box;\n  gap: 1rem;\n}\n.comparison-list[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  width: 100%;\n  list-style: none;\n  margin: 0;\n  padding: 0;\n}\n.comparison-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  background: var(--bg-color);\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-md, 10px);\n  padding: 0.75rem 1.25rem;\n  box-sizing: border-box;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.comparison-item[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: var(--shadow-sm);\n}\n.comparison-item-self[_ngcontent-%COMP%] {\n  border-color: color-mix(in srgb, var(--titles-color) 45%, var(--glass-border));\n  box-shadow: 0 0 16px var(--accent-glow);\n}\n.comparison-position[_ngcontent-%COMP%] {\n  width: 24px;\n  text-align: center;\n  font-weight: 800;\n  color: var(--titles-color);\n  flex-shrink: 0;\n}\n.comparison-name[_ngcontent-%COMP%] {\n  flex: 1;\n  font-weight: 700;\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n.comparison-you-tag[_ngcontent-%COMP%] {\n  font-size: 0.7rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.3px;\n  padding: 0.15rem 0.5rem;\n  border-radius: var(--radius-full);\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n  color: var(--button-text-color);\n}\n.comparison-value[_ngcontent-%COMP%] {\n  flex-shrink: 0;\n  font-size: 0.9rem;\n}\n.feature-grid-section[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(2, 1fr);\n  gap: 2rem;\n  align-items: start;\n  text-align: left;\n}\n.feature-card[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  gap: 0.75rem;\n  padding: 2rem;\n  box-sizing: border-box;\n  height: 100%;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.feature-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  box-shadow: var(--shadow-lg);\n}\n.feature-card[_ngcontent-%COMP%]   .medium-title[_ngcontent-%COMP%] {\n  margin: 0;\n}\n.feature-card[_ngcontent-%COMP%]   .text[_ngcontent-%COMP%] {\n  margin: 0;\n}\n.feature-icon-badge[_ngcontent-%COMP%] {\n  width: 52px;\n  height: 52px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: var(--radius-md);\n  background: var(--accent-glow);\n}\n.feature-icon-badge[_ngcontent-%COMP%]   .material-symbols-outlined[_ngcontent-%COMP%] {\n  font-size: 1.6rem !important;\n  color: var(--titles-color);\n}\n.gallery-section[_ngcontent-%COMP%] {\n  width: 100%;\n}\n@media (max-width: 900px) {\n  .hero-section[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    text-align: center;\n    padding-top: 0.5rem;\n  }\n  .hero-content[_ngcontent-%COMP%] {\n    align-items: center;\n  }\n  .hero-text[_ngcontent-%COMP%] {\n    max-width: 100%;\n  }\n  .hero-visual[_ngcontent-%COMP%] {\n    order: -1;\n  }\n  .hero-card[_ngcontent-%COMP%] {\n    width: 72px;\n    height: 72px;\n  }\n  .feature-grid-section[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .feature-card[_ngcontent-%COMP%] {\n    text-align: left;\n  }\n  .stats-compare-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: 3rem;\n  }\n}\n@media (max-width: 600px) {\n  .home-page[_ngcontent-%COMP%] {\n    gap: 3rem;\n    padding: 1rem 1rem 3rem;\n  }\n  .hero-title[_ngcontent-%COMP%] {\n    font-size: 2.4rem;\n  }\n  .hero-card-grid[_ngcontent-%COMP%] {\n    gap: 0.75rem;\n  }\n  .hero-card[_ngcontent-%COMP%] {\n    width: 60px;\n    height: 60px;\n  }\n  .hero-card-front[_ngcontent-%COMP%] {\n    font-size: 1.5rem;\n  }\n  .hero-card-back[_ngcontent-%COMP%]   .material-symbols-outlined[_ngcontent-%COMP%] {\n    font-size: 1.7rem !important;\n  }\n}\n/*# sourceMappingURL=home.page.css.map */"] });
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(HomePage, [{
@@ -42315,72 +42363,96 @@ var HomePage = class _HomePage {
     </div>
   </section>
 
-  @if (platformStats()) {
-    <section class="home-section">
-      <h2 class="medium-title light-color section-heading">
-        {{ 'Home.CommunityTitle' | translate }}
-      </h2>
-      <div class="community-stats-grid">
-        <div class="community-stat-card glass-panel">
-          <span class="community-stat-icon-badge">
-            <span class="material-symbols-outlined">group</span>
-          </span>
-          <span class="community-stat-value">{{ platformStats()!.totalPlayers | number }}</span>
-          <span class="community-stat-label">{{ 'Home.CommunityPlayers' | translate }}</span>
-        </div>
-        <div class="community-stat-card glass-panel">
-          <span class="community-stat-icon-badge">
-            <span class="material-symbols-outlined">sports_esports</span>
-          </span>
-          <span class="community-stat-value">{{ platformStats()!.totalGamesPlayed | number }}</span>
-          <span class="community-stat-label">{{ 'Home.CommunityGamesPlayed' | translate }}</span>
-        </div>
-        @if (platformStats()!.mostPopularDifficulty) {
-          <div class="community-stat-card glass-panel">
-            <span class="community-stat-icon-badge">
-              <span class="material-symbols-outlined">local_fire_department</span>
-            </span>
-            <span class="community-stat-value">{{ platformStats()!.mostPopularDifficulty!.label }}</span>
-            <span class="community-stat-label">{{ 'Home.CommunityPopularDifficulty' | translate }}</span>
+  <section class="home-section stats-compare-section">
+    <div class="stats-compare-grid">
+      <div class="stats-compare-col">
+        <h2 class="medium-title light-color section-heading">
+          {{ 'Home.CommunityTitle' | translate }}
+        </h2>
+
+        @if (communityStatsItems().length > 0) {
+          <div class="community-carousel">
+            <button
+              type="button"
+              class="carousel-nav carousel-nav-prev"
+              [disabled]="communityStatIndex() === 0"
+              (click)="prevCommunityStat()"
+              [attr.aria-label]="'Common.Previous' | translate">
+              <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+
+            <div class="community-stat-card glass-panel">
+              <span class="community-stat-icon-badge">
+                <span class="material-symbols-outlined">{{ communityStatsItems()[communityStatIndex()].icon }}</span>
+              </span>
+              <span class="community-stat-value">
+                {{ communityStatsItems()[communityStatIndex()].isNumber
+                    ? (communityStatsItems()[communityStatIndex()].value | number)
+                    : communityStatsItems()[communityStatIndex()].value }}
+              </span>
+              <span class="community-stat-label">{{ communityStatsItems()[communityStatIndex()].labelKey | translate }}</span>
+            </div>
+
+            <button
+              type="button"
+              class="carousel-nav carousel-nav-next"
+              [disabled]="communityStatIndex() === communityStatsItems().length - 1"
+              (click)="nextCommunityStat()"
+              [attr.aria-label]="'Common.Next' | translate">
+              <span class="material-symbols-outlined">chevron_right</span>
+            </button>
           </div>
+
+          @if (communityStatsItems().length > 1) {
+            <div class="carousel-dots">
+              @for (item of communityStatsItems(); track item.labelKey; let i = $index) {
+                <button
+                  type="button"
+                  class="carousel-dot"
+                  [class.carousel-dot-active]="communityStatIndex() === i"
+                  (click)="goToCommunityStat(i)">
+                </button>
+              }
+            </div>
+          }
         }
       </div>
-    </section>
-  }
 
-  <section class="home-section">
-    <h2 class="medium-title light-color section-heading">
-      {{ 'Home.CompareTitle' | translate }}
-    </h2>
+      <div class="stats-compare-col">
+        <h2 class="medium-title light-color section-heading">
+          {{ 'Home.CompareTitle' | translate }}
+        </h2>
 
-    <div class="compare-panel glass-panel">
-      @if (!authService.isLoggedIn()) {
-        <p class="text">{{ 'Home.CompareLoginPrompt' | translate }}</p>
-        <div class="display-horizontal">
-          <custom-button-component [text]="'Header.Login' | translate" (onClick)="navigationService.goToLogin()"></custom-button-component>
-          <custom-button-component [text]="'Header.SignUp' | translate" (onClick)="navigationService.goToSignUp()"></custom-button-component>
-        </div>
-      } @else if (isComparisonLoading()) {
-        <p class="text">{{ 'Home.CompareLoading' | translate }}</p>
-      } @else if (!hasFriendsComparison()) {
-        <p class="text">{{ 'Home.CompareNoFriends' | translate }}</p>
-        <custom-button-component [text]="'Home.CompareGoToProfile' | translate" (onClick)="navigationService.goToProfile()"></custom-button-component>
-      } @else {
-        <ol class="comparison-list">
-          @for (entry of friendsComparison(); track entry.userId; let i = $index) {
-            <li class="comparison-item" [class.comparison-item-self]="entry.isCurrentUser">
-              <span class="comparison-position">{{ i + 1 }}</span>
-              <span class="comparison-name text-color">
-                {{ entry.username }}
-                @if (entry.isCurrentUser) {
-                  <span class="comparison-you-tag">{{ 'Home.CompareYouTag' | translate }}</span>
-                }
-              </span>
-              <span class="comparison-value text">{{ 'Home.CompareGamesPlayed' | translate: { games: entry.totalGamesPlayed } }}</span>
-            </li>
+        <div class="compare-panel glass-panel">
+          @if (!authService.isLoggedIn()) {
+            <p class="text">{{ 'Home.CompareLoginPrompt' | translate }}</p>
+            <div class="display-horizontal">
+              <custom-button-component [text]="'Header.Login' | translate" (onClick)="navigationService.goToLogin()"></custom-button-component>
+              <custom-button-component [text]="'Header.SignUp' | translate" (onClick)="navigationService.goToSignUp()"></custom-button-component>
+            </div>
+          } @else if (isComparisonLoading()) {
+            <p class="text">{{ 'Home.CompareLoading' | translate }}</p>
+          } @else if (!hasFriendsComparison()) {
+            <p class="text">{{ 'Home.CompareNoFriends' | translate }}</p>
+            <custom-button-component [text]="'Home.CompareGoToProfile' | translate" (onClick)="navigationService.goToProfile()"></custom-button-component>
+          } @else {
+            <ol class="comparison-list">
+              @for (entry of friendsComparison(); track entry.userId; let i = $index) {
+                <li class="comparison-item" [class.comparison-item-self]="entry.isCurrentUser">
+                  <span class="comparison-position">{{ i + 1 }}</span>
+                  <span class="comparison-name text-color">
+                    {{ entry.username }}
+                    @if (entry.isCurrentUser) {
+                      <span class="comparison-you-tag">{{ 'Home.CompareYouTag' | translate }}</span>
+                    }
+                  </span>
+                  <span class="comparison-value text">{{ 'Home.CompareGamesPlayed' | translate: { games: entry.totalGamesPlayed } }}</span>
+                </li>
+              }
+            </ol>
           }
-        </ol>
-      }
+        </div>
+      </div>
     </div>
   </section>
 
@@ -42412,7 +42484,7 @@ var HomePage = class _HomePage {
 </main>
 
 <footer-component></footer-component>
-`, styles: ["/* src/app/pages/home/home.page.css */\n.home-page {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  width: 100%;\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 1rem 1.5rem 4rem;\n  box-sizing: border-box;\n  gap: 4.5rem;\n}\n.hero-section {\n  display: grid;\n  grid-template-columns: 1.15fr 0.85fr;\n  align-items: center;\n  gap: 3rem;\n  width: 100%;\n  padding: 2rem 0 1rem;\n  text-align: left;\n}\n.hero-content {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  gap: 1.25rem;\n}\n.hero-title {\n  font-size: 3.4rem;\n  line-height: 1.1;\n  letter-spacing: 1px;\n  margin: 0;\n  background:\n    linear-gradient(\n      135deg,\n      var(--titles-color),\n      var(--button-color));\n  background-clip: text;\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n}\n.hero-text {\n  max-width: 560px;\n  margin: 0;\n}\n.hero-actions {\n  margin-top: 0.25rem;\n}\n.hero-visual {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.hero-card-grid {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 1.1rem;\n  perspective: 1200px;\n}\n.hero-card {\n  width: 92px;\n  height: 92px;\n  position: relative;\n  transform-style: preserve-3d;\n  animation: hero-card-flip 6.5s ease-in-out infinite;\n}\n.hero-card-face {\n  position: absolute;\n  inset: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: var(--radius-md);\n  backface-visibility: hidden;\n  box-shadow: var(--shadow-md);\n  box-sizing: border-box;\n}\n.hero-card-front {\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n  color: var(--button-text-color);\n  font-size: 2.1rem;\n  font-weight: 800;\n}\n.hero-card-back {\n  background: var(--card-bg);\n  border: 1px solid var(--glass-border);\n  transform: rotateY(180deg);\n}\n.hero-card-back .material-symbols-outlined {\n  font-size: 2.3rem !important;\n  color: var(--titles-color);\n}\n@keyframes hero-card-flip {\n  0%, 40% {\n    transform: rotateY(0deg);\n  }\n  50%, 90% {\n    transform: rotateY(180deg);\n  }\n  100% {\n    transform: rotateY(360deg);\n  }\n}\n@media (prefers-reduced-motion: reduce) {\n  .hero-card {\n    animation: none;\n  }\n}\n.home-section {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  width: 100%;\n}\n.section-heading {\n  margin-bottom: 1.5rem;\n}\n.community-stats-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));\n  gap: 1.25rem;\n  width: 100%;\n  max-width: 800px;\n  box-sizing: border-box;\n}\n.community-stat-card {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  text-align: center;\n  gap: 0.6rem;\n  padding: 1.75rem 1rem;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.community-stat-card:hover {\n  transform: translateY(-4px);\n  box-shadow: var(--shadow-lg);\n}\n.community-stat-icon-badge {\n  width: 56px;\n  height: 56px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: var(--radius-full);\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n}\n.community-stat-icon-badge .material-symbols-outlined {\n  font-size: 1.7rem !important;\n  color: var(--button-text-color);\n}\n.community-stat-value {\n  font-size: 1.6rem;\n  font-weight: 800;\n  color: var(--titles-color);\n}\n.community-stat-label {\n  font-size: 0.85rem;\n  opacity: 0.7;\n}\n.compare-panel {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  width: 100%;\n  max-width: 800px;\n  padding: 2rem;\n  box-sizing: border-box;\n  gap: 1rem;\n}\n.comparison-list {\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  width: 100%;\n  list-style: none;\n  margin: 0;\n  padding: 0;\n}\n.comparison-item {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  background: var(--bg-color);\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-md, 10px);\n  padding: 0.75rem 1.25rem;\n  box-sizing: border-box;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.comparison-item:hover {\n  transform: translateY(-2px);\n  box-shadow: var(--shadow-sm);\n}\n.comparison-item-self {\n  border-color: color-mix(in srgb, var(--titles-color) 45%, var(--glass-border));\n  box-shadow: 0 0 16px var(--accent-glow);\n}\n.comparison-position {\n  width: 24px;\n  text-align: center;\n  font-weight: 800;\n  color: var(--titles-color);\n  flex-shrink: 0;\n}\n.comparison-name {\n  flex: 1;\n  font-weight: 700;\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n.comparison-you-tag {\n  font-size: 0.7rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.3px;\n  padding: 0.15rem 0.5rem;\n  border-radius: var(--radius-full);\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n  color: var(--button-text-color);\n}\n.comparison-value {\n  flex-shrink: 0;\n  font-size: 0.9rem;\n}\n.feature-grid-section {\n  display: grid;\n  grid-template-columns: repeat(2, 1fr);\n  gap: 2rem;\n  align-items: start;\n  text-align: left;\n}\n.feature-card {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  gap: 0.75rem;\n  padding: 2rem;\n  box-sizing: border-box;\n  height: 100%;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.feature-card:hover {\n  transform: translateY(-4px);\n  box-shadow: var(--shadow-lg);\n}\n.feature-card .medium-title {\n  margin: 0;\n}\n.feature-card .text {\n  margin: 0;\n}\n.feature-icon-badge {\n  width: 52px;\n  height: 52px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: var(--radius-md);\n  background: var(--accent-glow);\n}\n.feature-icon-badge .material-symbols-outlined {\n  font-size: 1.6rem !important;\n  color: var(--titles-color);\n}\n.gallery-section {\n  width: 100%;\n}\n@media (max-width: 900px) {\n  .hero-section {\n    grid-template-columns: 1fr;\n    text-align: center;\n    padding-top: 0.5rem;\n  }\n  .hero-content {\n    align-items: center;\n  }\n  .hero-text {\n    max-width: 100%;\n  }\n  .hero-visual {\n    order: -1;\n  }\n  .hero-card {\n    width: 72px;\n    height: 72px;\n  }\n  .feature-grid-section {\n    grid-template-columns: 1fr;\n  }\n  .feature-card {\n    text-align: left;\n  }\n}\n@media (max-width: 600px) {\n  .home-page {\n    gap: 3rem;\n    padding: 1rem 1rem 3rem;\n  }\n  .hero-title {\n    font-size: 2.4rem;\n  }\n  .hero-card-grid {\n    gap: 0.75rem;\n  }\n  .hero-card {\n    width: 60px;\n    height: 60px;\n  }\n  .hero-card-front {\n    font-size: 1.5rem;\n  }\n  .hero-card-back .material-symbols-outlined {\n    font-size: 1.7rem !important;\n  }\n}\n/*# sourceMappingURL=home.page.css.map */\n"] }]
+`, styles: ["/* src/app/pages/home/home.page.css */\n.home-page {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  width: 100%;\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 1rem 1.5rem 4rem;\n  box-sizing: border-box;\n  gap: 4.5rem;\n}\n.hero-section {\n  display: grid;\n  grid-template-columns: 1.15fr 0.85fr;\n  align-items: center;\n  gap: 3rem;\n  width: 100%;\n  padding: 2rem 0 1rem;\n  text-align: left;\n}\n.hero-content {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  gap: 1.25rem;\n}\n.hero-title {\n  font-size: 3.4rem;\n  line-height: 1.1;\n  letter-spacing: 1px;\n  margin: 0;\n  background:\n    linear-gradient(\n      135deg,\n      var(--titles-color),\n      var(--button-color));\n  background-clip: text;\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n}\n.hero-text {\n  max-width: 560px;\n  margin: 0;\n}\n.hero-actions {\n  margin-top: 0.25rem;\n}\n.hero-visual {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.hero-card-grid {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 1.1rem;\n  perspective: 1200px;\n}\n.hero-card {\n  width: 92px;\n  height: 92px;\n  position: relative;\n  transform-style: preserve-3d;\n  animation: hero-card-flip 6.5s ease-in-out infinite;\n}\n.hero-card-face {\n  position: absolute;\n  inset: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: var(--radius-md);\n  backface-visibility: hidden;\n  box-shadow: var(--shadow-md);\n  box-sizing: border-box;\n}\n.hero-card-front {\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n  color: var(--button-text-color);\n  font-size: 2.1rem;\n  font-weight: 800;\n}\n.hero-card-back {\n  background: var(--card-bg);\n  border: 1px solid var(--glass-border);\n  transform: rotateY(180deg);\n}\n.hero-card-back .material-symbols-outlined {\n  font-size: 2.3rem !important;\n  color: var(--titles-color);\n}\n@keyframes hero-card-flip {\n  0%, 40% {\n    transform: rotateY(0deg);\n  }\n  50%, 90% {\n    transform: rotateY(180deg);\n  }\n  100% {\n    transform: rotateY(360deg);\n  }\n}\n@media (prefers-reduced-motion: reduce) {\n  .hero-card {\n    animation: none;\n  }\n}\n.home-section {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  width: 100%;\n}\n.section-heading {\n  margin-bottom: 1.5rem;\n}\n.stats-compare-grid {\n  display: grid;\n  grid-template-columns: repeat(2, 1fr);\n  gap: 2rem;\n  align-items: start;\n  width: 100%;\n}\n.stats-compare-col {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  width: 100%;\n}\n.community-carousel {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  width: 100%;\n}\n.carousel-nav {\n  flex-shrink: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 40px;\n  height: 40px;\n  border-radius: var(--radius-full);\n  border: 1px solid var(--glass-border);\n  background: var(--glass-bg);\n  color: var(--text-color);\n  cursor: pointer;\n  transition: border-color 0.2s ease, transform 0.2s ease;\n}\n.carousel-nav:hover:not(:disabled) {\n  border-color: var(--titles-color);\n  transform: translateY(-2px);\n}\n.carousel-nav:disabled {\n  opacity: 0.35;\n  cursor: not-allowed;\n}\n.carousel-nav .material-symbols-outlined {\n  font-size: 1.4rem !important;\n}\n.carousel-dots {\n  display: flex;\n  justify-content: center;\n  gap: 0.5rem;\n  margin-top: 1rem;\n}\n.carousel-dot {\n  width: 8px;\n  height: 8px;\n  padding: 0;\n  border: none;\n  border-radius: var(--radius-full);\n  background: var(--glass-border);\n  cursor: pointer;\n  transition: background-color 0.2s ease, width 0.2s ease;\n}\n.carousel-dot-active {\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n  width: 20px;\n}\n.community-stat-card {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  text-align: center;\n  gap: 0.6rem;\n  padding: 1.75rem 1rem;\n  flex: 1;\n  min-width: 0;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.community-stat-card:hover {\n  transform: translateY(-4px);\n  box-shadow: var(--shadow-lg);\n}\n.community-stat-icon-badge {\n  width: 56px;\n  height: 56px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: var(--radius-full);\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n}\n.community-stat-icon-badge .material-symbols-outlined {\n  font-size: 1.7rem !important;\n  color: var(--button-text-color);\n}\n.community-stat-value {\n  font-size: 1.6rem;\n  font-weight: 800;\n  color: var(--titles-color);\n}\n.community-stat-label {\n  font-size: 0.85rem;\n  opacity: 0.7;\n}\n.compare-panel {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  width: 100%;\n  padding: 2rem;\n  box-sizing: border-box;\n  gap: 1rem;\n}\n.comparison-list {\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  width: 100%;\n  list-style: none;\n  margin: 0;\n  padding: 0;\n}\n.comparison-item {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  background: var(--bg-color);\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-md, 10px);\n  padding: 0.75rem 1.25rem;\n  box-sizing: border-box;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.comparison-item:hover {\n  transform: translateY(-2px);\n  box-shadow: var(--shadow-sm);\n}\n.comparison-item-self {\n  border-color: color-mix(in srgb, var(--titles-color) 45%, var(--glass-border));\n  box-shadow: 0 0 16px var(--accent-glow);\n}\n.comparison-position {\n  width: 24px;\n  text-align: center;\n  font-weight: 800;\n  color: var(--titles-color);\n  flex-shrink: 0;\n}\n.comparison-name {\n  flex: 1;\n  font-weight: 700;\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n.comparison-you-tag {\n  font-size: 0.7rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.3px;\n  padding: 0.15rem 0.5rem;\n  border-radius: var(--radius-full);\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n  color: var(--button-text-color);\n}\n.comparison-value {\n  flex-shrink: 0;\n  font-size: 0.9rem;\n}\n.feature-grid-section {\n  display: grid;\n  grid-template-columns: repeat(2, 1fr);\n  gap: 2rem;\n  align-items: start;\n  text-align: left;\n}\n.feature-card {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  gap: 0.75rem;\n  padding: 2rem;\n  box-sizing: border-box;\n  height: 100%;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.feature-card:hover {\n  transform: translateY(-4px);\n  box-shadow: var(--shadow-lg);\n}\n.feature-card .medium-title {\n  margin: 0;\n}\n.feature-card .text {\n  margin: 0;\n}\n.feature-icon-badge {\n  width: 52px;\n  height: 52px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: var(--radius-md);\n  background: var(--accent-glow);\n}\n.feature-icon-badge .material-symbols-outlined {\n  font-size: 1.6rem !important;\n  color: var(--titles-color);\n}\n.gallery-section {\n  width: 100%;\n}\n@media (max-width: 900px) {\n  .hero-section {\n    grid-template-columns: 1fr;\n    text-align: center;\n    padding-top: 0.5rem;\n  }\n  .hero-content {\n    align-items: center;\n  }\n  .hero-text {\n    max-width: 100%;\n  }\n  .hero-visual {\n    order: -1;\n  }\n  .hero-card {\n    width: 72px;\n    height: 72px;\n  }\n  .feature-grid-section {\n    grid-template-columns: 1fr;\n  }\n  .feature-card {\n    text-align: left;\n  }\n  .stats-compare-grid {\n    grid-template-columns: 1fr;\n    gap: 3rem;\n  }\n}\n@media (max-width: 600px) {\n  .home-page {\n    gap: 3rem;\n    padding: 1rem 1rem 3rem;\n  }\n  .hero-title {\n    font-size: 2.4rem;\n  }\n  .hero-card-grid {\n    gap: 0.75rem;\n  }\n  .hero-card {\n    width: 60px;\n    height: 60px;\n  }\n  .hero-card-front {\n    font-size: 1.5rem;\n  }\n  .hero-card-back .material-symbols-outlined {\n    font-size: 1.7rem !important;\n  }\n}\n/*# sourceMappingURL=home.page.css.map */\n"] }]
   }], () => [], null);
 })();
 (() => {
@@ -51284,7 +51356,7 @@ var _c08 = ["class", "page"];
 var _c13 = (a0) => ({ name: a0 });
 var _c2 = () => [];
 var _forTrack04 = ($index, $item) => $item.difficulty.id;
-var _forTrack1 = ($index, $item) => $item.id;
+var _forTrack12 = ($index, $item) => $item.id;
 var _forTrack2 = ($index, $item) => $item.userId;
 var _forTrack3 = ($index, $item) => $item.friendshipId;
 function ProfilePage_Conditional_11_Template(rf, ctx) {
@@ -51637,7 +51709,7 @@ function ProfilePage_Conditional_61_Template(rf, ctx) {
     \u0275\u0275element(4, "div", 48);
     \u0275\u0275elementEnd()();
     \u0275\u0275elementStart(5, "div", 49);
-    \u0275\u0275repeaterCreate(6, ProfilePage_Conditional_61_For_7_Template, 10, 7, "div", 50, _forTrack1);
+    \u0275\u0275repeaterCreate(6, ProfilePage_Conditional_61_For_7_Template, 10, 7, "div", 50, _forTrack12);
     \u0275\u0275elementEnd();
     \u0275\u0275conditionalCreate(8, ProfilePage_Conditional_61_Conditional_8_Template, 12, 8, "div", 51);
   }
@@ -51776,7 +51848,7 @@ function ProfilePage_Conditional_73_Conditional_3_Template(rf, ctx) {
 function ProfilePage_Conditional_73_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "div", 62);
-    \u0275\u0275repeaterCreate(1, ProfilePage_Conditional_73_For_2_Template, 14, 7, "div", 63, _forTrack1);
+    \u0275\u0275repeaterCreate(1, ProfilePage_Conditional_73_For_2_Template, 14, 7, "div", 63, _forTrack12);
     \u0275\u0275elementEnd();
     \u0275\u0275conditionalCreate(3, ProfilePage_Conditional_73_Conditional_3_Template, 12, 8, "div", 51);
   }
@@ -68893,7 +68965,7 @@ var BaseChartDirective = _BaseChartDirective;
 var _c09 = ["class", "page"];
 var _c14 = (a0) => ({ games: a0 });
 var _forTrack05 = ($index, $item) => $item.username;
-var _forTrack12 = ($index, $item) => $item.difficulty.id;
+var _forTrack13 = ($index, $item) => $item.difficulty.id;
 function DashboardPage_Conditional_9_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275element(0, "state-handler-component", 4);
@@ -69087,7 +69159,7 @@ function DashboardPage_Conditional_12_Template(rf, ctx) {
     \u0275\u0275pipe(24, "translate");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(25, "div", 19);
-    \u0275\u0275repeaterCreate(26, DashboardPage_Conditional_12_For_27_Template, 1, 1, null, null, _forTrack12);
+    \u0275\u0275repeaterCreate(26, DashboardPage_Conditional_12_For_27_Template, 1, 1, null, null, _forTrack13);
     \u0275\u0275elementEnd()();
     \u0275\u0275elementStart(28, "div", 18)(29, "h2", 11)(30, "span", 12);
     \u0275\u0275text(31, "timer");
@@ -69096,7 +69168,7 @@ function DashboardPage_Conditional_12_Template(rf, ctx) {
     \u0275\u0275pipe(33, "translate");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(34, "div", 19);
-    \u0275\u0275repeaterCreate(35, DashboardPage_Conditional_12_For_36_Template, 1, 1, null, null, _forTrack12);
+    \u0275\u0275repeaterCreate(35, DashboardPage_Conditional_12_For_36_Template, 1, 1, null, null, _forTrack13);
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
@@ -69458,7 +69530,7 @@ var DashboardPage = class _DashboardPage {
 // src/app/pages/friend-profile/friend-profile.page.ts
 var _c010 = ["class", "page"];
 var _forTrack06 = ($index, $item) => $item.difficulty.id;
-var _forTrack13 = ($index, $item) => $item.id;
+var _forTrack14 = ($index, $item) => $item.id;
 function FriendProfilePage_Conditional_2_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275element(0, "state-handler-component", 1);
@@ -69694,7 +69766,7 @@ function FriendProfilePage_Conditional_4_Conditional_21_Template(rf, ctx) {
     \u0275\u0275element(4, "div", 22);
     \u0275\u0275elementEnd()();
     \u0275\u0275elementStart(5, "div", 23);
-    \u0275\u0275repeaterCreate(6, FriendProfilePage_Conditional_4_Conditional_21_For_7_Template, 10, 7, "div", 24, _forTrack13);
+    \u0275\u0275repeaterCreate(6, FriendProfilePage_Conditional_4_Conditional_21_For_7_Template, 10, 7, "div", 24, _forTrack14);
     \u0275\u0275elementEnd();
     \u0275\u0275conditionalCreate(8, FriendProfilePage_Conditional_4_Conditional_21_Conditional_8_Template, 12, 8, "div", 25);
   }
@@ -69815,7 +69887,7 @@ function FriendProfilePage_Conditional_4_Conditional_29_Conditional_3_Template(r
 function FriendProfilePage_Conditional_4_Conditional_29_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "div", 36);
-    \u0275\u0275repeaterCreate(1, FriendProfilePage_Conditional_4_Conditional_29_For_2_Template, 14, 7, "div", 37, _forTrack13);
+    \u0275\u0275repeaterCreate(1, FriendProfilePage_Conditional_4_Conditional_29_For_2_Template, 14, 7, "div", 37, _forTrack14);
     \u0275\u0275elementEnd();
     \u0275\u0275conditionalCreate(3, FriendProfilePage_Conditional_4_Conditional_29_Conditional_3_Template, 12, 8, "div", 25);
   }
