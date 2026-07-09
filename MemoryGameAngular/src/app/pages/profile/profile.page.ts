@@ -21,6 +21,7 @@ import { NavigationService } from '../../services/NavigationService.service';
 import { UsersService } from '../../services/users-service.service';
 import { LanguageService } from '../../services/language-service.service';
 import { AchievementsService } from '../../services/achievements-service.service';
+import { FriendsService } from '../../services/friends-service.service';
 
 //rxjs
 import { finalize } from 'rxjs';
@@ -30,6 +31,13 @@ import { UserStats } from '../../models/stats/userStats.dto';
 import { UpdateProfile } from '../../models/components/UpdateProfile.model';
 import { UpdateRequest } from '../../models/requests/UpdateRequest.model';
 import { Achievement } from '../../models/entitiesDto/Achievement.model';
+import { GameResult } from '../../models/entitiesDto/GameResult.model';
+import { Friend } from '../../models/entitiesDto/Friend.model';
+import { FriendRequest } from '../../models/entitiesDto/FriendRequest.model';
+import { UserSearchResult } from '../../models/entitiesDto/UserSearchResult.model';
+
+//Helpers
+import { formatDuration } from '../../helpers/timeFunctions.helper';
 
 @Component({
   selector: 'profile.page',
@@ -44,6 +52,7 @@ export class ProfilePage {
   private usersService = inject(UsersService);
   private languageService = inject(LanguageService);
   private achievementsService = inject(AchievementsService);
+  private friendsService = inject(FriendsService);
 
   public currentUser = computed(() => this.authService.currentUser()!);
   public userData = computed<UpdateProfile>(() => ({
@@ -91,6 +100,31 @@ export class ProfilePage {
     Array.from({ length: this.totalAchievementsPages() }, (_, i) => i + 1)
   );
 
+  public readonly gameHistoryPageSize = 8;
+  public gameHistory = signal<GameResult[] | null>(null);
+  public gameHistoryPage = signal<number>(1);
+  public gameHistoryTotalCount = signal<number>(0);
+  public isGameHistoryLoading = signal<boolean>(false);
+
+  public hasGameHistory = computed(() => this.gameHistoryTotalCount() > 0);
+  public gameHistoryTotalPages = computed(() =>
+    Math.max(1, Math.ceil(this.gameHistoryTotalCount() / this.gameHistoryPageSize))
+  );
+  public gameHistoryPageNumbers = computed(() =>
+    Array.from({ length: this.gameHistoryTotalPages() }, (_, i) => i + 1)
+  );
+
+  public friends = signal<Friend[] | null>(null);
+  public incomingRequests = signal<FriendRequest[] | null>(null);
+  public searchResults = signal<UserSearchResult[] | null>(null);
+  public searchQuery = signal<string>('');
+  public isSearching = signal<boolean>(false);
+  public isFriendsLoading = signal<boolean>(false);
+
+  public hasSearched = computed(() => this.searchQuery().trim().length >= 2);
+  public hasFriends = computed(() => (this.friends() ?? []).length > 0);
+  public hasIncomingRequests = computed(() => (this.incomingRequests() ?? []).length > 0);
+
   public isLoading = signal<boolean>(false);
   public error = signal<string | null>(null);
   public userStats = signal<UserStats[] | null>(null);
@@ -131,6 +165,132 @@ export class ProfilePage {
         }
       }
     });
+
+    this.loadGameHistory(1);
+    this.loadFriendsData();
+  }
+
+  public loadFriendsData(): void {
+    this.isFriendsLoading.set(true);
+
+    this.friendsService.getFriends().subscribe({
+      next: (response) => {
+        this.isFriendsLoading.set(false);
+        if (response.success) {
+          this.friends.set(response.data);
+        }
+      },
+      error: () => this.isFriendsLoading.set(false)
+    });
+
+    this.friendsService.getIncomingRequests().subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.incomingRequests.set(response.data);
+          this.friendsService.pendingRequestsCount.set(response.data.length);
+        }
+      }
+    });
+  }
+
+  public handleFriendSearchInput(query: string): void {
+    this.searchQuery.set(query);
+
+    if (query.trim().length < 2) {
+      this.searchResults.set(null);
+      return;
+    }
+
+    this.isSearching.set(true);
+
+    this.friendsService.searchUsers(query.trim()).subscribe({
+      next: (response) => {
+        this.isSearching.set(false);
+        if (response.success) {
+          this.searchResults.set(response.data);
+        }
+      },
+      error: () => this.isSearching.set(false)
+    });
+  }
+
+  public handleSendFriendRequest(userId: number): void {
+    this.friendsService.sendFriendRequest(userId).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.searchResults.update(results =>
+            (results ?? []).map(r => r.userId === userId ? { ...r, status: 'PendingOutgoing' as const } : r)
+          );
+        }
+      }
+    });
+  }
+
+  public handleAcceptFriendRequest(friendshipId: number): void {
+    this.friendsService.acceptRequest(friendshipId).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.loadFriendsData();
+        }
+      }
+    });
+  }
+
+  public handleDeclineFriendRequest(friendshipId: number): void {
+    this.friendsService.declineRequest(friendshipId).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.incomingRequests.update(requests => (requests ?? []).filter(r => r.friendshipId !== friendshipId));
+          this.friendsService.pendingRequestsCount.update(count => Math.max(0, count - 1));
+        }
+      }
+    });
+  }
+
+  public handleRemoveFriend(friendshipId: number): void {
+    this.friendsService.removeFriend(friendshipId).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.friends.update(friends => (friends ?? []).filter(f => f.friendshipId !== friendshipId));
+        }
+      }
+    });
+  }
+
+  public handleViewFriendProfile(userId: number): void {
+    this.navigationService.goToFriendProfile(userId);
+  }
+
+  public loadGameHistory(page: number): void {
+    this.isGameHistoryLoading.set(true);
+
+    this.gameResultsService.getGameHistory(page, this.gameHistoryPageSize).pipe(
+      finalize(() => this.isGameHistoryLoading.set(false))
+    ).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.gameHistory.set(response.data.items);
+          this.gameHistoryTotalCount.set(response.data.totalCount);
+          this.gameHistoryPage.set(response.data.page);
+        }
+      }
+    });
+  }
+
+  public handleGameHistoryPrevPage(): void {
+    if (this.gameHistoryPage() > 1) {
+      this.loadGameHistory(this.gameHistoryPage() - 1);
+    }
+  }
+
+  public handleGameHistoryNextPage(): void {
+    if (this.gameHistoryPage() < this.gameHistoryTotalPages()) {
+      this.loadGameHistory(this.gameHistoryPage() + 1);
+    }
+  }
+
+  public handleGameHistoryGoToPage(page: number): void {
+    this.loadGameHistory(page);
   }
 
   public handleAchievementsPrevPage(): void {
@@ -165,5 +325,9 @@ export class ProfilePage {
 
   public handleCloseModal() : void {
     this.modalOpen.set(false);
+  }
+
+  public formatTime(totalSeconds: number): string {
+    return formatDuration(totalSeconds);
   }
 }

@@ -6,7 +6,8 @@
     "login": "accesso",
     "signup": "registrazione",
     "about": "informazioni",
-    "dashboard": "classifica"
+    "dashboard": "classifica",
+    "friends": "amici"
   },
   "Header": {
     "Home": "Home",
@@ -36,7 +37,18 @@
     "WhereFromText": "Le immagini utilizzate provengono da Unsplash, un sito che fornisce fotografie di alta qualità senza diritti d'autore. Puoi trovare maggiori informazioni sulle immagini e sui loro autori direttamente sul sito di Unsplash.",
     "PlayNow": "Gioca Ora",
     "LoadMoreButtonLabel": "Carica altre",
-    "LoadMoreText": "Guarda queste bellissime immagini. Ne abbiamo ben <strong class=\"light-color\">{{numberOfImages}}</strong> disponibili!"
+    "LoadMoreText": "Guarda queste bellissime immagini. Ne abbiamo ben <strong class=\"light-color\">{{numberOfImages}}</strong> disponibili!",
+    "CommunityTitle": "La community in numeri",
+    "CommunityPlayers": "Giocatori registrati",
+    "CommunityGamesPlayed": "Partite giocate",
+    "CommunityPopularDifficulty": "Difficoltà più popolare",
+    "CompareTitle": "Confrontati con i tuoi amici",
+    "CompareLoginPrompt": "Accedi per confrontare le tue statistiche con quelle dei tuoi amici.",
+    "CompareLoading": "Caricamento confronto...",
+    "CompareNoFriends": "Non hai ancora amici. Aggiungine qualcuno dal tuo profilo per confrontare i risultati!",
+    "CompareGoToProfile": "Vai al profilo",
+    "CompareYouTag": "Tu",
+    "CompareGamesPlayed": "{{ games }} partite"
   },
   "Play": {
     "SelectDifficulty": "Seleziona la difficoltà",
@@ -47,6 +59,7 @@
     "CurrentAttempts": "Tentativi attuali",
     "CompletedTitle": "Bravo!",
     "CompletedMessage": "Hai completato la sfida in {{moves}} mosse!",
+    "CompletedTime": "Tempo impiegato: {{time}}",
     "NextLevel": "Prossimo Livello",
     "PlayAgain": "Riprova",
     "GoBack": "Indietro",
@@ -100,6 +113,7 @@
     "Stats": {
       "GamesPlayed": "Partite giocate",
       "AverageMoves": "Media mosse",
+      "AverageTime": "Tempo medio",
       "BestScore": "Miglior punteggio"
     },
     "Kpi": {
@@ -132,6 +146,16 @@
     "Achievements": {
       "Title": "Achievement",
       "Text": "Sblocca i badge giocando e migliorando le tue partite."
+    },
+    "History": {
+      "Title": "Cronologia partite",
+      "Text": "Rivedi le tue ultime partite giocate.",
+      "NoHistoryTitle": "Nessuna partita ancora",
+      "NoHistoryText": "Non hai ancora giocato nessuna partita. Gioca la tua prima sfida!",
+      "Loading": {
+        "Title": "Caricamento cronologia",
+        "Text": "Stiamo recuperando le tue ultime partite."
+      }
     }
   },
   "Dashboard": {
@@ -142,6 +166,8 @@
     "GamesPerDifficultyTitle": "Partite completate per difficoltà",
     "BestScoresTitle": "Miglior punteggio per difficoltà",
     "BestScoresEntry": "{{ moves }} mosse",
+    "BestTimesTitle": "Miglior tempo per difficoltà",
+    "BestTimesEntry": "{{ time }}",
     "NoResultTitle": "Nessun dato disponibile",
     "NoResultText": "Non ci sono ancora partite registrate. Gioca una sfida per essere il primo in classifica!",
     "Loading": {
@@ -164,7 +190,40 @@
     "Save": "Salva",
     "Cancel": "Annulla",
     "Previous": "Precedente",
-    "Next": "Successivo"
+    "Next": "Successivo",
+    "Accept": "Accetta",
+    "Decline": "Rifiuta"
+  },
+  "Friends": {
+    "Title": "Amici",
+    "Text": "Cerca altri giocatori, gestisci le richieste di amicizia e confronta le statistiche.",
+    "BackButton": "Torna al profilo",
+    "Search": {
+      "Title": "Cerca giocatori",
+      "Placeholder": "Cerca per username...",
+      "Searching": "Ricerca in corso...",
+      "NoResults": "Nessun utente trovato.",
+      "AddButton": "Aggiungi",
+      "PendingLabel": "Richiesta inviata",
+      "PendingIncomingLabel": "Ti ha inviato una richiesta",
+      "FriendsLabel": "Amici",
+      "DeclinedLabel": "Richiesta rifiutata"
+    },
+    "Requests": {
+      "Title": "Richieste in arrivo",
+      "Empty": "Nessuna richiesta in sospeso."
+    },
+    "MyFriends": {
+      "Title": "I miei amici",
+      "ViewButton": "Vedi profilo",
+      "RemoveButton": "Rimuovi",
+      "EmptyTitle": "Nessun amico ancora",
+      "EmptyText": "Cerca altri giocatori qui sopra per iniziare ad aggiungere amici.",
+      "Loading": {
+        "Title": "Caricamento amici",
+        "Text": "Stiamo recuperando la tua lista amici."
+      }
+    }
   },
   "Errors": {
     "Required": "Il campo è obbligatorio",

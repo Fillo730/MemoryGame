@@ -31,9 +31,17 @@ public class GameResultsService (IGameResultsRepository gameResultsRepository, I
         return gameResultDto;
     }
 
-    public Task<IEnumerable<GameResultDto>> GetGameResultsForUserByIdAsync(int id)
+    public async Task<PagedResultDto<GameResultDto>> GetGameHistoryForUserByIdAsync(int id, string lang, int page, int pageSize)
     {
-        throw new NotImplementedException();
+        var (items, totalCount) = await _gameResultsRepository.GetGameHistoryForUserByIdAsync(id, lang, page, pageSize);
+
+        return new PagedResultDto<GameResultDto>
+        {
+            Items = _gameResultsMapper.MapEntityToDtoList(items),
+            TotalCount = totalCount,
+            Page = page,
+            PageSize = pageSize
+        };
     }
 
     public async Task<IEnumerable<UserStatsDto>> GetUserStatsByIdAsync(int id, string lang)

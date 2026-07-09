@@ -9,5 +9,5 @@ public interface IGameResultsService
 
     Task<IEnumerable<UserStatsDto>> GetUserStatsByIdAsync(int id, string lang);
 
-    Task<IEnumerable<GameResultDto>> GetGameResultsForUserByIdAsync(int id);
+    Task<PagedResultDto<GameResultDto>> GetGameHistoryForUserByIdAsync(int id, string lang, int page, int pageSize);
 }

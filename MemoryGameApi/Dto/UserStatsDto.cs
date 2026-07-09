@@ -11,4 +11,6 @@ public class UserStatsDto
     public int BestScore { get; set; }
 
     public double AverageMovesPerGame { get; set; }
+
+    public double AverageTimePerGame { get; set; }
 }

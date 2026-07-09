@@ -30,5 +30,12 @@ public class UserRepository (AppDbContext dbContext) : BaseRepository(dbContext)
             .FirstOrDefaultAsync();
     }
 
-   
+    public async Task<IEnumerable<User>> SearchUsersByUsernameAsync(string query, int excludingUserId, int take)
+    {
+        return await _dbContext.Users
+            .Where(u => u.Id != excludingUserId && EF.Functions.Like(u.Username, $"%{query}%"))
+            .OrderBy(u => u.Username)
+            .Take(take)
+            .ToListAsync();
+    }
 }

@@ -19,7 +19,7 @@ export class NatureGalleryComponent implements OnInit {
   @Input() text !: string;
   @Input() buttonLabel !: string;
   @Input() defaultImages : string[] = [];
-  @Input() numberOfImagesShowed : number = 8;
+  @Input() numberOfImagesShowed : number = 4;
 
   private images !: string[];
   public randomImages: string[] = [];

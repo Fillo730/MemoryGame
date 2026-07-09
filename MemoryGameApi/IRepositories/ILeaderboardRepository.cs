@@ -9,4 +9,8 @@ public interface ILeaderboardRepository
     Task<IEnumerable<DifficultyGamesCount>> GetGamesPerDifficultyAsync(string lang);
 
     Task<IEnumerable<DifficultyBestScores>> GetBestScoresPerDifficultyAsync(int topN, string lang);
+
+    Task<IEnumerable<DifficultyBestTimes>> GetBestTimesPerDifficultyAsync(int topN, string lang);
+
+    Task<PlatformStats> GetPlatformStatsAsync(string lang);
 }

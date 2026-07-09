@@ -25,6 +25,7 @@ builder.Services.AddSingleton<IStatisticalMapper, StatisticalMapper>();
 builder.Services.AddSingleton<ILeaderboardMapper, LeaderboardMapper>();
 builder.Services.AddSingleton<IAchievementsMapper, AchievementsMapper>();
 builder.Services.AddSingleton<IAchievementRulesEvaluator, AchievementRulesEvaluator>();
+builder.Services.AddSingleton<IFriendsMapper, FriendsMapper>();
 
 builder.Services.AddScoped<IDifficultiesService, DifficultiesService>();
 builder.Services.AddScoped<IDifficultiesRepository, DifficultiesRepository>();
@@ -37,6 +38,8 @@ builder.Services.AddScoped<ILeaderboardService, LeaderboardService>();
 builder.Services.AddScoped<ILeaderboardRepository, LeaderboardRepository>();
 builder.Services.AddScoped<IAchievementsService, AchievementsService>();
 builder.Services.AddScoped<IAchievementsRepository, AchievementsRepository>();
+builder.Services.AddScoped<IFriendsService, FriendsService>();
+builder.Services.AddScoped<IFriendshipRepository, FriendshipRepository>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

@@ -6,6 +6,8 @@ public class GameResult
 
     public int Moves { get; set; }
 
+    public int DurationSeconds { get; set; }
+
     public DateTime PlayedAt { get; set; } = DateTime.UtcNow;
 
     public int UserId { get; set; }

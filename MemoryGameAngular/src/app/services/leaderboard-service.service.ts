@@ -9,6 +9,7 @@ import { getApiUrl } from "../constants/app.config";
 import { Observable } from "rxjs";
 import { ApiResponse } from "../models/ApiResponse.model";
 import { Leaderboard } from "../models/leaderboard/Leaderboard.model";
+import { PlatformStats } from "../models/entitiesDto/PlatformStats.model";
 
 @Injectable({
   providedIn: 'root',
@@ -21,5 +22,9 @@ export class LeaderboardService {
 
     public getLeaderboard(): Observable<ApiResponse<Leaderboard>> {
         return this.http.get<ApiResponse<Leaderboard>>(this.API_URL);
+    }
+
+    public getPlatformStats(): Observable<ApiResponse<PlatformStats>> {
+        return this.http.get<ApiResponse<PlatformStats>>(`${this.API_URL}/stats`);
     }
 }

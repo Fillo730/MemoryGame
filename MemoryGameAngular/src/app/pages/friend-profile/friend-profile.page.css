@@ -1,0 +1,326 @@
+.friend-profile-page {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 3rem;
+    box-sizing: border-box;
+}
+
+.friend-profile-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    text-align: center;
+}
+
+.friend-profile-avatar {
+    width: 88px;
+    height: 88px;
+    border-radius: var(--radius-full);
+    background: linear-gradient(135deg, var(--button-color), var(--titles-color));
+    color: var(--button-text-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    box-shadow: var(--shadow-md), 0 0 0 6px var(--accent-glow);
+}
+
+.profile-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.profile-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    margin-top: 1rem;
+    box-sizing: border-box;
+}
+
+.profile-stat-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: 1.5rem;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.profile-stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.profile-stat-card h3 {
+    margin: 0 0 0.25rem 0;
+    text-align: center;
+}
+
+.profile-stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--glass-border);
+    padding-top: 0.5rem;
+}
+
+.profile-stat-label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+.stat-icon {
+    font-size: 1.1rem !important;
+    opacity: 0.8;
+}
+
+.profile-stat-value {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--titles-color);
+}
+
+.achievements-progress {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    max-width: 320px;
+    margin-top: 1.25rem;
+}
+
+.achievements-progress-label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--titles-color);
+    white-space: nowrap;
+}
+
+.achievements-progress-track {
+    flex: 1;
+    height: 8px;
+    border-radius: var(--radius-full);
+    background: var(--glass-border);
+    overflow: hidden;
+}
+
+.achievements-progress-fill {
+    height: 100%;
+    border-radius: var(--radius-full);
+    background: linear-gradient(90deg, var(--button-color), var(--titles-color));
+    transition: width 0.4s ease;
+}
+
+.profile-achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    margin-top: 1.5rem;
+    box-sizing: border-box;
+}
+
+.achievement-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: 1.5rem;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+}
+
+.achievement-card:not(.locked) {
+    border-color: color-mix(in srgb, var(--titles-color) 35%, var(--glass-border));
+    box-shadow: var(--shadow-sm), 0 0 20px var(--accent-glow);
+}
+
+.achievement-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.achievement-card.locked {
+    opacity: 0.6;
+}
+
+.achievement-lock {
+    position: absolute;
+    top: 0.85rem;
+    right: 0.85rem;
+    font-size: 1.1rem !important;
+    opacity: 0.45;
+}
+
+.achievement-icon-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: var(--radius-full);
+    background: linear-gradient(135deg, var(--button-color), var(--titles-color));
+    box-shadow: var(--shadow-sm);
+}
+
+.achievement-card.locked .achievement-icon-badge {
+    background: var(--glass-border);
+    box-shadow: none;
+}
+
+.achievement-icon {
+    font-size: 2rem !important;
+    color: var(--button-text-color);
+}
+
+.achievement-card.locked .achievement-icon {
+    color: var(--text-color);
+    opacity: 0.5;
+}
+
+.achievement-card h3 {
+    margin: 0;
+}
+
+.achievement-description {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin: 0;
+}
+
+.achievement-unlocked-at {
+    font-size: 0.8rem;
+    opacity: 0.6;
+    margin-top: 0.25rem;
+}
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    margin-top: 1.25rem;
+    box-sizing: border-box;
+}
+
+.history-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md, 10px);
+    padding: 0.75rem 1.25rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.history-row:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.history-difficulty {
+    font-weight: 700;
+    min-width: 100px;
+}
+
+.history-stat {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.9rem;
+    opacity: 0.85;
+    min-width: 60px;
+}
+
+.history-date {
+    margin-left: auto;
+    font-size: 0.85rem;
+    opacity: 0.6;
+    white-space: nowrap;
+}
+
+.pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.75rem;
+}
+
+.pager-nav,
+.pager-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 0.5rem;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md, 10px);
+    background: var(--glass-bg);
+    color: var(--text-color);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.pager-nav .material-symbols-outlined {
+    font-size: 1.2rem !important;
+}
+
+.pager-nav:hover:not(:disabled),
+.pager-page:hover:not(.active) {
+    border-color: var(--titles-color);
+}
+
+.pager-nav:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.pager-page.active {
+    background: linear-gradient(135deg, var(--button-color), var(--titles-color));
+    color: var(--button-text-color);
+    border-color: transparent;
+}
+
+.pager-pages {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}

@@ -25,4 +25,19 @@ public class LeaderboardController (ILeaderboardService leaderboardService) : Ba
             return Ok(ApiResponse<string>.CreateFailureResponse(ex.Message));
         }
     }
+
+    [HttpGet("stats")]
+    public async Task<IActionResult> GetPlatformStats([FromQuery] string? lang)
+    {
+        try
+        {
+            var result = await _leaderboardService.GetPlatformStatsAsync(GetLanguage(lang));
+
+            return Ok(ApiResponse<PlatformStatsDto>.CreateSuccessResponse(result));
+        }
+        catch (Exception ex)
+        {
+            return Ok(ApiResponse<string>.CreateFailureResponse(ex.Message));
+        }
+    }
 }

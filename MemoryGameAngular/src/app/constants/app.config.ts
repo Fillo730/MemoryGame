@@ -24,7 +24,8 @@ export const API_ENDPOINTS =  {
     GAME_RESULTS: "gameResults",
     USERS: "users",
     LEADERBOARD: "leaderboard",
-    ACHIEVEMENTS: "achievements"
+    ACHIEVEMENTS: "achievements",
+    FRIENDS: "friends"
 } as const;
 
 export function getApiUrl (key : keyof typeof API_ENDPOINTS) : string {

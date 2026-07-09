@@ -10,6 +10,7 @@ import { GameResult } from "../models/entitiesDto/GameResult.model";
 import { Observable } from "rxjs";
 import { ApiResponse } from "../models/ApiResponse.model";
 import { UserStats } from "../models/stats/userStats.dto";
+import { PagedResult } from "../models/PagedResult.model";
 
 
 @Injectable({
@@ -26,8 +27,10 @@ export class GameResultsService {
         return this.http.post<ApiResponse<GameResult>>(this.API_URL, gameResult)
     }
 
-    public getGameResults(): Observable<ApiResponse<GameResult[]>> {
-        return this.http.get<ApiResponse<GameResult[]>>(this.API_URL);
+    public getGameHistory(page : number, pageSize : number): Observable<ApiResponse<PagedResult<GameResult>>> {
+        return this.http.get<ApiResponse<PagedResult<GameResult>>>(`${this.API_URL}/history`, {
+            params: { page, pageSize }
+        });
     }
 
     public getUserStats() : Observable<ApiResponse<UserStats[]>> {

@@ -15,6 +15,7 @@ public class GameResultsMapper (IDifficultiesMapper difficultyMapper) : IGameRes
             DifficultyId = gameResult.Difficulty.Id,
             UserId = userId,
             Moves = gameResult.Moves,
+            DurationSeconds = gameResult.DurationSeconds,
             PlayedAt = gameResult.PlayedAt,
         };
     }
@@ -30,6 +31,7 @@ public class GameResultsMapper (IDifficultiesMapper difficultyMapper) : IGameRes
         {
             Id = gameResult.Id,
             Moves = gameResult.Moves,
+            DurationSeconds = gameResult.DurationSeconds,
             Difficulty = _difficultyMapper.MapToDifficultyDto(gameResult.Difficulty),
             PlayedAt = gameResult.PlayedAt,
         };

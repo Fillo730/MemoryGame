@@ -12,13 +12,13 @@
                 </a>
             </li>
             <li class="header-list-element">
-                <a class="header-list-element-link" [routerLink]="navigationService.getLocalizedRoute(routes.ABOUT)" routerLinkActive="active-link">
-                    {{ 'Header.About' | translate }}
+                <a class="header-list-element-link" [routerLink]="navigationService.getLocalizedRoute(routes.DASHBOARD)" routerLinkActive="active-link">
+                    {{ 'Header.Dashboard' | translate }}
                 </a>
             </li>
             <li class="header-list-element">
-                <a class="header-list-element-link" [routerLink]="navigationService.getLocalizedRoute(routes.DASHBOARD)" routerLinkActive="active-link">
-                    {{ 'Header.Dashboard' | translate }}
+                <a class="header-list-element-link" [routerLink]="navigationService.getLocalizedRoute(routes.ABOUT)" routerLinkActive="active-link">
+                    {{ 'Header.About' | translate }}
                 </a>
             </li>
         </nav>
@@ -33,8 +33,15 @@
                 <span class="text user-greeting">
                     {{ "Header.Greeting" | translate: { name: getUsername() } }}
                 </span>
-                <span class="material-symbols-outlined cursor-pointer light-color">
-                    account_circle
+                <span class="account-icon-wrapper">
+                    <span class="material-symbols-outlined cursor-pointer light-color">
+                        account_circle
+                    </span>
+                    @if (friendsService.pendingRequestsCount() > 0) {
+                        <span class="pending-requests-badge" [attr.aria-label]="'Friends.Requests.Title' | translate">
+                            {{ friendsService.pendingRequestsCount() }}
+                        </span>
+                    }
                 </span>
             </div>
             <generic-button-component [label]="'Profile.LogoutLabel' | translate" (onClick)="handleLogout()"></generic-button-component>

@@ -6,4 +6,5 @@ export interface UserStats {
     bestScore : number,
     gamesPlayed : number,
     averageMovesPerGame : number,
+    averageTimePerGame : number,
 }

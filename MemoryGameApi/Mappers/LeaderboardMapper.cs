@@ -14,7 +14,8 @@ public class LeaderboardMapper (IDifficultiesMapper difficultiesMapper) : ILeade
         {
             TopPlayers = leaderboard.TopPlayers.Select(MapTopPlayer),
             GamesPerDifficulty = leaderboard.GamesPerDifficulty.Select(MapDifficultyGamesCount),
-            BestScoresPerDifficulty = leaderboard.BestScoresPerDifficulty.Select(MapDifficultyBestScores)
+            BestScoresPerDifficulty = leaderboard.BestScoresPerDifficulty.Select(MapDifficultyBestScores),
+            BestTimesPerDifficulty = leaderboard.BestTimesPerDifficulty.Select(MapDifficultyBestTimes)
         };
     }
 
@@ -46,6 +47,31 @@ public class LeaderboardMapper (IDifficultiesMapper difficultiesMapper) : ILeade
                 Username = s.Username,
                 Moves = s.Moves
             })
+        };
+    }
+
+    private DifficultyBestTimesDto MapDifficultyBestTimes(DifficultyBestTimes bestTimes)
+    {
+        return new DifficultyBestTimesDto
+        {
+            Difficulty = _difficultiesMapper.MapToDifficultyDto(bestTimes.Difficulty),
+            TopTimes = bestTimes.TopTimes.Select(t => new BestTimeEntryDto
+            {
+                Username = t.Username,
+                DurationSeconds = t.DurationSeconds
+            })
+        };
+    }
+
+    public PlatformStatsDto MapToPlatformStatsDto(PlatformStats stats)
+    {
+        return new PlatformStatsDto
+        {
+            TotalPlayers = stats.TotalPlayers,
+            TotalGamesPlayed = stats.TotalGamesPlayed,
+            MostPopularDifficulty = stats.MostPopularDifficulty is null
+                ? null
+                : _difficultiesMapper.MapToDifficultyDto(stats.MostPopularDifficulty)
         };
     }
 }

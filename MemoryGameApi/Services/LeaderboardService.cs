@@ -20,9 +20,17 @@ public class LeaderboardService (ILeaderboardRepository leaderboardRepository, I
         {
             TopPlayers = await _leaderboardRepository.GetTopPlayersAsync(TopN),
             GamesPerDifficulty = await _leaderboardRepository.GetGamesPerDifficultyAsync(lang),
-            BestScoresPerDifficulty = await _leaderboardRepository.GetBestScoresPerDifficultyAsync(TopN, lang)
+            BestScoresPerDifficulty = await _leaderboardRepository.GetBestScoresPerDifficultyAsync(TopN, lang),
+            BestTimesPerDifficulty = await _leaderboardRepository.GetBestTimesPerDifficultyAsync(TopN, lang)
         };
 
         return _leaderboardMapper.MapToLeaderboardDto(leaderboard);
+    }
+
+    public async Task<PlatformStatsDto> GetPlatformStatsAsync(string lang)
+    {
+        var stats = await _leaderboardRepository.GetPlatformStatsAsync(lang);
+
+        return _leaderboardMapper.MapToPlatformStatsDto(stats);
     }
 }

@@ -44,6 +44,11 @@
   color: var(--titles-color);
 }
 
+.hud-icon {
+  font-size: 1.3rem !important;
+  color: var(--titles-color);
+}
+
 .grid-control-button {
   width: 2rem;
   height: 2rem;

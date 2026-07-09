@@ -1,0 +1,219 @@
+<header-component></header-component>
+
+<div class="friend-profile-page">
+  @if (isLoading() && !profile()) {
+    <state-handler-component
+      type="loading"
+      [title]="'Profile.Loading.Title' | translate"
+      [text]="'Profile.Loading.Text' | translate"
+    />
+  } @else if (error() && !profile()) {
+    <state-handler-component
+      type="error"
+      [title]="'Profile.Error.Title' | translate"
+      [text]="error()!"
+      [buttonLabel]="'Friends.BackButton' | translate"
+      (onClick)="handleGoBack()"
+    />
+  } @else if (profile()) {
+    <div class="friend-profile-hero">
+      <div class="friend-profile-avatar">{{ initials() }}</div>
+      <h1 class="title light-color">{{ profile()!.username }}</h1>
+      <generic-button-component [label]="'Friends.BackButton' | translate" (onClick)="handleGoBack()"></generic-button-component>
+    </div>
+
+    <section class="profile-section">
+      <h2 class="medium-title light-color section-title">
+        <span class="material-symbols-outlined">bar_chart</span>
+        {{ 'Profile.GamesPlayedTitle' | translate }}
+      </h2>
+
+      @if (!hasPlayedAnyGame()) {
+        <state-handler-component
+          type="noResult"
+          [title]="'Profile.NoGamesTitle' | translate"
+          [text]="'Profile.NoGamesText' | translate"
+        />
+      } @else {
+        <div class="profile-stats-grid">
+          @for (stat of playedStats(); track stat.difficulty.id) {
+            <div class="profile-stat-card">
+              <h3 class="light-color">{{ stat.difficulty.label }}</h3>
+
+              <div class="profile-stat-row">
+                <span class="profile-stat-label">
+                  <span class="material-symbols-outlined stat-icon">sports_esports</span>
+                  {{ 'Profile.Stats.GamesPlayed' | translate }}
+                </span>
+                <span class="profile-stat-value">{{ stat.gamesPlayed }}</span>
+              </div>
+              <div class="profile-stat-row">
+                <span class="profile-stat-label">
+                  <span class="material-symbols-outlined stat-icon">swipe</span>
+                  {{ 'Profile.Stats.AverageMoves' | translate }}
+                </span>
+                <span class="profile-stat-value">{{ stat.averageMovesPerGame | number:'1.0-1' }}</span>
+              </div>
+              <div class="profile-stat-row">
+                <span class="profile-stat-label">
+                  <span class="material-symbols-outlined stat-icon">timer</span>
+                  {{ 'Profile.Stats.AverageTime' | translate }}
+                </span>
+                <span class="profile-stat-value">{{ formatTime(stat.averageTimePerGame) }}</span>
+              </div>
+              <div class="profile-stat-row">
+                <span class="profile-stat-label">
+                  <span class="material-symbols-outlined stat-icon">emoji_events</span>
+                  {{ 'Profile.Stats.BestScore' | translate }}
+                </span>
+                <span class="profile-stat-value">{{ stat.bestScore }}</span>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </section>
+
+    <section class="profile-section">
+      <h2 class="medium-title light-color section-title">
+        <span class="material-symbols-outlined">emoji_events</span>
+        {{ 'Profile.Achievements.Title' | translate }}
+      </h2>
+
+      @if (totalAchievementsCount() > 0) {
+        <div class="achievements-progress">
+          <span class="achievements-progress-label">{{ unlockedAchievementsCount() }} / {{ totalAchievementsCount() }}</span>
+          <div class="achievements-progress-track">
+            <div class="achievements-progress-fill" [style.width.%]="achievementsProgress()"></div>
+          </div>
+        </div>
+
+        <div class="profile-achievements-grid">
+          @for (achievement of pagedAchievements(); track achievement.id) {
+            <div class="achievement-card" [class.locked]="!achievement.unlocked">
+              @if (!achievement.unlocked) {
+                <span class="material-symbols-outlined achievement-lock">lock</span>
+              }
+              <span class="achievement-icon-badge">
+                <span class="material-symbols-outlined achievement-icon">{{ achievement.icon }}</span>
+              </span>
+              <h3 class="light-color">{{ achievement.name }}</h3>
+              <p class="achievement-description">{{ achievement.description }}</p>
+              @if (achievement.unlocked) {
+                <span class="achievement-unlocked-at">{{ achievement.unlockedAt | date:'dd/MM/yyyy' }}</span>
+              }
+            </div>
+          }
+        </div>
+
+        @if (totalAchievementsPages() > 1) {
+          <div class="pager">
+            <button
+              type="button"
+              class="pager-nav"
+              [disabled]="achievementsPage() === 1"
+              (click)="handleAchievementsPrevPage()"
+              [attr.aria-label]="'Common.Previous' | translate"
+            >
+              <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+
+            <div class="pager-pages">
+              @for (page of achievementsPageNumbers(); track page) {
+                <button
+                  type="button"
+                  class="pager-page"
+                  [class.active]="achievementsPage() === page"
+                  (click)="handleAchievementsGoToPage(page)"
+                >
+                  {{ page }}
+                </button>
+              }
+            </div>
+
+            <button
+              type="button"
+              class="pager-nav"
+              [disabled]="achievementsPage() === totalAchievementsPages()"
+              (click)="handleAchievementsNextPage()"
+              [attr.aria-label]="'Common.Next' | translate"
+            >
+              <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+          </div>
+        }
+      }
+    </section>
+
+    <section class="profile-section">
+      <h2 class="medium-title light-color section-title">
+        <span class="material-symbols-outlined">history</span>
+        {{ 'Profile.History.Title' | translate }}
+      </h2>
+
+      @if (history().length === 0) {
+        <state-handler-component
+          type="noResult"
+          [title]="'Profile.History.NoHistoryTitle' | translate"
+          [text]="'Profile.History.NoHistoryText' | translate"
+        />
+      } @else {
+        <div class="history-list">
+          @for (entry of history(); track entry.id) {
+            <div class="history-row">
+              <span class="history-difficulty light-color">{{ entry.difficulty.label }}</span>
+              <span class="history-stat">
+                <span class="material-symbols-outlined stat-icon">swipe</span>
+                {{ entry.moves }}
+              </span>
+              <span class="history-stat">
+                <span class="material-symbols-outlined stat-icon">timer</span>
+                {{ formatTime(entry.durationSeconds) }}
+              </span>
+              <span class="history-date">{{ entry.playedAt | date:'dd/MM/yyyy HH:mm' }}</span>
+            </div>
+          }
+        </div>
+
+        @if (historyTotalPages() > 1) {
+          <div class="pager">
+            <button
+              type="button"
+              class="pager-nav"
+              [disabled]="historyPage() === 1"
+              (click)="handleHistoryPrevPage()"
+              [attr.aria-label]="'Common.Previous' | translate"
+            >
+              <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+
+            <div class="pager-pages">
+              @for (page of historyPageNumbers(); track page) {
+                <button
+                  type="button"
+                  class="pager-page"
+                  [class.active]="historyPage() === page"
+                  (click)="handleHistoryGoToPage(page)"
+                >
+                  {{ page }}
+                </button>
+              }
+            </div>
+
+            <button
+              type="button"
+              class="pager-nav"
+              [disabled]="historyPage() === historyTotalPages()"
+              (click)="handleHistoryNextPage()"
+              [attr.aria-label]="'Common.Next' | translate"
+            >
+              <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+          </div>
+        }
+      }
+    </section>
+  }
+</div>
+
+<footer-component></footer-component>

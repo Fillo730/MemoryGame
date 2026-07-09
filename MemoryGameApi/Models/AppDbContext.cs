@@ -14,6 +14,7 @@ public class AppDbContext : DbContext
     public DbSet<Achievement> Achievements { get; set; }
     public DbSet<AchievementTranslation> AchievementTranslations { get; set; }
     public DbSet<UserAchievement> UserAchievements { get; set; }
+    public DbSet<Friendship> Friendships { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -53,6 +54,18 @@ public class AppDbContext : DbContext
             .HasOne(ua => ua.Achievement)
             .WithMany(a => a.UserAchievements)
             .HasForeignKey(ua => ua.AchievementId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Friendship>()
+            .HasOne(f => f.Requester)
+            .WithMany()
+            .HasForeignKey(f => f.RequesterId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Friendship>()
+            .HasOne(f => f.Addressee)
+            .WithMany()
+            .HasForeignKey(f => f.AddresseeId)
             .OnDelete(DeleteBehavior.Restrict);
 
         var difficulties = new List<Difficulty>
@@ -217,15 +230,29 @@ public class AppDbContext : DbContext
 
         var seedGameResults = new List<GameResult>
         {
-            new GameResult { Id = 1, Moves = 6, PlayedAt = new DateTime(2025, 6, 1, 10, 0, 0, DateTimeKind.Utc), UserId = 1, DifficultyId = 1 },
-            new GameResult { Id = 2, Moves = 8, PlayedAt = new DateTime(2025, 6, 2, 10, 0, 0, DateTimeKind.Utc), UserId = 1, DifficultyId = 1 },
-            new GameResult { Id = 3, Moves = 14, PlayedAt = new DateTime(2025, 6, 3, 10, 0, 0, DateTimeKind.Utc), UserId = 1, DifficultyId = 2 },
-            new GameResult { Id = 4, Moves = 20, PlayedAt = new DateTime(2025, 6, 4, 10, 0, 0, DateTimeKind.Utc), UserId = 1, DifficultyId = 3 },
-            new GameResult { Id = 5, Moves = 5, PlayedAt = new DateTime(2025, 6, 1, 12, 0, 0, DateTimeKind.Utc), UserId = 2, DifficultyId = 1 },
-            new GameResult { Id = 6, Moves = 12, PlayedAt = new DateTime(2025, 6, 2, 12, 0, 0, DateTimeKind.Utc), UserId = 2, DifficultyId = 2 },
-            new GameResult { Id = 7, Moves = 10, PlayedAt = new DateTime(2025, 6, 5, 12, 0, 0, DateTimeKind.Utc), UserId = 2, DifficultyId = 2 },
-            new GameResult { Id = 8, Moves = 35, PlayedAt = new DateTime(2025, 6, 6, 12, 0, 0, DateTimeKind.Utc), UserId = 2, DifficultyId = 4 }
+            new GameResult { Id = 1, Moves = 6, DurationSeconds = 28, PlayedAt = new DateTime(2025, 6, 1, 10, 0, 0, DateTimeKind.Utc), UserId = 1, DifficultyId = 1 },
+            new GameResult { Id = 2, Moves = 8, DurationSeconds = 37, PlayedAt = new DateTime(2025, 6, 2, 10, 0, 0, DateTimeKind.Utc), UserId = 1, DifficultyId = 1 },
+            new GameResult { Id = 3, Moves = 14, DurationSeconds = 64, PlayedAt = new DateTime(2025, 6, 3, 10, 0, 0, DateTimeKind.Utc), UserId = 1, DifficultyId = 2 },
+            new GameResult { Id = 4, Moves = 20, DurationSeconds = 95, PlayedAt = new DateTime(2025, 6, 4, 10, 0, 0, DateTimeKind.Utc), UserId = 1, DifficultyId = 3 },
+            new GameResult { Id = 5, Moves = 5, DurationSeconds = 22, PlayedAt = new DateTime(2025, 6, 1, 12, 0, 0, DateTimeKind.Utc), UserId = 2, DifficultyId = 1 },
+            new GameResult { Id = 6, Moves = 12, DurationSeconds = 54, PlayedAt = new DateTime(2025, 6, 2, 12, 0, 0, DateTimeKind.Utc), UserId = 2, DifficultyId = 2 },
+            new GameResult { Id = 7, Moves = 10, DurationSeconds = 45, PlayedAt = new DateTime(2025, 6, 5, 12, 0, 0, DateTimeKind.Utc), UserId = 2, DifficultyId = 2 },
+            new GameResult { Id = 8, Moves = 35, DurationSeconds = 168, PlayedAt = new DateTime(2025, 6, 6, 12, 0, 0, DateTimeKind.Utc), UserId = 2, DifficultyId = 4 }
         };
         modelBuilder.Entity<GameResult>().HasData(seedGameResults);
+
+        var seedFriendships = new List<Friendship>
+        {
+            new()
+            {
+                Id = 1,
+                RequesterId = 1,
+                AddresseeId = 2,
+                Status = FriendshipStatusEnum.Accepted,
+                CreatedAt = new DateTime(2025, 6, 1, 9, 0, 0, DateTimeKind.Utc),
+                RespondedAt = new DateTime(2025, 6, 1, 9, 30, 0, DateTimeKind.Utc)
+            }
+        };
+        modelBuilder.Entity<Friendship>().HasData(seedFriendships);
     }
 }

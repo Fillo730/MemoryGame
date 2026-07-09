@@ -6,7 +6,8 @@
     "login": "login",
     "signup": "signup",
     "about": "about",
-    "dashboard": "leaderboard"
+    "dashboard": "leaderboard",
+    "friends": "friends"
   },
   "Header": {
     "Home": "Home",
@@ -36,7 +37,18 @@
     "WhereFromText": "The images used come from Unsplash, a site that provides high-quality photography without copyright. You can find more information about the images and their authors directly on the Unsplash website.",
     "PlayNow": "Play Now",
     "LoadMoreButtonLabel": "Load more",
-    "LoadMoreText": "Look at these beautiful images. We have <strong class=\"light-color\">{{numberOfImages}}</strong> available!"
+    "LoadMoreText": "Look at these beautiful images. We have <strong class=\"light-color\">{{numberOfImages}}</strong> available!",
+    "CommunityTitle": "The community in numbers",
+    "CommunityPlayers": "Registered players",
+    "CommunityGamesPlayed": "Games played",
+    "CommunityPopularDifficulty": "Most popular difficulty",
+    "CompareTitle": "Compare with your friends",
+    "CompareLoginPrompt": "Log in to compare your stats with your friends'.",
+    "CompareLoading": "Loading comparison...",
+    "CompareNoFriends": "You don't have any friends yet. Add some from your profile to compare results!",
+    "CompareGoToProfile": "Go to profile",
+    "CompareYouTag": "You",
+    "CompareGamesPlayed": "{{ games }} games"
   },
   "Play": {
     "SelectDifficulty": "Select difficulty",
@@ -47,6 +59,7 @@
     "CurrentAttempts": "Current attempts",
     "CompletedTitle": "Well done!",
     "CompletedMessage": "You completed the challenge in {{moves}} moves!",
+    "CompletedTime": "Time taken: {{time}}",
     "NextLevel": "Next Level",
     "PlayAgain": "Try Again",
     "GoBack": "Back",
@@ -100,6 +113,7 @@
     "Stats": {
       "GamesPlayed": "Games played",
       "AverageMoves": "Average moves",
+      "AverageTime": "Average time",
       "BestScore": "Best score"
     },
     "Kpi": {
@@ -132,6 +146,16 @@
     "Achievements": {
       "Title": "Achievements",
       "Text": "Unlock badges by playing and improving your games."
+    },
+    "History": {
+      "Title": "Game History",
+      "Text": "Review your most recent games.",
+      "NoHistoryTitle": "No games yet",
+      "NoHistoryText": "You haven't played any games yet. Play your first challenge!",
+      "Loading": {
+        "Title": "Loading history",
+        "Text": "We're fetching your most recent games."
+      }
     }
   },
   "Dashboard": {
@@ -142,6 +166,8 @@
     "GamesPerDifficultyTitle": "Games completed per difficulty",
     "BestScoresTitle": "Best score per difficulty",
     "BestScoresEntry": "{{ moves }} moves",
+    "BestTimesTitle": "Best time per difficulty",
+    "BestTimesEntry": "{{ time }}",
     "NoResultTitle": "No data available",
     "NoResultText": "No games have been recorded yet. Play a challenge to be the first on the leaderboard!",
     "Loading": {
@@ -164,7 +190,40 @@
     "Save": "Save",
     "Cancel": "Cancel",
     "Previous": "Previous",
-    "Next": "Next"
+    "Next": "Next",
+    "Accept": "Accept",
+    "Decline": "Decline"
+  },
+  "Friends": {
+    "Title": "Friends",
+    "Text": "Search for other players, manage friend requests, and compare statistics.",
+    "BackButton": "Back to profile",
+    "Search": {
+      "Title": "Search players",
+      "Placeholder": "Search by username...",
+      "Searching": "Searching...",
+      "NoResults": "No users found.",
+      "AddButton": "Add",
+      "PendingLabel": "Request sent",
+      "PendingIncomingLabel": "Sent you a request",
+      "FriendsLabel": "Friends",
+      "DeclinedLabel": "Request declined"
+    },
+    "Requests": {
+      "Title": "Incoming requests",
+      "Empty": "No pending requests."
+    },
+    "MyFriends": {
+      "Title": "My friends",
+      "ViewButton": "View profile",
+      "RemoveButton": "Remove",
+      "EmptyTitle": "No friends yet",
+      "EmptyText": "Search for other players above to start adding friends.",
+      "Loading": {
+        "Title": "Loading friends",
+        "Text": "We're fetching your friends list."
+      }
+    }
   },
   "Errors": {
     "Required": "This field is required",

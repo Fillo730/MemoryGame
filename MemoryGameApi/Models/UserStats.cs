@@ -9,4 +9,6 @@ public class UserStats
     public int TotalMoves { get; set; }
 
     public int BestScore { get; set; }
+
+    public int TotalDurationSeconds { get; set; }
 }

@@ -6,4 +6,6 @@ namespace MemoryGame_API.IMappers;
 public interface ILeaderboardMapper
 {
     LeaderboardDto MapToLeaderboardDto(Leaderboard leaderboard);
+
+    PlatformStatsDto MapToPlatformStatsDto(PlatformStats stats);
 }

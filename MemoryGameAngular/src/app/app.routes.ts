@@ -7,6 +7,7 @@ import { ProfilePage } from './pages/profile/profile.page';
 import { authGuard } from './guards/authGuard.Guard';
 import { AboutPage } from './pages/about/about.page';
 import { DashboardPage } from './pages/dashboard/dashboard.page';
+import { FriendProfilePage } from './pages/friend-profile/friend-profile.page';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'it/home', pathMatch: 'full' },
@@ -21,6 +22,7 @@ export const routes: Routes = [
             { path: 'profilo', component: ProfilePage, canActivate: [authGuard] },
             { path: 'informazioni', component: AboutPage},
             { path: 'classifica', component: DashboardPage },
+            { path: 'amici/:userId', component: FriendProfilePage, canActivate: [authGuard] },
             { path: '', redirectTo: 'home', pathMatch: 'full' }
         ]
     },
@@ -35,6 +37,7 @@ export const routes: Routes = [
             { path: 'about', component: AboutPage},
             { path: 'profile', component: ProfilePage, canActivate: [authGuard] },
             { path: 'leaderboard', component: DashboardPage },
+            { path: 'friends/:userId', component: FriendProfilePage, canActivate: [authGuard] },
             { path: '', redirectTo: 'home', pathMatch: 'full' }
         ]
     },
@@ -49,6 +52,7 @@ export const routes: Routes = [
             { path: 'a-propos', component: AboutPage},
             { path: 'profil', component: ProfilePage, canActivate: [authGuard] },
             { path: 'classement', component: DashboardPage },
+            { path: 'amis/:userId', component: FriendProfilePage, canActivate: [authGuard] },
             { path: '', redirectTo: 'accueil', pathMatch: 'full' }
         ]
     },
@@ -63,6 +67,7 @@ export const routes: Routes = [
             { path: 'info', component: AboutPage},
             { path: 'profil', component: ProfilePage, canActivate: [authGuard] },
             { path: 'rangliste', component: DashboardPage },
+            { path: 'freunde/:userId', component: FriendProfilePage, canActivate: [authGuard] },
             { path: '', redirectTo: 'home', pathMatch: 'full' }
         ]
     }

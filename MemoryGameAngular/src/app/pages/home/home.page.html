@@ -1,44 +1,129 @@
 <header-component></header-component>
 
-<main class="display-vertical">
-  
-  <section class="display-center-vertical-nogap">
-    <h1 class="title light-color">
-      {{ 'Home.WhatIsItTitle' | translate }}
-    </h1>
-    <div class="display-horizontal normal-max-width">
-      <p class="text custom-max-width" [innerHTML]="'Home.WhatIsItText' | translate"></p>
-      <custom-button-component 
-        [text]="'Home.PlayNow' | translate"
-        (onClick)="navigationService.goToPlay()">
-      </custom-button-component>
+<main class="home-page">
+
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">
+        {{ 'Home.WhatIsItTitle' | translate }}
+      </h1>
+      <p class="text hero-text" [innerHTML]="'Home.WhatIsItText' | translate"></p>
+      <div class="hero-actions">
+        <custom-button-component
+          [text]="'Home.PlayNow' | translate"
+          (onClick)="navigationService.goToPlay()">
+        </custom-button-component>
+      </div>
+    </div>
+
+    <div class="hero-visual" aria-hidden="true">
+      <div class="hero-card-grid">
+        @for (icon of heroCardIcons; track icon; let i = $index) {
+          <div class="hero-card" [style.animation-delay.ms]="i * 260">
+            <div class="hero-card-face hero-card-front">?</div>
+            <div class="hero-card-face hero-card-back">
+              <span class="material-symbols-outlined">{{ icon }}</span>
+            </div>
+          </div>
+        }
+      </div>
     </div>
   </section>
 
-  <section class="display-center-vertical-nogap">
-    <h1 class="title light-color">
-      {{ 'Home.WhyNatureTitle' | translate }}
-    </h1>
-    <p class="text normal-max-width">
-      {{ 'Home.WhyNatureText' | translate }}
-    </p>
+  @if (platformStats()) {
+    <section class="home-section">
+      <h2 class="medium-title light-color section-heading">
+        {{ 'Home.CommunityTitle' | translate }}
+      </h2>
+      <div class="community-stats-grid">
+        <div class="community-stat-card glass-panel">
+          <span class="community-stat-icon-badge">
+            <span class="material-symbols-outlined">group</span>
+          </span>
+          <span class="community-stat-value">{{ platformStats()!.totalPlayers | number }}</span>
+          <span class="community-stat-label">{{ 'Home.CommunityPlayers' | translate }}</span>
+        </div>
+        <div class="community-stat-card glass-panel">
+          <span class="community-stat-icon-badge">
+            <span class="material-symbols-outlined">sports_esports</span>
+          </span>
+          <span class="community-stat-value">{{ platformStats()!.totalGamesPlayed | number }}</span>
+          <span class="community-stat-label">{{ 'Home.CommunityGamesPlayed' | translate }}</span>
+        </div>
+        @if (platformStats()!.mostPopularDifficulty) {
+          <div class="community-stat-card glass-panel">
+            <span class="community-stat-icon-badge">
+              <span class="material-symbols-outlined">local_fire_department</span>
+            </span>
+            <span class="community-stat-value">{{ platformStats()!.mostPopularDifficulty!.label }}</span>
+            <span class="community-stat-label">{{ 'Home.CommunityPopularDifficulty' | translate }}</span>
+          </div>
+        }
+      </div>
+    </section>
+  }
+
+  <section class="home-section">
+    <h2 class="medium-title light-color section-heading">
+      {{ 'Home.CompareTitle' | translate }}
+    </h2>
+
+    <div class="compare-panel glass-panel">
+      @if (!authService.isLoggedIn()) {
+        <p class="text">{{ 'Home.CompareLoginPrompt' | translate }}</p>
+        <div class="display-horizontal">
+          <custom-button-component [text]="'Header.Login' | translate" (onClick)="navigationService.goToLogin()"></custom-button-component>
+          <custom-button-component [text]="'Header.SignUp' | translate" (onClick)="navigationService.goToSignUp()"></custom-button-component>
+        </div>
+      } @else if (isComparisonLoading()) {
+        <p class="text">{{ 'Home.CompareLoading' | translate }}</p>
+      } @else if (!hasFriendsComparison()) {
+        <p class="text">{{ 'Home.CompareNoFriends' | translate }}</p>
+        <custom-button-component [text]="'Home.CompareGoToProfile' | translate" (onClick)="navigationService.goToProfile()"></custom-button-component>
+      } @else {
+        <ol class="comparison-list">
+          @for (entry of friendsComparison(); track entry.userId; let i = $index) {
+            <li class="comparison-item" [class.comparison-item-self]="entry.isCurrentUser">
+              <span class="comparison-position">{{ i + 1 }}</span>
+              <span class="comparison-name text-color">
+                {{ entry.username }}
+                @if (entry.isCurrentUser) {
+                  <span class="comparison-you-tag">{{ 'Home.CompareYouTag' | translate }}</span>
+                }
+              </span>
+              <span class="comparison-value text">{{ 'Home.CompareGamesPlayed' | translate: { games: entry.totalGamesPlayed } }}</span>
+            </li>
+          }
+        </ol>
+      }
+    </div>
   </section>
 
-  <nature-gallery-component 
-    [defaultImages]="defaultImages"
-    [text]="'Home.LoadMoreText' | translate: {numberOfImages: defaultImages.length}"
-    [buttonLabel]="'Home.LoadMoreButtonLabel' | translate">
-  </nature-gallery-component>
-
-  <section class="display-center-vertical-nogap">
-    <h1 class="title light-color">
-      {{ 'Home.WhereFromTitle' | translate }}
-    </h1>
-    <p class="text normal-max-width">
-      {{ 'Home.WhereFromText' | translate }}
-    </p>
+  <section class="home-section feature-grid-section">
+    <div class="feature-card glass-panel">
+      <span class="feature-icon-badge">
+        <span class="material-symbols-outlined">eco</span>
+      </span>
+      <h2 class="medium-title light-color">{{ 'Home.WhyNatureTitle' | translate }}</h2>
+      <p class="text">{{ 'Home.WhyNatureText' | translate }}</p>
+    </div>
+    <div class="feature-card glass-panel">
+      <span class="feature-icon-badge">
+        <span class="material-symbols-outlined">photo_camera</span>
+      </span>
+      <h2 class="medium-title light-color">{{ 'Home.WhereFromTitle' | translate }}</h2>
+      <p class="text">{{ 'Home.WhereFromText' | translate }}</p>
+    </div>
   </section>
-  
+
+  <section class="home-section gallery-section">
+    <nature-gallery-component
+      [defaultImages]="defaultImages"
+      [text]="'Home.LoadMoreText' | translate: {numberOfImages: defaultImages.length}"
+      [buttonLabel]="'Home.LoadMoreButtonLabel' | translate">
+    </nature-gallery-component>
+  </section>
+
 </main>
 
 <footer-component></footer-component>

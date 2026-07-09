@@ -40972,13 +40972,15 @@ var STORAGE_KEYS = {
 // src/environments/environment.ts
 var environment = {
   production: false,
-  apiBaseUrl: "http://localhost:5199/api"
+  apiBaseUrl: "http://localhost:5079/api"
 };
 
 // src/app/models/types/Language.model.ts
 var LANGUAGES = {
   ITALIANO: "it",
-  ENGLISH: "en"
+  ENGLISH: "en",
+  FRANCESE: "fr",
+  TEDESCO: "de"
 };
 
 // src/app/models/types/Theme.model.ts
@@ -40990,10 +40992,12 @@ var THEMES = {
 // src/app/constants/app.config.ts
 var APP_CONFIG = {
   DEFAULT_LANGUAGE: LANGUAGES.ITALIANO,
-  SUPPORTED_LANGUAGES: [LANGUAGES.ITALIANO, LANGUAGES.ENGLISH],
+  SUPPORTED_LANGUAGES: [LANGUAGES.ITALIANO, LANGUAGES.ENGLISH, LANGUAGES.FRANCESE, LANGUAGES.TEDESCO],
   LANG_OPTIONS: [
-    { label: "Italiano", value: LANGUAGES.ITALIANO },
-    { label: "English", value: LANGUAGES.ENGLISH }
+    { label: "Italiano", value: LANGUAGES.ITALIANO, flag: "\u{1F1EE}\u{1F1F9}" },
+    { label: "English", value: LANGUAGES.ENGLISH, flag: "\u{1F1EC}\u{1F1E7}" },
+    { label: "Fran\xE7ais", value: LANGUAGES.FRANCESE, flag: "\u{1F1EB}\u{1F1F7}" },
+    { label: "Deutsch", value: LANGUAGES.TEDESCO, flag: "\u{1F1E9}\u{1F1EA}" }
   ],
   DEFAULT_THEME: THEMES.DARK
 };
@@ -41003,7 +41007,9 @@ var API_ENDPOINTS = {
   DIFFICULTIES: "difficulties",
   GAME_RESULTS: "gameResults",
   USERS: "users",
-  LEADERBOARD: "leaderboard"
+  LEADERBOARD: "leaderboard",
+  ACHIEVEMENTS: "achievements",
+  FRIENDS: "friends"
 };
 function getApiUrl(key) {
   return `${API_BASE_URL}/${API_ENDPOINTS[key]}`;
@@ -41051,57 +41057,72 @@ var LanguageService = class _LanguageService {
 
 // src/app/components/language-picker/language-picker.component.ts
 var _forTrack0 = ($index, $item) => $item.value;
-function LanguagePickerComponent_For_8_Template(rf, ctx) {
+function LanguagePickerComponent_For_10_Template(rf, ctx) {
   if (rf & 1) {
     const _r1 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "a", 5);
-    \u0275\u0275domListener("click", function LanguagePickerComponent_For_8_Template_a_click_0_listener() {
+    \u0275\u0275domElementStart(0, "a", 7);
+    \u0275\u0275domListener("click", function LanguagePickerComponent_For_10_Template_a_click_0_listener() {
       const lang_r2 = \u0275\u0275restoreView(_r1).$implicit;
       const ctx_r2 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r2.languageService.setLanguage(lang_r2.value));
+      return \u0275\u0275resetView(ctx_r2.changeLanguage(lang_r2.value));
     });
-    \u0275\u0275text(1);
+    \u0275\u0275domElementStart(1, "span", 2);
+    \u0275\u0275text(2);
     \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(3, "span");
+    \u0275\u0275text(4);
+    \u0275\u0275domElementEnd()();
   }
   if (rf & 2) {
     const lang_r2 = ctx.$implicit;
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", lang_r2.label, " ");
+    const ctx_r2 = \u0275\u0275nextContext();
+    \u0275\u0275classProp("active", lang_r2.value === ctx_r2.languageService.language());
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(lang_r2.flag);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(lang_r2.label);
   }
 }
 var LanguagePickerComponent = class _LanguagePickerComponent {
   languageService = inject2(LanguageService);
   appConfig = APP_CONFIG;
+  currentLangOption = computed(() => this.appConfig.LANG_OPTIONS.find((lang) => lang.value === this.languageService.language()), ...ngDevMode ? [{ debugName: "currentLangOption" }] : []);
   changeLanguage(lang) {
     this.languageService.setLanguage(lang);
   }
   static \u0275fac = function LanguagePickerComponent_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _LanguagePickerComponent)();
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _LanguagePickerComponent, selectors: [["language-picker-component"]], decls: 9, vars: 1, consts: [[1, "dropdown"], [1, "dropbtn"], [1, "material-symbols-outlined"], [1, "current-code"], [1, "dropdown-content"], [3, "click"]], template: function LanguagePickerComponent_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _LanguagePickerComponent, selectors: [["language-picker-component"]], decls: 11, vars: 2, consts: [[1, "dropdown"], [1, "dropbtn"], [1, "flag"], [1, "current-code"], [1, "material-symbols-outlined", "chevron"], [1, "dropdown-content"], [3, "active"], [3, "click"]], template: function LanguagePickerComponent_Template(rf, ctx) {
     if (rf & 1) {
       \u0275\u0275domElementStart(0, "div", 0)(1, "button", 1)(2, "span", 2);
-      \u0275\u0275text(3, "language");
+      \u0275\u0275text(3);
       \u0275\u0275domElementEnd();
       \u0275\u0275domElementStart(4, "span", 3);
       \u0275\u0275text(5);
+      \u0275\u0275domElementEnd();
+      \u0275\u0275domElementStart(6, "span", 4);
+      \u0275\u0275text(7, "expand_more");
       \u0275\u0275domElementEnd()();
-      \u0275\u0275domElementStart(6, "div", 4);
-      \u0275\u0275repeaterCreate(7, LanguagePickerComponent_For_8_Template, 2, 1, "a", null, _forTrack0);
+      \u0275\u0275domElementStart(8, "div", 5);
+      \u0275\u0275repeaterCreate(9, LanguagePickerComponent_For_10_Template, 5, 4, "a", 6, _forTrack0);
       \u0275\u0275domElementEnd()();
     }
     if (rf & 2) {
-      \u0275\u0275advance(5);
-      \u0275\u0275textInterpolate(ctx.languageService.language());
+      let tmp_0_0;
+      \u0275\u0275advance(3);
+      \u0275\u0275textInterpolate((tmp_0_0 = ctx.currentLangOption()) == null ? null : tmp_0_0.flag);
       \u0275\u0275advance(2);
+      \u0275\u0275textInterpolate(ctx.languageService.language());
+      \u0275\u0275advance(4);
       \u0275\u0275repeater(ctx.appConfig.LANG_OPTIONS);
     }
-  }, styles: ["\n\n.dropdown[_ngcontent-%COMP%] {\n  position: relative;\n  display: inline-block;\n}\n.dropbtn[_ngcontent-%COMP%] {\n  background: transparent;\n  color: var(--text-color);\n  border: none;\n  display: flex;\n  align-items: center;\n  gap: 5px;\n  cursor: pointer;\n  text-transform: uppercase;\n}\n.dropdown-content[_ngcontent-%COMP%] {\n  display: none;\n  position: absolute;\n  right: 0;\n  margin-top: 0.5rem;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  min-width: 120px;\n  box-shadow: var(--shadow-md);\n  border-radius: var(--radius-md);\n  overflow: hidden;\n  z-index: 10;\n}\n.dropdown-content[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  color: var(--text-color);\n  padding: 12px 16px;\n  text-decoration: none;\n  display: block;\n  cursor: pointer;\n  transition: background-color 0.2s ease, color 0.2s ease;\n}\n.dropdown-content[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]:hover {\n  background-color: var(--button-color);\n  color: var(--button-text-color);\n}\n.dropdown[_ngcontent-%COMP%]:hover   .dropdown-content[_ngcontent-%COMP%] {\n  display: block;\n}\n/*# sourceMappingURL=language-picker.component.css.map */"] });
+  }, styles: ["\n\n.dropdown[_ngcontent-%COMP%] {\n  position: relative;\n  display: inline-block;\n}\n.dropbtn[_ngcontent-%COMP%] {\n  background: var(--glass-bg);\n  border: 1px solid var(--glass-border);\n  color: var(--text-color);\n  display: flex;\n  align-items: center;\n  gap: 0.4rem;\n  padding: 0.4rem 0.7rem;\n  border-radius: var(--radius-full);\n  cursor: pointer;\n  transition: border-color 0.2s ease, background-color 0.2s ease;\n}\n.dropdown[_ngcontent-%COMP%]:hover   .dropbtn[_ngcontent-%COMP%], \n.dropbtn[_ngcontent-%COMP%]:hover {\n  border-color: var(--titles-color);\n}\n.flag[_ngcontent-%COMP%] {\n  font-size: 1.1rem;\n  line-height: 1;\n}\n.current-code[_ngcontent-%COMP%] {\n  font-size: 0.85rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.3px;\n}\n.chevron[_ngcontent-%COMP%] {\n  font-size: 1.1rem !important;\n  opacity: 0.7;\n  transition: transform 0.2s ease;\n}\n.dropdown[_ngcontent-%COMP%]:hover   .chevron[_ngcontent-%COMP%] {\n  transform: rotate(180deg);\n}\n.dropdown-content[_ngcontent-%COMP%] {\n  display: none;\n  position: absolute;\n  right: 0;\n  margin-top: 0.5rem;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  min-width: 160px;\n  box-shadow: var(--shadow-md);\n  border-radius: var(--radius-md);\n  overflow: hidden;\n  z-index: 10;\n  padding: 0.35rem;\n  box-sizing: border-box;\n}\n.dropdown-content[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  color: var(--text-color);\n  padding: 0.55rem 0.75rem;\n  text-decoration: none;\n  display: flex;\n  align-items: center;\n  gap: 0.6rem;\n  font-size: 0.9rem;\n  border-radius: var(--radius-sm, 8px);\n  cursor: pointer;\n  transition: background-color 0.2s ease, color 0.2s ease;\n}\n.dropdown-content[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]:hover {\n  background-color: var(--button-color);\n  color: var(--button-text-color);\n}\n.dropdown-content[_ngcontent-%COMP%]   a.active[_ngcontent-%COMP%] {\n  background: color-mix(in srgb, var(--titles-color) 18%, transparent);\n  font-weight: 700;\n}\n.dropdown[_ngcontent-%COMP%]:hover   .dropdown-content[_ngcontent-%COMP%] {\n  display: block;\n}\n/*# sourceMappingURL=language-picker.component.css.map */"] });
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(LanguagePickerComponent, [{
     type: Component,
-    args: [{ selector: "language-picker-component", imports: [], template: '<div class="dropdown">\n  <button class="dropbtn">\n    <span class="material-symbols-outlined">language</span>\n    <span class="current-code">{{ languageService.language() }}</span>\n  </button>\n  \n  <div class="dropdown-content">\n    @for (lang of appConfig.LANG_OPTIONS; track lang.value) {\n      <a (click)="languageService.setLanguage(lang.value)">\n        {{ lang.label }}\n      </a>\n    }\n  </div>\n</div>', styles: ["/* src/app/components/language-picker/language-picker.component.css */\n.dropdown {\n  position: relative;\n  display: inline-block;\n}\n.dropbtn {\n  background: transparent;\n  color: var(--text-color);\n  border: none;\n  display: flex;\n  align-items: center;\n  gap: 5px;\n  cursor: pointer;\n  text-transform: uppercase;\n}\n.dropdown-content {\n  display: none;\n  position: absolute;\n  right: 0;\n  margin-top: 0.5rem;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  min-width: 120px;\n  box-shadow: var(--shadow-md);\n  border-radius: var(--radius-md);\n  overflow: hidden;\n  z-index: 10;\n}\n.dropdown-content a {\n  color: var(--text-color);\n  padding: 12px 16px;\n  text-decoration: none;\n  display: block;\n  cursor: pointer;\n  transition: background-color 0.2s ease, color 0.2s ease;\n}\n.dropdown-content a:hover {\n  background-color: var(--button-color);\n  color: var(--button-text-color);\n}\n.dropdown:hover .dropdown-content {\n  display: block;\n}\n/*# sourceMappingURL=language-picker.component.css.map */\n"] }]
+    args: [{ selector: "language-picker-component", imports: [], template: '<div class="dropdown">\n  <button class="dropbtn">\n    <span class="flag">{{ currentLangOption()?.flag }}</span>\n    <span class="current-code">{{ languageService.language() }}</span>\n    <span class="material-symbols-outlined chevron">expand_more</span>\n  </button>\n\n  <div class="dropdown-content">\n    @for (lang of appConfig.LANG_OPTIONS; track lang.value) {\n      <a\n        (click)="changeLanguage(lang.value)"\n        [class.active]="lang.value === languageService.language()"\n      >\n        <span class="flag">{{ lang.flag }}</span>\n        <span>{{ lang.label }}</span>\n      </a>\n    }\n  </div>\n</div>\n', styles: ["/* src/app/components/language-picker/language-picker.component.css */\n.dropdown {\n  position: relative;\n  display: inline-block;\n}\n.dropbtn {\n  background: var(--glass-bg);\n  border: 1px solid var(--glass-border);\n  color: var(--text-color);\n  display: flex;\n  align-items: center;\n  gap: 0.4rem;\n  padding: 0.4rem 0.7rem;\n  border-radius: var(--radius-full);\n  cursor: pointer;\n  transition: border-color 0.2s ease, background-color 0.2s ease;\n}\n.dropdown:hover .dropbtn,\n.dropbtn:hover {\n  border-color: var(--titles-color);\n}\n.flag {\n  font-size: 1.1rem;\n  line-height: 1;\n}\n.current-code {\n  font-size: 0.85rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.3px;\n}\n.chevron {\n  font-size: 1.1rem !important;\n  opacity: 0.7;\n  transition: transform 0.2s ease;\n}\n.dropdown:hover .chevron {\n  transform: rotate(180deg);\n}\n.dropdown-content {\n  display: none;\n  position: absolute;\n  right: 0;\n  margin-top: 0.5rem;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  min-width: 160px;\n  box-shadow: var(--shadow-md);\n  border-radius: var(--radius-md);\n  overflow: hidden;\n  z-index: 10;\n  padding: 0.35rem;\n  box-sizing: border-box;\n}\n.dropdown-content a {\n  color: var(--text-color);\n  padding: 0.55rem 0.75rem;\n  text-decoration: none;\n  display: flex;\n  align-items: center;\n  gap: 0.6rem;\n  font-size: 0.9rem;\n  border-radius: var(--radius-sm, 8px);\n  cursor: pointer;\n  transition: background-color 0.2s ease, color 0.2s ease;\n}\n.dropdown-content a:hover {\n  background-color: var(--button-color);\n  color: var(--button-text-color);\n}\n.dropdown-content a.active {\n  background: color-mix(in srgb, var(--titles-color) 18%, transparent);\n  font-weight: 700;\n}\n.dropdown:hover .dropdown-content {\n  display: block;\n}\n/*# sourceMappingURL=language-picker.component.css.map */\n"] }]
   }], null, null);
 })();
 (() => {
@@ -41189,6 +41210,7 @@ var AppRoutes;
   AppRoutes2["SIGNUP"] = "signup";
   AppRoutes2["ABOUT"] = "about";
   AppRoutes2["DASHBOARD"] = "dashboard";
+  AppRoutes2["FRIENDS"] = "friends";
 })(AppRoutes || (AppRoutes = {}));
 var NavigationService = class _NavigationService {
   router = inject2(Router);
@@ -41222,6 +41244,9 @@ var NavigationService = class _NavigationService {
   }
   goToDashboard() {
     this.navigateTo(AppRoutes.DASHBOARD);
+  }
+  goToFriendProfile(userId) {
+    this.router.navigate([this.getLocalizedRoute(AppRoutes.FRIENDS), userId]);
   }
   goBack() {
     if (isWindowHistoryValid() && window.history.length > 1) {
@@ -41365,6 +41390,65 @@ var AuthService = class _AuthService {
   }], null, null);
 })();
 
+// src/app/services/friends-service.service.ts
+var FriendsService = class _FriendsService {
+  API_URL = getApiUrl("FRIENDS");
+  http = inject2(HttpClient);
+  pendingRequestsCount = signal(0, ...ngDevMode ? [{ debugName: "pendingRequestsCount" }] : []);
+  getFriends() {
+    return this.http.get(this.API_URL);
+  }
+  getIncomingRequests() {
+    return this.http.get(`${this.API_URL}/requests`);
+  }
+  refreshPendingRequestsCount() {
+    this.getIncomingRequests().subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.pendingRequestsCount.set(response.data.length);
+        }
+      }
+    });
+  }
+  searchUsers(query) {
+    return this.http.get(`${this.API_URL}/search`, {
+      params: { query }
+    });
+  }
+  sendFriendRequest(userId) {
+    return this.http.post(`${this.API_URL}/request/${userId}`, {});
+  }
+  acceptRequest(friendshipId) {
+    return this.http.post(`${this.API_URL}/${friendshipId}/accept`, {});
+  }
+  declineRequest(friendshipId) {
+    return this.http.post(`${this.API_URL}/${friendshipId}/decline`, {});
+  }
+  removeFriend(friendshipId) {
+    return this.http.delete(`${this.API_URL}/${friendshipId}`);
+  }
+  getFriendProfile(userId, historyPage, historyPageSize) {
+    return this.http.get(`${this.API_URL}/${userId}/profile`, {
+      params: { historyPage, historyPageSize }
+    });
+  }
+  getFriendsComparison() {
+    return this.http.get(`${this.API_URL}/comparison`);
+  }
+  static \u0275fac = function FriendsService_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _FriendsService)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _FriendsService, factory: _FriendsService.\u0275fac, providedIn: "root" });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(FriendsService, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], null, null);
+})();
+
 // src/app/components/header/header.component.ts
 var _c0 = (a0) => ({ name: a0 });
 function HeaderComponent_Conditional_20_Template(rf, ctx) {
@@ -41381,6 +41465,20 @@ function HeaderComponent_Conditional_20_Template(rf, ctx) {
     \u0275\u0275property("label", \u0275\u0275pipeBind1(3, 6, "Header.SignUp"))("routerLink", ctx_r0.navigationService.getLocalizedRoute(ctx_r0.routes.SIGNUP));
   }
 }
+function HeaderComponent_Conditional_21_Conditional_7_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 12);
+    \u0275\u0275pipe(1, "translate");
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext(2);
+    \u0275\u0275attribute("aria-label", \u0275\u0275pipeBind1(1, 2, "Friends.Requests.Title"));
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate1(" ", ctx_r0.friendsService.pendingRequestsCount(), " ");
+  }
+}
 function HeaderComponent_Conditional_21_Template(rf, ctx) {
   if (rf & 1) {
     const _r2 = \u0275\u0275getCurrentView();
@@ -41388,12 +41486,14 @@ function HeaderComponent_Conditional_21_Template(rf, ctx) {
     \u0275\u0275text(2);
     \u0275\u0275pipe(3, "translate");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(4, "span", 10);
-    \u0275\u0275text(5, " account_circle ");
+    \u0275\u0275elementStart(4, "span", 10)(5, "span", 11);
+    \u0275\u0275text(6, " account_circle ");
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(7, HeaderComponent_Conditional_21_Conditional_7_Template, 3, 4, "span", 12);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(6, "generic-button-component", 11);
-    \u0275\u0275pipe(7, "translate");
-    \u0275\u0275listener("onClick", function HeaderComponent_Conditional_21_Template_generic_button_component_onClick_6_listener() {
+    \u0275\u0275elementStart(8, "generic-button-component", 13);
+    \u0275\u0275pipe(9, "translate");
+    \u0275\u0275listener("onClick", function HeaderComponent_Conditional_21_Template_generic_button_component_onClick_8_listener() {
       \u0275\u0275restoreView(_r2);
       const ctx_r0 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r0.handleLogout());
@@ -41404,17 +41504,36 @@ function HeaderComponent_Conditional_21_Template(rf, ctx) {
     const ctx_r0 = \u0275\u0275nextContext();
     \u0275\u0275property("routerLink", ctx_r0.navigationService.getLocalizedRoute(ctx_r0.routes.PROFILE));
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind2(3, 3, "Header.Greeting", \u0275\u0275pureFunction1(8, _c0, ctx_r0.getUsername())), " ");
-    \u0275\u0275advance(4);
-    \u0275\u0275property("label", \u0275\u0275pipeBind1(7, 6, "Profile.LogoutLabel"));
+    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind2(3, 4, "Header.Greeting", \u0275\u0275pureFunction1(9, _c0, ctx_r0.getUsername())), " ");
+    \u0275\u0275advance(5);
+    \u0275\u0275conditional(ctx_r0.friendsService.pendingRequestsCount() > 0 ? 7 : -1);
+    \u0275\u0275advance();
+    \u0275\u0275property("label", \u0275\u0275pipeBind1(9, 7, "Profile.LogoutLabel"));
   }
 }
+var PENDING_REQUESTS_POLL_INTERVAL_MS = 3e4;
 var HeaderComponent = class _HeaderComponent {
   themeService = inject2(ThemeService);
   navigationService = inject2(NavigationService);
   authService = inject2(AuthService);
+  friendsService = inject2(FriendsService);
   routes = AppRoutes;
   themes = THEMES;
+  pollHandle = null;
+  constructor() {
+    effect(() => {
+      if (this.isLoggedIn()) {
+        this.friendsService.refreshPendingRequestsCount();
+        this.startPolling();
+      } else {
+        this.stopPolling();
+        this.friendsService.pendingRequestsCount.set(0);
+      }
+    });
+  }
+  ngOnDestroy() {
+    this.stopPolling();
+  }
   isLoggedIn() {
     return this.authService.isLoggedIn();
   }
@@ -41425,10 +41544,23 @@ var HeaderComponent = class _HeaderComponent {
     this.authService.logout();
     this.navigationService.goToHome();
   }
+  startPolling() {
+    if (this.pollHandle !== null)
+      return;
+    this.pollHandle = setInterval(() => {
+      this.friendsService.refreshPendingRequestsCount();
+    }, PENDING_REQUESTS_POLL_INTERVAL_MS);
+  }
+  stopPolling() {
+    if (this.pollHandle !== null) {
+      clearInterval(this.pollHandle);
+      this.pollHandle = null;
+    }
+  }
   static \u0275fac = function HeaderComponent_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _HeaderComponent)();
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _HeaderComponent, selectors: [["header-component"]], decls: 25, vars: 18, consts: [[1, "header"], [1, "header-list"], [1, "header-list-nav"], [1, "header-list-element"], ["routerLinkActive", "active-link", 1, "header-list-element-link", 3, "routerLink"], [1, "header-button-container"], [1, "material-symbols-outlined", "cursor-pointer", 3, "click"], [3, "label", "routerLink"], [1, "user-greeting-wrapper", "cursor-pointer", 3, "routerLink"], [1, "text", "user-greeting"], [1, "material-symbols-outlined", "cursor-pointer", "light-color"], [3, "onClick", "label"]], template: function HeaderComponent_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _HeaderComponent, selectors: [["header-component"]], decls: 25, vars: 18, consts: [[1, "header"], [1, "header-list"], [1, "header-list-nav"], [1, "header-list-element"], ["routerLinkActive", "active-link", 1, "header-list-element-link", 3, "routerLink"], [1, "header-button-container"], [1, "material-symbols-outlined", "cursor-pointer", 3, "click"], [3, "label", "routerLink"], [1, "user-greeting-wrapper", "cursor-pointer", 3, "routerLink"], [1, "text", "user-greeting"], [1, "account-icon-wrapper"], [1, "material-symbols-outlined", "cursor-pointer", "light-color"], [1, "pending-requests-badge"], [3, "onClick", "label"]], template: function HeaderComponent_Template(rf, ctx) {
     if (rf & 1) {
       \u0275\u0275elementStart(0, "div", 0)(1, "ul", 1)(2, "nav", 2)(3, "li", 3)(4, "a", 4);
       \u0275\u0275text(5);
@@ -41447,7 +41579,7 @@ var HeaderComponent = class _HeaderComponent {
       \u0275\u0275pipe(18, "translate");
       \u0275\u0275elementEnd()()()();
       \u0275\u0275elementStart(19, "div", 5);
-      \u0275\u0275conditionalCreate(20, HeaderComponent_Conditional_20_Template, 4, 8)(21, HeaderComponent_Conditional_21_Template, 8, 10);
+      \u0275\u0275conditionalCreate(20, HeaderComponent_Conditional_20_Template, 4, 8)(21, HeaderComponent_Conditional_21_Template, 10, 11);
       \u0275\u0275elementStart(22, "span", 6);
       \u0275\u0275listener("click", function HeaderComponent_Template_span_click_22_listener() {
         return ctx.themeService.toggleTheme();
@@ -41467,19 +41599,19 @@ var HeaderComponent = class _HeaderComponent {
       \u0275\u0275advance();
       \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(10, 12, "Header.Play"), " ");
       \u0275\u0275advance(3);
-      \u0275\u0275property("routerLink", ctx.navigationService.getLocalizedRoute(ctx.routes.ABOUT));
-      \u0275\u0275advance();
-      \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(14, 14, "Header.About"), " ");
-      \u0275\u0275advance(3);
       \u0275\u0275property("routerLink", ctx.navigationService.getLocalizedRoute(ctx.routes.DASHBOARD));
       \u0275\u0275advance();
-      \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(18, 16, "Header.Dashboard"), " ");
+      \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(14, 14, "Header.Dashboard"), " ");
+      \u0275\u0275advance(3);
+      \u0275\u0275property("routerLink", ctx.navigationService.getLocalizedRoute(ctx.routes.ABOUT));
+      \u0275\u0275advance();
+      \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(18, 16, "Header.About"), " ");
       \u0275\u0275advance(3);
       \u0275\u0275conditional(!ctx.isLoggedIn() ? 20 : 21);
       \u0275\u0275advance(3);
       \u0275\u0275textInterpolate1(" ", ctx.themeService.theme() === ctx.themes.DARK ? "light_mode" : "dark_mode", " ");
     }
-  }, dependencies: [TranslateModule, LanguagePickerComponent, RouterLink, RouterLinkActive, GenericButtonComponent, TranslatePipe], styles: ["\n\n.header[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border-bottom: 1px solid var(--glass-border);\n  box-shadow: var(--shadow-sm);\n  padding: 1.1rem 2rem;\n  margin-bottom: 20px;\n  position: sticky;\n  top: 0;\n  z-index: 100;\n}\n.header-list[_ngcontent-%COMP%] {\n  list-style: none;\n  display: flex;\n  margin: 0;\n  padding: 0;\n}\n.header-list-nav[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 1.75rem;\n}\n.header-list-element[_ngcontent-%COMP%] {\n  list-style: none;\n}\n.header-list-element-link[_ngcontent-%COMP%] {\n  text-decoration: none;\n  font-size: 1.15rem;\n  font-weight: 600;\n  cursor: pointer;\n  padding-bottom: 4px;\n  border-bottom: 2px solid transparent;\n  transition: color 0.25s ease, border-color 0.25s ease;\n}\n.header-list-element-link[_ngcontent-%COMP%]:hover {\n  color: var(--titles-color);\n  border-color: var(--glass-border);\n}\n.header-button-container[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n}\n.user-greeting-wrapper[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n@media (max-width: 768px) {\n  .header[_ngcontent-%COMP%] {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    margin-top: 1rem;\n    gap: 1rem;\n  }\n}\n/*# sourceMappingURL=header.component.css.map */"] });
+  }, dependencies: [TranslateModule, LanguagePickerComponent, RouterLink, RouterLinkActive, GenericButtonComponent, TranslatePipe], styles: ["\n\n.header[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border-bottom: 1px solid var(--glass-border);\n  box-shadow: var(--shadow-sm);\n  padding: 1.1rem 2rem;\n  margin-bottom: 20px;\n  position: sticky;\n  top: 0;\n  z-index: 100;\n}\n.header-list[_ngcontent-%COMP%] {\n  list-style: none;\n  display: flex;\n  margin: 0;\n  padding: 0;\n}\n.header-list-nav[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 1.75rem;\n}\n.header-list-element[_ngcontent-%COMP%] {\n  list-style: none;\n}\n.header-list-element-link[_ngcontent-%COMP%] {\n  text-decoration: none;\n  font-size: 1.15rem;\n  font-weight: 600;\n  cursor: pointer;\n  padding-bottom: 4px;\n  border-bottom: 2px solid transparent;\n  transition: color 0.25s ease, border-color 0.25s ease;\n}\n.header-list-element-link[_ngcontent-%COMP%]:hover {\n  color: var(--titles-color);\n  border-color: var(--glass-border);\n}\n.header-button-container[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n}\n.user-greeting-wrapper[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n.account-icon-wrapper[_ngcontent-%COMP%] {\n  position: relative;\n  display: inline-flex;\n}\n.pending-requests-badge[_ngcontent-%COMP%] {\n  position: absolute;\n  top: -4px;\n  right: -6px;\n  min-width: 16px;\n  height: 16px;\n  padding: 0 4px;\n  border-radius: var(--radius-full);\n  background: #e53935;\n  color: #ffffff;\n  font-size: 0.65rem;\n  font-weight: 700;\n  line-height: 16px;\n  text-align: center;\n  box-shadow: 0 0 0 2px var(--glass-bg);\n}\n@media (max-width: 768px) {\n  .header[_ngcontent-%COMP%] {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    margin-top: 1rem;\n    gap: 1rem;\n  }\n}\n/*# sourceMappingURL=header.component.css.map */"] });
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(HeaderComponent, [{
@@ -41498,13 +41630,13 @@ var HeaderComponent = class _HeaderComponent {
                 </a>
             </li>
             <li class="header-list-element">
-                <a class="header-list-element-link" [routerLink]="navigationService.getLocalizedRoute(routes.ABOUT)" routerLinkActive="active-link">
-                    {{ 'Header.About' | translate }}
+                <a class="header-list-element-link" [routerLink]="navigationService.getLocalizedRoute(routes.DASHBOARD)" routerLinkActive="active-link">
+                    {{ 'Header.Dashboard' | translate }}
                 </a>
             </li>
             <li class="header-list-element">
-                <a class="header-list-element-link" [routerLink]="navigationService.getLocalizedRoute(routes.DASHBOARD)" routerLinkActive="active-link">
-                    {{ 'Header.Dashboard' | translate }}
+                <a class="header-list-element-link" [routerLink]="navigationService.getLocalizedRoute(routes.ABOUT)" routerLinkActive="active-link">
+                    {{ 'Header.About' | translate }}
                 </a>
             </li>
         </nav>
@@ -41519,8 +41651,15 @@ var HeaderComponent = class _HeaderComponent {
                 <span class="text user-greeting">
                     {{ "Header.Greeting" | translate: { name: getUsername() } }}
                 </span>
-                <span class="material-symbols-outlined cursor-pointer light-color">
-                    account_circle
+                <span class="account-icon-wrapper">
+                    <span class="material-symbols-outlined cursor-pointer light-color">
+                        account_circle
+                    </span>
+                    @if (friendsService.pendingRequestsCount() > 0) {
+                        <span class="pending-requests-badge" [attr.aria-label]="'Friends.Requests.Title' | translate">
+                            {{ friendsService.pendingRequestsCount() }}
+                        </span>
+                    }
                 </span>
             </div>
             <generic-button-component [label]="'Profile.LogoutLabel' | translate" (onClick)="handleLogout()"></generic-button-component>
@@ -41531,11 +41670,11 @@ var HeaderComponent = class _HeaderComponent {
         </span>
         <language-picker-component></language-picker-component>
     </div>
-</div>`, styles: ["/* src/app/components/header/header.component.css */\n.header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border-bottom: 1px solid var(--glass-border);\n  box-shadow: var(--shadow-sm);\n  padding: 1.1rem 2rem;\n  margin-bottom: 20px;\n  position: sticky;\n  top: 0;\n  z-index: 100;\n}\n.header-list {\n  list-style: none;\n  display: flex;\n  margin: 0;\n  padding: 0;\n}\n.header-list-nav {\n  display: flex;\n  gap: 1.75rem;\n}\n.header-list-element {\n  list-style: none;\n}\n.header-list-element-link {\n  text-decoration: none;\n  font-size: 1.15rem;\n  font-weight: 600;\n  cursor: pointer;\n  padding-bottom: 4px;\n  border-bottom: 2px solid transparent;\n  transition: color 0.25s ease, border-color 0.25s ease;\n}\n.header-list-element-link:hover {\n  color: var(--titles-color);\n  border-color: var(--glass-border);\n}\n.header-button-container {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n}\n.user-greeting-wrapper {\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n@media (max-width: 768px) {\n  .header {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    margin-top: 1rem;\n    gap: 1rem;\n  }\n}\n/*# sourceMappingURL=header.component.css.map */\n"] }]
-  }], null, null);
+</div>`, styles: ["/* src/app/components/header/header.component.css */\n.header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border-bottom: 1px solid var(--glass-border);\n  box-shadow: var(--shadow-sm);\n  padding: 1.1rem 2rem;\n  margin-bottom: 20px;\n  position: sticky;\n  top: 0;\n  z-index: 100;\n}\n.header-list {\n  list-style: none;\n  display: flex;\n  margin: 0;\n  padding: 0;\n}\n.header-list-nav {\n  display: flex;\n  gap: 1.75rem;\n}\n.header-list-element {\n  list-style: none;\n}\n.header-list-element-link {\n  text-decoration: none;\n  font-size: 1.15rem;\n  font-weight: 600;\n  cursor: pointer;\n  padding-bottom: 4px;\n  border-bottom: 2px solid transparent;\n  transition: color 0.25s ease, border-color 0.25s ease;\n}\n.header-list-element-link:hover {\n  color: var(--titles-color);\n  border-color: var(--glass-border);\n}\n.header-button-container {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n}\n.user-greeting-wrapper {\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n.account-icon-wrapper {\n  position: relative;\n  display: inline-flex;\n}\n.pending-requests-badge {\n  position: absolute;\n  top: -4px;\n  right: -6px;\n  min-width: 16px;\n  height: 16px;\n  padding: 0 4px;\n  border-radius: var(--radius-full);\n  background: #e53935;\n  color: #ffffff;\n  font-size: 0.65rem;\n  font-weight: 700;\n  line-height: 16px;\n  text-align: center;\n  box-shadow: 0 0 0 2px var(--glass-bg);\n}\n@media (max-width: 768px) {\n  .header {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    margin-top: 1rem;\n    gap: 1rem;\n  }\n}\n/*# sourceMappingURL=header.component.css.map */\n"] }]
+  }], () => [], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(HeaderComponent, { className: "HeaderComponent", filePath: "src/app/components/header/header.component.ts", lineNumber: 27 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(HeaderComponent, { className: "HeaderComponent", filePath: "src/app/components/header/header.component.ts", lineNumber: 30 });
 })();
 
 // src/app/helpers/scrollFunctions.helper.ts
@@ -41754,6 +41893,30 @@ var NatureGalleryComponent = class _NatureGalleryComponent {
   (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(NatureGalleryComponent, { className: "NatureGalleryComponent", filePath: "src/app/components/nature-gallery/nature-gallery.component.ts", lineNumber: 18 });
 })();
 
+// src/app/services/leaderboard-service.service.ts
+var LeaderboardService = class _LeaderboardService {
+  http = inject2(HttpClient);
+  API_URL = getApiUrl("LEADERBOARD");
+  getLeaderboard() {
+    return this.http.get(this.API_URL);
+  }
+  getPlatformStats() {
+    return this.http.get(`${this.API_URL}/stats`);
+  }
+  static \u0275fac = function LeaderboardService_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _LeaderboardService)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _LeaderboardService, factory: _LeaderboardService.\u0275fac, providedIn: "root" });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(LeaderboardService, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], null, null);
+})();
+
 // public/DefaultImages.ts
 var defaultImages = [
   "./images/river.jpg",
@@ -41792,120 +41955,468 @@ var placeholder = "https://img.freepik.com/free-photo/gray-painted-background_53
 
 // src/app/pages/home/home.page.ts
 var _c02 = (a0) => ({ numberOfImages: a0 });
+var _c1 = (a0) => ({ games: a0 });
+var _forTrack02 = ($index, $item) => $item.userId;
+function HomePage_For_15_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 22)(1, "div", 23);
+    \u0275\u0275text(2, "?");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "div", 24)(4, "span", 18);
+    \u0275\u0275text(5);
+    \u0275\u0275elementEnd()()();
+  }
+  if (rf & 2) {
+    const icon_r1 = ctx.$implicit;
+    const \u0275$index_25_r2 = ctx.$index;
+    \u0275\u0275styleProp("animation-delay", \u0275$index_25_r2 * 260, "ms");
+    \u0275\u0275advance(5);
+    \u0275\u0275textInterpolate(icon_r1);
+  }
+}
+function HomePage_Conditional_16_Conditional_25_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 26)(1, "span", 27)(2, "span", 18);
+    \u0275\u0275text(3, "local_fire_department");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(4, "span", 28);
+    \u0275\u0275text(5);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(6, "span", 29);
+    \u0275\u0275text(7);
+    \u0275\u0275pipe(8, "translate");
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const ctx_r2 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance(5);
+    \u0275\u0275textInterpolate(ctx_r2.platformStats().mostPopularDifficulty.label);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(8, 2, "Home.CommunityPopularDifficulty"));
+  }
+}
+function HomePage_Conditional_16_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "section", 10)(1, "h2", 11);
+    \u0275\u0275text(2);
+    \u0275\u0275pipe(3, "translate");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(4, "div", 25)(5, "div", 26)(6, "span", 27)(7, "span", 18);
+    \u0275\u0275text(8, "group");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(9, "span", 28);
+    \u0275\u0275text(10);
+    \u0275\u0275pipe(11, "number");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(12, "span", 29);
+    \u0275\u0275text(13);
+    \u0275\u0275pipe(14, "translate");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(15, "div", 26)(16, "span", 27)(17, "span", 18);
+    \u0275\u0275text(18, "sports_esports");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(19, "span", 28);
+    \u0275\u0275text(20);
+    \u0275\u0275pipe(21, "number");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(22, "span", 29);
+    \u0275\u0275text(23);
+    \u0275\u0275pipe(24, "translate");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275conditionalCreate(25, HomePage_Conditional_16_Conditional_25_Template, 9, 4, "div", 26);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const ctx_r2 = \u0275\u0275nextContext();
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(3, 6, "Home.CommunityTitle"), " ");
+    \u0275\u0275advance(8);
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(11, 8, ctx_r2.platformStats().totalPlayers));
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(14, 10, "Home.CommunityPlayers"));
+    \u0275\u0275advance(7);
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(21, 12, ctx_r2.platformStats().totalGamesPlayed));
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(24, 14, "Home.CommunityGamesPlayed"));
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(ctx_r2.platformStats().mostPopularDifficulty ? 25 : -1);
+  }
+}
+function HomePage_Conditional_22_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r4 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "p", 13);
+    \u0275\u0275text(1);
+    \u0275\u0275pipe(2, "translate");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "div", 30)(4, "custom-button-component", 6);
+    \u0275\u0275pipe(5, "translate");
+    \u0275\u0275listener("onClick", function HomePage_Conditional_22_Template_custom_button_component_onClick_4_listener() {
+      \u0275\u0275restoreView(_r4);
+      const ctx_r2 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r2.navigationService.goToLogin());
+    });
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(6, "custom-button-component", 6);
+    \u0275\u0275pipe(7, "translate");
+    \u0275\u0275listener("onClick", function HomePage_Conditional_22_Template_custom_button_component_onClick_6_listener() {
+      \u0275\u0275restoreView(_r4);
+      const ctx_r2 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r2.navigationService.goToSignUp());
+    });
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(2, 3, "Home.CompareLoginPrompt"));
+    \u0275\u0275advance(3);
+    \u0275\u0275property("text", \u0275\u0275pipeBind1(5, 5, "Header.Login"));
+    \u0275\u0275advance(2);
+    \u0275\u0275property("text", \u0275\u0275pipeBind1(7, 7, "Header.SignUp"));
+  }
+}
+function HomePage_Conditional_23_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "p", 13);
+    \u0275\u0275text(1);
+    \u0275\u0275pipe(2, "translate");
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(2, 1, "Home.CompareLoading"));
+  }
+}
+function HomePage_Conditional_24_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r5 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "p", 13);
+    \u0275\u0275text(1);
+    \u0275\u0275pipe(2, "translate");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "custom-button-component", 6);
+    \u0275\u0275pipe(4, "translate");
+    \u0275\u0275listener("onClick", function HomePage_Conditional_24_Template_custom_button_component_onClick_3_listener() {
+      \u0275\u0275restoreView(_r5);
+      const ctx_r2 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r2.navigationService.goToProfile());
+    });
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(2, 2, "Home.CompareNoFriends"));
+    \u0275\u0275advance(2);
+    \u0275\u0275property("text", \u0275\u0275pipeBind1(4, 4, "Home.CompareGoToProfile"));
+  }
+}
+function HomePage_Conditional_25_For_2_Conditional_5_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 35);
+    \u0275\u0275text(1);
+    \u0275\u0275pipe(2, "translate");
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(2, 1, "Home.CompareYouTag"));
+  }
+}
+function HomePage_Conditional_25_For_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "li", 32)(1, "span", 33);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "span", 34);
+    \u0275\u0275text(4);
+    \u0275\u0275conditionalCreate(5, HomePage_Conditional_25_For_2_Conditional_5_Template, 3, 3, "span", 35);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(6, "span", 36);
+    \u0275\u0275text(7);
+    \u0275\u0275pipe(8, "translate");
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const entry_r6 = ctx.$implicit;
+    const \u0275$index_127_r7 = ctx.$index;
+    \u0275\u0275classProp("comparison-item-self", entry_r6.isCurrentUser);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(\u0275$index_127_r7 + 1);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate1(" ", entry_r6.username, " ");
+    \u0275\u0275advance();
+    \u0275\u0275conditional(entry_r6.isCurrentUser ? 5 : -1);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind2(8, 6, "Home.CompareGamesPlayed", \u0275\u0275pureFunction1(9, _c1, entry_r6.totalGamesPlayed)));
+  }
+}
+function HomePage_Conditional_25_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "ol", 14);
+    \u0275\u0275repeaterCreate(1, HomePage_Conditional_25_For_2_Template, 9, 11, "li", 31, _forTrack02);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r2 = \u0275\u0275nextContext();
+    \u0275\u0275advance();
+    \u0275\u0275repeater(ctx_r2.friendsComparison());
+  }
+}
 var HomePage = class _HomePage {
   navigationService = inject2(NavigationService);
+  authService = inject2(AuthService);
+  leaderboardService = inject2(LeaderboardService);
+  friendsService = inject2(FriendsService);
   defaultImages = defaultImages;
+  heroCardIcons = ["eco", "forest", "park", "local_florist", "spa", "water_drop"];
+  platformStats = signal(null, ...ngDevMode ? [{ debugName: "platformStats" }] : []);
+  friendsComparison = signal(null, ...ngDevMode ? [{ debugName: "friendsComparison" }] : []);
+  isComparisonLoading = signal(false, ...ngDevMode ? [{ debugName: "isComparisonLoading" }] : []);
+  hasFriendsComparison = computed(() => (this.friendsComparison() ?? []).length > 1, ...ngDevMode ? [{ debugName: "hasFriendsComparison" }] : []);
+  constructor() {
+    this.leaderboardService.getPlatformStats().subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.platformStats.set(response.data);
+        }
+      }
+    });
+    if (this.authService.isLoggedIn()) {
+      this.isComparisonLoading.set(true);
+      this.friendsService.getFriendsComparison().subscribe({
+        next: (response) => {
+          this.isComparisonLoading.set(false);
+          if (response.success) {
+            this.friendsComparison.set(response.data);
+          }
+        },
+        error: () => this.isComparisonLoading.set(false)
+      });
+    }
+  }
   static \u0275fac = function HomePage_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _HomePage)();
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _HomePage, selectors: [["home-page"]], decls: 29, vars: 31, consts: [[1, "display-vertical"], [1, "display-center-vertical-nogap"], [1, "title", "light-color"], [1, "display-horizontal", "normal-max-width"], [1, "text", "custom-max-width", 3, "innerHTML"], [3, "onClick", "text"], [1, "text", "normal-max-width"], [3, "defaultImages", "text", "buttonLabel"]], template: function HomePage_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _HomePage, selectors: [["home-page"]], decls: 52, vars: 36, consts: [[1, "home-page"], [1, "hero-section"], [1, "hero-content"], [1, "hero-title"], [1, "text", "hero-text", 3, "innerHTML"], [1, "hero-actions"], [3, "onClick", "text"], ["aria-hidden", "true", 1, "hero-visual"], [1, "hero-card-grid"], [1, "hero-card", 3, "animation-delay"], [1, "home-section"], [1, "medium-title", "light-color", "section-heading"], [1, "compare-panel", "glass-panel"], [1, "text"], [1, "comparison-list"], [1, "home-section", "feature-grid-section"], [1, "feature-card", "glass-panel"], [1, "feature-icon-badge"], [1, "material-symbols-outlined"], [1, "medium-title", "light-color"], [1, "home-section", "gallery-section"], [3, "defaultImages", "text", "buttonLabel"], [1, "hero-card"], [1, "hero-card-face", "hero-card-front"], [1, "hero-card-face", "hero-card-back"], [1, "community-stats-grid"], [1, "community-stat-card", "glass-panel"], [1, "community-stat-icon-badge"], [1, "community-stat-value"], [1, "community-stat-label"], [1, "display-horizontal"], [1, "comparison-item", 3, "comparison-item-self"], [1, "comparison-item"], [1, "comparison-position"], [1, "comparison-name", "text-color"], [1, "comparison-you-tag"], [1, "comparison-value", "text"]], template: function HomePage_Template(rf, ctx) {
     if (rf & 1) {
       \u0275\u0275element(0, "header-component");
-      \u0275\u0275elementStart(1, "main", 0)(2, "section", 1)(3, "h1", 2);
-      \u0275\u0275text(4);
-      \u0275\u0275pipe(5, "translate");
+      \u0275\u0275elementStart(1, "main", 0)(2, "section", 1)(3, "div", 2)(4, "h1", 3);
+      \u0275\u0275text(5);
+      \u0275\u0275pipe(6, "translate");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(6, "div", 3);
       \u0275\u0275element(7, "p", 4);
       \u0275\u0275pipe(8, "translate");
-      \u0275\u0275elementStart(9, "custom-button-component", 5);
-      \u0275\u0275pipe(10, "translate");
-      \u0275\u0275listener("onClick", function HomePage_Template_custom_button_component_onClick_9_listener() {
+      \u0275\u0275elementStart(9, "div", 5)(10, "custom-button-component", 6);
+      \u0275\u0275pipe(11, "translate");
+      \u0275\u0275listener("onClick", function HomePage_Template_custom_button_component_onClick_10_listener() {
         return ctx.navigationService.goToPlay();
       });
       \u0275\u0275elementEnd()()();
-      \u0275\u0275elementStart(11, "section", 1)(12, "h1", 2);
-      \u0275\u0275text(13);
-      \u0275\u0275pipe(14, "translate");
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(15, "p", 6);
-      \u0275\u0275text(16);
-      \u0275\u0275pipe(17, "translate");
-      \u0275\u0275elementEnd()();
-      \u0275\u0275element(18, "nature-gallery-component", 7);
-      \u0275\u0275pipe(19, "translate");
-      \u0275\u0275pipe(20, "translate");
-      \u0275\u0275elementStart(21, "section", 1)(22, "h1", 2);
-      \u0275\u0275text(23);
-      \u0275\u0275pipe(24, "translate");
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(25, "p", 6);
-      \u0275\u0275text(26);
-      \u0275\u0275pipe(27, "translate");
+      \u0275\u0275elementStart(12, "div", 7)(13, "div", 8);
+      \u0275\u0275repeaterCreate(14, HomePage_For_15_Template, 6, 3, "div", 9, \u0275\u0275repeaterTrackByIdentity);
       \u0275\u0275elementEnd()()();
-      \u0275\u0275element(28, "footer-component");
+      \u0275\u0275conditionalCreate(16, HomePage_Conditional_16_Template, 26, 16, "section", 10);
+      \u0275\u0275elementStart(17, "section", 10)(18, "h2", 11);
+      \u0275\u0275text(19);
+      \u0275\u0275pipe(20, "translate");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(21, "div", 12);
+      \u0275\u0275conditionalCreate(22, HomePage_Conditional_22_Template, 8, 9)(23, HomePage_Conditional_23_Template, 3, 3, "p", 13)(24, HomePage_Conditional_24_Template, 5, 6)(25, HomePage_Conditional_25_Template, 3, 0, "ol", 14);
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(26, "section", 15)(27, "div", 16)(28, "span", 17)(29, "span", 18);
+      \u0275\u0275text(30, "eco");
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(31, "h2", 19);
+      \u0275\u0275text(32);
+      \u0275\u0275pipe(33, "translate");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(34, "p", 13);
+      \u0275\u0275text(35);
+      \u0275\u0275pipe(36, "translate");
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(37, "div", 16)(38, "span", 17)(39, "span", 18);
+      \u0275\u0275text(40, "photo_camera");
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(41, "h2", 19);
+      \u0275\u0275text(42);
+      \u0275\u0275pipe(43, "translate");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(44, "p", 13);
+      \u0275\u0275text(45);
+      \u0275\u0275pipe(46, "translate");
+      \u0275\u0275elementEnd()()();
+      \u0275\u0275elementStart(47, "section", 20);
+      \u0275\u0275element(48, "nature-gallery-component", 21);
+      \u0275\u0275pipe(49, "translate");
+      \u0275\u0275pipe(50, "translate");
+      \u0275\u0275elementEnd()();
+      \u0275\u0275element(51, "footer-component");
     }
     if (rf & 2) {
-      \u0275\u0275advance(4);
-      \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(5, 10, "Home.WhatIsItTitle"), " ");
-      \u0275\u0275advance(3);
-      \u0275\u0275property("innerHTML", \u0275\u0275pipeBind1(8, 12, "Home.WhatIsItText"), \u0275\u0275sanitizeHtml);
-      \u0275\u0275advance(2);
-      \u0275\u0275property("text", \u0275\u0275pipeBind1(10, 14, "Home.PlayNow"));
-      \u0275\u0275advance(4);
-      \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(14, 16, "Home.WhyNatureTitle"), " ");
-      \u0275\u0275advance(3);
-      \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(17, 18, "Home.WhyNatureText"), " ");
-      \u0275\u0275advance(2);
-      \u0275\u0275property("defaultImages", ctx.defaultImages)("text", \u0275\u0275pipeBind2(19, 20, "Home.LoadMoreText", \u0275\u0275pureFunction1(29, _c02, ctx.defaultImages.length)))("buttonLabel", \u0275\u0275pipeBind1(20, 23, "Home.LoadMoreButtonLabel"));
       \u0275\u0275advance(5);
-      \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(24, 25, "Home.WhereFromTitle"), " ");
+      \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(6, 13, "Home.WhatIsItTitle"), " ");
+      \u0275\u0275advance(2);
+      \u0275\u0275property("innerHTML", \u0275\u0275pipeBind1(8, 15, "Home.WhatIsItText"), \u0275\u0275sanitizeHtml);
       \u0275\u0275advance(3);
-      \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(27, 27, "Home.WhereFromText"), " ");
+      \u0275\u0275property("text", \u0275\u0275pipeBind1(11, 17, "Home.PlayNow"));
+      \u0275\u0275advance(4);
+      \u0275\u0275repeater(ctx.heroCardIcons);
+      \u0275\u0275advance(2);
+      \u0275\u0275conditional(ctx.platformStats() ? 16 : -1);
+      \u0275\u0275advance(3);
+      \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(20, 19, "Home.CompareTitle"), " ");
+      \u0275\u0275advance(3);
+      \u0275\u0275conditional(!ctx.authService.isLoggedIn() ? 22 : ctx.isComparisonLoading() ? 23 : !ctx.hasFriendsComparison() ? 24 : 25);
+      \u0275\u0275advance(10);
+      \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(33, 21, "Home.WhyNatureTitle"));
+      \u0275\u0275advance(3);
+      \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(36, 23, "Home.WhyNatureText"));
+      \u0275\u0275advance(7);
+      \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(43, 25, "Home.WhereFromTitle"));
+      \u0275\u0275advance(3);
+      \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(46, 27, "Home.WhereFromText"));
+      \u0275\u0275advance(3);
+      \u0275\u0275property("defaultImages", ctx.defaultImages)("text", \u0275\u0275pipeBind2(49, 29, "Home.LoadMoreText", \u0275\u0275pureFunction1(34, _c02, ctx.defaultImages.length)))("buttonLabel", \u0275\u0275pipeBind1(50, 32, "Home.LoadMoreButtonLabel"));
     }
-  }, dependencies: [HeaderComponent, FooterComponent, CustomButtonComponent, NatureGalleryComponent, TranslateModule, TranslatePipe], styles: ["\n\n.home-image[_ngcontent-%COMP%] {\n  max-width: 50%;\n  height: auto;\n  border-radius: var(--radius-lg);\n  box-shadow: var(--shadow-md);\n  margin-left: 2rem;\n  transition: transform 0.3s ease, box-shadow 0.3s ease;\n}\n.home-image[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px) scale(1.02);\n  box-shadow: var(--shadow-lg);\n}\n/*# sourceMappingURL=home.page.css.map */"] });
+  }, dependencies: [HeaderComponent, FooterComponent, CustomButtonComponent, NatureGalleryComponent, TranslateModule, TranslatePipe, DecimalPipe], styles: ["\n\n.home-page[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  width: 100%;\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 1rem 1.5rem 4rem;\n  box-sizing: border-box;\n  gap: 4.5rem;\n}\n.hero-section[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1.15fr 0.85fr;\n  align-items: center;\n  gap: 3rem;\n  width: 100%;\n  padding: 2rem 0 1rem;\n  text-align: left;\n}\n.hero-content[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  gap: 1.25rem;\n}\n.hero-title[_ngcontent-%COMP%] {\n  font-size: 3.4rem;\n  line-height: 1.1;\n  letter-spacing: 1px;\n  margin: 0;\n  background:\n    linear-gradient(\n      135deg,\n      var(--titles-color),\n      var(--button-color));\n  background-clip: text;\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n}\n.hero-text[_ngcontent-%COMP%] {\n  max-width: 560px;\n  margin: 0;\n}\n.hero-actions[_ngcontent-%COMP%] {\n  margin-top: 0.25rem;\n}\n.hero-visual[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.hero-card-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 1.1rem;\n  perspective: 1200px;\n}\n.hero-card[_ngcontent-%COMP%] {\n  width: 92px;\n  height: 92px;\n  position: relative;\n  transform-style: preserve-3d;\n  animation: _ngcontent-%COMP%_hero-card-flip 6.5s ease-in-out infinite;\n}\n.hero-card-face[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: var(--radius-md);\n  backface-visibility: hidden;\n  box-shadow: var(--shadow-md);\n  box-sizing: border-box;\n}\n.hero-card-front[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n  color: var(--button-text-color);\n  font-size: 2.1rem;\n  font-weight: 800;\n}\n.hero-card-back[_ngcontent-%COMP%] {\n  background: var(--card-bg);\n  border: 1px solid var(--glass-border);\n  transform: rotateY(180deg);\n}\n.hero-card-back[_ngcontent-%COMP%]   .material-symbols-outlined[_ngcontent-%COMP%] {\n  font-size: 2.3rem !important;\n  color: var(--titles-color);\n}\n@keyframes _ngcontent-%COMP%_hero-card-flip {\n  0%, 40% {\n    transform: rotateY(0deg);\n  }\n  50%, 90% {\n    transform: rotateY(180deg);\n  }\n  100% {\n    transform: rotateY(360deg);\n  }\n}\n@media (prefers-reduced-motion: reduce) {\n  .hero-card[_ngcontent-%COMP%] {\n    animation: none;\n  }\n}\n.home-section[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  width: 100%;\n}\n.section-heading[_ngcontent-%COMP%] {\n  margin-bottom: 1.5rem;\n}\n.community-stats-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));\n  gap: 1.25rem;\n  width: 100%;\n  max-width: 800px;\n  box-sizing: border-box;\n}\n.community-stat-card[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  text-align: center;\n  gap: 0.6rem;\n  padding: 1.75rem 1rem;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.community-stat-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  box-shadow: var(--shadow-lg);\n}\n.community-stat-icon-badge[_ngcontent-%COMP%] {\n  width: 56px;\n  height: 56px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: var(--radius-full);\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n}\n.community-stat-icon-badge[_ngcontent-%COMP%]   .material-symbols-outlined[_ngcontent-%COMP%] {\n  font-size: 1.7rem !important;\n  color: var(--button-text-color);\n}\n.community-stat-value[_ngcontent-%COMP%] {\n  font-size: 1.6rem;\n  font-weight: 800;\n  color: var(--titles-color);\n}\n.community-stat-label[_ngcontent-%COMP%] {\n  font-size: 0.85rem;\n  opacity: 0.7;\n}\n.compare-panel[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  width: 100%;\n  max-width: 800px;\n  padding: 2rem;\n  box-sizing: border-box;\n  gap: 1rem;\n}\n.comparison-list[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  width: 100%;\n  list-style: none;\n  margin: 0;\n  padding: 0;\n}\n.comparison-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  background: var(--bg-color);\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-md, 10px);\n  padding: 0.75rem 1.25rem;\n  box-sizing: border-box;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.comparison-item[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: var(--shadow-sm);\n}\n.comparison-item-self[_ngcontent-%COMP%] {\n  border-color: color-mix(in srgb, var(--titles-color) 45%, var(--glass-border));\n  box-shadow: 0 0 16px var(--accent-glow);\n}\n.comparison-position[_ngcontent-%COMP%] {\n  width: 24px;\n  text-align: center;\n  font-weight: 800;\n  color: var(--titles-color);\n  flex-shrink: 0;\n}\n.comparison-name[_ngcontent-%COMP%] {\n  flex: 1;\n  font-weight: 700;\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n.comparison-you-tag[_ngcontent-%COMP%] {\n  font-size: 0.7rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.3px;\n  padding: 0.15rem 0.5rem;\n  border-radius: var(--radius-full);\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n  color: var(--button-text-color);\n}\n.comparison-value[_ngcontent-%COMP%] {\n  flex-shrink: 0;\n  font-size: 0.9rem;\n}\n.feature-grid-section[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(2, 1fr);\n  gap: 2rem;\n  align-items: start;\n  text-align: left;\n}\n.feature-card[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  gap: 0.75rem;\n  padding: 2rem;\n  box-sizing: border-box;\n  height: 100%;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.feature-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  box-shadow: var(--shadow-lg);\n}\n.feature-card[_ngcontent-%COMP%]   .medium-title[_ngcontent-%COMP%] {\n  margin: 0;\n}\n.feature-card[_ngcontent-%COMP%]   .text[_ngcontent-%COMP%] {\n  margin: 0;\n}\n.feature-icon-badge[_ngcontent-%COMP%] {\n  width: 52px;\n  height: 52px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: var(--radius-md);\n  background: var(--accent-glow);\n}\n.feature-icon-badge[_ngcontent-%COMP%]   .material-symbols-outlined[_ngcontent-%COMP%] {\n  font-size: 1.6rem !important;\n  color: var(--titles-color);\n}\n.gallery-section[_ngcontent-%COMP%] {\n  width: 100%;\n}\n@media (max-width: 900px) {\n  .hero-section[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    text-align: center;\n    padding-top: 0.5rem;\n  }\n  .hero-content[_ngcontent-%COMP%] {\n    align-items: center;\n  }\n  .hero-text[_ngcontent-%COMP%] {\n    max-width: 100%;\n  }\n  .hero-visual[_ngcontent-%COMP%] {\n    order: -1;\n  }\n  .hero-card[_ngcontent-%COMP%] {\n    width: 72px;\n    height: 72px;\n  }\n  .feature-grid-section[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .feature-card[_ngcontent-%COMP%] {\n    text-align: left;\n  }\n}\n@media (max-width: 600px) {\n  .home-page[_ngcontent-%COMP%] {\n    gap: 3rem;\n    padding: 1rem 1rem 3rem;\n  }\n  .hero-title[_ngcontent-%COMP%] {\n    font-size: 2.4rem;\n  }\n  .hero-card-grid[_ngcontent-%COMP%] {\n    gap: 0.75rem;\n  }\n  .hero-card[_ngcontent-%COMP%] {\n    width: 60px;\n    height: 60px;\n  }\n  .hero-card-front[_ngcontent-%COMP%] {\n    font-size: 1.5rem;\n  }\n  .hero-card-back[_ngcontent-%COMP%]   .material-symbols-outlined[_ngcontent-%COMP%] {\n    font-size: 1.7rem !important;\n  }\n}\n/*# sourceMappingURL=home.page.css.map */"] });
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(HomePage, [{
     type: Component,
-    args: [{ selector: "home-page", imports: [HeaderComponent, FooterComponent, CustomButtonComponent, NatureGalleryComponent, TranslateModule], template: `<header-component></header-component>
+    args: [{ selector: "home-page", imports: [HeaderComponent, FooterComponent, CustomButtonComponent, NatureGalleryComponent, TranslateModule, DecimalPipe], template: `<header-component></header-component>
 
-<main class="display-vertical">
-  
-  <section class="display-center-vertical-nogap">
-    <h1 class="title light-color">
-      {{ 'Home.WhatIsItTitle' | translate }}
-    </h1>
-    <div class="display-horizontal normal-max-width">
-      <p class="text custom-max-width" [innerHTML]="'Home.WhatIsItText' | translate"></p>
-      <custom-button-component 
-        [text]="'Home.PlayNow' | translate"
-        (onClick)="navigationService.goToPlay()">
-      </custom-button-component>
+<main class="home-page">
+
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">
+        {{ 'Home.WhatIsItTitle' | translate }}
+      </h1>
+      <p class="text hero-text" [innerHTML]="'Home.WhatIsItText' | translate"></p>
+      <div class="hero-actions">
+        <custom-button-component
+          [text]="'Home.PlayNow' | translate"
+          (onClick)="navigationService.goToPlay()">
+        </custom-button-component>
+      </div>
+    </div>
+
+    <div class="hero-visual" aria-hidden="true">
+      <div class="hero-card-grid">
+        @for (icon of heroCardIcons; track icon; let i = $index) {
+          <div class="hero-card" [style.animation-delay.ms]="i * 260">
+            <div class="hero-card-face hero-card-front">?</div>
+            <div class="hero-card-face hero-card-back">
+              <span class="material-symbols-outlined">{{ icon }}</span>
+            </div>
+          </div>
+        }
+      </div>
     </div>
   </section>
 
-  <section class="display-center-vertical-nogap">
-    <h1 class="title light-color">
-      {{ 'Home.WhyNatureTitle' | translate }}
-    </h1>
-    <p class="text normal-max-width">
-      {{ 'Home.WhyNatureText' | translate }}
-    </p>
+  @if (platformStats()) {
+    <section class="home-section">
+      <h2 class="medium-title light-color section-heading">
+        {{ 'Home.CommunityTitle' | translate }}
+      </h2>
+      <div class="community-stats-grid">
+        <div class="community-stat-card glass-panel">
+          <span class="community-stat-icon-badge">
+            <span class="material-symbols-outlined">group</span>
+          </span>
+          <span class="community-stat-value">{{ platformStats()!.totalPlayers | number }}</span>
+          <span class="community-stat-label">{{ 'Home.CommunityPlayers' | translate }}</span>
+        </div>
+        <div class="community-stat-card glass-panel">
+          <span class="community-stat-icon-badge">
+            <span class="material-symbols-outlined">sports_esports</span>
+          </span>
+          <span class="community-stat-value">{{ platformStats()!.totalGamesPlayed | number }}</span>
+          <span class="community-stat-label">{{ 'Home.CommunityGamesPlayed' | translate }}</span>
+        </div>
+        @if (platformStats()!.mostPopularDifficulty) {
+          <div class="community-stat-card glass-panel">
+            <span class="community-stat-icon-badge">
+              <span class="material-symbols-outlined">local_fire_department</span>
+            </span>
+            <span class="community-stat-value">{{ platformStats()!.mostPopularDifficulty!.label }}</span>
+            <span class="community-stat-label">{{ 'Home.CommunityPopularDifficulty' | translate }}</span>
+          </div>
+        }
+      </div>
+    </section>
+  }
+
+  <section class="home-section">
+    <h2 class="medium-title light-color section-heading">
+      {{ 'Home.CompareTitle' | translate }}
+    </h2>
+
+    <div class="compare-panel glass-panel">
+      @if (!authService.isLoggedIn()) {
+        <p class="text">{{ 'Home.CompareLoginPrompt' | translate }}</p>
+        <div class="display-horizontal">
+          <custom-button-component [text]="'Header.Login' | translate" (onClick)="navigationService.goToLogin()"></custom-button-component>
+          <custom-button-component [text]="'Header.SignUp' | translate" (onClick)="navigationService.goToSignUp()"></custom-button-component>
+        </div>
+      } @else if (isComparisonLoading()) {
+        <p class="text">{{ 'Home.CompareLoading' | translate }}</p>
+      } @else if (!hasFriendsComparison()) {
+        <p class="text">{{ 'Home.CompareNoFriends' | translate }}</p>
+        <custom-button-component [text]="'Home.CompareGoToProfile' | translate" (onClick)="navigationService.goToProfile()"></custom-button-component>
+      } @else {
+        <ol class="comparison-list">
+          @for (entry of friendsComparison(); track entry.userId; let i = $index) {
+            <li class="comparison-item" [class.comparison-item-self]="entry.isCurrentUser">
+              <span class="comparison-position">{{ i + 1 }}</span>
+              <span class="comparison-name text-color">
+                {{ entry.username }}
+                @if (entry.isCurrentUser) {
+                  <span class="comparison-you-tag">{{ 'Home.CompareYouTag' | translate }}</span>
+                }
+              </span>
+              <span class="comparison-value text">{{ 'Home.CompareGamesPlayed' | translate: { games: entry.totalGamesPlayed } }}</span>
+            </li>
+          }
+        </ol>
+      }
+    </div>
   </section>
 
-  <nature-gallery-component 
-    [defaultImages]="defaultImages"
-    [text]="'Home.LoadMoreText' | translate: {numberOfImages: defaultImages.length}"
-    [buttonLabel]="'Home.LoadMoreButtonLabel' | translate">
-  </nature-gallery-component>
-
-  <section class="display-center-vertical-nogap">
-    <h1 class="title light-color">
-      {{ 'Home.WhereFromTitle' | translate }}
-    </h1>
-    <p class="text normal-max-width">
-      {{ 'Home.WhereFromText' | translate }}
-    </p>
+  <section class="home-section feature-grid-section">
+    <div class="feature-card glass-panel">
+      <span class="feature-icon-badge">
+        <span class="material-symbols-outlined">eco</span>
+      </span>
+      <h2 class="medium-title light-color">{{ 'Home.WhyNatureTitle' | translate }}</h2>
+      <p class="text">{{ 'Home.WhyNatureText' | translate }}</p>
+    </div>
+    <div class="feature-card glass-panel">
+      <span class="feature-icon-badge">
+        <span class="material-symbols-outlined">photo_camera</span>
+      </span>
+      <h2 class="medium-title light-color">{{ 'Home.WhereFromTitle' | translate }}</h2>
+      <p class="text">{{ 'Home.WhereFromText' | translate }}</p>
+    </div>
   </section>
-  
+
+  <section class="home-section gallery-section">
+    <nature-gallery-component
+      [defaultImages]="defaultImages"
+      [text]="'Home.LoadMoreText' | translate: {numberOfImages: defaultImages.length}"
+      [buttonLabel]="'Home.LoadMoreButtonLabel' | translate">
+    </nature-gallery-component>
+  </section>
+
 </main>
 
-<footer-component></footer-component>`, styles: ["/* src/app/pages/home/home.page.css */\n.home-image {\n  max-width: 50%;\n  height: auto;\n  border-radius: var(--radius-lg);\n  box-shadow: var(--shadow-md);\n  margin-left: 2rem;\n  transition: transform 0.3s ease, box-shadow 0.3s ease;\n}\n.home-image:hover {\n  transform: translateY(-4px) scale(1.02);\n  box-shadow: var(--shadow-lg);\n}\n/*# sourceMappingURL=home.page.css.map */\n"] }]
-  }], null, null);
+<footer-component></footer-component>
+`, styles: ["/* src/app/pages/home/home.page.css */\n.home-page {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  width: 100%;\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 1rem 1.5rem 4rem;\n  box-sizing: border-box;\n  gap: 4.5rem;\n}\n.hero-section {\n  display: grid;\n  grid-template-columns: 1.15fr 0.85fr;\n  align-items: center;\n  gap: 3rem;\n  width: 100%;\n  padding: 2rem 0 1rem;\n  text-align: left;\n}\n.hero-content {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  gap: 1.25rem;\n}\n.hero-title {\n  font-size: 3.4rem;\n  line-height: 1.1;\n  letter-spacing: 1px;\n  margin: 0;\n  background:\n    linear-gradient(\n      135deg,\n      var(--titles-color),\n      var(--button-color));\n  background-clip: text;\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n}\n.hero-text {\n  max-width: 560px;\n  margin: 0;\n}\n.hero-actions {\n  margin-top: 0.25rem;\n}\n.hero-visual {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.hero-card-grid {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 1.1rem;\n  perspective: 1200px;\n}\n.hero-card {\n  width: 92px;\n  height: 92px;\n  position: relative;\n  transform-style: preserve-3d;\n  animation: hero-card-flip 6.5s ease-in-out infinite;\n}\n.hero-card-face {\n  position: absolute;\n  inset: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: var(--radius-md);\n  backface-visibility: hidden;\n  box-shadow: var(--shadow-md);\n  box-sizing: border-box;\n}\n.hero-card-front {\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n  color: var(--button-text-color);\n  font-size: 2.1rem;\n  font-weight: 800;\n}\n.hero-card-back {\n  background: var(--card-bg);\n  border: 1px solid var(--glass-border);\n  transform: rotateY(180deg);\n}\n.hero-card-back .material-symbols-outlined {\n  font-size: 2.3rem !important;\n  color: var(--titles-color);\n}\n@keyframes hero-card-flip {\n  0%, 40% {\n    transform: rotateY(0deg);\n  }\n  50%, 90% {\n    transform: rotateY(180deg);\n  }\n  100% {\n    transform: rotateY(360deg);\n  }\n}\n@media (prefers-reduced-motion: reduce) {\n  .hero-card {\n    animation: none;\n  }\n}\n.home-section {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  width: 100%;\n}\n.section-heading {\n  margin-bottom: 1.5rem;\n}\n.community-stats-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));\n  gap: 1.25rem;\n  width: 100%;\n  max-width: 800px;\n  box-sizing: border-box;\n}\n.community-stat-card {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  text-align: center;\n  gap: 0.6rem;\n  padding: 1.75rem 1rem;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.community-stat-card:hover {\n  transform: translateY(-4px);\n  box-shadow: var(--shadow-lg);\n}\n.community-stat-icon-badge {\n  width: 56px;\n  height: 56px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: var(--radius-full);\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n}\n.community-stat-icon-badge .material-symbols-outlined {\n  font-size: 1.7rem !important;\n  color: var(--button-text-color);\n}\n.community-stat-value {\n  font-size: 1.6rem;\n  font-weight: 800;\n  color: var(--titles-color);\n}\n.community-stat-label {\n  font-size: 0.85rem;\n  opacity: 0.7;\n}\n.compare-panel {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  width: 100%;\n  max-width: 800px;\n  padding: 2rem;\n  box-sizing: border-box;\n  gap: 1rem;\n}\n.comparison-list {\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  width: 100%;\n  list-style: none;\n  margin: 0;\n  padding: 0;\n}\n.comparison-item {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  background: var(--bg-color);\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-md, 10px);\n  padding: 0.75rem 1.25rem;\n  box-sizing: border-box;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.comparison-item:hover {\n  transform: translateY(-2px);\n  box-shadow: var(--shadow-sm);\n}\n.comparison-item-self {\n  border-color: color-mix(in srgb, var(--titles-color) 45%, var(--glass-border));\n  box-shadow: 0 0 16px var(--accent-glow);\n}\n.comparison-position {\n  width: 24px;\n  text-align: center;\n  font-weight: 800;\n  color: var(--titles-color);\n  flex-shrink: 0;\n}\n.comparison-name {\n  flex: 1;\n  font-weight: 700;\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n.comparison-you-tag {\n  font-size: 0.7rem;\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.3px;\n  padding: 0.15rem 0.5rem;\n  border-radius: var(--radius-full);\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n  color: var(--button-text-color);\n}\n.comparison-value {\n  flex-shrink: 0;\n  font-size: 0.9rem;\n}\n.feature-grid-section {\n  display: grid;\n  grid-template-columns: repeat(2, 1fr);\n  gap: 2rem;\n  align-items: start;\n  text-align: left;\n}\n.feature-card {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  gap: 0.75rem;\n  padding: 2rem;\n  box-sizing: border-box;\n  height: 100%;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.feature-card:hover {\n  transform: translateY(-4px);\n  box-shadow: var(--shadow-lg);\n}\n.feature-card .medium-title {\n  margin: 0;\n}\n.feature-card .text {\n  margin: 0;\n}\n.feature-icon-badge {\n  width: 52px;\n  height: 52px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: var(--radius-md);\n  background: var(--accent-glow);\n}\n.feature-icon-badge .material-symbols-outlined {\n  font-size: 1.6rem !important;\n  color: var(--titles-color);\n}\n.gallery-section {\n  width: 100%;\n}\n@media (max-width: 900px) {\n  .hero-section {\n    grid-template-columns: 1fr;\n    text-align: center;\n    padding-top: 0.5rem;\n  }\n  .hero-content {\n    align-items: center;\n  }\n  .hero-text {\n    max-width: 100%;\n  }\n  .hero-visual {\n    order: -1;\n  }\n  .hero-card {\n    width: 72px;\n    height: 72px;\n  }\n  .feature-grid-section {\n    grid-template-columns: 1fr;\n  }\n  .feature-card {\n    text-align: left;\n  }\n}\n@media (max-width: 600px) {\n  .home-page {\n    gap: 3rem;\n    padding: 1rem 1rem 3rem;\n  }\n  .hero-title {\n    font-size: 2.4rem;\n  }\n  .hero-card-grid {\n    gap: 0.75rem;\n  }\n  .hero-card {\n    width: 60px;\n    height: 60px;\n  }\n  .hero-card-front {\n    font-size: 1.5rem;\n  }\n  .hero-card-back .material-symbols-outlined {\n    font-size: 1.7rem !important;\n  }\n}\n/*# sourceMappingURL=home.page.css.map */\n"] }]
+  }], () => [], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(HomePage, { className: "HomePage", filePath: "src/app/pages/home/home.page.ts", lineNumber: 27 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(HomePage, { className: "HomePage", filePath: "src/app/pages/home/home.page.ts", lineNumber: 34 });
 })();
 
 // src/app/components/generic-card/generic-card.component.ts
@@ -41988,8 +42499,10 @@ var GameResultsService = class _GameResultsService {
   saveGameResults(gameResult) {
     return this.http.post(this.API_URL, gameResult);
   }
-  getGameResults() {
-    return this.http.get(this.API_URL);
+  getGameHistory(page, pageSize) {
+    return this.http.get(`${this.API_URL}/history`, {
+      params: { page, pageSize }
+    });
   }
   getUserStats() {
     return this.http.get(`${this.API_URL}/userStats`);
@@ -42008,11 +42521,20 @@ var GameResultsService = class _GameResultsService {
   }], null, null);
 })();
 
+// src/app/helpers/timeFunctions.helper.ts
+function formatDuration(totalSeconds) {
+  const safeSeconds = Math.max(0, Math.round(totalSeconds));
+  const minutes = Math.floor(safeSeconds / 60);
+  const seconds = safeSeconds % 60;
+  return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+}
+
 // src/app/components/memory-game/memory-game.component.ts
 var _c03 = (a0) => ({ moves: a0 });
-function MemoryGameComponent_For_23_Template(rf, ctx) {
+var _c12 = (a0) => ({ time: a0 });
+function MemoryGameComponent_For_28_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 13);
+    \u0275\u0275elementStart(0, "div", 14);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
@@ -42023,9 +42545,9 @@ function MemoryGameComponent_For_23_Template(rf, ctx) {
     \u0275\u0275textInterpolate(col_r1);
   }
 }
-function MemoryGameComponent_For_25_Template(rf, ctx) {
+function MemoryGameComponent_For_30_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 14);
+    \u0275\u0275elementStart(0, "div", 15);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
@@ -42036,20 +42558,20 @@ function MemoryGameComponent_For_25_Template(rf, ctx) {
     \u0275\u0275textInterpolate(row_r2);
   }
 }
-function MemoryGameComponent_For_27_Template(rf, ctx) {
+function MemoryGameComponent_For_32_Template(rf, ctx) {
   if (rf & 1) {
     const _r3 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 15);
-    \u0275\u0275listener("click", function MemoryGameComponent_For_27_Template_button_click_0_listener() {
+    \u0275\u0275elementStart(0, "button", 16);
+    \u0275\u0275listener("click", function MemoryGameComponent_For_32_Template_button_click_0_listener() {
       const $index_r4 = \u0275\u0275restoreView(_r3).$index;
       const ctx_r4 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r4.handleCardClick($index_r4));
     });
-    \u0275\u0275elementStart(1, "span", 16)(2, "span", 17);
-    \u0275\u0275element(3, "img", 18);
+    \u0275\u0275elementStart(1, "span", 17)(2, "span", 18);
+    \u0275\u0275element(3, "img", 19);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(4, "span", 19);
-    \u0275\u0275element(5, "img", 18);
+    \u0275\u0275elementStart(4, "span", 20);
+    \u0275\u0275element(5, "img", 19);
     \u0275\u0275elementEnd()()();
   }
   if (rf & 2) {
@@ -42068,39 +42590,43 @@ function MemoryGameComponent_For_27_Template(rf, ctx) {
     \u0275\u0275property("src", image_r6, \u0275\u0275sanitizeUrl);
   }
 }
-function MemoryGameComponent_Conditional_28_Template(rf, ctx) {
+function MemoryGameComponent_Conditional_33_Template(rf, ctx) {
   if (rf & 1) {
     const _r7 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 12)(1, "span", 20);
+    \u0275\u0275elementStart(0, "div", 13)(1, "span", 21);
     \u0275\u0275text(2, "emoji_events");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "h2", 21);
+    \u0275\u0275elementStart(3, "h2", 22);
     \u0275\u0275text(4);
     \u0275\u0275pipe(5, "translate");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(6, "p", 22);
+    \u0275\u0275elementStart(6, "p", 23);
     \u0275\u0275text(7);
     \u0275\u0275pipe(8, "translate");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(9, "div", 23)(10, "generic-button-component", 24);
+    \u0275\u0275elementStart(9, "p", 23);
+    \u0275\u0275text(10);
     \u0275\u0275pipe(11, "translate");
-    \u0275\u0275listener("onClick", function MemoryGameComponent_Conditional_28_Template_generic_button_component_onClick_10_listener() {
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(12, "div", 24)(13, "generic-button-component", 25);
+    \u0275\u0275pipe(14, "translate");
+    \u0275\u0275listener("onClick", function MemoryGameComponent_Conditional_33_Template_generic_button_component_onClick_13_listener() {
       \u0275\u0275restoreView(_r7);
       const ctx_r4 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r4.nextDifficulty.emit(ctx_r4.difficulty));
     });
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(12, "generic-button-component", 25);
-    \u0275\u0275pipe(13, "translate");
-    \u0275\u0275listener("onClick", function MemoryGameComponent_Conditional_28_Template_generic_button_component_onClick_12_listener() {
+    \u0275\u0275elementStart(15, "generic-button-component", 26);
+    \u0275\u0275pipe(16, "translate");
+    \u0275\u0275listener("onClick", function MemoryGameComponent_Conditional_33_Template_generic_button_component_onClick_15_listener() {
       \u0275\u0275restoreView(_r7);
       const ctx_r4 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r4.resetGame());
     });
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(14, "generic-button-component", 25);
-    \u0275\u0275pipe(15, "translate");
-    \u0275\u0275listener("onClick", function MemoryGameComponent_Conditional_28_Template_generic_button_component_onClick_14_listener() {
+    \u0275\u0275elementStart(17, "generic-button-component", 26);
+    \u0275\u0275pipe(18, "translate");
+    \u0275\u0275listener("onClick", function MemoryGameComponent_Conditional_33_Template_generic_button_component_onClick_17_listener() {
       \u0275\u0275restoreView(_r7);
       const ctx_r4 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r4.goBack.emit());
@@ -42110,15 +42636,17 @@ function MemoryGameComponent_Conditional_28_Template(rf, ctx) {
   if (rf & 2) {
     const ctx_r4 = \u0275\u0275nextContext();
     \u0275\u0275advance(4);
-    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(5, 6, "Play.CompletedTitle"));
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(5, 7, "Play.CompletedTitle"));
     \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate(\u0275\u0275pipeBind2(8, 8, "Play.CompletedMessage", \u0275\u0275pureFunction1(17, _c03, ctx_r4.moves())));
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind2(8, 9, "Play.CompletedMessage", \u0275\u0275pureFunction1(21, _c03, ctx_r4.moves())));
     \u0275\u0275advance(3);
-    \u0275\u0275property("label", \u0275\u0275pipeBind1(11, 11, "Play.NextLevel"))("disabled", ctx_r4.nextDifficultyDisabled);
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind2(11, 12, "Play.CompletedTime", \u0275\u0275pureFunction1(23, _c12, ctx_r4.formatTime(ctx_r4.elapsedSeconds()))));
+    \u0275\u0275advance(3);
+    \u0275\u0275property("label", \u0275\u0275pipeBind1(14, 15, "Play.NextLevel"))("disabled", ctx_r4.nextDifficultyDisabled);
     \u0275\u0275advance(2);
-    \u0275\u0275property("label", \u0275\u0275pipeBind1(13, 13, "Play.PlayAgain"));
+    \u0275\u0275property("label", \u0275\u0275pipeBind1(16, 17, "Play.PlayAgain"));
     \u0275\u0275advance(2);
-    \u0275\u0275property("label", \u0275\u0275pipeBind1(15, 15, "Play.GoBack"));
+    \u0275\u0275property("label", \u0275\u0275pipeBind1(18, 19, "Play.GoBack"));
   }
 }
 var MemoryGameComponent = class _MemoryGameComponent {
@@ -42136,8 +42664,10 @@ var MemoryGameComponent = class _MemoryGameComponent {
   moves = signal(0, ...ngDevMode ? [{ debugName: "moves" }] : []);
   isCompleted = signal(false, ...ngDevMode ? [{ debugName: "isCompleted" }] : []);
   columns = signal(2, ...ngDevMode ? [{ debugName: "columns" }] : []);
+  elapsedSeconds = signal(0, ...ngDevMode ? [{ debugName: "elapsedSeconds" }] : []);
   static MIN_COLUMNS = 2;
   static MAX_COLUMNS = 10;
+  timerHandle = null;
   constructor() {
     effect(() => {
       if (this.isCompleted() && this.authService.isLoggedIn()) {
@@ -42152,6 +42682,12 @@ var MemoryGameComponent = class _MemoryGameComponent {
   ngOnChanges() {
     this.columns.set(this.getDefaultColumns());
     this.resetGame();
+  }
+  ngOnDestroy() {
+    this.stopTimer();
+  }
+  formatTime(totalSeconds) {
+    return formatDuration(totalSeconds);
   }
   getMaxColumns() {
     return Math.min(_MemoryGameComponent.MAX_COLUMNS, this.getTotalCards());
@@ -42205,6 +42741,18 @@ var MemoryGameComponent = class _MemoryGameComponent {
     this.matchedIndexes.set([]);
     this.moves.set(0);
     this.isCompleted.set(false);
+    this.startTimer();
+  }
+  startTimer() {
+    this.stopTimer();
+    this.elapsedSeconds.set(0);
+    this.timerHandle = setInterval(() => this.elapsedSeconds.update((s) => s + 1), 1e3);
+  }
+  stopTimer() {
+    if (this.timerHandle !== null) {
+      clearInterval(this.timerHandle);
+      this.timerHandle = null;
+    }
   }
   handleCardClick(index2) {
     const currentSelected = this.selectedIndexes();
@@ -42225,6 +42773,7 @@ var MemoryGameComponent = class _MemoryGameComponent {
       this.matchedIndexes.update((prev) => [...prev, ...selected]);
       this.selectedIndexes.set([]);
       if (this.matchedIndexes().length === images.length) {
+        this.stopTimer();
         this.isCompleted.set(true);
       }
     } else {
@@ -42236,12 +42785,16 @@ var MemoryGameComponent = class _MemoryGameComponent {
   saveScore() {
     const gameResult = {
       moves: this.moves(),
+      durationSeconds: this.elapsedSeconds(),
       difficulty: this.difficulty,
       playedAt: /* @__PURE__ */ new Date()
     };
     this.gameResultsService.saveGameResults(gameResult).subscribe({
       next: (response) => {
-        console.log("Risultato salvato con ID:", response.data.id);
+        if (response.success) {
+        } else {
+          console.error("Errore nel salvataggio:", response.message);
+        }
       },
       error: (err) => console.error("Errore nel salvataggio:", err)
     });
@@ -42249,7 +42802,7 @@ var MemoryGameComponent = class _MemoryGameComponent {
   static \u0275fac = function MemoryGameComponent_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _MemoryGameComponent)();
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _MemoryGameComponent, selectors: [["memory-game-component"]], inputs: { difficulty: "difficulty", nextDifficultyDisabled: "nextDifficultyDisabled" }, outputs: { goBack: "goBack", nextDifficulty: "nextDifficulty" }, features: [\u0275\u0275NgOnChangesFeature], decls: 29, vars: 13, consts: [[1, "memory-game-container"], [1, "game-hud"], [1, "hud-group"], [1, "hud-label"], ["type", "button", 1, "grid-control-button", 3, "click", "disabled"], [1, "material-symbols-outlined"], [1, "hud-value"], [1, "memory-grid"], ["aria-hidden", "true", 1, "grid-header", "grid-corner"], ["aria-hidden", "true", 1, "grid-header", 2, "grid-row", "1", 3, "grid-column"], ["aria-hidden", "true", 1, "grid-header", 2, "grid-column", "1", 3, "grid-row"], ["type", "button", 1, "memory-card", "memory-card-dimension", 3, "matched", "grid-row", "grid-column", "disabled"], [1, "completion-panel"], ["aria-hidden", "true", 1, "grid-header", 2, "grid-row", "1"], ["aria-hidden", "true", 1, "grid-header", 2, "grid-column", "1"], ["type", "button", 1, "memory-card", "memory-card-dimension", 3, "click", "disabled"], [1, "flip-card-inner"], [1, "flip-card-face", "flip-card-front"], ["alt", "", 3, "src"], [1, "flip-card-face", "flip-card-back"], [1, "material-symbols-outlined", "completion-icon"], [1, "completion-title", "light-color"], [1, "text"], [1, "customButton-container"], [3, "onClick", "label", "disabled"], [3, "onClick", "label"]], template: function MemoryGameComponent_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _MemoryGameComponent, selectors: [["memory-game-component"]], inputs: { difficulty: "difficulty", nextDifficultyDisabled: "nextDifficultyDisabled" }, outputs: { goBack: "goBack", nextDifficulty: "nextDifficulty" }, features: [\u0275\u0275NgOnChangesFeature], decls: 34, vars: 14, consts: [[1, "memory-game-container"], [1, "game-hud"], [1, "hud-group"], [1, "hud-label"], ["type", "button", 1, "grid-control-button", 3, "click", "disabled"], [1, "material-symbols-outlined"], [1, "hud-value"], [1, "material-symbols-outlined", "hud-icon"], [1, "memory-grid"], ["aria-hidden", "true", 1, "grid-header", "grid-corner"], ["aria-hidden", "true", 1, "grid-header", 2, "grid-row", "1", 3, "grid-column"], ["aria-hidden", "true", 1, "grid-header", 2, "grid-column", "1", 3, "grid-row"], ["type", "button", 1, "memory-card", "memory-card-dimension", 3, "matched", "grid-row", "grid-column", "disabled"], [1, "completion-panel"], ["aria-hidden", "true", 1, "grid-header", 2, "grid-row", "1"], ["aria-hidden", "true", 1, "grid-header", 2, "grid-column", "1"], ["type", "button", 1, "memory-card", "memory-card-dimension", 3, "click", "disabled"], [1, "flip-card-inner"], [1, "flip-card-face", "flip-card-front"], ["alt", "", 3, "src"], [1, "flip-card-face", "flip-card-back"], [1, "material-symbols-outlined", "completion-icon"], [1, "completion-title", "light-color"], [1, "text"], [1, "customButton-container"], [3, "onClick", "label", "disabled"], [3, "onClick", "label"]], template: function MemoryGameComponent_Template(rf, ctx) {
     if (rf & 1) {
       \u0275\u0275elementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "span", 3);
       \u0275\u0275text(4);
@@ -42278,19 +42831,25 @@ var MemoryGameComponent = class _MemoryGameComponent {
       \u0275\u0275elementEnd();
       \u0275\u0275elementStart(18, "span", 6);
       \u0275\u0275text(19);
-      \u0275\u0275elementEnd()()();
-      \u0275\u0275elementStart(20, "div", 7);
-      \u0275\u0275element(21, "div", 8);
-      \u0275\u0275repeaterCreate(22, MemoryGameComponent_For_23_Template, 2, 3, "div", 9, \u0275\u0275repeaterTrackByIdentity);
-      \u0275\u0275repeaterCreate(24, MemoryGameComponent_For_25_Template, 2, 3, "div", 10, \u0275\u0275repeaterTrackByIdentity);
-      \u0275\u0275repeaterCreate(26, MemoryGameComponent_For_27_Template, 6, 12, "button", 11, \u0275\u0275repeaterTrackByIndex);
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(20, "div", 2)(21, "span", 7);
+      \u0275\u0275text(22, "timer");
       \u0275\u0275elementEnd();
-      \u0275\u0275conditionalCreate(28, MemoryGameComponent_Conditional_28_Template, 16, 19, "div", 12);
+      \u0275\u0275elementStart(23, "span", 6);
+      \u0275\u0275text(24);
+      \u0275\u0275elementEnd()()();
+      \u0275\u0275elementStart(25, "div", 8);
+      \u0275\u0275element(26, "div", 9);
+      \u0275\u0275repeaterCreate(27, MemoryGameComponent_For_28_Template, 2, 3, "div", 10, \u0275\u0275repeaterTrackByIdentity);
+      \u0275\u0275repeaterCreate(29, MemoryGameComponent_For_30_Template, 2, 3, "div", 11, \u0275\u0275repeaterTrackByIdentity);
+      \u0275\u0275repeaterCreate(31, MemoryGameComponent_For_32_Template, 6, 12, "button", 12, \u0275\u0275repeaterTrackByIndex);
+      \u0275\u0275elementEnd();
+      \u0275\u0275conditionalCreate(33, MemoryGameComponent_Conditional_33_Template, 19, 25, "div", 13);
       \u0275\u0275elementEnd();
     }
     if (rf & 2) {
       \u0275\u0275advance(4);
-      \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(5, 9, "Play.ColumnsLabel"));
+      \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(5, 10, "Play.ColumnsLabel"));
       \u0275\u0275advance(2);
       \u0275\u0275property("disabled", ctx.columns() <= 2);
       \u0275\u0275advance(4);
@@ -42298,9 +42857,11 @@ var MemoryGameComponent = class _MemoryGameComponent {
       \u0275\u0275advance();
       \u0275\u0275property("disabled", ctx.columns() >= ctx.getMaxColumns());
       \u0275\u0275advance(5);
-      \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(17, 11, "Play.CurrentAttempts"));
+      \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(17, 12, "Play.CurrentAttempts"));
       \u0275\u0275advance(3);
       \u0275\u0275textInterpolate(ctx.moves());
+      \u0275\u0275advance(5);
+      \u0275\u0275textInterpolate(ctx.formatTime(ctx.elapsedSeconds()));
       \u0275\u0275advance();
       \u0275\u0275styleProp("--cols", ctx.columns());
       \u0275\u0275advance(2);
@@ -42310,9 +42871,9 @@ var MemoryGameComponent = class _MemoryGameComponent {
       \u0275\u0275advance(2);
       \u0275\u0275repeater(ctx.shuffledImages());
       \u0275\u0275advance(2);
-      \u0275\u0275conditional(ctx.isCompleted() ? 28 : -1);
+      \u0275\u0275conditional(ctx.isCompleted() ? 33 : -1);
     }
-  }, dependencies: [CommonModule, GenericButtonComponent, TranslatePipe], styles: ["\n\n.memory-game-container[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  padding: 2rem;\n  width: 100%;\n}\n.game-hud[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 1rem;\n  margin-bottom: 1.5rem;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-full);\n  padding: 0.6rem 1.5rem;\n  box-shadow: var(--shadow-sm);\n}\n.hud-group[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n}\n.hud-group[_ngcontent-%COMP%]:not(:last-child) {\n  padding-right: 1.5rem;\n  border-right: 1px solid var(--glass-border);\n}\n.hud-label[_ngcontent-%COMP%] {\n  font-size: 1rem;\n}\n.hud-value[_ngcontent-%COMP%] {\n  min-width: 1.5rem;\n  text-align: center;\n  font-weight: 700;\n  color: var(--titles-color);\n}\n.grid-control-button[_ngcontent-%COMP%] {\n  width: 2rem;\n  height: 2rem;\n  flex-shrink: 0;\n  border-radius: var(--radius-full);\n  border: none;\n  background: var(--button-color);\n  color: var(--button-text-color);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  transition: transform 0.2s ease, opacity 0.2s ease;\n}\n.grid-control-button[_ngcontent-%COMP%]   .material-symbols-outlined[_ngcontent-%COMP%] {\n  font-size: 1.1rem !important;\n}\n.grid-control-button[_ngcontent-%COMP%]:hover:not(:disabled) {\n  transform: translateY(-2px);\n}\n.grid-control-button[_ngcontent-%COMP%]:disabled {\n  opacity: 0.4;\n  cursor: not-allowed;\n}\n.memory-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: auto repeat(var(--cols), minmax(0, 1fr));\n  grid-auto-rows: minmax(0, 1fr);\n  gap: 0.75rem;\n  padding: 0;\n  margin: 0 auto 2rem auto;\n  width: 100%;\n  max-width: 1150px;\n  overflow-x: auto;\n}\n.grid-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 1.5rem;\n  font-weight: 700;\n  font-size: 0.95rem;\n  color: var(--text-color);\n  opacity: 0.5;\n}\n.grid-corner[_ngcontent-%COMP%] {\n  grid-row: 1;\n  grid-column: 1;\n}\n.memory-card[_ngcontent-%COMP%] {\n  all: unset;\n  box-sizing: border-box;\n  display: block;\n  cursor: pointer;\n  perspective: 1000px;\n  transition: transform 0.25s ease;\n}\n.memory-card-dimension[_ngcontent-%COMP%] {\n  width: 100%;\n  aspect-ratio: 1 / 1;\n  max-width: 220px;\n  justify-self: center;\n}\n.memory-card[_ngcontent-%COMP%]:hover:not(:disabled) {\n  transform: translateY(-4px);\n}\n.memory-card[_ngcontent-%COMP%]:focus-visible {\n  outline: 3px solid var(--button-color);\n  outline-offset: 4px;\n  border-radius: var(--radius-lg);\n}\n.memory-card[_ngcontent-%COMP%]:disabled {\n  cursor: default;\n}\n.flip-card-inner[_ngcontent-%COMP%] {\n  position: relative;\n  display: block;\n  width: 100%;\n  height: 100%;\n  transform-style: preserve-3d;\n  transition: transform 0.5s cubic-bezier(0.4, 0.2, 0.2, 1);\n}\n.flip-card-inner.flipped[_ngcontent-%COMP%] {\n  transform: rotateY(180deg);\n}\n.flip-card-face[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  display: block;\n  backface-visibility: hidden;\n  -webkit-backface-visibility: hidden;\n  border-radius: var(--radius-lg);\n  overflow: hidden;\n  box-shadow: var(--shadow-sm);\n  transition: box-shadow 0.25s ease, opacity 0.25s ease;\n}\n.flip-card-back[_ngcontent-%COMP%] {\n  transform: rotateY(180deg);\n}\n.flip-card-face[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  display: block;\n}\n.memory-card[_ngcontent-%COMP%]:hover:not(:disabled)   .flip-card-face[_ngcontent-%COMP%] {\n  box-shadow: var(--shadow-lg);\n}\n.memory-card.matched[_ngcontent-%COMP%]   .flip-card-face[_ngcontent-%COMP%] {\n  opacity: 0.6;\n}\n.completion-panel[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  text-align: center;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-lg);\n  box-shadow: var(--shadow-lg);\n  padding: 2.5rem;\n  max-width: 500px;\n  margin: 0 auto;\n  animation: _ngcontent-%COMP%_auth-card-in 0.35s ease;\n}\n.completion-icon[_ngcontent-%COMP%] {\n  font-size: 3rem !important;\n  width: 5rem;\n  height: 5rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: var(--radius-full);\n  background: var(--button-color);\n  color: var(--button-text-color);\n  box-shadow: var(--shadow-md);\n  margin-bottom: 1rem;\n}\n.completion-title[_ngcontent-%COMP%] {\n  margin: 0 0 0.5rem 0;\n}\n.customButton-container[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-wrap: wrap;\n  margin-top: 1.5rem;\n  gap: 1rem;\n}\n@keyframes _ngcontent-%COMP%_auth-card-in {\n  from {\n    opacity: 0;\n    transform: translateY(12px) scale(0.98);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0) scale(1);\n  }\n}\n/*# sourceMappingURL=memory-game.component.css.map */"] });
+  }, dependencies: [CommonModule, GenericButtonComponent, TranslatePipe], styles: ["\n\n.memory-game-container[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  padding: 2rem;\n  width: 100%;\n}\n.game-hud[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 1rem;\n  margin-bottom: 1.5rem;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-full);\n  padding: 0.6rem 1.5rem;\n  box-shadow: var(--shadow-sm);\n}\n.hud-group[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n}\n.hud-group[_ngcontent-%COMP%]:not(:last-child) {\n  padding-right: 1.5rem;\n  border-right: 1px solid var(--glass-border);\n}\n.hud-label[_ngcontent-%COMP%] {\n  font-size: 1rem;\n}\n.hud-value[_ngcontent-%COMP%] {\n  min-width: 1.5rem;\n  text-align: center;\n  font-weight: 700;\n  color: var(--titles-color);\n}\n.hud-icon[_ngcontent-%COMP%] {\n  font-size: 1.3rem !important;\n  color: var(--titles-color);\n}\n.grid-control-button[_ngcontent-%COMP%] {\n  width: 2rem;\n  height: 2rem;\n  flex-shrink: 0;\n  border-radius: var(--radius-full);\n  border: none;\n  background: var(--button-color);\n  color: var(--button-text-color);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  transition: transform 0.2s ease, opacity 0.2s ease;\n}\n.grid-control-button[_ngcontent-%COMP%]   .material-symbols-outlined[_ngcontent-%COMP%] {\n  font-size: 1.1rem !important;\n}\n.grid-control-button[_ngcontent-%COMP%]:hover:not(:disabled) {\n  transform: translateY(-2px);\n}\n.grid-control-button[_ngcontent-%COMP%]:disabled {\n  opacity: 0.4;\n  cursor: not-allowed;\n}\n.memory-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: auto repeat(var(--cols), minmax(0, 1fr));\n  grid-auto-rows: minmax(0, 1fr);\n  gap: 0.75rem;\n  padding: 0;\n  margin: 0 auto 2rem auto;\n  width: 100%;\n  max-width: 1150px;\n  overflow-x: auto;\n}\n.grid-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 1.5rem;\n  font-weight: 700;\n  font-size: 0.95rem;\n  color: var(--text-color);\n  opacity: 0.5;\n}\n.grid-corner[_ngcontent-%COMP%] {\n  grid-row: 1;\n  grid-column: 1;\n}\n.memory-card[_ngcontent-%COMP%] {\n  all: unset;\n  box-sizing: border-box;\n  display: block;\n  cursor: pointer;\n  perspective: 1000px;\n  transition: transform 0.25s ease;\n}\n.memory-card-dimension[_ngcontent-%COMP%] {\n  width: 100%;\n  aspect-ratio: 1 / 1;\n  max-width: 220px;\n  justify-self: center;\n}\n.memory-card[_ngcontent-%COMP%]:hover:not(:disabled) {\n  transform: translateY(-4px);\n}\n.memory-card[_ngcontent-%COMP%]:focus-visible {\n  outline: 3px solid var(--button-color);\n  outline-offset: 4px;\n  border-radius: var(--radius-lg);\n}\n.memory-card[_ngcontent-%COMP%]:disabled {\n  cursor: default;\n}\n.flip-card-inner[_ngcontent-%COMP%] {\n  position: relative;\n  display: block;\n  width: 100%;\n  height: 100%;\n  transform-style: preserve-3d;\n  transition: transform 0.5s cubic-bezier(0.4, 0.2, 0.2, 1);\n}\n.flip-card-inner.flipped[_ngcontent-%COMP%] {\n  transform: rotateY(180deg);\n}\n.flip-card-face[_ngcontent-%COMP%] {\n  position: absolute;\n  inset: 0;\n  display: block;\n  backface-visibility: hidden;\n  -webkit-backface-visibility: hidden;\n  border-radius: var(--radius-lg);\n  overflow: hidden;\n  box-shadow: var(--shadow-sm);\n  transition: box-shadow 0.25s ease, opacity 0.25s ease;\n}\n.flip-card-back[_ngcontent-%COMP%] {\n  transform: rotateY(180deg);\n}\n.flip-card-face[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  display: block;\n}\n.memory-card[_ngcontent-%COMP%]:hover:not(:disabled)   .flip-card-face[_ngcontent-%COMP%] {\n  box-shadow: var(--shadow-lg);\n}\n.memory-card.matched[_ngcontent-%COMP%]   .flip-card-face[_ngcontent-%COMP%] {\n  opacity: 0.6;\n}\n.completion-panel[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  text-align: center;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-lg);\n  box-shadow: var(--shadow-lg);\n  padding: 2.5rem;\n  max-width: 500px;\n  margin: 0 auto;\n  animation: _ngcontent-%COMP%_auth-card-in 0.35s ease;\n}\n.completion-icon[_ngcontent-%COMP%] {\n  font-size: 3rem !important;\n  width: 5rem;\n  height: 5rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: var(--radius-full);\n  background: var(--button-color);\n  color: var(--button-text-color);\n  box-shadow: var(--shadow-md);\n  margin-bottom: 1rem;\n}\n.completion-title[_ngcontent-%COMP%] {\n  margin: 0 0 0.5rem 0;\n}\n.customButton-container[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-wrap: wrap;\n  margin-top: 1.5rem;\n  gap: 1rem;\n}\n@keyframes _ngcontent-%COMP%_auth-card-in {\n  from {\n    opacity: 0;\n    transform: translateY(12px) scale(0.98);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0) scale(1);\n  }\n}\n/*# sourceMappingURL=memory-game.component.css.map */"] });
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MemoryGameComponent, [{
@@ -42344,6 +42905,11 @@ var MemoryGameComponent = class _MemoryGameComponent {
         <div class="hud-group">
             <span class="hud-label">{{ 'Play.CurrentAttempts' | translate }}</span>
             <span class="hud-value">{{ moves() }}</span>
+        </div>
+
+        <div class="hud-group">
+            <span class="material-symbols-outlined hud-icon">timer</span>
+            <span class="hud-value">{{ formatTime(elapsedSeconds()) }}</span>
         </div>
     </div>
 
@@ -42386,6 +42952,7 @@ var MemoryGameComponent = class _MemoryGameComponent {
             <span class="material-symbols-outlined completion-icon">emoji_events</span>
             <h2 class="completion-title light-color">{{ 'Play.CompletedTitle' | translate }}</h2>
             <p class="text">{{ 'Play.CompletedMessage' | translate: { moves: moves() } }}</p>
+            <p class="text">{{ 'Play.CompletedTime' | translate: { time: formatTime(elapsedSeconds()) } }}</p>
 
             <div class="customButton-container">
                 <generic-button-component [label]="'Play.NextLevel' | translate" (onClick)="nextDifficulty.emit(difficulty)" [disabled]="nextDifficultyDisabled"></generic-button-component>
@@ -42395,7 +42962,7 @@ var MemoryGameComponent = class _MemoryGameComponent {
         </div>
     }
 </div>
-`, styles: ["/* src/app/components/memory-game/memory-game.component.css */\n.memory-game-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  padding: 2rem;\n  width: 100%;\n}\n.game-hud {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 1rem;\n  margin-bottom: 1.5rem;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-full);\n  padding: 0.6rem 1.5rem;\n  box-shadow: var(--shadow-sm);\n}\n.hud-group {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n}\n.hud-group:not(:last-child) {\n  padding-right: 1.5rem;\n  border-right: 1px solid var(--glass-border);\n}\n.hud-label {\n  font-size: 1rem;\n}\n.hud-value {\n  min-width: 1.5rem;\n  text-align: center;\n  font-weight: 700;\n  color: var(--titles-color);\n}\n.grid-control-button {\n  width: 2rem;\n  height: 2rem;\n  flex-shrink: 0;\n  border-radius: var(--radius-full);\n  border: none;\n  background: var(--button-color);\n  color: var(--button-text-color);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  transition: transform 0.2s ease, opacity 0.2s ease;\n}\n.grid-control-button .material-symbols-outlined {\n  font-size: 1.1rem !important;\n}\n.grid-control-button:hover:not(:disabled) {\n  transform: translateY(-2px);\n}\n.grid-control-button:disabled {\n  opacity: 0.4;\n  cursor: not-allowed;\n}\n.memory-grid {\n  display: grid;\n  grid-template-columns: auto repeat(var(--cols), minmax(0, 1fr));\n  grid-auto-rows: minmax(0, 1fr);\n  gap: 0.75rem;\n  padding: 0;\n  margin: 0 auto 2rem auto;\n  width: 100%;\n  max-width: 1150px;\n  overflow-x: auto;\n}\n.grid-header {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 1.5rem;\n  font-weight: 700;\n  font-size: 0.95rem;\n  color: var(--text-color);\n  opacity: 0.5;\n}\n.grid-corner {\n  grid-row: 1;\n  grid-column: 1;\n}\n.memory-card {\n  all: unset;\n  box-sizing: border-box;\n  display: block;\n  cursor: pointer;\n  perspective: 1000px;\n  transition: transform 0.25s ease;\n}\n.memory-card-dimension {\n  width: 100%;\n  aspect-ratio: 1 / 1;\n  max-width: 220px;\n  justify-self: center;\n}\n.memory-card:hover:not(:disabled) {\n  transform: translateY(-4px);\n}\n.memory-card:focus-visible {\n  outline: 3px solid var(--button-color);\n  outline-offset: 4px;\n  border-radius: var(--radius-lg);\n}\n.memory-card:disabled {\n  cursor: default;\n}\n.flip-card-inner {\n  position: relative;\n  display: block;\n  width: 100%;\n  height: 100%;\n  transform-style: preserve-3d;\n  transition: transform 0.5s cubic-bezier(0.4, 0.2, 0.2, 1);\n}\n.flip-card-inner.flipped {\n  transform: rotateY(180deg);\n}\n.flip-card-face {\n  position: absolute;\n  inset: 0;\n  display: block;\n  backface-visibility: hidden;\n  -webkit-backface-visibility: hidden;\n  border-radius: var(--radius-lg);\n  overflow: hidden;\n  box-shadow: var(--shadow-sm);\n  transition: box-shadow 0.25s ease, opacity 0.25s ease;\n}\n.flip-card-back {\n  transform: rotateY(180deg);\n}\n.flip-card-face img {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  display: block;\n}\n.memory-card:hover:not(:disabled) .flip-card-face {\n  box-shadow: var(--shadow-lg);\n}\n.memory-card.matched .flip-card-face {\n  opacity: 0.6;\n}\n.completion-panel {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  text-align: center;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-lg);\n  box-shadow: var(--shadow-lg);\n  padding: 2.5rem;\n  max-width: 500px;\n  margin: 0 auto;\n  animation: auth-card-in 0.35s ease;\n}\n.completion-icon {\n  font-size: 3rem !important;\n  width: 5rem;\n  height: 5rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: var(--radius-full);\n  background: var(--button-color);\n  color: var(--button-text-color);\n  box-shadow: var(--shadow-md);\n  margin-bottom: 1rem;\n}\n.completion-title {\n  margin: 0 0 0.5rem 0;\n}\n.customButton-container {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-wrap: wrap;\n  margin-top: 1.5rem;\n  gap: 1rem;\n}\n@keyframes auth-card-in {\n  from {\n    opacity: 0;\n    transform: translateY(12px) scale(0.98);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0) scale(1);\n  }\n}\n/*# sourceMappingURL=memory-game.component.css.map */\n"] }]
+`, styles: ["/* src/app/components/memory-game/memory-game.component.css */\n.memory-game-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  padding: 2rem;\n  width: 100%;\n}\n.game-hud {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 1rem;\n  margin-bottom: 1.5rem;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-full);\n  padding: 0.6rem 1.5rem;\n  box-shadow: var(--shadow-sm);\n}\n.hud-group {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n}\n.hud-group:not(:last-child) {\n  padding-right: 1.5rem;\n  border-right: 1px solid var(--glass-border);\n}\n.hud-label {\n  font-size: 1rem;\n}\n.hud-value {\n  min-width: 1.5rem;\n  text-align: center;\n  font-weight: 700;\n  color: var(--titles-color);\n}\n.hud-icon {\n  font-size: 1.3rem !important;\n  color: var(--titles-color);\n}\n.grid-control-button {\n  width: 2rem;\n  height: 2rem;\n  flex-shrink: 0;\n  border-radius: var(--radius-full);\n  border: none;\n  background: var(--button-color);\n  color: var(--button-text-color);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  cursor: pointer;\n  transition: transform 0.2s ease, opacity 0.2s ease;\n}\n.grid-control-button .material-symbols-outlined {\n  font-size: 1.1rem !important;\n}\n.grid-control-button:hover:not(:disabled) {\n  transform: translateY(-2px);\n}\n.grid-control-button:disabled {\n  opacity: 0.4;\n  cursor: not-allowed;\n}\n.memory-grid {\n  display: grid;\n  grid-template-columns: auto repeat(var(--cols), minmax(0, 1fr));\n  grid-auto-rows: minmax(0, 1fr);\n  gap: 0.75rem;\n  padding: 0;\n  margin: 0 auto 2rem auto;\n  width: 100%;\n  max-width: 1150px;\n  overflow-x: auto;\n}\n.grid-header {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 1.5rem;\n  font-weight: 700;\n  font-size: 0.95rem;\n  color: var(--text-color);\n  opacity: 0.5;\n}\n.grid-corner {\n  grid-row: 1;\n  grid-column: 1;\n}\n.memory-card {\n  all: unset;\n  box-sizing: border-box;\n  display: block;\n  cursor: pointer;\n  perspective: 1000px;\n  transition: transform 0.25s ease;\n}\n.memory-card-dimension {\n  width: 100%;\n  aspect-ratio: 1 / 1;\n  max-width: 220px;\n  justify-self: center;\n}\n.memory-card:hover:not(:disabled) {\n  transform: translateY(-4px);\n}\n.memory-card:focus-visible {\n  outline: 3px solid var(--button-color);\n  outline-offset: 4px;\n  border-radius: var(--radius-lg);\n}\n.memory-card:disabled {\n  cursor: default;\n}\n.flip-card-inner {\n  position: relative;\n  display: block;\n  width: 100%;\n  height: 100%;\n  transform-style: preserve-3d;\n  transition: transform 0.5s cubic-bezier(0.4, 0.2, 0.2, 1);\n}\n.flip-card-inner.flipped {\n  transform: rotateY(180deg);\n}\n.flip-card-face {\n  position: absolute;\n  inset: 0;\n  display: block;\n  backface-visibility: hidden;\n  -webkit-backface-visibility: hidden;\n  border-radius: var(--radius-lg);\n  overflow: hidden;\n  box-shadow: var(--shadow-sm);\n  transition: box-shadow 0.25s ease, opacity 0.25s ease;\n}\n.flip-card-back {\n  transform: rotateY(180deg);\n}\n.flip-card-face img {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  display: block;\n}\n.memory-card:hover:not(:disabled) .flip-card-face {\n  box-shadow: var(--shadow-lg);\n}\n.memory-card.matched .flip-card-face {\n  opacity: 0.6;\n}\n.completion-panel {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  text-align: center;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-lg);\n  box-shadow: var(--shadow-lg);\n  padding: 2.5rem;\n  max-width: 500px;\n  margin: 0 auto;\n  animation: auth-card-in 0.35s ease;\n}\n.completion-icon {\n  font-size: 3rem !important;\n  width: 5rem;\n  height: 5rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: var(--radius-full);\n  background: var(--button-color);\n  color: var(--button-text-color);\n  box-shadow: var(--shadow-md);\n  margin-bottom: 1rem;\n}\n.completion-title {\n  margin: 0 0 0.5rem 0;\n}\n.customButton-container {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-wrap: wrap;\n  margin-top: 1.5rem;\n  gap: 1rem;\n}\n@keyframes auth-card-in {\n  from {\n    opacity: 0;\n    transform: translateY(12px) scale(0.98);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0) scale(1);\n  }\n}\n/*# sourceMappingURL=memory-game.component.css.map */\n"] }]
   }], () => [], { difficulty: [{
     type: Input,
     args: [{ required: true }]
@@ -42408,7 +42975,7 @@ var MemoryGameComponent = class _MemoryGameComponent {
   }] });
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(MemoryGameComponent, { className: "MemoryGameComponent", filePath: "src/app/components/memory-game/memory-game.component.ts", lineNumber: 32 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(MemoryGameComponent, { className: "MemoryGameComponent", filePath: "src/app/components/memory-game/memory-game.component.ts", lineNumber: 33 });
 })();
 
 // src/app/components/state-handler/state-handler.component.ts
@@ -42546,7 +43113,7 @@ var DifficultiesService = class _DifficultiesService {
 
 // src/app/components/game-handler/game-handler.component.ts
 var _c04 = (a0) => ({ n: a0 });
-var _forTrack02 = ($index, $item) => $item.id;
+var _forTrack03 = ($index, $item) => $item.id;
 function GameHandlerComponent_Conditional_0_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275element(0, "state-handler-component", 0);
@@ -42625,7 +43192,7 @@ function GameHandlerComponent_Conditional_2_Conditional_0_Template(rf, ctx) {
     \u0275\u0275conditionalCreate(10, GameHandlerComponent_Conditional_2_Conditional_0_Conditional_10_Template, 6, 6, "label", 5);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(11, "div", 6);
-    \u0275\u0275repeaterCreate(12, GameHandlerComponent_Conditional_2_Conditional_0_For_13_Template, 2, 7, "generic-card-component", 7, _forTrack02);
+    \u0275\u0275repeaterCreate(12, GameHandlerComponent_Conditional_2_Conditional_0_For_13_Template, 2, 7, "generic-card-component", 7, _forTrack03);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
@@ -50443,9 +51010,9 @@ var ModalComponent = class _ModalComponent {
 })();
 
 // src/app/components/update-profile/update-profile.component.ts
-function UpdateProfileComponent_Conditional_20_Template(rf, ctx) {
+function UpdateProfileComponent_Conditional_38_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "p", 8);
+    \u0275\u0275elementStart(0, "p", 11);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
@@ -50472,7 +51039,12 @@ var UpdateProfileComponent = class _UpdateProfileComponent {
       email: new FormControl(this.initialData.email, {
         nonNullable: true,
         validators: [Validators.email, Validators.required]
-      })
+      }),
+      bio: new FormControl(this.initialData.bio, {
+        validators: [Validators.maxLength(280)]
+      }),
+      country: new FormControl(this.initialData.country),
+      birthDate: new FormControl(this.initialData.birthDate)
     });
   }
   handleCloseModal() {
@@ -50488,7 +51060,7 @@ var UpdateProfileComponent = class _UpdateProfileComponent {
   static \u0275fac = function UpdateProfileComponent_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _UpdateProfileComponent)();
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _UpdateProfileComponent, selectors: [["update-profile-component"]], inputs: { isModalOpen: "isModalOpen", initialData: "initialData" }, outputs: { onClose: "onClose", onSaveProfile: "onSaveProfile" }, decls: 26, vars: 21, consts: [[3, "close", "isOpen"], [1, "medium-title", "light-color"], [1, "text", "custom-max-width", "margin-bottom"], [3, "formGroup"], [1, "form-modal", "margin-bottom"], [1, "big-text", "light-color", "label-width"], ["type", "text", "formControlName", "username", 1, "input-field"], ["type", "text", "formControlName", "email", 1, "input-field"], [2, "color", "red"], [1, "display-horizontal", "margin-top-big"], [3, "click", "label"]], template: function UpdateProfileComponent_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _UpdateProfileComponent, selectors: [["update-profile-component"]], inputs: { isModalOpen: "isModalOpen", initialData: "initialData" }, outputs: { onClose: "onClose", onSaveProfile: "onSaveProfile" }, decls: 44, vars: 30, consts: [[3, "close", "isOpen"], [1, "medium-title", "light-color"], [1, "text", "custom-max-width", "margin-bottom"], [3, "formGroup"], [1, "form-modal", "margin-bottom"], [1, "big-text", "light-color", "label-width"], ["type", "text", "formControlName", "username", 1, "input-field"], ["type", "text", "formControlName", "email", 1, "input-field"], ["type", "text", "formControlName", "country", 1, "input-field"], ["type", "date", "formControlName", "birthDate", 1, "input-field"], ["formControlName", "bio", "rows", "3", "maxlength", "280", 1, "input-field"], [2, "color", "red"], [1, "display-horizontal", "margin-top-big"], [3, "click", "label"]], template: function UpdateProfileComponent_Template(rf, ctx) {
     if (rf & 1) {
       \u0275\u0275elementStart(0, "modal-component", 0);
       \u0275\u0275listener("close", function UpdateProfileComponent_Template_modal_component_close_0_listener() {
@@ -50514,16 +51086,34 @@ var UpdateProfileComponent = class _UpdateProfileComponent {
       \u0275\u0275elementEnd();
       \u0275\u0275element(18, "input", 7)(19, "br");
       \u0275\u0275elementEnd();
-      \u0275\u0275conditionalCreate(20, UpdateProfileComponent_Conditional_20_Template, 2, 1, "p", 8);
-      \u0275\u0275elementStart(21, "div", 9)(22, "generic-button-component", 10);
+      \u0275\u0275elementStart(20, "div", 4)(21, "label", 5);
+      \u0275\u0275text(22);
       \u0275\u0275pipe(23, "translate");
-      \u0275\u0275listener("click", function UpdateProfileComponent_Template_generic_button_component_click_22_listener() {
+      \u0275\u0275elementEnd();
+      \u0275\u0275element(24, "input", 8)(25, "br");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(26, "div", 4)(27, "label", 5);
+      \u0275\u0275text(28);
+      \u0275\u0275pipe(29, "translate");
+      \u0275\u0275elementEnd();
+      \u0275\u0275element(30, "input", 9)(31, "br");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(32, "div", 4)(33, "label", 5);
+      \u0275\u0275text(34);
+      \u0275\u0275pipe(35, "translate");
+      \u0275\u0275elementEnd();
+      \u0275\u0275element(36, "textarea", 10)(37, "br");
+      \u0275\u0275elementEnd();
+      \u0275\u0275conditionalCreate(38, UpdateProfileComponent_Conditional_38_Template, 2, 1, "p", 11);
+      \u0275\u0275elementStart(39, "div", 12)(40, "generic-button-component", 13);
+      \u0275\u0275pipe(41, "translate");
+      \u0275\u0275listener("click", function UpdateProfileComponent_Template_generic_button_component_click_40_listener() {
         return ctx.handleSaveProfile();
       });
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(24, "generic-button-component", 10);
-      \u0275\u0275pipe(25, "translate");
-      \u0275\u0275listener("click", function UpdateProfileComponent_Template_generic_button_component_click_24_listener() {
+      \u0275\u0275elementStart(42, "generic-button-component", 13);
+      \u0275\u0275pipe(43, "translate");
+      \u0275\u0275listener("click", function UpdateProfileComponent_Template_generic_button_component_click_42_listener() {
         return ctx.handleCloseModal();
       });
       \u0275\u0275elementEnd()()()();
@@ -50531,23 +51121,29 @@ var UpdateProfileComponent = class _UpdateProfileComponent {
     if (rf & 2) {
       \u0275\u0275property("isOpen", ctx.isModalOpen);
       \u0275\u0275advance(2);
-      \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(3, 9, "Profile.EditModal.Title"));
+      \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(3, 12, "Profile.EditModal.Title"));
       \u0275\u0275advance(3);
-      \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(6, 11, "Profile.EditModal.Description"), " ");
+      \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(6, 14, "Profile.EditModal.Description"), " ");
       \u0275\u0275advance(2);
       \u0275\u0275property("formGroup", ctx.formGroup);
       \u0275\u0275advance(3);
-      \u0275\u0275textInterpolate1("", \u0275\u0275pipeBind1(11, 13, "Profile.EditModal.UsernameLabel"), ":");
+      \u0275\u0275textInterpolate1("", \u0275\u0275pipeBind1(11, 16, "Profile.EditModal.UsernameLabel"), ":");
       \u0275\u0275advance(6);
-      \u0275\u0275textInterpolate1("", \u0275\u0275pipeBind1(17, 15, "Profile.EditModal.EmailLabel"), ":");
+      \u0275\u0275textInterpolate1("", \u0275\u0275pipeBind1(17, 18, "Profile.EditModal.EmailLabel"), ":");
+      \u0275\u0275advance(6);
+      \u0275\u0275textInterpolate1("", \u0275\u0275pipeBind1(23, 20, "Profile.EditModal.CountryLabel"), ":");
+      \u0275\u0275advance(6);
+      \u0275\u0275textInterpolate1("", \u0275\u0275pipeBind1(29, 22, "Profile.EditModal.BirthDateLabel"), ":");
+      \u0275\u0275advance(6);
+      \u0275\u0275textInterpolate1("", \u0275\u0275pipeBind1(35, 24, "Profile.EditModal.BioLabel"), ":");
       \u0275\u0275advance(4);
-      \u0275\u0275conditional(ctx.error() ? 20 : -1);
+      \u0275\u0275conditional(ctx.error() ? 38 : -1);
       \u0275\u0275advance(2);
-      \u0275\u0275property("label", \u0275\u0275pipeBind1(23, 17, "Common.Save"));
+      \u0275\u0275property("label", \u0275\u0275pipeBind1(41, 26, "Common.Save"));
       \u0275\u0275advance(2);
-      \u0275\u0275property("label", \u0275\u0275pipeBind1(25, 19, "Common.Cancel"));
+      \u0275\u0275property("label", \u0275\u0275pipeBind1(43, 28, "Common.Cancel"));
     }
-  }, dependencies: [ModalComponent, GenericButtonComponent, ReactiveFormsModule, \u0275NgNoValidate, DefaultValueAccessor, NgControlStatus, NgControlStatusGroup, FormGroupDirective, FormControlName, TranslatePipe], encapsulation: 2 });
+  }, dependencies: [ModalComponent, GenericButtonComponent, ReactiveFormsModule, \u0275NgNoValidate, DefaultValueAccessor, NgControlStatus, NgControlStatusGroup, MaxLengthValidator, FormGroupDirective, FormControlName, TranslatePipe], encapsulation: 2 });
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(UpdateProfileComponent, [{
@@ -50575,6 +51171,34 @@ var UpdateProfileComponent = class _UpdateProfileComponent {
         formControlName="email"
         class="input-field"
         /><br />
+    </div>
+
+    <div class="form-modal margin-bottom">
+        <label class="big-text light-color label-width">{{ 'Profile.EditModal.CountryLabel' | translate }}:</label>
+        <input
+        type="text"
+        formControlName="country"
+        class="input-field"
+        /><br />
+    </div>
+
+    <div class="form-modal margin-bottom">
+        <label class="big-text light-color label-width">{{ 'Profile.EditModal.BirthDateLabel' | translate }}:</label>
+        <input
+        type="date"
+        formControlName="birthDate"
+        class="input-field"
+        /><br />
+    </div>
+
+    <div class="form-modal margin-bottom">
+        <label class="big-text light-color label-width">{{ 'Profile.EditModal.BioLabel' | translate }}:</label>
+        <textarea
+        formControlName="bio"
+        class="input-field"
+        rows="3"
+        maxlength="280"
+        ></textarea><br />
     </div>
 
     @if (error()) {
@@ -50634,13 +51258,145 @@ var UsersService = class _UsersService {
   }], null, null);
 })();
 
+// src/app/services/achievements-service.service.ts
+var AchievementsService = class _AchievementsService {
+  API_URL = getApiUrl("ACHIEVEMENTS");
+  http = inject2(HttpClient);
+  getAchievements() {
+    return this.http.get(this.API_URL);
+  }
+  static \u0275fac = function AchievementsService_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _AchievementsService)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _AchievementsService, factory: _AchievementsService.\u0275fac, providedIn: "root" });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(AchievementsService, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], null, null);
+})();
+
 // src/app/pages/profile/profile.page.ts
 var _c08 = ["class", "page"];
-var _c1 = (a0) => ({ name: a0 });
-var _forTrack03 = ($index, $item) => $item.difficulty.id;
-function ProfilePage_Conditional_31_Template(rf, ctx) {
+var _c13 = (a0) => ({ name: a0 });
+var _c2 = () => [];
+var _forTrack04 = ($index, $item) => $item.difficulty.id;
+var _forTrack1 = ($index, $item) => $item.id;
+var _forTrack2 = ($index, $item) => $item.userId;
+var _forTrack3 = ($index, $item) => $item.friendshipId;
+function ProfilePage_Conditional_11_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275element(0, "state-handler-component", 12);
+    \u0275\u0275elementStart(0, "p", 6)(1, "span", 32);
+    \u0275\u0275text(2, "format_quote");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(3);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext();
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate1(" ", ctx_r0.currentUser().bio, " ");
+  }
+}
+function ProfilePage_Conditional_33_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 8)(1, "span", 9)(2, "span", 10);
+    \u0275\u0275text(3, "public");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(4, "div", 11)(5, "span", 12);
+    \u0275\u0275text(6);
+    \u0275\u0275pipe(7, "translate");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(8, "span", 13);
+    \u0275\u0275text(9);
+    \u0275\u0275elementEnd()()();
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext();
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(7, 2, "Profile.Info.Country"));
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(ctx_r0.currentUser().country);
+  }
+}
+function ProfilePage_Conditional_34_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 8)(1, "span", 9)(2, "span", 10);
+    \u0275\u0275text(3, "cake");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(4, "div", 11)(5, "span", 12);
+    \u0275\u0275text(6);
+    \u0275\u0275pipe(7, "translate");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(8, "span", 13);
+    \u0275\u0275text(9);
+    \u0275\u0275pipe(10, "date");
+    \u0275\u0275elementEnd()()();
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext();
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(7, 2, "Profile.Info.BirthDate"));
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind2(10, 4, ctx_r0.currentUser().birthDate, "dd/MM/yyyy"));
+  }
+}
+function ProfilePage_Conditional_41_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 17)(1, "div", 33)(2, "span", 34);
+    \u0275\u0275text(3, "sports_esports");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(4, "span", 35);
+    \u0275\u0275text(5);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(6, "span", 36);
+    \u0275\u0275text(7);
+    \u0275\u0275pipe(8, "translate");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(9, "div", 33)(10, "span", 34);
+    \u0275\u0275text(11, "emoji_events");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(12, "span", 35);
+    \u0275\u0275text(13);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(14, "span", 36);
+    \u0275\u0275text(15);
+    \u0275\u0275pipe(16, "translate");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(17, "div", 33)(18, "span", 34);
+    \u0275\u0275text(19, "favorite");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(20, "span", 35);
+    \u0275\u0275text(21);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(22, "span", 36);
+    \u0275\u0275text(23);
+    \u0275\u0275pipe(24, "translate");
+    \u0275\u0275elementEnd()()();
+  }
+  if (rf & 2) {
+    let tmp_5_0;
+    const ctx_r0 = \u0275\u0275nextContext();
+    \u0275\u0275advance(5);
+    \u0275\u0275textInterpolate(ctx_r0.totalGamesPlayed());
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(8, 7, "Profile.Kpi.TotalGames"));
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate2("", ctx_r0.unlockedAchievementsCount(), "/", ctx_r0.totalAchievementsCount());
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(16, 9, "Profile.Kpi.Achievements"));
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate((tmp_5_0 = ctx_r0.favoriteDifficulty()) == null ? null : tmp_5_0.label);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(24, 11, "Profile.Kpi.FavoriteDifficulty"));
+  }
+}
+function ProfilePage_Conditional_48_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "state-handler-component", 20);
     \u0275\u0275pipe(1, "translate");
     \u0275\u0275pipe(2, "translate");
   }
@@ -50648,35 +51404,35 @@ function ProfilePage_Conditional_31_Template(rf, ctx) {
     \u0275\u0275property("title", \u0275\u0275pipeBind1(1, 2, "Profile.Loading.Title"))("text", \u0275\u0275pipeBind1(2, 4, "Profile.Loading.Text"));
   }
 }
-function ProfilePage_Conditional_32_Template(rf, ctx) {
+function ProfilePage_Conditional_49_Template(rf, ctx) {
   if (rf & 1) {
-    const _r1 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "state-handler-component", 17);
+    const _r2 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "state-handler-component", 37);
     \u0275\u0275pipe(1, "translate");
     \u0275\u0275pipe(2, "translate");
-    \u0275\u0275listener("onClick", function ProfilePage_Conditional_32_Template_state_handler_component_onClick_0_listener() {
-      \u0275\u0275restoreView(_r1);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.loadData());
+    \u0275\u0275listener("onClick", function ProfilePage_Conditional_49_Template_state_handler_component_onClick_0_listener() {
+      \u0275\u0275restoreView(_r2);
+      const ctx_r0 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r0.loadData());
     });
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext();
-    \u0275\u0275property("title", \u0275\u0275pipeBind1(1, 3, "Profile.Error.Title"))("text", ctx_r1.error())("buttonLabel", \u0275\u0275pipeBind1(2, 5, "Play.Error.ActionButtonLabel"));
+    const ctx_r0 = \u0275\u0275nextContext();
+    \u0275\u0275property("title", \u0275\u0275pipeBind1(1, 3, "Profile.Error.Title"))("text", ctx_r0.error())("buttonLabel", \u0275\u0275pipeBind1(2, 5, "Play.Error.ActionButtonLabel"));
   }
 }
-function ProfilePage_Conditional_33_Template(rf, ctx) {
+function ProfilePage_Conditional_50_Template(rf, ctx) {
   if (rf & 1) {
     const _r3 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "state-handler-component", 18);
+    \u0275\u0275elementStart(0, "state-handler-component", 38);
     \u0275\u0275pipe(1, "translate");
     \u0275\u0275pipe(2, "translate");
     \u0275\u0275pipe(3, "translate");
-    \u0275\u0275listener("onClick", function ProfilePage_Conditional_33_Template_state_handler_component_onClick_0_listener() {
+    \u0275\u0275listener("onClick", function ProfilePage_Conditional_50_Template_state_handler_component_onClick_0_listener() {
       \u0275\u0275restoreView(_r3);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.handleGoToPlay());
+      const ctx_r0 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r0.handleGoToPlay());
     });
     \u0275\u0275elementEnd();
   }
@@ -50684,62 +51440,601 @@ function ProfilePage_Conditional_33_Template(rf, ctx) {
     \u0275\u0275property("title", \u0275\u0275pipeBind1(1, 3, "Profile.NoGamesTitle"))("text", \u0275\u0275pipeBind1(2, 5, "Profile.NoGamesText"))("buttonLabel", \u0275\u0275pipeBind1(3, 7, "Home.PlayNow"));
   }
 }
-function ProfilePage_Conditional_34_For_2_Template(rf, ctx) {
+function ProfilePage_Conditional_51_For_2_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 19)(1, "h3", 20);
+    \u0275\u0275elementStart(0, "div", 39)(1, "h3", 40);
     \u0275\u0275text(2);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "div", 21)(4, "span", 22);
-    \u0275\u0275text(5);
-    \u0275\u0275pipe(6, "translate");
+    \u0275\u0275elementStart(3, "div", 41)(4, "span", 42)(5, "span", 43);
+    \u0275\u0275text(6, "sports_esports");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(7, "span", 23);
-    \u0275\u0275text(8);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(9, "div", 21)(10, "span", 22);
-    \u0275\u0275text(11);
-    \u0275\u0275pipe(12, "translate");
+    \u0275\u0275text(7);
+    \u0275\u0275pipe(8, "translate");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(13, "span", 23);
-    \u0275\u0275text(14);
-    \u0275\u0275pipe(15, "number");
+    \u0275\u0275elementStart(9, "span", 44);
+    \u0275\u0275text(10);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(16, "div", 21)(17, "span", 22);
+    \u0275\u0275elementStart(11, "div", 41)(12, "span", 42)(13, "span", 43);
+    \u0275\u0275text(14, "swipe");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(15);
+    \u0275\u0275pipe(16, "translate");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(17, "span", 44);
     \u0275\u0275text(18);
-    \u0275\u0275pipe(19, "translate");
+    \u0275\u0275pipe(19, "number");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(20, "div", 41)(21, "span", 42)(22, "span", 43);
+    \u0275\u0275text(23, "timer");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(20, "span", 23);
-    \u0275\u0275text(21);
+    \u0275\u0275text(24);
+    \u0275\u0275pipe(25, "translate");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(26, "span", 44);
+    \u0275\u0275text(27);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(28, "div", 41)(29, "span", 42)(30, "span", 43);
+    \u0275\u0275text(31, "emoji_events");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(32);
+    \u0275\u0275pipe(33, "translate");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(34, "span", 44);
+    \u0275\u0275text(35);
     \u0275\u0275elementEnd()()();
   }
   if (rf & 2) {
     const stat_r4 = ctx.$implicit;
+    const ctx_r0 = \u0275\u0275nextContext(2);
     \u0275\u0275advance(2);
     \u0275\u0275textInterpolate(stat_r4.difficulty.label);
-    \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(6, 7, "Profile.Stats.GamesPlayed"));
+    \u0275\u0275advance(5);
+    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(8, 9, "Profile.Stats.GamesPlayed"), " ");
     \u0275\u0275advance(3);
     \u0275\u0275textInterpolate(stat_r4.gamesPlayed);
+    \u0275\u0275advance(5);
+    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(16, 11, "Profile.Stats.AverageMoves"), " ");
     \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(12, 9, "Profile.Stats.AverageMoves"));
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind2(19, 13, stat_r4.averageMovesPerGame, "1.0-1"));
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(25, 16, "Profile.Stats.AverageTime"), " ");
     \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate(\u0275\u0275pipeBind2(15, 11, stat_r4.averageMovesPerGame, "1.0-1"));
-    \u0275\u0275advance(4);
-    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(19, 14, "Profile.Stats.BestScore"));
+    \u0275\u0275textInterpolate(ctx_r0.formatTime(stat_r4.averageTimePerGame));
+    \u0275\u0275advance(5);
+    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(33, 18, "Profile.Stats.BestScore"), " ");
     \u0275\u0275advance(3);
     \u0275\u0275textInterpolate(stat_r4.bestScore);
   }
 }
-function ProfilePage_Conditional_34_Template(rf, ctx) {
+function ProfilePage_Conditional_51_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 15);
-    \u0275\u0275repeaterCreate(1, ProfilePage_Conditional_34_For_2_Template, 22, 16, "div", 19, _forTrack03);
+    \u0275\u0275elementStart(0, "div", 23);
+    \u0275\u0275repeaterCreate(1, ProfilePage_Conditional_51_For_2_Template, 36, 20, "div", 39, _forTrack04);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext();
+    const ctx_r0 = \u0275\u0275nextContext();
     \u0275\u0275advance();
-    \u0275\u0275repeater(ctx_r1.playedStats());
+    \u0275\u0275repeater(ctx_r0.playedStats());
+  }
+}
+function ProfilePage_Conditional_61_For_7_Conditional_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 53);
+    \u0275\u0275text(1, "lock");
+    \u0275\u0275elementEnd();
+  }
+}
+function ProfilePage_Conditional_61_For_7_Conditional_9_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 57);
+    \u0275\u0275text(1);
+    \u0275\u0275pipe(2, "date");
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const achievement_r5 = \u0275\u0275nextContext().$implicit;
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind2(2, 1, achievement_r5.unlockedAt, "dd/MM/yyyy"));
+  }
+}
+function ProfilePage_Conditional_61_For_7_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 52);
+    \u0275\u0275conditionalCreate(1, ProfilePage_Conditional_61_For_7_Conditional_1_Template, 2, 0, "span", 53);
+    \u0275\u0275elementStart(2, "span", 54)(3, "span", 55);
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(5, "h3", 40);
+    \u0275\u0275text(6);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(7, "p", 56);
+    \u0275\u0275text(8);
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(9, ProfilePage_Conditional_61_For_7_Conditional_9_Template, 3, 4, "span", 57);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const achievement_r5 = ctx.$implicit;
+    \u0275\u0275classProp("locked", !achievement_r5.unlocked);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(!achievement_r5.unlocked ? 1 : -1);
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(achievement_r5.icon);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(achievement_r5.name);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(achievement_r5.description);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(achievement_r5.unlocked ? 9 : -1);
+  }
+}
+function ProfilePage_Conditional_61_Conditional_8_For_7_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r7 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 61);
+    \u0275\u0275listener("click", function ProfilePage_Conditional_61_Conditional_8_For_7_Template_button_click_0_listener() {
+      const page_r8 = \u0275\u0275restoreView(_r7).$implicit;
+      const ctx_r0 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r0.handleAchievementsGoToPage(page_r8));
+    });
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const page_r8 = ctx.$implicit;
+    const ctx_r0 = \u0275\u0275nextContext(3);
+    \u0275\u0275classProp("active", ctx_r0.achievementsPage() === page_r8);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", page_r8, " ");
+  }
+}
+function ProfilePage_Conditional_61_Conditional_8_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r6 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 51)(1, "button", 58);
+    \u0275\u0275pipe(2, "translate");
+    \u0275\u0275listener("click", function ProfilePage_Conditional_61_Conditional_8_Template_button_click_1_listener() {
+      \u0275\u0275restoreView(_r6);
+      const ctx_r0 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r0.handleAchievementsPrevPage());
+    });
+    \u0275\u0275elementStart(3, "span", 10);
+    \u0275\u0275text(4, "chevron_left");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(5, "div", 59);
+    \u0275\u0275repeaterCreate(6, ProfilePage_Conditional_61_Conditional_8_For_7_Template, 2, 3, "button", 60, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(8, "button", 58);
+    \u0275\u0275pipe(9, "translate");
+    \u0275\u0275listener("click", function ProfilePage_Conditional_61_Conditional_8_Template_button_click_8_listener() {
+      \u0275\u0275restoreView(_r6);
+      const ctx_r0 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r0.handleAchievementsNextPage());
+    });
+    \u0275\u0275elementStart(10, "span", 10);
+    \u0275\u0275text(11, "chevron_right");
+    \u0275\u0275elementEnd()()();
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance();
+    \u0275\u0275property("disabled", ctx_r0.achievementsPage() === 1);
+    \u0275\u0275attribute("aria-label", \u0275\u0275pipeBind1(2, 4, "Common.Previous"));
+    \u0275\u0275advance(5);
+    \u0275\u0275repeater(ctx_r0.achievementsPageNumbers());
+    \u0275\u0275advance(2);
+    \u0275\u0275property("disabled", ctx_r0.achievementsPage() === ctx_r0.totalAchievementsPages());
+    \u0275\u0275attribute("aria-label", \u0275\u0275pipeBind1(9, 6, "Common.Next"));
+  }
+}
+function ProfilePage_Conditional_61_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 45)(1, "span", 46);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "div", 47);
+    \u0275\u0275element(4, "div", 48);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(5, "div", 49);
+    \u0275\u0275repeaterCreate(6, ProfilePage_Conditional_61_For_7_Template, 10, 7, "div", 50, _forTrack1);
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(8, ProfilePage_Conditional_61_Conditional_8_Template, 12, 8, "div", 51);
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext();
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate2("", ctx_r0.unlockedAchievementsCount(), " / ", ctx_r0.totalAchievementsCount());
+    \u0275\u0275advance(2);
+    \u0275\u0275styleProp("width", ctx_r0.achievementsProgress(), "%");
+    \u0275\u0275advance(2);
+    \u0275\u0275repeater(ctx_r0.pagedAchievements());
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(ctx_r0.totalAchievementsPages() > 1 ? 8 : -1);
+  }
+}
+function ProfilePage_Conditional_71_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "state-handler-component", 20);
+    \u0275\u0275pipe(1, "translate");
+    \u0275\u0275pipe(2, "translate");
+  }
+  if (rf & 2) {
+    \u0275\u0275property("title", \u0275\u0275pipeBind1(1, 2, "Profile.History.Loading.Title"))("text", \u0275\u0275pipeBind1(2, 4, "Profile.History.Loading.Text"));
+  }
+}
+function ProfilePage_Conditional_72_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r9 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "state-handler-component", 38);
+    \u0275\u0275pipe(1, "translate");
+    \u0275\u0275pipe(2, "translate");
+    \u0275\u0275pipe(3, "translate");
+    \u0275\u0275listener("onClick", function ProfilePage_Conditional_72_Template_state_handler_component_onClick_0_listener() {
+      \u0275\u0275restoreView(_r9);
+      const ctx_r0 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r0.handleGoToPlay());
+    });
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    \u0275\u0275property("title", \u0275\u0275pipeBind1(1, 3, "Profile.History.NoHistoryTitle"))("text", \u0275\u0275pipeBind1(2, 5, "Profile.History.NoHistoryText"))("buttonLabel", \u0275\u0275pipeBind1(3, 7, "Home.PlayNow"));
+  }
+}
+function ProfilePage_Conditional_73_For_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 63)(1, "span", 64);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "span", 65)(4, "span", 43);
+    \u0275\u0275text(5, "swipe");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(6);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(7, "span", 65)(8, "span", 43);
+    \u0275\u0275text(9, "timer");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(10);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(11, "span", 66);
+    \u0275\u0275text(12);
+    \u0275\u0275pipe(13, "date");
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const entry_r10 = ctx.$implicit;
+    const ctx_r0 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(entry_r10.difficulty.label);
+    \u0275\u0275advance(4);
+    \u0275\u0275textInterpolate1(" ", entry_r10.moves, " ");
+    \u0275\u0275advance(4);
+    \u0275\u0275textInterpolate1(" ", ctx_r0.formatTime(entry_r10.durationSeconds), " ");
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind2(13, 4, entry_r10.playedAt, "dd/MM/yyyy HH:mm"));
+  }
+}
+function ProfilePage_Conditional_73_Conditional_3_For_7_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r12 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 61);
+    \u0275\u0275listener("click", function ProfilePage_Conditional_73_Conditional_3_For_7_Template_button_click_0_listener() {
+      const page_r13 = \u0275\u0275restoreView(_r12).$implicit;
+      const ctx_r0 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r0.handleGameHistoryGoToPage(page_r13));
+    });
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const page_r13 = ctx.$implicit;
+    const ctx_r0 = \u0275\u0275nextContext(3);
+    \u0275\u0275classProp("active", ctx_r0.gameHistoryPage() === page_r13);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", page_r13, " ");
+  }
+}
+function ProfilePage_Conditional_73_Conditional_3_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r11 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 51)(1, "button", 58);
+    \u0275\u0275pipe(2, "translate");
+    \u0275\u0275listener("click", function ProfilePage_Conditional_73_Conditional_3_Template_button_click_1_listener() {
+      \u0275\u0275restoreView(_r11);
+      const ctx_r0 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r0.handleGameHistoryPrevPage());
+    });
+    \u0275\u0275elementStart(3, "span", 10);
+    \u0275\u0275text(4, "chevron_left");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(5, "div", 59);
+    \u0275\u0275repeaterCreate(6, ProfilePage_Conditional_73_Conditional_3_For_7_Template, 2, 3, "button", 60, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(8, "button", 58);
+    \u0275\u0275pipe(9, "translate");
+    \u0275\u0275listener("click", function ProfilePage_Conditional_73_Conditional_3_Template_button_click_8_listener() {
+      \u0275\u0275restoreView(_r11);
+      const ctx_r0 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r0.handleGameHistoryNextPage());
+    });
+    \u0275\u0275elementStart(10, "span", 10);
+    \u0275\u0275text(11, "chevron_right");
+    \u0275\u0275elementEnd()()();
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance();
+    \u0275\u0275property("disabled", ctx_r0.gameHistoryPage() === 1);
+    \u0275\u0275attribute("aria-label", \u0275\u0275pipeBind1(2, 4, "Common.Previous"));
+    \u0275\u0275advance(5);
+    \u0275\u0275repeater(ctx_r0.gameHistoryPageNumbers());
+    \u0275\u0275advance(2);
+    \u0275\u0275property("disabled", ctx_r0.gameHistoryPage() === ctx_r0.gameHistoryTotalPages());
+    \u0275\u0275attribute("aria-label", \u0275\u0275pipeBind1(9, 6, "Common.Next"));
+  }
+}
+function ProfilePage_Conditional_73_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 62);
+    \u0275\u0275repeaterCreate(1, ProfilePage_Conditional_73_For_2_Template, 14, 7, "div", 63, _forTrack1);
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(3, ProfilePage_Conditional_73_Conditional_3_Template, 12, 8, "div", 51);
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext();
+    \u0275\u0275advance();
+    \u0275\u0275repeater(ctx_r0.gameHistory());
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(ctx_r0.gameHistoryTotalPages() > 1 ? 3 : -1);
+  }
+}
+function ProfilePage_Conditional_89_Conditional_0_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "p", 28);
+    \u0275\u0275text(1);
+    \u0275\u0275pipe(2, "translate");
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(2, 1, "Friends.Search.Searching"));
+  }
+}
+function ProfilePage_Conditional_89_Conditional_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "p", 28);
+    \u0275\u0275text(1);
+    \u0275\u0275pipe(2, "translate");
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(2, 1, "Friends.Search.NoResults"));
+  }
+}
+function ProfilePage_Conditional_89_Conditional_2_For_2_Case_3_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r14 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "generic-button-component", 15);
+    \u0275\u0275pipe(1, "translate");
+    \u0275\u0275listener("onClick", function ProfilePage_Conditional_89_Conditional_2_For_2_Case_3_Template_generic_button_component_onClick_0_listener() {
+      \u0275\u0275restoreView(_r14);
+      const result_r15 = \u0275\u0275nextContext().$implicit;
+      const ctx_r0 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r0.handleSendFriendRequest(result_r15.userId));
+    });
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    \u0275\u0275property("label", \u0275\u0275pipeBind1(1, 1, "Friends.Search.AddButton"));
+  }
+}
+function ProfilePage_Conditional_89_Conditional_2_For_2_Case_4_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 70);
+    \u0275\u0275text(1);
+    \u0275\u0275pipe(2, "translate");
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(2, 1, "Friends.Search.PendingLabel"));
+  }
+}
+function ProfilePage_Conditional_89_Conditional_2_For_2_Case_5_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 70);
+    \u0275\u0275text(1);
+    \u0275\u0275pipe(2, "translate");
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(2, 1, "Friends.Search.PendingIncomingLabel"));
+  }
+}
+function ProfilePage_Conditional_89_Conditional_2_For_2_Case_6_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 71);
+    \u0275\u0275text(1);
+    \u0275\u0275pipe(2, "translate");
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(2, 1, "Friends.Search.FriendsLabel"));
+  }
+}
+function ProfilePage_Conditional_89_Conditional_2_For_2_Case_7_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 70);
+    \u0275\u0275text(1);
+    \u0275\u0275pipe(2, "translate");
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(2, 1, "Friends.Search.DeclinedLabel"));
+  }
+}
+function ProfilePage_Conditional_89_Conditional_2_For_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 67)(1, "span", 68);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(3, ProfilePage_Conditional_89_Conditional_2_For_2_Case_3_Template, 2, 3, "generic-button-component", 69)(4, ProfilePage_Conditional_89_Conditional_2_For_2_Case_4_Template, 3, 3, "span", 70)(5, ProfilePage_Conditional_89_Conditional_2_For_2_Case_5_Template, 3, 3, "span", 70)(6, ProfilePage_Conditional_89_Conditional_2_For_2_Case_6_Template, 3, 3, "span", 71)(7, ProfilePage_Conditional_89_Conditional_2_For_2_Case_7_Template, 3, 3, "span", 70);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    let tmp_13_0;
+    const result_r15 = ctx.$implicit;
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(result_r15.username);
+    \u0275\u0275advance();
+    \u0275\u0275conditional((tmp_13_0 = result_r15.status) === "None" ? 3 : tmp_13_0 === "PendingOutgoing" ? 4 : tmp_13_0 === "PendingIncoming" ? 5 : tmp_13_0 === "Friends" ? 6 : tmp_13_0 === "Declined" ? 7 : -1);
+  }
+}
+function ProfilePage_Conditional_89_Conditional_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 29);
+    \u0275\u0275repeaterCreate(1, ProfilePage_Conditional_89_Conditional_2_For_2_Template, 8, 2, "div", 67, _forTrack2);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance();
+    \u0275\u0275repeater(ctx_r0.searchResults());
+  }
+}
+function ProfilePage_Conditional_89_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275conditionalCreate(0, ProfilePage_Conditional_89_Conditional_0_Template, 3, 3, "p", 28)(1, ProfilePage_Conditional_89_Conditional_1_Template, 3, 3, "p", 28)(2, ProfilePage_Conditional_89_Conditional_2_Template, 3, 0, "div", 29);
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext();
+    \u0275\u0275conditional(ctx_r0.isSearching() ? 0 : (ctx_r0.searchResults() ?? \u0275\u0275pureFunction0(1, _c2)).length === 0 ? 1 : 2);
+  }
+}
+function ProfilePage_Conditional_94_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "p", 28);
+    \u0275\u0275text(1);
+    \u0275\u0275pipe(2, "translate");
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(2, 1, "Friends.Requests.Empty"));
+  }
+}
+function ProfilePage_Conditional_95_For_2_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r16 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 67)(1, "span", 68);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "div", 72)(4, "generic-button-component", 15);
+    \u0275\u0275pipe(5, "translate");
+    \u0275\u0275listener("onClick", function ProfilePage_Conditional_95_For_2_Template_generic_button_component_onClick_4_listener() {
+      const request_r17 = \u0275\u0275restoreView(_r16).$implicit;
+      const ctx_r0 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r0.handleAcceptFriendRequest(request_r17.friendshipId));
+    });
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(6, "generic-button-component", 15);
+    \u0275\u0275pipe(7, "translate");
+    \u0275\u0275listener("onClick", function ProfilePage_Conditional_95_For_2_Template_generic_button_component_onClick_6_listener() {
+      const request_r17 = \u0275\u0275restoreView(_r16).$implicit;
+      const ctx_r0 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r0.handleDeclineFriendRequest(request_r17.friendshipId));
+    });
+    \u0275\u0275elementEnd()()();
+  }
+  if (rf & 2) {
+    const request_r17 = ctx.$implicit;
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(request_r17.fromUsername);
+    \u0275\u0275advance(2);
+    \u0275\u0275property("label", \u0275\u0275pipeBind1(5, 3, "Common.Accept"));
+    \u0275\u0275advance(2);
+    \u0275\u0275property("label", \u0275\u0275pipeBind1(7, 5, "Common.Decline"));
+  }
+}
+function ProfilePage_Conditional_95_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 29);
+    \u0275\u0275repeaterCreate(1, ProfilePage_Conditional_95_For_2_Template, 8, 7, "div", 67, _forTrack3);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext();
+    \u0275\u0275advance();
+    \u0275\u0275repeater(ctx_r0.incomingRequests());
+  }
+}
+function ProfilePage_Conditional_100_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "state-handler-component", 20);
+    \u0275\u0275pipe(1, "translate");
+    \u0275\u0275pipe(2, "translate");
+  }
+  if (rf & 2) {
+    \u0275\u0275property("title", \u0275\u0275pipeBind1(1, 2, "Friends.MyFriends.Loading.Title"))("text", \u0275\u0275pipeBind1(2, 4, "Friends.MyFriends.Loading.Text"));
+  }
+}
+function ProfilePage_Conditional_101_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "state-handler-component", 30);
+    \u0275\u0275pipe(1, "translate");
+    \u0275\u0275pipe(2, "translate");
+  }
+  if (rf & 2) {
+    \u0275\u0275property("title", \u0275\u0275pipeBind1(1, 2, "Friends.MyFriends.EmptyTitle"))("text", \u0275\u0275pipeBind1(2, 4, "Friends.MyFriends.EmptyText"));
+  }
+}
+function ProfilePage_Conditional_102_For_2_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r18 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 67)(1, "span", 68);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "div", 72)(4, "generic-button-component", 15);
+    \u0275\u0275pipe(5, "translate");
+    \u0275\u0275listener("onClick", function ProfilePage_Conditional_102_For_2_Template_generic_button_component_onClick_4_listener() {
+      const friend_r19 = \u0275\u0275restoreView(_r18).$implicit;
+      const ctx_r0 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r0.handleViewFriendProfile(friend_r19.userId));
+    });
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(6, "generic-button-component", 15);
+    \u0275\u0275pipe(7, "translate");
+    \u0275\u0275listener("onClick", function ProfilePage_Conditional_102_For_2_Template_generic_button_component_onClick_6_listener() {
+      const friend_r19 = \u0275\u0275restoreView(_r18).$implicit;
+      const ctx_r0 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r0.handleRemoveFriend(friend_r19.friendshipId));
+    });
+    \u0275\u0275elementEnd()()();
+  }
+  if (rf & 2) {
+    const friend_r19 = ctx.$implicit;
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(friend_r19.username);
+    \u0275\u0275advance(2);
+    \u0275\u0275property("label", \u0275\u0275pipeBind1(5, 3, "Friends.MyFriends.ViewButton"));
+    \u0275\u0275advance(2);
+    \u0275\u0275property("label", \u0275\u0275pipeBind1(7, 5, "Friends.MyFriends.RemoveButton"));
+  }
+}
+function ProfilePage_Conditional_102_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 29);
+    \u0275\u0275repeaterCreate(1, ProfilePage_Conditional_102_For_2_Template, 8, 7, "div", 67, _forTrack3);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext();
+    \u0275\u0275advance();
+    \u0275\u0275repeater(ctx_r0.friends());
   }
 }
 var ProfilePage = class _ProfilePage {
@@ -50748,17 +52043,65 @@ var ProfilePage = class _ProfilePage {
   navigationService = inject2(NavigationService);
   usersService = inject2(UsersService);
   languageService = inject2(LanguageService);
+  achievementsService = inject2(AchievementsService);
+  friendsService = inject2(FriendsService);
   currentUser = computed(() => this.authService.currentUser(), ...ngDevMode ? [{ debugName: "currentUser" }] : []);
   userData = computed(() => ({
     username: this.currentUser().username,
-    email: this.currentUser().email
+    email: this.currentUser().email,
+    bio: this.currentUser().bio,
+    country: this.currentUser().country,
+    birthDate: this.currentUser().birthDate?.slice(0, 10) ?? null
   }), ...ngDevMode ? [{ debugName: "userData" }] : []);
   initials = computed(() => this.currentUser().username.slice(0, 2).toUpperCase(), ...ngDevMode ? [{ debugName: "initials" }] : []);
   playedStats = computed(() => (this.userStats() ?? []).filter((stat) => stat.gamesPlayed > 0), ...ngDevMode ? [{ debugName: "playedStats" }] : []);
   hasPlayedAnyGame = computed(() => this.playedStats().length > 0, ...ngDevMode ? [{ debugName: "hasPlayedAnyGame" }] : []);
+  totalGamesPlayed = computed(() => this.playedStats().reduce((sum, stat) => sum + stat.gamesPlayed, 0), ...ngDevMode ? [{ debugName: "totalGamesPlayed" }] : []);
+  favoriteDifficulty = computed(() => {
+    const stats = this.playedStats();
+    if (stats.length === 0)
+      return null;
+    return stats.reduce((max, stat) => stat.gamesPlayed > max.gamesPlayed ? stat : max).difficulty;
+  }, ...ngDevMode ? [{ debugName: "favoriteDifficulty" }] : []);
+  sortedAchievements = computed(() => {
+    const achievements = this.achievements() ?? [];
+    return [...achievements].sort((a, b) => Number(b.unlocked) - Number(a.unlocked));
+  }, ...ngDevMode ? [{ debugName: "sortedAchievements" }] : []);
+  unlockedAchievementsCount = computed(() => (this.achievements() ?? []).filter((a) => a.unlocked).length, ...ngDevMode ? [{ debugName: "unlockedAchievementsCount" }] : []);
+  totalAchievementsCount = computed(() => (this.achievements() ?? []).length, ...ngDevMode ? [{ debugName: "totalAchievementsCount" }] : []);
+  achievementsProgress = computed(() => {
+    const total = this.totalAchievementsCount();
+    return total === 0 ? 0 : Math.round(this.unlockedAchievementsCount() / total * 100);
+  }, ...ngDevMode ? [{ debugName: "achievementsProgress" }] : []);
+  achievementsPageSize = 6;
+  achievementsPage = signal(1, ...ngDevMode ? [{ debugName: "achievementsPage" }] : []);
+  totalAchievementsPages = computed(() => Math.max(1, Math.ceil(this.sortedAchievements().length / this.achievementsPageSize)), ...ngDevMode ? [{ debugName: "totalAchievementsPages" }] : []);
+  pagedAchievements = computed(() => {
+    const start = (this.achievementsPage() - 1) * this.achievementsPageSize;
+    return this.sortedAchievements().slice(start, start + this.achievementsPageSize);
+  }, ...ngDevMode ? [{ debugName: "pagedAchievements" }] : []);
+  achievementsPageNumbers = computed(() => Array.from({ length: this.totalAchievementsPages() }, (_, i) => i + 1), ...ngDevMode ? [{ debugName: "achievementsPageNumbers" }] : []);
+  gameHistoryPageSize = 8;
+  gameHistory = signal(null, ...ngDevMode ? [{ debugName: "gameHistory" }] : []);
+  gameHistoryPage = signal(1, ...ngDevMode ? [{ debugName: "gameHistoryPage" }] : []);
+  gameHistoryTotalCount = signal(0, ...ngDevMode ? [{ debugName: "gameHistoryTotalCount" }] : []);
+  isGameHistoryLoading = signal(false, ...ngDevMode ? [{ debugName: "isGameHistoryLoading" }] : []);
+  hasGameHistory = computed(() => this.gameHistoryTotalCount() > 0, ...ngDevMode ? [{ debugName: "hasGameHistory" }] : []);
+  gameHistoryTotalPages = computed(() => Math.max(1, Math.ceil(this.gameHistoryTotalCount() / this.gameHistoryPageSize)), ...ngDevMode ? [{ debugName: "gameHistoryTotalPages" }] : []);
+  gameHistoryPageNumbers = computed(() => Array.from({ length: this.gameHistoryTotalPages() }, (_, i) => i + 1), ...ngDevMode ? [{ debugName: "gameHistoryPageNumbers" }] : []);
+  friends = signal(null, ...ngDevMode ? [{ debugName: "friends" }] : []);
+  incomingRequests = signal(null, ...ngDevMode ? [{ debugName: "incomingRequests" }] : []);
+  searchResults = signal(null, ...ngDevMode ? [{ debugName: "searchResults" }] : []);
+  searchQuery = signal("", ...ngDevMode ? [{ debugName: "searchQuery" }] : []);
+  isSearching = signal(false, ...ngDevMode ? [{ debugName: "isSearching" }] : []);
+  isFriendsLoading = signal(false, ...ngDevMode ? [{ debugName: "isFriendsLoading" }] : []);
+  hasSearched = computed(() => this.searchQuery().trim().length >= 2, ...ngDevMode ? [{ debugName: "hasSearched" }] : []);
+  hasFriends = computed(() => (this.friends() ?? []).length > 0, ...ngDevMode ? [{ debugName: "hasFriends" }] : []);
+  hasIncomingRequests = computed(() => (this.incomingRequests() ?? []).length > 0, ...ngDevMode ? [{ debugName: "hasIncomingRequests" }] : []);
   isLoading = signal(false, ...ngDevMode ? [{ debugName: "isLoading" }] : []);
   error = signal(null, ...ngDevMode ? [{ debugName: "error" }] : []);
   userStats = signal(null, ...ngDevMode ? [{ debugName: "userStats" }] : []);
+  achievements = signal(null, ...ngDevMode ? [{ debugName: "achievements" }] : []);
   modalOpen = signal(false, ...ngDevMode ? [{ debugName: "modalOpen" }] : []);
   constructor() {
     effect(() => {
@@ -50781,6 +52124,127 @@ var ProfilePage = class _ProfilePage {
         this.error.set("Impossibile connettersi al server.");
       }
     });
+    this.achievementsService.getAchievements().subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.achievements.set(response.data);
+          this.achievementsPage.set(1);
+        }
+      }
+    });
+    this.loadGameHistory(1);
+    this.loadFriendsData();
+  }
+  loadFriendsData() {
+    this.isFriendsLoading.set(true);
+    this.friendsService.getFriends().subscribe({
+      next: (response) => {
+        this.isFriendsLoading.set(false);
+        if (response.success) {
+          this.friends.set(response.data);
+        }
+      },
+      error: () => this.isFriendsLoading.set(false)
+    });
+    this.friendsService.getIncomingRequests().subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.incomingRequests.set(response.data);
+          this.friendsService.pendingRequestsCount.set(response.data.length);
+        }
+      }
+    });
+  }
+  handleFriendSearchInput(query) {
+    this.searchQuery.set(query);
+    if (query.trim().length < 2) {
+      this.searchResults.set(null);
+      return;
+    }
+    this.isSearching.set(true);
+    this.friendsService.searchUsers(query.trim()).subscribe({
+      next: (response) => {
+        this.isSearching.set(false);
+        if (response.success) {
+          this.searchResults.set(response.data);
+        }
+      },
+      error: () => this.isSearching.set(false)
+    });
+  }
+  handleSendFriendRequest(userId) {
+    this.friendsService.sendFriendRequest(userId).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.searchResults.update((results) => (results ?? []).map((r) => r.userId === userId ? __spreadProps(__spreadValues({}, r), { status: "PendingOutgoing" }) : r));
+        }
+      }
+    });
+  }
+  handleAcceptFriendRequest(friendshipId) {
+    this.friendsService.acceptRequest(friendshipId).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.loadFriendsData();
+        }
+      }
+    });
+  }
+  handleDeclineFriendRequest(friendshipId) {
+    this.friendsService.declineRequest(friendshipId).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.incomingRequests.update((requests) => (requests ?? []).filter((r) => r.friendshipId !== friendshipId));
+          this.friendsService.pendingRequestsCount.update((count) => Math.max(0, count - 1));
+        }
+      }
+    });
+  }
+  handleRemoveFriend(friendshipId) {
+    this.friendsService.removeFriend(friendshipId).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.friends.update((friends) => (friends ?? []).filter((f) => f.friendshipId !== friendshipId));
+        }
+      }
+    });
+  }
+  handleViewFriendProfile(userId) {
+    this.navigationService.goToFriendProfile(userId);
+  }
+  loadGameHistory(page) {
+    this.isGameHistoryLoading.set(true);
+    this.gameResultsService.getGameHistory(page, this.gameHistoryPageSize).pipe(finalize(() => this.isGameHistoryLoading.set(false))).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.gameHistory.set(response.data.items);
+          this.gameHistoryTotalCount.set(response.data.totalCount);
+          this.gameHistoryPage.set(response.data.page);
+        }
+      }
+    });
+  }
+  handleGameHistoryPrevPage() {
+    if (this.gameHistoryPage() > 1) {
+      this.loadGameHistory(this.gameHistoryPage() - 1);
+    }
+  }
+  handleGameHistoryNextPage() {
+    if (this.gameHistoryPage() < this.gameHistoryTotalPages()) {
+      this.loadGameHistory(this.gameHistoryPage() + 1);
+    }
+  }
+  handleGameHistoryGoToPage(page) {
+    this.loadGameHistory(page);
+  }
+  handleAchievementsPrevPage() {
+    this.achievementsPage.update((page) => Math.max(1, page - 1));
+  }
+  handleAchievementsNextPage() {
+    this.achievementsPage.update((page) => Math.min(this.totalAchievementsPages(), page + 1));
+  }
+  handleAchievementsGoToPage(page) {
+    this.achievementsPage.set(page);
   }
   handleEditProfile() {
     this.modalOpen.set(true);
@@ -50799,174 +52263,625 @@ var ProfilePage = class _ProfilePage {
   handleCloseModal() {
     this.modalOpen.set(false);
   }
+  formatTime(totalSeconds) {
+    return formatDuration(totalSeconds);
+  }
   static \u0275fac = function ProfilePage_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _ProfilePage)();
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ProfilePage, selectors: [["profile", 8, "page"]], attrs: _c08, decls: 37, vars: 24, consts: [[1, "display-vertical", "profile-page"], [1, "profile-hero"], [1, "profile-avatar"], [1, "title", "light-color"], [1, "text", "normal-max-width"], [1, "profile-info-card"], [1, "profile-info-row"], [1, "material-symbols-outlined"], [1, "profile-actions"], [3, "onClick", "label"], [1, "profile-stats-section"], [1, "medium-title", "light-color"], ["type", "loading", 3, "title", "text"], ["type", "error", 3, "title", "text", "buttonLabel"], ["type", "noResult", 3, "title", "text", "buttonLabel"], [1, "profile-stats-grid"], [3, "onClose", "onSaveProfile", "isModalOpen", "initialData"], ["type", "error", 3, "onClick", "title", "text", "buttonLabel"], ["type", "noResult", 3, "onClick", "title", "text", "buttonLabel"], [1, "profile-stat-card"], [1, "light-color"], [1, "profile-stat-row"], [1, "profile-stat-label"], [1, "profile-stat-value"]], template: function ProfilePage_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ProfilePage, selectors: [["profile", 8, "page"]], attrs: _c08, decls: 105, vars: 67, consts: [[1, "profile-page"], [1, "profile-layout"], [1, "profile-sidebar", "glass-panel"], [1, "profile-avatar"], [1, "profile-username", "light-color"], [1, "profile-greeting"], [1, "profile-bio"], [1, "profile-info-card"], [1, "profile-info-row"], [1, "profile-info-icon"], [1, "material-symbols-outlined"], [1, "profile-info-text"], [1, "profile-info-label"], [1, "profile-info-value"], [1, "profile-actions"], [3, "onClick", "label"], [1, "profile-main"], [1, "profile-kpi-grid"], [1, "profile-section"], [1, "medium-title", "light-color", "section-title"], ["type", "loading", 3, "title", "text"], ["type", "error", 3, "title", "text", "buttonLabel"], ["type", "noResult", 3, "title", "text", "buttonLabel"], [1, "profile-stats-grid"], [1, "text", "normal-max-width"], [1, "friends-subsection"], [1, "light-color", "friends-subsection-title"], ["type", "text", 1, "input-field", "friends-search-input", 3, "input", "placeholder"], [1, "text", "friends-hint"], [1, "friends-list"], ["type", "noResult", 3, "title", "text"], [3, "onClose", "onSaveProfile", "isModalOpen", "initialData"], [1, "material-symbols-outlined", "profile-bio-quote"], [1, "profile-kpi-card", "glass-panel"], [1, "material-symbols-outlined", "profile-kpi-icon"], [1, "profile-kpi-value"], [1, "profile-kpi-label"], ["type", "error", 3, "onClick", "title", "text", "buttonLabel"], ["type", "noResult", 3, "onClick", "title", "text", "buttonLabel"], [1, "profile-stat-card"], [1, "light-color"], [1, "profile-stat-row"], [1, "profile-stat-label"], [1, "material-symbols-outlined", "stat-icon"], [1, "profile-stat-value"], [1, "achievements-progress"], [1, "achievements-progress-label"], [1, "achievements-progress-track"], [1, "achievements-progress-fill"], [1, "profile-achievements-grid"], [1, "achievement-card", 3, "locked"], [1, "pager"], [1, "achievement-card"], [1, "material-symbols-outlined", "achievement-lock"], [1, "achievement-icon-badge"], [1, "material-symbols-outlined", "achievement-icon"], [1, "achievement-description"], [1, "achievement-unlocked-at"], ["type", "button", 1, "pager-nav", 3, "click", "disabled"], [1, "pager-pages"], ["type", "button", 1, "pager-page", 3, "active"], ["type", "button", 1, "pager-page", 3, "click"], [1, "history-list"], [1, "history-row"], [1, "history-difficulty", "light-color"], [1, "history-stat"], [1, "history-date"], [1, "friend-row"], [1, "friend-username", "light-color"], [3, "label"], [1, "friend-status-pill"], [1, "friend-status-pill", "friend-status-accepted"], [1, "friend-row-actions"]], template: function ProfilePage_Template(rf, ctx) {
     if (rf & 1) {
       \u0275\u0275element(0, "header-component");
-      \u0275\u0275elementStart(1, "div", 0)(2, "div", 1)(3, "div", 2);
-      \u0275\u0275text(4);
+      \u0275\u0275elementStart(1, "div", 0)(2, "div", 1)(3, "aside", 2)(4, "div", 3);
+      \u0275\u0275text(5);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(5, "h1", 3);
-      \u0275\u0275text(6);
-      \u0275\u0275pipe(7, "translate");
+      \u0275\u0275elementStart(6, "h1", 4);
+      \u0275\u0275text(7);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(8, "p", 4);
+      \u0275\u0275elementStart(8, "p", 5);
       \u0275\u0275text(9);
       \u0275\u0275pipe(10, "translate");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(11, "div", 5)(12, "div", 6)(13, "span", 7);
-      \u0275\u0275text(14, "person");
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(15, "span");
-      \u0275\u0275text(16);
+      \u0275\u0275conditionalCreate(11, ProfilePage_Conditional_11_Template, 4, 1, "p", 6);
+      \u0275\u0275elementStart(12, "div", 7)(13, "div", 8)(14, "span", 9)(15, "span", 10);
+      \u0275\u0275text(16, "person");
       \u0275\u0275elementEnd()();
-      \u0275\u0275elementStart(17, "div", 6)(18, "span", 7);
-      \u0275\u0275text(19, "mail");
+      \u0275\u0275elementStart(17, "div", 11)(18, "span", 12);
+      \u0275\u0275text(19);
+      \u0275\u0275pipe(20, "translate");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(20, "span");
-      \u0275\u0275text(21);
+      \u0275\u0275elementStart(21, "span", 13);
+      \u0275\u0275text(22);
       \u0275\u0275elementEnd()()();
-      \u0275\u0275elementStart(22, "div", 8)(23, "generic-button-component", 9);
-      \u0275\u0275pipe(24, "translate");
-      \u0275\u0275listener("onClick", function ProfilePage_Template_generic_button_component_onClick_23_listener() {
-        return ctx.handleEditProfile();
-      });
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(25, "generic-button-component", 9);
-      \u0275\u0275pipe(26, "translate");
-      \u0275\u0275listener("onClick", function ProfilePage_Template_generic_button_component_onClick_25_listener() {
-        return ctx.handleLogout();
-      });
-      \u0275\u0275elementEnd()()();
-      \u0275\u0275elementStart(27, "div", 10)(28, "h2", 11);
+      \u0275\u0275elementStart(23, "div", 8)(24, "span", 9)(25, "span", 10);
+      \u0275\u0275text(26, "mail");
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(27, "div", 11)(28, "span", 12);
       \u0275\u0275text(29);
       \u0275\u0275pipe(30, "translate");
       \u0275\u0275elementEnd();
-      \u0275\u0275conditionalCreate(31, ProfilePage_Conditional_31_Template, 3, 6, "state-handler-component", 12)(32, ProfilePage_Conditional_32_Template, 3, 7, "state-handler-component", 13)(33, ProfilePage_Conditional_33_Template, 4, 9, "state-handler-component", 14)(34, ProfilePage_Conditional_34_Template, 3, 0, "div", 15);
-      \u0275\u0275elementEnd()();
-      \u0275\u0275elementStart(35, "update-profile-component", 16);
-      \u0275\u0275listener("onClose", function ProfilePage_Template_update_profile_component_onClose_35_listener() {
+      \u0275\u0275elementStart(31, "span", 13);
+      \u0275\u0275text(32);
+      \u0275\u0275elementEnd()()();
+      \u0275\u0275conditionalCreate(33, ProfilePage_Conditional_33_Template, 10, 4, "div", 8);
+      \u0275\u0275conditionalCreate(34, ProfilePage_Conditional_34_Template, 11, 7, "div", 8);
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(35, "div", 14)(36, "generic-button-component", 15);
+      \u0275\u0275pipe(37, "translate");
+      \u0275\u0275listener("onClick", function ProfilePage_Template_generic_button_component_onClick_36_listener() {
+        return ctx.handleEditProfile();
+      });
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(38, "generic-button-component", 15);
+      \u0275\u0275pipe(39, "translate");
+      \u0275\u0275listener("onClick", function ProfilePage_Template_generic_button_component_onClick_38_listener() {
+        return ctx.handleLogout();
+      });
+      \u0275\u0275elementEnd()()();
+      \u0275\u0275elementStart(40, "main", 16);
+      \u0275\u0275conditionalCreate(41, ProfilePage_Conditional_41_Template, 25, 13, "div", 17);
+      \u0275\u0275elementStart(42, "section", 18)(43, "h2", 19)(44, "span", 10);
+      \u0275\u0275text(45, "bar_chart");
+      \u0275\u0275elementEnd();
+      \u0275\u0275text(46);
+      \u0275\u0275pipe(47, "translate");
+      \u0275\u0275elementEnd();
+      \u0275\u0275conditionalCreate(48, ProfilePage_Conditional_48_Template, 3, 6, "state-handler-component", 20)(49, ProfilePage_Conditional_49_Template, 3, 7, "state-handler-component", 21)(50, ProfilePage_Conditional_50_Template, 4, 9, "state-handler-component", 22)(51, ProfilePage_Conditional_51_Template, 3, 0, "div", 23);
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(52, "section", 18)(53, "h2", 19)(54, "span", 10);
+      \u0275\u0275text(55, "emoji_events");
+      \u0275\u0275elementEnd();
+      \u0275\u0275text(56);
+      \u0275\u0275pipe(57, "translate");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(58, "p", 24);
+      \u0275\u0275text(59);
+      \u0275\u0275pipe(60, "translate");
+      \u0275\u0275elementEnd();
+      \u0275\u0275conditionalCreate(61, ProfilePage_Conditional_61_Template, 9, 5);
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(62, "section", 18)(63, "h2", 19)(64, "span", 10);
+      \u0275\u0275text(65, "history");
+      \u0275\u0275elementEnd();
+      \u0275\u0275text(66);
+      \u0275\u0275pipe(67, "translate");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(68, "p", 24);
+      \u0275\u0275text(69);
+      \u0275\u0275pipe(70, "translate");
+      \u0275\u0275elementEnd();
+      \u0275\u0275conditionalCreate(71, ProfilePage_Conditional_71_Template, 3, 6, "state-handler-component", 20)(72, ProfilePage_Conditional_72_Template, 4, 9, "state-handler-component", 22)(73, ProfilePage_Conditional_73_Template, 4, 1);
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(74, "section", 18)(75, "h2", 19)(76, "span", 10);
+      \u0275\u0275text(77, "group");
+      \u0275\u0275elementEnd();
+      \u0275\u0275text(78);
+      \u0275\u0275pipe(79, "translate");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(80, "p", 24);
+      \u0275\u0275text(81);
+      \u0275\u0275pipe(82, "translate");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(83, "div", 25)(84, "h3", 26);
+      \u0275\u0275text(85);
+      \u0275\u0275pipe(86, "translate");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(87, "input", 27);
+      \u0275\u0275pipe(88, "translate");
+      \u0275\u0275listener("input", function ProfilePage_Template_input_input_87_listener($event) {
+        return ctx.handleFriendSearchInput($event.target.value);
+      });
+      \u0275\u0275elementEnd();
+      \u0275\u0275conditionalCreate(89, ProfilePage_Conditional_89_Template, 3, 2);
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(90, "div", 25)(91, "h3", 26);
+      \u0275\u0275text(92);
+      \u0275\u0275pipe(93, "translate");
+      \u0275\u0275elementEnd();
+      \u0275\u0275conditionalCreate(94, ProfilePage_Conditional_94_Template, 3, 3, "p", 28)(95, ProfilePage_Conditional_95_Template, 3, 0, "div", 29);
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(96, "div", 25)(97, "h3", 26);
+      \u0275\u0275text(98);
+      \u0275\u0275pipe(99, "translate");
+      \u0275\u0275elementEnd();
+      \u0275\u0275conditionalCreate(100, ProfilePage_Conditional_100_Template, 3, 6, "state-handler-component", 20)(101, ProfilePage_Conditional_101_Template, 3, 6, "state-handler-component", 30)(102, ProfilePage_Conditional_102_Template, 3, 0, "div", 29);
+      \u0275\u0275elementEnd()()()()();
+      \u0275\u0275elementStart(103, "update-profile-component", 31);
+      \u0275\u0275listener("onClose", function ProfilePage_Template_update_profile_component_onClose_103_listener() {
         return ctx.handleCloseModal();
-      })("onSaveProfile", function ProfilePage_Template_update_profile_component_onSaveProfile_35_listener($event) {
+      })("onSaveProfile", function ProfilePage_Template_update_profile_component_onSaveProfile_103_listener($event) {
         return ctx.handleSaveProfile($event);
       });
       \u0275\u0275elementEnd();
-      \u0275\u0275element(36, "footer-component");
+      \u0275\u0275element(104, "footer-component");
     }
     if (rf & 2) {
-      \u0275\u0275advance(4);
+      \u0275\u0275advance(5);
       \u0275\u0275textInterpolate(ctx.initials());
       \u0275\u0275advance(2);
-      \u0275\u0275textInterpolate(\u0275\u0275pipeBind2(7, 11, "Profile.Greetings", \u0275\u0275pureFunction1(22, _c1, ctx.currentUser().username)));
-      \u0275\u0275advance(3);
-      \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(10, 14, "Profile.Text"), " ");
-      \u0275\u0275advance(7);
       \u0275\u0275textInterpolate(ctx.currentUser().username);
-      \u0275\u0275advance(5);
+      \u0275\u0275advance(2);
+      \u0275\u0275textInterpolate(\u0275\u0275pipeBind2(10, 32, "Profile.Greetings", \u0275\u0275pureFunction1(65, _c13, ctx.currentUser().username)));
+      \u0275\u0275advance(2);
+      \u0275\u0275conditional(ctx.currentUser().bio ? 11 : -1);
+      \u0275\u0275advance(8);
+      \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(20, 35, "Profile.Info.Username"));
+      \u0275\u0275advance(3);
+      \u0275\u0275textInterpolate(ctx.currentUser().username);
+      \u0275\u0275advance(7);
+      \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(30, 37, "Profile.Info.Email"));
+      \u0275\u0275advance(3);
       \u0275\u0275textInterpolate(ctx.currentUser().email);
+      \u0275\u0275advance();
+      \u0275\u0275conditional(ctx.currentUser().country ? 33 : -1);
+      \u0275\u0275advance();
+      \u0275\u0275conditional(ctx.currentUser().birthDate ? 34 : -1);
       \u0275\u0275advance(2);
-      \u0275\u0275property("label", \u0275\u0275pipeBind1(24, 16, "Profile.EditProfileButtonLabel"));
+      \u0275\u0275property("label", \u0275\u0275pipeBind1(37, 39, "Profile.EditProfileButtonLabel"));
       \u0275\u0275advance(2);
-      \u0275\u0275property("label", \u0275\u0275pipeBind1(26, 18, "Profile.LogoutLabel"));
+      \u0275\u0275property("label", \u0275\u0275pipeBind1(39, 41, "Profile.LogoutLabel"));
+      \u0275\u0275advance(3);
+      \u0275\u0275conditional(ctx.hasPlayedAnyGame() ? 41 : -1);
+      \u0275\u0275advance(5);
+      \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(47, 43, "Profile.GamesPlayedTitle"), " ");
+      \u0275\u0275advance(2);
+      \u0275\u0275conditional(ctx.isLoading() ? 48 : ctx.error() ? 49 : !ctx.hasPlayedAnyGame() ? 50 : 51);
+      \u0275\u0275advance(8);
+      \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(57, 45, "Profile.Achievements.Title"), " ");
+      \u0275\u0275advance(3);
+      \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(60, 47, "Profile.Achievements.Text"));
+      \u0275\u0275advance(2);
+      \u0275\u0275conditional(ctx.achievements() ? 61 : -1);
+      \u0275\u0275advance(5);
+      \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(67, 49, "Profile.History.Title"), " ");
+      \u0275\u0275advance(3);
+      \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(70, 51, "Profile.History.Text"));
+      \u0275\u0275advance(2);
+      \u0275\u0275conditional(ctx.isGameHistoryLoading() ? 71 : !ctx.hasGameHistory() ? 72 : 73);
+      \u0275\u0275advance(7);
+      \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(79, 53, "Friends.Title"), " ");
+      \u0275\u0275advance(3);
+      \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(82, 55, "Friends.Text"));
       \u0275\u0275advance(4);
-      \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(30, 20, "Profile.GamesPlayedTitle"));
+      \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(86, 57, "Friends.Search.Title"));
       \u0275\u0275advance(2);
-      \u0275\u0275conditional(ctx.isLoading() ? 31 : ctx.error() ? 32 : !ctx.hasPlayedAnyGame() ? 33 : 34);
+      \u0275\u0275property("placeholder", \u0275\u0275pipeBind1(88, 59, "Friends.Search.Placeholder"));
+      \u0275\u0275advance(2);
+      \u0275\u0275conditional(ctx.hasSearched() ? 89 : -1);
+      \u0275\u0275advance(3);
+      \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(93, 61, "Friends.Requests.Title"));
+      \u0275\u0275advance(2);
+      \u0275\u0275conditional(!ctx.hasIncomingRequests() ? 94 : 95);
       \u0275\u0275advance(4);
+      \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(99, 63, "Friends.MyFriends.Title"));
+      \u0275\u0275advance(2);
+      \u0275\u0275conditional(ctx.isFriendsLoading() ? 100 : !ctx.hasFriends() ? 101 : 102);
+      \u0275\u0275advance(3);
       \u0275\u0275property("isModalOpen", ctx.modalOpen())("initialData", ctx.userData());
     }
-  }, dependencies: [HeaderComponent, FooterComponent, GenericButtonComponent, StateHandlerComponent, UpdateProfileComponent, TranslatePipe, DecimalPipe], styles: ["\n\n.profile-page[_ngcontent-%COMP%] {\n  gap: 2rem;\n  padding-bottom: 1rem;\n}\n.profile-hero[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.75rem;\n}\n.profile-avatar[_ngcontent-%COMP%] {\n  width: 96px;\n  height: 96px;\n  border-radius: var(--radius-full);\n  background: var(--button-color);\n  color: var(--button-text-color);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 2rem;\n  font-weight: 800;\n  letter-spacing: 1px;\n  box-shadow: var(--shadow-md);\n}\n.profile-info-card[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-lg);\n  box-shadow: var(--shadow-sm);\n  padding: 1.25rem 2rem;\n  margin-top: 0.5rem;\n}\n.profile-info-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.6rem;\n  font-size: 1.1rem;\n}\n.profile-info-row[_ngcontent-%COMP%]   .material-symbols-outlined[_ngcontent-%COMP%] {\n  font-size: 1.3rem !important;\n  opacity: 0.7;\n}\n.profile-actions[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 1rem;\n  margin-top: 0.5rem;\n  flex-wrap: wrap;\n  justify-content: center;\n}\n.profile-stats-section[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  width: 100%;\n}\n.profile-stats-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));\n  gap: 1.5rem;\n  max-width: 1000px;\n  width: 100%;\n  margin-top: 1rem;\n  padding: 0 1rem;\n  box-sizing: border-box;\n}\n.profile-stat-card[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-lg);\n  box-shadow: var(--shadow-sm);\n  padding: 1.5rem;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.profile-stat-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  box-shadow: var(--shadow-md);\n}\n.profile-stat-card[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin: 0 0 0.25rem 0;\n  text-align: center;\n}\n.profile-stat-row[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: baseline;\n  border-top: 1px solid var(--glass-border);\n  padding-top: 0.5rem;\n}\n.profile-stat-label[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  opacity: 0.7;\n}\n.profile-stat-value[_ngcontent-%COMP%] {\n  font-size: 1.3rem;\n  font-weight: 800;\n  color: var(--titles-color);\n}\n/*# sourceMappingURL=profile.page.css.map */"] });
+  }, dependencies: [HeaderComponent, FooterComponent, GenericButtonComponent, StateHandlerComponent, UpdateProfileComponent, TranslatePipe, DecimalPipe, DatePipe], styles: ["\n\n.profile-page[_ngcontent-%COMP%] {\n  display: block;\n  width: 100%;\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 2rem 1.5rem 3rem;\n  box-sizing: border-box;\n  text-align: left;\n}\n.profile-layout[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 280px 1fr;\n  gap: 2rem;\n  align-items: start;\n}\n.profile-sidebar[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  text-align: center;\n  gap: 0.5rem;\n  padding: 2rem 1.5rem;\n  position: sticky;\n  top: 1.5rem;\n  box-sizing: border-box;\n}\n.profile-avatar[_ngcontent-%COMP%] {\n  width: 88px;\n  height: 88px;\n  border-radius: var(--radius-full);\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n  color: var(--button-text-color);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 1.8rem;\n  font-weight: 800;\n  letter-spacing: 1px;\n  box-shadow: var(--shadow-md), 0 0 0 6px var(--accent-glow);\n}\n.profile-username[_ngcontent-%COMP%] {\n  font-size: 1.4rem;\n  font-weight: 800;\n  letter-spacing: 0.3px;\n  margin: 0.75rem 0 0;\n}\n.profile-greeting[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  color: var(--text-color);\n  opacity: 0.7;\n  margin: 0 0 0.5rem;\n}\n.profile-bio[_ngcontent-%COMP%] {\n  position: relative;\n  font-size: 0.9rem;\n  font-style: italic;\n  color: var(--text-color);\n  opacity: 0.9;\n  text-align: center;\n  line-height: 1.5;\n  margin: 0.25rem 0 0.75rem;\n  padding: 0.5rem 0.75rem 0.25rem;\n  border-radius: var(--radius-md, 10px);\n  background: color-mix(in srgb, var(--titles-color) 8%, transparent);\n}\n.profile-bio-quote[_ngcontent-%COMP%] {\n  font-size: 1.1rem !important;\n  vertical-align: -2px;\n  opacity: 0.6;\n  margin-right: 0.15rem;\n}\n.profile-info-card[_ngcontent-%COMP%] {\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  gap: 0.15rem;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-lg);\n  padding: 0.5rem;\n  margin-top: 0.5rem;\n  box-sizing: border-box;\n  box-shadow: var(--shadow-sm);\n}\n.profile-info-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  padding: 0.55rem 0.5rem;\n  border-radius: var(--radius-md, 10px);\n  overflow: hidden;\n  transition: background-color 0.2s ease;\n}\n.profile-info-row[_ngcontent-%COMP%]:hover {\n  background: color-mix(in srgb, var(--titles-color) 8%, transparent);\n}\n.profile-info-row[_ngcontent-%COMP%]    + .profile-info-row[_ngcontent-%COMP%] {\n  border-top: 1px solid var(--glass-border);\n}\n.profile-info-icon[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 36px;\n  height: 36px;\n  flex-shrink: 0;\n  border-radius: var(--radius-full);\n  background: color-mix(in srgb, var(--titles-color) 15%, transparent);\n}\n.profile-info-icon[_ngcontent-%COMP%]   .material-symbols-outlined[_ngcontent-%COMP%] {\n  font-size: 1.15rem !important;\n  color: var(--titles-color);\n}\n.profile-info-text[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.05rem;\n  min-width: 0;\n  text-align: left;\n}\n.profile-info-label[_ngcontent-%COMP%] {\n  font-size: 0.7rem;\n  text-transform: uppercase;\n  letter-spacing: 0.4px;\n  opacity: 0.6;\n}\n.profile-info-value[_ngcontent-%COMP%] {\n  font-size: 0.95rem;\n  font-weight: 600;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.profile-actions[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.75rem;\n  margin-top: 1rem;\n  width: 100%;\n}\n.profile-main[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 2.5rem;\n  min-width: 0;\n}\n.profile-kpi-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));\n  gap: 1rem;\n}\n.profile-kpi-card[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  text-align: center;\n  gap: 0.35rem;\n  padding: 1.25rem 1rem;\n}\n.profile-kpi-icon[_ngcontent-%COMP%] {\n  font-size: 1.7rem !important;\n  color: var(--titles-color);\n}\n.profile-kpi-value[_ngcontent-%COMP%] {\n  font-size: 1.5rem;\n  font-weight: 800;\n  color: var(--titles-color);\n}\n.profile-kpi-label[_ngcontent-%COMP%] {\n  font-size: 0.85rem;\n  opacity: 0.7;\n}\n.profile-section[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n}\n.profile-stats-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));\n  gap: 1.5rem;\n  width: 100%;\n  margin-top: 1rem;\n  box-sizing: border-box;\n}\n.profile-stat-card[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-lg);\n  box-shadow: var(--shadow-sm);\n  padding: 1.5rem;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.profile-stat-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  box-shadow: var(--shadow-md);\n}\n.profile-stat-card[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin: 0 0 0.25rem 0;\n  text-align: center;\n}\n.profile-stat-row[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  border-top: 1px solid var(--glass-border);\n  padding-top: 0.5rem;\n}\n.profile-stat-label[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.4rem;\n  font-size: 0.9rem;\n  opacity: 0.7;\n}\n.stat-icon[_ngcontent-%COMP%] {\n  font-size: 1.1rem !important;\n  opacity: 0.8;\n}\n.profile-stat-value[_ngcontent-%COMP%] {\n  font-size: 1.3rem;\n  font-weight: 800;\n  color: var(--titles-color);\n}\n.achievements-progress[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  width: 100%;\n  max-width: 320px;\n  margin-top: 1.25rem;\n}\n.achievements-progress-label[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  font-weight: 700;\n  color: var(--titles-color);\n  white-space: nowrap;\n}\n.achievements-progress-track[_ngcontent-%COMP%] {\n  flex: 1;\n  height: 8px;\n  border-radius: var(--radius-full);\n  background: var(--glass-border);\n  overflow: hidden;\n}\n.achievements-progress-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: var(--radius-full);\n  background:\n    linear-gradient(\n      90deg,\n      var(--button-color),\n      var(--titles-color));\n  transition: width 0.4s ease;\n}\n.profile-achievements-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));\n  gap: 1.5rem;\n  width: 100%;\n  margin-top: 1.5rem;\n  box-sizing: border-box;\n}\n.achievement-card[_ngcontent-%COMP%] {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  text-align: center;\n  gap: 0.5rem;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-lg);\n  box-shadow: var(--shadow-sm);\n  padding: 1.5rem;\n  transition:\n    transform 0.25s ease,\n    box-shadow 0.25s ease,\n    opacity 0.25s ease;\n}\n.achievement-card[_ngcontent-%COMP%]:not(.locked) {\n  border-color: color-mix(in srgb, var(--titles-color) 35%, var(--glass-border));\n  box-shadow: var(--shadow-sm), 0 0 20px var(--accent-glow);\n}\n.achievement-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  box-shadow: var(--shadow-md);\n}\n.achievement-card.locked[_ngcontent-%COMP%] {\n  opacity: 0.6;\n}\n.achievement-lock[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0.85rem;\n  right: 0.85rem;\n  font-size: 1.1rem !important;\n  opacity: 0.45;\n}\n.achievement-icon-badge[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 64px;\n  height: 64px;\n  border-radius: var(--radius-full);\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n  box-shadow: var(--shadow-sm);\n}\n.achievement-card.locked[_ngcontent-%COMP%]   .achievement-icon-badge[_ngcontent-%COMP%] {\n  background: var(--glass-border);\n  box-shadow: none;\n}\n.achievement-icon[_ngcontent-%COMP%] {\n  font-size: 2rem !important;\n  color: var(--button-text-color);\n}\n.achievement-card.locked[_ngcontent-%COMP%]   .achievement-icon[_ngcontent-%COMP%] {\n  color: var(--text-color);\n  opacity: 0.5;\n}\n.achievement-card[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin: 0;\n}\n.achievement-description[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  opacity: 0.8;\n  margin: 0;\n}\n.achievement-unlocked-at[_ngcontent-%COMP%] {\n  font-size: 0.8rem;\n  opacity: 0.6;\n  margin-top: 0.25rem;\n}\n.history-list[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  width: 100%;\n  margin-top: 1.25rem;\n  box-sizing: border-box;\n}\n.history-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 1rem;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-md, 10px);\n  padding: 0.75rem 1.25rem;\n  transition: transform 0.2s ease, box-shadow 0.2s ease;\n}\n.history-row[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: var(--shadow-sm);\n}\n.history-difficulty[_ngcontent-%COMP%] {\n  font-weight: 700;\n  min-width: 100px;\n}\n.history-stat[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.35rem;\n  font-size: 0.9rem;\n  opacity: 0.85;\n  min-width: 60px;\n}\n.history-date[_ngcontent-%COMP%] {\n  margin-left: auto;\n  font-size: 0.85rem;\n  opacity: 0.6;\n  white-space: nowrap;\n}\n.friends-subsection[_ngcontent-%COMP%] {\n  width: 100%;\n  margin-top: 1.5rem;\n}\n.friends-subsection-title[_ngcontent-%COMP%] {\n  margin: 0 0 0.5rem;\n}\n.friends-search-input[_ngcontent-%COMP%] {\n  width: 100%;\n  max-width: 420px;\n  box-sizing: border-box;\n}\n.friends-hint[_ngcontent-%COMP%] {\n  margin-top: 0.75rem;\n  opacity: 0.7;\n}\n.friends-list[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  margin-top: 1rem;\n}\n.friend-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  flex-wrap: wrap;\n  gap: 0.75rem;\n  background: var(--glass-bg);\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-md, 10px);\n  padding: 0.75rem 1.25rem;\n}\n.friend-username[_ngcontent-%COMP%] {\n  font-weight: 700;\n}\n.friend-row-actions[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 0.6rem;\n}\n.friend-status-pill[_ngcontent-%COMP%] {\n  font-size: 0.85rem;\n  font-weight: 600;\n  opacity: 0.7;\n  padding: 0.35rem 0.85rem;\n  border-radius: var(--radius-full);\n  background: var(--glass-border);\n}\n.friend-status-pill.friend-status-accepted[_ngcontent-%COMP%] {\n  opacity: 1;\n  color: var(--button-text-color);\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n}\n.pager[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.5rem;\n  margin-top: 1.75rem;\n}\n.pager-nav[_ngcontent-%COMP%], \n.pager-page[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 36px;\n  height: 36px;\n  padding: 0 0.5rem;\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-md, 10px);\n  background: var(--glass-bg);\n  color: var(--text-color);\n  cursor: pointer;\n  font-size: 0.9rem;\n  font-weight: 600;\n  transition:\n    background-color 0.2s ease,\n    border-color 0.2s ease,\n    color 0.2s ease;\n}\n.pager-nav[_ngcontent-%COMP%]   .material-symbols-outlined[_ngcontent-%COMP%] {\n  font-size: 1.2rem !important;\n}\n.pager-nav[_ngcontent-%COMP%]:hover:not(:disabled), \n.pager-page[_ngcontent-%COMP%]:hover:not(.active) {\n  border-color: var(--titles-color);\n}\n.pager-nav[_ngcontent-%COMP%]:disabled {\n  opacity: 0.4;\n  cursor: not-allowed;\n}\n.pager-page.active[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n  color: var(--button-text-color);\n  border-color: transparent;\n}\n.pager-pages[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.4rem;\n}\n.profile-section[_ngcontent-%COMP%]     .state-handler-container {\n  min-height: 220px;\n  padding: 1.5rem 1rem;\n}\n@media (max-width: 900px) {\n  .profile-layout[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .profile-sidebar[_ngcontent-%COMP%] {\n    position: static;\n  }\n}\n/*# sourceMappingURL=profile.page.css.map */"] });
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ProfilePage, [{
     type: Component,
-    args: [{ selector: "profile.page", imports: [TranslatePipe, HeaderComponent, FooterComponent, GenericButtonComponent, StateHandlerComponent, DecimalPipe, UpdateProfileComponent], template: `<header-component></header-component>
+    args: [{ selector: "profile.page", imports: [TranslatePipe, HeaderComponent, FooterComponent, GenericButtonComponent, StateHandlerComponent, DecimalPipe, DatePipe, UpdateProfileComponent], template: `<header-component></header-component>
 
-<div class="display-vertical profile-page">
-  <div class="profile-hero">
-    <div class="profile-avatar">{{ initials() }}</div>
-    <h1 class="title light-color">{{ 'Profile.Greetings' | translate : {name: currentUser().username} }}</h1>
-    <p class="text normal-max-width">
-      {{ 'Profile.Text' | translate }}
-    </p>
+<div class="profile-page">
+  <div class="profile-layout">
+    <aside class="profile-sidebar glass-panel">
+      <div class="profile-avatar">{{ initials() }}</div>
+      <h1 class="profile-username light-color">{{ currentUser().username }}</h1>
+      <p class="profile-greeting">{{ 'Profile.Greetings' | translate : {name: currentUser().username} }}</p>
 
-    <div class="profile-info-card">
-      <div class="profile-info-row">
-        <span class="material-symbols-outlined">person</span>
-        <span>{{ currentUser().username }}</span>
-      </div>
-      <div class="profile-info-row">
-        <span class="material-symbols-outlined">mail</span>
-        <span>{{ currentUser().email }}</span>
-      </div>
-    </div>
+      @if (currentUser().bio) {
+        <p class="profile-bio">
+          <span class="material-symbols-outlined profile-bio-quote">format_quote</span>
+          {{ currentUser().bio }}
+        </p>
+      }
 
-    <div class="profile-actions">
-      <generic-button-component [label]="'Profile.EditProfileButtonLabel' | translate" (onClick)="handleEditProfile()" />
-      <generic-button-component [label]="'Profile.LogoutLabel' | translate" (onClick)="handleLogout()" />
-    </div>
-  </div>
-
-  <div class="profile-stats-section">
-    <h2 class="medium-title light-color">{{ 'Profile.GamesPlayedTitle' | translate }}</h2>
-
-    @if (isLoading()) {
-      <state-handler-component
-        type="loading"
-        [title]="'Profile.Loading.Title' | translate"
-        [text]="'Profile.Loading.Text' | translate"
-      />
-    } @else if (error()) {
-      <state-handler-component
-        type="error"
-        [title]="'Profile.Error.Title' | translate"
-        [text]="error()!"
-        [buttonLabel]="'Play.Error.ActionButtonLabel' | translate"
-        (onClick)="loadData()"
-      />
-    } @else if (!hasPlayedAnyGame()) {
-      <state-handler-component
-        type="noResult"
-        [title]="'Profile.NoGamesTitle' | translate"
-        [text]="'Profile.NoGamesText' | translate"
-        [buttonLabel]="'Home.PlayNow' | translate"
-        (onClick)="handleGoToPlay()"
-      />
-    } @else {
-      <div class="profile-stats-grid">
-        @for (stat of playedStats(); track stat.difficulty.id) {
-          <div class="profile-stat-card">
-            <h3 class="light-color">{{ stat.difficulty.label }}</h3>
-
-            <div class="profile-stat-row">
-              <span class="profile-stat-label">{{ 'Profile.Stats.GamesPlayed' | translate }}</span>
-              <span class="profile-stat-value">{{ stat.gamesPlayed }}</span>
+      <div class="profile-info-card">
+        <div class="profile-info-row">
+          <span class="profile-info-icon">
+            <span class="material-symbols-outlined">person</span>
+          </span>
+          <div class="profile-info-text">
+            <span class="profile-info-label">{{ 'Profile.Info.Username' | translate }}</span>
+            <span class="profile-info-value">{{ currentUser().username }}</span>
+          </div>
+        </div>
+        <div class="profile-info-row">
+          <span class="profile-info-icon">
+            <span class="material-symbols-outlined">mail</span>
+          </span>
+          <div class="profile-info-text">
+            <span class="profile-info-label">{{ 'Profile.Info.Email' | translate }}</span>
+            <span class="profile-info-value">{{ currentUser().email }}</span>
+          </div>
+        </div>
+        @if (currentUser().country) {
+          <div class="profile-info-row">
+            <span class="profile-info-icon">
+              <span class="material-symbols-outlined">public</span>
+            </span>
+            <div class="profile-info-text">
+              <span class="profile-info-label">{{ 'Profile.Info.Country' | translate }}</span>
+              <span class="profile-info-value">{{ currentUser().country }}</span>
             </div>
-            <div class="profile-stat-row">
-              <span class="profile-stat-label">{{ 'Profile.Stats.AverageMoves' | translate }}</span>
-              <span class="profile-stat-value">{{ stat.averageMovesPerGame | number:'1.0-1' }}</span>
-            </div>
-            <div class="profile-stat-row">
-              <span class="profile-stat-label">{{ 'Profile.Stats.BestScore' | translate }}</span>
-              <span class="profile-stat-value">{{ stat.bestScore }}</span>
+          </div>
+        }
+        @if (currentUser().birthDate) {
+          <div class="profile-info-row">
+            <span class="profile-info-icon">
+              <span class="material-symbols-outlined">cake</span>
+            </span>
+            <div class="profile-info-text">
+              <span class="profile-info-label">{{ 'Profile.Info.BirthDate' | translate }}</span>
+              <span class="profile-info-value">{{ currentUser().birthDate | date:'dd/MM/yyyy' }}</span>
             </div>
           </div>
         }
       </div>
-    }
+
+      <div class="profile-actions">
+        <generic-button-component [label]="'Profile.EditProfileButtonLabel' | translate" (onClick)="handleEditProfile()" />
+        <generic-button-component [label]="'Profile.LogoutLabel' | translate" (onClick)="handleLogout()" />
+      </div>
+    </aside>
+
+    <main class="profile-main">
+      @if (hasPlayedAnyGame()) {
+        <div class="profile-kpi-grid">
+          <div class="profile-kpi-card glass-panel">
+            <span class="material-symbols-outlined profile-kpi-icon">sports_esports</span>
+            <span class="profile-kpi-value">{{ totalGamesPlayed() }}</span>
+            <span class="profile-kpi-label">{{ 'Profile.Kpi.TotalGames' | translate }}</span>
+          </div>
+          <div class="profile-kpi-card glass-panel">
+            <span class="material-symbols-outlined profile-kpi-icon">emoji_events</span>
+            <span class="profile-kpi-value">{{ unlockedAchievementsCount() }}/{{ totalAchievementsCount() }}</span>
+            <span class="profile-kpi-label">{{ 'Profile.Kpi.Achievements' | translate }}</span>
+          </div>
+          <div class="profile-kpi-card glass-panel">
+            <span class="material-symbols-outlined profile-kpi-icon">favorite</span>
+            <span class="profile-kpi-value">{{ favoriteDifficulty()?.label }}</span>
+            <span class="profile-kpi-label">{{ 'Profile.Kpi.FavoriteDifficulty' | translate }}</span>
+          </div>
+        </div>
+      }
+
+      <section class="profile-section">
+        <h2 class="medium-title light-color section-title">
+          <span class="material-symbols-outlined">bar_chart</span>
+          {{ 'Profile.GamesPlayedTitle' | translate }}
+        </h2>
+
+        @if (isLoading()) {
+          <state-handler-component
+            type="loading"
+            [title]="'Profile.Loading.Title' | translate"
+            [text]="'Profile.Loading.Text' | translate"
+          />
+        } @else if (error()) {
+          <state-handler-component
+            type="error"
+            [title]="'Profile.Error.Title' | translate"
+            [text]="error()!"
+            [buttonLabel]="'Play.Error.ActionButtonLabel' | translate"
+            (onClick)="loadData()"
+          />
+        } @else if (!hasPlayedAnyGame()) {
+          <state-handler-component
+            type="noResult"
+            [title]="'Profile.NoGamesTitle' | translate"
+            [text]="'Profile.NoGamesText' | translate"
+            [buttonLabel]="'Home.PlayNow' | translate"
+            (onClick)="handleGoToPlay()"
+          />
+        } @else {
+          <div class="profile-stats-grid">
+            @for (stat of playedStats(); track stat.difficulty.id) {
+              <div class="profile-stat-card">
+                <h3 class="light-color">{{ stat.difficulty.label }}</h3>
+
+                <div class="profile-stat-row">
+                  <span class="profile-stat-label">
+                    <span class="material-symbols-outlined stat-icon">sports_esports</span>
+                    {{ 'Profile.Stats.GamesPlayed' | translate }}
+                  </span>
+                  <span class="profile-stat-value">{{ stat.gamesPlayed }}</span>
+                </div>
+                <div class="profile-stat-row">
+                  <span class="profile-stat-label">
+                    <span class="material-symbols-outlined stat-icon">swipe</span>
+                    {{ 'Profile.Stats.AverageMoves' | translate }}
+                  </span>
+                  <span class="profile-stat-value">{{ stat.averageMovesPerGame | number:'1.0-1' }}</span>
+                </div>
+                <div class="profile-stat-row">
+                  <span class="profile-stat-label">
+                    <span class="material-symbols-outlined stat-icon">timer</span>
+                    {{ 'Profile.Stats.AverageTime' | translate }}
+                  </span>
+                  <span class="profile-stat-value">{{ formatTime(stat.averageTimePerGame) }}</span>
+                </div>
+                <div class="profile-stat-row">
+                  <span class="profile-stat-label">
+                    <span class="material-symbols-outlined stat-icon">emoji_events</span>
+                    {{ 'Profile.Stats.BestScore' | translate }}
+                  </span>
+                  <span class="profile-stat-value">{{ stat.bestScore }}</span>
+                </div>
+              </div>
+            }
+          </div>
+        }
+      </section>
+
+      <section class="profile-section">
+        <h2 class="medium-title light-color section-title">
+          <span class="material-symbols-outlined">emoji_events</span>
+          {{ 'Profile.Achievements.Title' | translate }}
+        </h2>
+        <p class="text normal-max-width">{{ 'Profile.Achievements.Text' | translate }}</p>
+
+        @if (achievements()) {
+          <div class="achievements-progress">
+            <span class="achievements-progress-label">{{ unlockedAchievementsCount() }} / {{ totalAchievementsCount() }}</span>
+            <div class="achievements-progress-track">
+              <div class="achievements-progress-fill" [style.width.%]="achievementsProgress()"></div>
+            </div>
+          </div>
+
+          <div class="profile-achievements-grid">
+            @for (achievement of pagedAchievements(); track achievement.id) {
+              <div class="achievement-card" [class.locked]="!achievement.unlocked">
+                @if (!achievement.unlocked) {
+                  <span class="material-symbols-outlined achievement-lock">lock</span>
+                }
+                <span class="achievement-icon-badge">
+                  <span class="material-symbols-outlined achievement-icon">{{ achievement.icon }}</span>
+                </span>
+                <h3 class="light-color">{{ achievement.name }}</h3>
+                <p class="achievement-description">{{ achievement.description }}</p>
+                @if (achievement.unlocked) {
+                  <span class="achievement-unlocked-at">{{ achievement.unlockedAt | date:'dd/MM/yyyy' }}</span>
+                }
+              </div>
+            }
+          </div>
+
+          @if (totalAchievementsPages() > 1) {
+            <div class="pager">
+              <button
+                type="button"
+                class="pager-nav"
+                [disabled]="achievementsPage() === 1"
+                (click)="handleAchievementsPrevPage()"
+                [attr.aria-label]="'Common.Previous' | translate"
+              >
+                <span class="material-symbols-outlined">chevron_left</span>
+              </button>
+
+              <div class="pager-pages">
+                @for (page of achievementsPageNumbers(); track page) {
+                  <button
+                    type="button"
+                    class="pager-page"
+                    [class.active]="achievementsPage() === page"
+                    (click)="handleAchievementsGoToPage(page)"
+                  >
+                    {{ page }}
+                  </button>
+                }
+              </div>
+
+              <button
+                type="button"
+                class="pager-nav"
+                [disabled]="achievementsPage() === totalAchievementsPages()"
+                (click)="handleAchievementsNextPage()"
+                [attr.aria-label]="'Common.Next' | translate"
+              >
+                <span class="material-symbols-outlined">chevron_right</span>
+              </button>
+            </div>
+          }
+        }
+      </section>
+
+      <section class="profile-section">
+        <h2 class="medium-title light-color section-title">
+          <span class="material-symbols-outlined">history</span>
+          {{ 'Profile.History.Title' | translate }}
+        </h2>
+        <p class="text normal-max-width">{{ 'Profile.History.Text' | translate }}</p>
+
+        @if (isGameHistoryLoading()) {
+          <state-handler-component
+            type="loading"
+            [title]="'Profile.History.Loading.Title' | translate"
+            [text]="'Profile.History.Loading.Text' | translate"
+          />
+        } @else if (!hasGameHistory()) {
+          <state-handler-component
+            type="noResult"
+            [title]="'Profile.History.NoHistoryTitle' | translate"
+            [text]="'Profile.History.NoHistoryText' | translate"
+            [buttonLabel]="'Home.PlayNow' | translate"
+            (onClick)="handleGoToPlay()"
+          />
+        } @else {
+          <div class="history-list">
+            @for (entry of gameHistory(); track entry.id) {
+              <div class="history-row">
+                <span class="history-difficulty light-color">{{ entry.difficulty.label }}</span>
+                <span class="history-stat">
+                  <span class="material-symbols-outlined stat-icon">swipe</span>
+                  {{ entry.moves }}
+                </span>
+                <span class="history-stat">
+                  <span class="material-symbols-outlined stat-icon">timer</span>
+                  {{ formatTime(entry.durationSeconds) }}
+                </span>
+                <span class="history-date">{{ entry.playedAt | date:'dd/MM/yyyy HH:mm' }}</span>
+              </div>
+            }
+          </div>
+
+          @if (gameHistoryTotalPages() > 1) {
+            <div class="pager">
+              <button
+                type="button"
+                class="pager-nav"
+                [disabled]="gameHistoryPage() === 1"
+                (click)="handleGameHistoryPrevPage()"
+                [attr.aria-label]="'Common.Previous' | translate"
+              >
+                <span class="material-symbols-outlined">chevron_left</span>
+              </button>
+
+              <div class="pager-pages">
+                @for (page of gameHistoryPageNumbers(); track page) {
+                  <button
+                    type="button"
+                    class="pager-page"
+                    [class.active]="gameHistoryPage() === page"
+                    (click)="handleGameHistoryGoToPage(page)"
+                  >
+                    {{ page }}
+                  </button>
+                }
+              </div>
+
+              <button
+                type="button"
+                class="pager-nav"
+                [disabled]="gameHistoryPage() === gameHistoryTotalPages()"
+                (click)="handleGameHistoryNextPage()"
+                [attr.aria-label]="'Common.Next' | translate"
+              >
+                <span class="material-symbols-outlined">chevron_right</span>
+              </button>
+            </div>
+          }
+        }
+      </section>
+
+      <section class="profile-section">
+        <h2 class="medium-title light-color section-title">
+          <span class="material-symbols-outlined">group</span>
+          {{ 'Friends.Title' | translate }}
+        </h2>
+        <p class="text normal-max-width">{{ 'Friends.Text' | translate }}</p>
+
+        <div class="friends-subsection">
+          <h3 class="light-color friends-subsection-title">{{ 'Friends.Search.Title' | translate }}</h3>
+
+          <input
+            type="text"
+            class="input-field friends-search-input"
+            [placeholder]="'Friends.Search.Placeholder' | translate"
+            (input)="handleFriendSearchInput($any($event.target).value)"
+          />
+
+          @if (hasSearched()) {
+            @if (isSearching()) {
+              <p class="text friends-hint">{{ 'Friends.Search.Searching' | translate }}</p>
+            } @else if ((searchResults() ?? []).length === 0) {
+              <p class="text friends-hint">{{ 'Friends.Search.NoResults' | translate }}</p>
+            } @else {
+              <div class="friends-list">
+                @for (result of searchResults(); track result.userId) {
+                  <div class="friend-row">
+                    <span class="friend-username light-color">{{ result.username }}</span>
+
+                    @switch (result.status) {
+                      @case ('None') {
+                        <generic-button-component [label]="'Friends.Search.AddButton' | translate" (onClick)="handleSendFriendRequest(result.userId)"></generic-button-component>
+                      }
+                      @case ('PendingOutgoing') {
+                        <span class="friend-status-pill">{{ 'Friends.Search.PendingLabel' | translate }}</span>
+                      }
+                      @case ('PendingIncoming') {
+                        <span class="friend-status-pill">{{ 'Friends.Search.PendingIncomingLabel' | translate }}</span>
+                      }
+                      @case ('Friends') {
+                        <span class="friend-status-pill friend-status-accepted">{{ 'Friends.Search.FriendsLabel' | translate }}</span>
+                      }
+                      @case ('Declined') {
+                        <span class="friend-status-pill">{{ 'Friends.Search.DeclinedLabel' | translate }}</span>
+                      }
+                    }
+                  </div>
+                }
+              </div>
+            }
+          }
+        </div>
+
+        <div class="friends-subsection">
+          <h3 class="light-color friends-subsection-title">{{ 'Friends.Requests.Title' | translate }}</h3>
+
+          @if (!hasIncomingRequests()) {
+            <p class="text friends-hint">{{ 'Friends.Requests.Empty' | translate }}</p>
+          } @else {
+            <div class="friends-list">
+              @for (request of incomingRequests(); track request.friendshipId) {
+                <div class="friend-row">
+                  <span class="friend-username light-color">{{ request.fromUsername }}</span>
+                  <div class="friend-row-actions">
+                    <generic-button-component [label]="'Common.Accept' | translate" (onClick)="handleAcceptFriendRequest(request.friendshipId)"></generic-button-component>
+                    <generic-button-component [label]="'Common.Decline' | translate" (onClick)="handleDeclineFriendRequest(request.friendshipId)"></generic-button-component>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="friends-subsection">
+          <h3 class="light-color friends-subsection-title">{{ 'Friends.MyFriends.Title' | translate }}</h3>
+
+          @if (isFriendsLoading()) {
+            <state-handler-component
+              type="loading"
+              [title]="'Friends.MyFriends.Loading.Title' | translate"
+              [text]="'Friends.MyFriends.Loading.Text' | translate"
+            />
+          } @else if (!hasFriends()) {
+            <state-handler-component
+              type="noResult"
+              [title]="'Friends.MyFriends.EmptyTitle' | translate"
+              [text]="'Friends.MyFriends.EmptyText' | translate"
+            />
+          } @else {
+            <div class="friends-list">
+              @for (friend of friends(); track friend.friendshipId) {
+                <div class="friend-row">
+                  <span class="friend-username light-color">{{ friend.username }}</span>
+                  <div class="friend-row-actions">
+                    <generic-button-component [label]="'Friends.MyFriends.ViewButton' | translate" (onClick)="handleViewFriendProfile(friend.userId)"></generic-button-component>
+                    <generic-button-component [label]="'Friends.MyFriends.RemoveButton' | translate" (onClick)="handleRemoveFriend(friend.friendshipId)"></generic-button-component>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      </section>
+    </main>
   </div>
 </div>
 
 <update-profile-component [isModalOpen]="modalOpen()" (onClose)="handleCloseModal()" [initialData]="userData()" (onSaveProfile)="handleSaveProfile($event)"></update-profile-component>
 
 <footer-component></footer-component>
-`, styles: ["/* src/app/pages/profile/profile.page.css */\n.profile-page {\n  gap: 2rem;\n  padding-bottom: 1rem;\n}\n.profile-hero {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.75rem;\n}\n.profile-avatar {\n  width: 96px;\n  height: 96px;\n  border-radius: var(--radius-full);\n  background: var(--button-color);\n  color: var(--button-text-color);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 2rem;\n  font-weight: 800;\n  letter-spacing: 1px;\n  box-shadow: var(--shadow-md);\n}\n.profile-info-card {\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-lg);\n  box-shadow: var(--shadow-sm);\n  padding: 1.25rem 2rem;\n  margin-top: 0.5rem;\n}\n.profile-info-row {\n  display: flex;\n  align-items: center;\n  gap: 0.6rem;\n  font-size: 1.1rem;\n}\n.profile-info-row .material-symbols-outlined {\n  font-size: 1.3rem !important;\n  opacity: 0.7;\n}\n.profile-actions {\n  display: flex;\n  gap: 1rem;\n  margin-top: 0.5rem;\n  flex-wrap: wrap;\n  justify-content: center;\n}\n.profile-stats-section {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  width: 100%;\n}\n.profile-stats-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));\n  gap: 1.5rem;\n  max-width: 1000px;\n  width: 100%;\n  margin-top: 1rem;\n  padding: 0 1rem;\n  box-sizing: border-box;\n}\n.profile-stat-card {\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-lg);\n  box-shadow: var(--shadow-sm);\n  padding: 1.5rem;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.profile-stat-card:hover {\n  transform: translateY(-4px);\n  box-shadow: var(--shadow-md);\n}\n.profile-stat-card h3 {\n  margin: 0 0 0.25rem 0;\n  text-align: center;\n}\n.profile-stat-row {\n  display: flex;\n  justify-content: space-between;\n  align-items: baseline;\n  border-top: 1px solid var(--glass-border);\n  padding-top: 0.5rem;\n}\n.profile-stat-label {\n  font-size: 0.9rem;\n  opacity: 0.7;\n}\n.profile-stat-value {\n  font-size: 1.3rem;\n  font-weight: 800;\n  color: var(--titles-color);\n}\n/*# sourceMappingURL=profile.page.css.map */\n"] }]
+`, styles: ["/* src/app/pages/profile/profile.page.css */\n.profile-page {\n  display: block;\n  width: 100%;\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 2rem 1.5rem 3rem;\n  box-sizing: border-box;\n  text-align: left;\n}\n.profile-layout {\n  display: grid;\n  grid-template-columns: 280px 1fr;\n  gap: 2rem;\n  align-items: start;\n}\n.profile-sidebar {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  text-align: center;\n  gap: 0.5rem;\n  padding: 2rem 1.5rem;\n  position: sticky;\n  top: 1.5rem;\n  box-sizing: border-box;\n}\n.profile-avatar {\n  width: 88px;\n  height: 88px;\n  border-radius: var(--radius-full);\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n  color: var(--button-text-color);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 1.8rem;\n  font-weight: 800;\n  letter-spacing: 1px;\n  box-shadow: var(--shadow-md), 0 0 0 6px var(--accent-glow);\n}\n.profile-username {\n  font-size: 1.4rem;\n  font-weight: 800;\n  letter-spacing: 0.3px;\n  margin: 0.75rem 0 0;\n}\n.profile-greeting {\n  font-size: 0.9rem;\n  color: var(--text-color);\n  opacity: 0.7;\n  margin: 0 0 0.5rem;\n}\n.profile-bio {\n  position: relative;\n  font-size: 0.9rem;\n  font-style: italic;\n  color: var(--text-color);\n  opacity: 0.9;\n  text-align: center;\n  line-height: 1.5;\n  margin: 0.25rem 0 0.75rem;\n  padding: 0.5rem 0.75rem 0.25rem;\n  border-radius: var(--radius-md, 10px);\n  background: color-mix(in srgb, var(--titles-color) 8%, transparent);\n}\n.profile-bio-quote {\n  font-size: 1.1rem !important;\n  vertical-align: -2px;\n  opacity: 0.6;\n  margin-right: 0.15rem;\n}\n.profile-info-card {\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  gap: 0.15rem;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-lg);\n  padding: 0.5rem;\n  margin-top: 0.5rem;\n  box-sizing: border-box;\n  box-shadow: var(--shadow-sm);\n}\n.profile-info-row {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  padding: 0.55rem 0.5rem;\n  border-radius: var(--radius-md, 10px);\n  overflow: hidden;\n  transition: background-color 0.2s ease;\n}\n.profile-info-row:hover {\n  background: color-mix(in srgb, var(--titles-color) 8%, transparent);\n}\n.profile-info-row + .profile-info-row {\n  border-top: 1px solid var(--glass-border);\n}\n.profile-info-icon {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 36px;\n  height: 36px;\n  flex-shrink: 0;\n  border-radius: var(--radius-full);\n  background: color-mix(in srgb, var(--titles-color) 15%, transparent);\n}\n.profile-info-icon .material-symbols-outlined {\n  font-size: 1.15rem !important;\n  color: var(--titles-color);\n}\n.profile-info-text {\n  display: flex;\n  flex-direction: column;\n  gap: 0.05rem;\n  min-width: 0;\n  text-align: left;\n}\n.profile-info-label {\n  font-size: 0.7rem;\n  text-transform: uppercase;\n  letter-spacing: 0.4px;\n  opacity: 0.6;\n}\n.profile-info-value {\n  font-size: 0.95rem;\n  font-weight: 600;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.profile-actions {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.75rem;\n  margin-top: 1rem;\n  width: 100%;\n}\n.profile-main {\n  display: flex;\n  flex-direction: column;\n  gap: 2.5rem;\n  min-width: 0;\n}\n.profile-kpi-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));\n  gap: 1rem;\n}\n.profile-kpi-card {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  text-align: center;\n  gap: 0.35rem;\n  padding: 1.25rem 1rem;\n}\n.profile-kpi-icon {\n  font-size: 1.7rem !important;\n  color: var(--titles-color);\n}\n.profile-kpi-value {\n  font-size: 1.5rem;\n  font-weight: 800;\n  color: var(--titles-color);\n}\n.profile-kpi-label {\n  font-size: 0.85rem;\n  opacity: 0.7;\n}\n.profile-section {\n  display: flex;\n  flex-direction: column;\n}\n.profile-stats-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));\n  gap: 1.5rem;\n  width: 100%;\n  margin-top: 1rem;\n  box-sizing: border-box;\n}\n.profile-stat-card {\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-lg);\n  box-shadow: var(--shadow-sm);\n  padding: 1.5rem;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.profile-stat-card:hover {\n  transform: translateY(-4px);\n  box-shadow: var(--shadow-md);\n}\n.profile-stat-card h3 {\n  margin: 0 0 0.25rem 0;\n  text-align: center;\n}\n.profile-stat-row {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  border-top: 1px solid var(--glass-border);\n  padding-top: 0.5rem;\n}\n.profile-stat-label {\n  display: flex;\n  align-items: center;\n  gap: 0.4rem;\n  font-size: 0.9rem;\n  opacity: 0.7;\n}\n.stat-icon {\n  font-size: 1.1rem !important;\n  opacity: 0.8;\n}\n.profile-stat-value {\n  font-size: 1.3rem;\n  font-weight: 800;\n  color: var(--titles-color);\n}\n.achievements-progress {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  width: 100%;\n  max-width: 320px;\n  margin-top: 1.25rem;\n}\n.achievements-progress-label {\n  font-size: 0.9rem;\n  font-weight: 700;\n  color: var(--titles-color);\n  white-space: nowrap;\n}\n.achievements-progress-track {\n  flex: 1;\n  height: 8px;\n  border-radius: var(--radius-full);\n  background: var(--glass-border);\n  overflow: hidden;\n}\n.achievements-progress-fill {\n  height: 100%;\n  border-radius: var(--radius-full);\n  background:\n    linear-gradient(\n      90deg,\n      var(--button-color),\n      var(--titles-color));\n  transition: width 0.4s ease;\n}\n.profile-achievements-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));\n  gap: 1.5rem;\n  width: 100%;\n  margin-top: 1.5rem;\n  box-sizing: border-box;\n}\n.achievement-card {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  text-align: center;\n  gap: 0.5rem;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-lg);\n  box-shadow: var(--shadow-sm);\n  padding: 1.5rem;\n  transition:\n    transform 0.25s ease,\n    box-shadow 0.25s ease,\n    opacity 0.25s ease;\n}\n.achievement-card:not(.locked) {\n  border-color: color-mix(in srgb, var(--titles-color) 35%, var(--glass-border));\n  box-shadow: var(--shadow-sm), 0 0 20px var(--accent-glow);\n}\n.achievement-card:hover {\n  transform: translateY(-4px);\n  box-shadow: var(--shadow-md);\n}\n.achievement-card.locked {\n  opacity: 0.6;\n}\n.achievement-lock {\n  position: absolute;\n  top: 0.85rem;\n  right: 0.85rem;\n  font-size: 1.1rem !important;\n  opacity: 0.45;\n}\n.achievement-icon-badge {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 64px;\n  height: 64px;\n  border-radius: var(--radius-full);\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n  box-shadow: var(--shadow-sm);\n}\n.achievement-card.locked .achievement-icon-badge {\n  background: var(--glass-border);\n  box-shadow: none;\n}\n.achievement-icon {\n  font-size: 2rem !important;\n  color: var(--button-text-color);\n}\n.achievement-card.locked .achievement-icon {\n  color: var(--text-color);\n  opacity: 0.5;\n}\n.achievement-card h3 {\n  margin: 0;\n}\n.achievement-description {\n  font-size: 0.9rem;\n  opacity: 0.8;\n  margin: 0;\n}\n.achievement-unlocked-at {\n  font-size: 0.8rem;\n  opacity: 0.6;\n  margin-top: 0.25rem;\n}\n.history-list {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  width: 100%;\n  margin-top: 1.25rem;\n  box-sizing: border-box;\n}\n.history-row {\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 1rem;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-md, 10px);\n  padding: 0.75rem 1.25rem;\n  transition: transform 0.2s ease, box-shadow 0.2s ease;\n}\n.history-row:hover {\n  transform: translateY(-2px);\n  box-shadow: var(--shadow-sm);\n}\n.history-difficulty {\n  font-weight: 700;\n  min-width: 100px;\n}\n.history-stat {\n  display: flex;\n  align-items: center;\n  gap: 0.35rem;\n  font-size: 0.9rem;\n  opacity: 0.85;\n  min-width: 60px;\n}\n.history-date {\n  margin-left: auto;\n  font-size: 0.85rem;\n  opacity: 0.6;\n  white-space: nowrap;\n}\n.friends-subsection {\n  width: 100%;\n  margin-top: 1.5rem;\n}\n.friends-subsection-title {\n  margin: 0 0 0.5rem;\n}\n.friends-search-input {\n  width: 100%;\n  max-width: 420px;\n  box-sizing: border-box;\n}\n.friends-hint {\n  margin-top: 0.75rem;\n  opacity: 0.7;\n}\n.friends-list {\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  margin-top: 1rem;\n}\n.friend-row {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  flex-wrap: wrap;\n  gap: 0.75rem;\n  background: var(--glass-bg);\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-md, 10px);\n  padding: 0.75rem 1.25rem;\n}\n.friend-username {\n  font-weight: 700;\n}\n.friend-row-actions {\n  display: flex;\n  gap: 0.6rem;\n}\n.friend-status-pill {\n  font-size: 0.85rem;\n  font-weight: 600;\n  opacity: 0.7;\n  padding: 0.35rem 0.85rem;\n  border-radius: var(--radius-full);\n  background: var(--glass-border);\n}\n.friend-status-pill.friend-status-accepted {\n  opacity: 1;\n  color: var(--button-text-color);\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n}\n.pager {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.5rem;\n  margin-top: 1.75rem;\n}\n.pager-nav,\n.pager-page {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 36px;\n  height: 36px;\n  padding: 0 0.5rem;\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-md, 10px);\n  background: var(--glass-bg);\n  color: var(--text-color);\n  cursor: pointer;\n  font-size: 0.9rem;\n  font-weight: 600;\n  transition:\n    background-color 0.2s ease,\n    border-color 0.2s ease,\n    color 0.2s ease;\n}\n.pager-nav .material-symbols-outlined {\n  font-size: 1.2rem !important;\n}\n.pager-nav:hover:not(:disabled),\n.pager-page:hover:not(.active) {\n  border-color: var(--titles-color);\n}\n.pager-nav:disabled {\n  opacity: 0.4;\n  cursor: not-allowed;\n}\n.pager-page.active {\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n  color: var(--button-text-color);\n  border-color: transparent;\n}\n.pager-pages {\n  display: flex;\n  align-items: center;\n  gap: 0.4rem;\n}\n.profile-section ::ng-deep .state-handler-container {\n  min-height: 220px;\n  padding: 1.5rem 1rem;\n}\n@media (max-width: 900px) {\n  .profile-layout {\n    grid-template-columns: 1fr;\n  }\n  .profile-sidebar {\n    position: static;\n  }\n}\n/*# sourceMappingURL=profile.page.css.map */\n"] }]
   }], () => [], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ProfilePage, { className: "ProfilePage", filePath: "src/app/pages/profile/profile.page.ts", lineNumber: 38 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ProfilePage, { className: "ProfilePage", filePath: "src/app/pages/profile/profile.page.ts", lineNumber: 48 });
 })();
 
 // src/app/guards/authGuard.Guard.ts
@@ -66974,37 +68889,14 @@ var BaseChartDirective = _BaseChartDirective;
   });
 })();
 
-// src/app/services/leaderboard-service.service.ts
-var LeaderboardService = class _LeaderboardService {
-  http = inject2(HttpClient);
-  API_URL = getApiUrl("LEADERBOARD");
-  getLeaderboard() {
-    return this.http.get(this.API_URL);
-  }
-  static \u0275fac = function LeaderboardService_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _LeaderboardService)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _LeaderboardService, factory: _LeaderboardService.\u0275fac, providedIn: "root" });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(LeaderboardService, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], null, null);
-})();
-
 // src/app/pages/dashboard/dashboard.page.ts
 var _c09 = ["class", "page"];
-var _c12 = (a0) => ({ games: a0 });
-var _c2 = (a0) => ({ moves: a0 });
-var _forTrack04 = ($index, $item) => $item.username;
-var _forTrack1 = ($index, $item) => $item.difficulty.id;
-var _forTrack2 = ($index, $item) => $item.username + $item.moves;
-function DashboardPage_Conditional_10_Template(rf, ctx) {
+var _c14 = (a0) => ({ games: a0 });
+var _forTrack05 = ($index, $item) => $item.username;
+var _forTrack12 = ($index, $item) => $item.difficulty.id;
+function DashboardPage_Conditional_9_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275element(0, "state-handler-component", 5);
+    \u0275\u0275element(0, "state-handler-component", 4);
     \u0275\u0275pipe(1, "translate");
     \u0275\u0275pipe(2, "translate");
   }
@@ -67012,14 +68904,14 @@ function DashboardPage_Conditional_10_Template(rf, ctx) {
     \u0275\u0275property("title", \u0275\u0275pipeBind1(1, 2, "Dashboard.Loading.Title"))("text", \u0275\u0275pipeBind1(2, 4, "Dashboard.Loading.Text"));
   }
 }
-function DashboardPage_Conditional_11_Template(rf, ctx) {
+function DashboardPage_Conditional_10_Template(rf, ctx) {
   if (rf & 1) {
     const _r1 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "state-handler-component", 8);
+    \u0275\u0275elementStart(0, "state-handler-component", 7);
     \u0275\u0275pipe(1, "translate");
     \u0275\u0275pipe(2, "translate");
     \u0275\u0275pipe(3, "translate");
-    \u0275\u0275listener("onClick", function DashboardPage_Conditional_11_Template_state_handler_component_onClick_0_listener() {
+    \u0275\u0275listener("onClick", function DashboardPage_Conditional_10_Template_state_handler_component_onClick_0_listener() {
       \u0275\u0275restoreView(_r1);
       const ctx_r1 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r1.loadLeaderboard());
@@ -67030,14 +68922,14 @@ function DashboardPage_Conditional_11_Template(rf, ctx) {
     \u0275\u0275property("title", \u0275\u0275pipeBind1(1, 3, "Dashboard.Error.Title"))("text", \u0275\u0275pipeBind1(2, 5, "Dashboard.Error.Text"))("buttonLabel", \u0275\u0275pipeBind1(3, 7, "Dashboard.Error.ActionButtonLabel"));
   }
 }
-function DashboardPage_Conditional_12_Template(rf, ctx) {
+function DashboardPage_Conditional_11_Template(rf, ctx) {
   if (rf & 1) {
     const _r3 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "state-handler-component", 9);
+    \u0275\u0275elementStart(0, "state-handler-component", 8);
     \u0275\u0275pipe(1, "translate");
     \u0275\u0275pipe(2, "translate");
     \u0275\u0275pipe(3, "translate");
-    \u0275\u0275listener("onClick", function DashboardPage_Conditional_12_Template_state_handler_component_onClick_0_listener() {
+    \u0275\u0275listener("onClick", function DashboardPage_Conditional_11_Template_state_handler_component_onClick_0_listener() {
       \u0275\u0275restoreView(_r3);
       const ctx_r1 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r1.handleGoToPlay());
@@ -67048,118 +68940,185 @@ function DashboardPage_Conditional_12_Template(rf, ctx) {
     \u0275\u0275property("title", \u0275\u0275pipeBind1(1, 3, "Dashboard.NoResultTitle"))("text", \u0275\u0275pipeBind1(2, 5, "Dashboard.NoResultText"))("buttonLabel", \u0275\u0275pipeBind1(3, 7, "Home.PlayNow"));
   }
 }
-function DashboardPage_Conditional_13_For_6_Template(rf, ctx) {
+function DashboardPage_Conditional_12_For_9_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "li", 13)(1, "span", 17);
-    \u0275\u0275text(2);
+    \u0275\u0275elementStart(0, "div", 20)(1, "span", 21);
+    \u0275\u0275text(2, "military_tech");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "span", 18);
+    \u0275\u0275elementStart(3, "span", 22);
     \u0275\u0275text(4);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "span", 19);
+    \u0275\u0275elementStart(5, "span", 23);
     \u0275\u0275text(6);
-    \u0275\u0275pipe(7, "translate");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(7, "span", 24);
+    \u0275\u0275text(8);
+    \u0275\u0275pipe(9, "translate");
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
     const player_r4 = ctx.$implicit;
-    const \u0275$index_43_r5 = ctx.$index;
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(\u0275$index_43_r5 + 1);
+    const \u0275$index_46_r5 = ctx.$index;
+    \u0275\u0275classProp("podium-place-1", \u0275$index_46_r5 === 0)("podium-place-2", \u0275$index_46_r5 === 1)("podium-place-3", \u0275$index_46_r5 === 2);
+    \u0275\u0275advance(4);
+    \u0275\u0275textInterpolate1("#", \u0275$index_46_r5 + 1);
     \u0275\u0275advance(2);
     \u0275\u0275textInterpolate(player_r4.username);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(\u0275\u0275pipeBind2(7, 3, "Dashboard.TopPlayersRank", \u0275\u0275pureFunction1(6, _c12, player_r4.gamesCompleted)));
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind2(9, 9, "Dashboard.TopPlayersRank", \u0275\u0275pureFunction1(12, _c14, player_r4.gamesCompleted)));
   }
 }
-function DashboardPage_Conditional_13_For_19_Conditional_0_For_5_Template(rf, ctx) {
+function DashboardPage_Conditional_12_Conditional_10_For_2_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "li", 13)(1, "span", 17);
+    \u0275\u0275elementStart(0, "li", 25)(1, "span", 26);
     \u0275\u0275text(2);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "span", 18);
+    \u0275\u0275elementStart(3, "span", 27);
     \u0275\u0275text(4);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "span", 19);
+    \u0275\u0275elementStart(5, "span", 28);
     \u0275\u0275text(6);
     \u0275\u0275pipe(7, "translate");
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const score_r6 = ctx.$implicit;
-    const \u0275$index_83_r7 = ctx.$index;
+    const player_r6 = ctx.$implicit;
+    const \u0275$index_65_r7 = ctx.$index;
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(\u0275$index_83_r7 + 1);
+    \u0275\u0275textInterpolate(\u0275$index_65_r7 + 4);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(score_r6.username);
+    \u0275\u0275textInterpolate(player_r6.username);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(\u0275\u0275pipeBind2(7, 3, "Dashboard.BestScoresEntry", \u0275\u0275pureFunction1(6, _c2, score_r6.moves)));
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind2(7, 3, "Dashboard.TopPlayersRank", \u0275\u0275pureFunction1(6, _c14, player_r6.gamesCompleted)));
   }
 }
-function DashboardPage_Conditional_13_For_19_Conditional_0_Template(rf, ctx) {
+function DashboardPage_Conditional_12_Conditional_10_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 20)(1, "h3", 21);
+    \u0275\u0275elementStart(0, "ol", 15);
+    \u0275\u0275repeaterCreate(1, DashboardPage_Conditional_12_Conditional_10_For_2_Template, 8, 8, "li", 25, _forTrack05);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance();
+    \u0275\u0275repeater(ctx_r1.restPlayers());
+  }
+}
+function DashboardPage_Conditional_12_For_27_Conditional_0_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 29)(1, "h3", 30);
     \u0275\u0275text(2);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "ol", 22);
-    \u0275\u0275repeaterCreate(4, DashboardPage_Conditional_13_For_19_Conditional_0_For_5_Template, 8, 8, "li", 13, _forTrack2);
+    \u0275\u0275elementStart(3, "div", 31);
+    \u0275\u0275element(4, "canvas", 17);
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
     const entry_r8 = \u0275\u0275nextContext().$implicit;
+    const ctx_r1 = \u0275\u0275nextContext(2);
     \u0275\u0275advance(2);
     \u0275\u0275textInterpolate(entry_r8.difficulty.label);
     \u0275\u0275advance(2);
-    \u0275\u0275repeater(entry_r8.topScores);
+    \u0275\u0275property("data", ctx_r1.getScoreChartData(entry_r8))("options", ctx_r1.rankedChartOptions());
   }
 }
-function DashboardPage_Conditional_13_For_19_Template(rf, ctx) {
+function DashboardPage_Conditional_12_For_27_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275conditionalCreate(0, DashboardPage_Conditional_13_For_19_Conditional_0_Template, 6, 1, "div", 20);
+    \u0275\u0275conditionalCreate(0, DashboardPage_Conditional_12_For_27_Conditional_0_Template, 5, 3, "div", 29);
   }
   if (rf & 2) {
     const entry_r8 = ctx.$implicit;
     \u0275\u0275conditional(entry_r8.topScores.length > 0 ? 0 : -1);
   }
 }
-function DashboardPage_Conditional_13_Template(rf, ctx) {
+function DashboardPage_Conditional_12_For_36_Conditional_0_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 10)(1, "h2", 11);
+    \u0275\u0275elementStart(0, "div", 29)(1, "h3", 30);
     \u0275\u0275text(2);
-    \u0275\u0275pipe(3, "translate");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(4, "ol", 12);
-    \u0275\u0275repeaterCreate(5, DashboardPage_Conditional_13_For_6_Template, 8, 8, "li", 13, _forTrack04);
+    \u0275\u0275elementStart(3, "div", 31);
+    \u0275\u0275element(4, "canvas", 17);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(7, "div", 10)(8, "h2", 11);
-    \u0275\u0275text(9);
-    \u0275\u0275pipe(10, "translate");
+  }
+  if (rf & 2) {
+    const entry_r9 = \u0275\u0275nextContext().$implicit;
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(entry_r9.difficulty.label);
+    \u0275\u0275advance(2);
+    \u0275\u0275property("data", ctx_r1.getTimeChartData(entry_r9))("options", ctx_r1.timeChartOptions());
+  }
+}
+function DashboardPage_Conditional_12_For_36_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275conditionalCreate(0, DashboardPage_Conditional_12_For_36_Conditional_0_Template, 5, 3, "div", 29);
+  }
+  if (rf & 2) {
+    const entry_r9 = ctx.$implicit;
+    \u0275\u0275conditional(entry_r9.topTimes.length > 0 ? 0 : -1);
+  }
+}
+function DashboardPage_Conditional_12_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 9)(1, "section", 10)(2, "h2", 11)(3, "span", 12);
+    \u0275\u0275text(4, "leaderboard");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(11, "div", 14);
-    \u0275\u0275element(12, "canvas", 15);
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(13, "div", 10)(14, "h2", 11);
+    \u0275\u0275text(5);
+    \u0275\u0275pipe(6, "translate");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(7, "div", 13);
+    \u0275\u0275repeaterCreate(8, DashboardPage_Conditional_12_For_9_Template, 10, 14, "div", 14, _forTrack05);
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(10, DashboardPage_Conditional_12_Conditional_10_Template, 3, 0, "ol", 15);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(11, "section", 10)(12, "h2", 11)(13, "span", 12);
+    \u0275\u0275text(14, "bar_chart");
+    \u0275\u0275elementEnd();
     \u0275\u0275text(15);
     \u0275\u0275pipe(16, "translate");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(17, "div", 16);
-    \u0275\u0275repeaterCreate(18, DashboardPage_Conditional_13_For_19_Template, 1, 1, null, null, _forTrack1);
+    \u0275\u0275element(18, "canvas", 17);
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(19, "div", 18)(20, "h2", 11)(21, "span", 12);
+    \u0275\u0275text(22, "emoji_events");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(23);
+    \u0275\u0275pipe(24, "translate");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(25, "div", 19);
+    \u0275\u0275repeaterCreate(26, DashboardPage_Conditional_12_For_27_Template, 1, 1, null, null, _forTrack12);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(28, "div", 18)(29, "h2", 11)(30, "span", 12);
+    \u0275\u0275text(31, "timer");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(32);
+    \u0275\u0275pipe(33, "translate");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(34, "div", 19);
+    \u0275\u0275repeaterCreate(35, DashboardPage_Conditional_12_For_36_Template, 1, 1, null, null, _forTrack12);
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
     const ctx_r1 = \u0275\u0275nextContext();
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(3, 5, "Dashboard.TopPlayersTitle"));
+    \u0275\u0275advance(5);
+    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(6, 7, "Dashboard.TopPlayersTitle"), " ");
     \u0275\u0275advance(3);
-    \u0275\u0275repeater(ctx_r1.leaderboard().topPlayers);
-    \u0275\u0275advance(4);
-    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(10, 7, "Dashboard.GamesPerDifficultyTitle"));
+    \u0275\u0275repeater(ctx_r1.topThreePlayers());
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(ctx_r1.restPlayers().length > 0 ? 10 : -1);
+    \u0275\u0275advance(5);
+    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(16, 9, "Dashboard.GamesPerDifficultyTitle"), " ");
     \u0275\u0275advance(3);
     \u0275\u0275property("data", ctx_r1.chartData())("options", ctx_r1.chartOptions());
-    \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(16, 9, "Dashboard.BestScoresTitle"));
+    \u0275\u0275advance(5);
+    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(24, 11, "Dashboard.BestScoresTitle"), " ");
     \u0275\u0275advance(3);
     \u0275\u0275repeater(ctx_r1.leaderboard().bestScoresPerDifficulty);
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(33, 13, "Dashboard.BestTimesTitle"), " ");
+    \u0275\u0275advance(3);
+    \u0275\u0275repeater(ctx_r1.leaderboard().bestTimesPerDifficulty);
   }
 }
 var DashboardPage = class _DashboardPage {
@@ -67171,6 +69130,8 @@ var DashboardPage = class _DashboardPage {
   hasError = signal(false, ...ngDevMode ? [{ debugName: "hasError" }] : []);
   leaderboard = signal(null, ...ngDevMode ? [{ debugName: "leaderboard" }] : []);
   hasData = computed(() => (this.leaderboard()?.topPlayers.length ?? 0) > 0, ...ngDevMode ? [{ debugName: "hasData" }] : []);
+  topThreePlayers = computed(() => this.leaderboard()?.topPlayers.slice(0, 3) ?? [], ...ngDevMode ? [{ debugName: "topThreePlayers" }] : []);
+  restPlayers = computed(() => this.leaderboard()?.topPlayers.slice(3) ?? [], ...ngDevMode ? [{ debugName: "restPlayers" }] : []);
   chartData = computed(() => {
     const gamesPerDifficulty = this.leaderboard()?.gamesPerDifficulty ?? [];
     const barColor = this.themeService.theme() === THEMES.DARK ? "#00bcd4" : "#1e3a8a";
@@ -67218,6 +69179,7 @@ var DashboardPage = class _DashboardPage {
       }
     };
   }, ...ngDevMode ? [{ debugName: "chartOptions" }] : []);
+  static RANK_COLORS = ["#f5c518", "#c0c0c0", "#cd7f32"];
   constructor() {
     effect(() => {
       this.languageService.language();
@@ -67227,6 +69189,104 @@ var DashboardPage = class _DashboardPage {
   handleGoToPlay() {
     this.navigationService.goToPlay();
   }
+  formatTime(totalSeconds) {
+    return formatDuration(totalSeconds);
+  }
+  getRankedBarColor(index2) {
+    const barColor = this.themeService.theme() === THEMES.DARK ? "#00bcd4" : "#1e3a8a";
+    return _DashboardPage.RANK_COLORS[index2] ?? barColor;
+  }
+  getScoreChartData(entry) {
+    return {
+      labels: entry.topScores.map((s) => s.username),
+      datasets: [{
+        data: entry.topScores.map((s) => s.moves),
+        backgroundColor: entry.topScores.map((_, i) => this.getRankedBarColor(i)),
+        maxBarThickness: 22,
+        borderRadius: { topLeft: 0, bottomLeft: 0, topRight: 4, bottomRight: 4 },
+        borderSkipped: false
+      }]
+    };
+  }
+  getTimeChartData(entry) {
+    return {
+      labels: entry.topTimes.map((t) => t.username),
+      datasets: [{
+        data: entry.topTimes.map((t) => t.durationSeconds),
+        backgroundColor: entry.topTimes.map((_, i) => this.getRankedBarColor(i)),
+        maxBarThickness: 22,
+        borderRadius: { topLeft: 0, bottomLeft: 0, topRight: 4, bottomRight: 4 },
+        borderSkipped: false
+      }]
+    };
+  }
+  rankedChartOptions = computed(() => {
+    const isDark = this.themeService.theme() === THEMES.DARK;
+    const textColor = isDark ? "#ffffff" : "#0f172a";
+    const gridColor = isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(15, 23, 42, 0.08)";
+    const surfaceColor = isDark ? "#1e293b" : "#ffffff";
+    return {
+      indexAxis: "y",
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: surfaceColor,
+          titleColor: textColor,
+          bodyColor: textColor,
+          borderColor: gridColor,
+          borderWidth: 1
+        }
+      },
+      scales: {
+        x: {
+          beginAtZero: true,
+          ticks: { color: textColor, precision: 0 },
+          grid: { color: gridColor }
+        },
+        y: {
+          ticks: { color: textColor },
+          grid: { display: false }
+        }
+      }
+    };
+  }, ...ngDevMode ? [{ debugName: "rankedChartOptions" }] : []);
+  timeChartOptions = computed(() => {
+    const isDark = this.themeService.theme() === THEMES.DARK;
+    const textColor = isDark ? "#ffffff" : "#0f172a";
+    const gridColor = isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(15, 23, 42, 0.08)";
+    const surfaceColor = isDark ? "#1e293b" : "#ffffff";
+    return {
+      indexAxis: "y",
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: surfaceColor,
+          titleColor: textColor,
+          bodyColor: textColor,
+          borderColor: gridColor,
+          borderWidth: 1,
+          callbacks: {
+            label: (context2) => this.formatTime(context2.parsed.x ?? 0)
+          }
+        }
+      },
+      scales: {
+        x: {
+          beginAtZero: true,
+          ticks: { color: textColor, callback: (value) => this.formatTime(Number(value)) },
+          grid: { color: gridColor }
+        },
+        y: {
+          ticks: { color: textColor },
+          grid: { display: false }
+        }
+      }
+    };
+  }, ...ngDevMode ? [{ debugName: "timeChartOptions" }] : []);
   loadLeaderboard() {
     this.isLoading.set(true);
     this.hasError.set(false);
@@ -67246,44 +69306,40 @@ var DashboardPage = class _DashboardPage {
   static \u0275fac = function DashboardPage_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _DashboardPage)();
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _DashboardPage, selectors: [["dashboard", 8, "page"]], attrs: _c09, decls: 15, vars: 7, consts: [[1, "display-vertical"], [1, "display-center-vertical-nogap"], [1, "title", "light-color"], [1, "normal-max-width"], [1, "text", "custom-max-width"], ["type", "loading", 3, "title", "text"], ["type", "error", 3, "title", "text", "buttonLabel"], ["type", "noResult", 3, "title", "text", "buttonLabel"], ["type", "error", 3, "onClick", "title", "text", "buttonLabel"], ["type", "noResult", 3, "onClick", "title", "text", "buttonLabel"], [1, "normal-max-width", "display-vertical", "dashboard-section"], [1, "medium-title", "light-color"], [1, "ranking-list", "custom-max-width"], [1, "ranking-item"], [1, "chart-container", "custom-max-width"], ["baseChart", "", "type", "bar", 3, "data", "options"], [1, "difficulty-container"], [1, "ranking-position"], [1, "ranking-name", "text-color"], [1, "ranking-value", "text"], [1, "best-score-card"], [1, "light-color"], [1, "ranking-list"]], template: function DashboardPage_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _DashboardPage, selectors: [["dashboard", 8, "page"]], attrs: _c09, decls: 14, vars: 7, consts: [[1, "dashboard-page"], [1, "dashboard-hero"], [1, "title", "light-color"], [1, "text", "custom-max-width"], ["type", "loading", 3, "title", "text"], ["type", "error", 3, "title", "text", "buttonLabel"], ["type", "noResult", 3, "title", "text", "buttonLabel"], ["type", "error", 3, "onClick", "title", "text", "buttonLabel"], ["type", "noResult", 3, "onClick", "title", "text", "buttonLabel"], [1, "dashboard-layout"], [1, "dashboard-panel", "glass-panel"], [1, "medium-title", "light-color", "section-title"], [1, "material-symbols-outlined"], [1, "podium"], [1, "podium-place", 3, "podium-place-1", "podium-place-2", "podium-place-3"], [1, "ranking-list"], [1, "chart-container"], ["baseChart", "", "type", "bar", 3, "data", "options"], [1, "dashboard-section"], [1, "difficulty-container"], [1, "podium-place"], [1, "material-symbols-outlined", "podium-medal"], [1, "podium-rank"], [1, "podium-name", "text-color"], [1, "podium-value"], [1, "ranking-item"], [1, "ranking-position"], [1, "ranking-name", "text-color"], [1, "ranking-value", "text"], [1, "best-score-card"], [1, "light-color"], [1, "difficulty-chart-container"]], template: function DashboardPage_Template(rf, ctx) {
     if (rf & 1) {
       \u0275\u0275element(0, "header-component");
       \u0275\u0275elementStart(1, "div", 0)(2, "div", 1)(3, "h1", 2);
       \u0275\u0275text(4);
       \u0275\u0275pipe(5, "translate");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(6, "div", 3)(7, "p", 4);
-      \u0275\u0275text(8);
-      \u0275\u0275pipe(9, "translate");
-      \u0275\u0275elementEnd()()();
-      \u0275\u0275conditionalCreate(10, DashboardPage_Conditional_10_Template, 3, 6, "state-handler-component", 5)(11, DashboardPage_Conditional_11_Template, 4, 9, "state-handler-component", 6)(12, DashboardPage_Conditional_12_Template, 4, 9, "state-handler-component", 7)(13, DashboardPage_Conditional_13_Template, 20, 11);
+      \u0275\u0275elementStart(6, "p", 3);
+      \u0275\u0275text(7);
+      \u0275\u0275pipe(8, "translate");
+      \u0275\u0275elementEnd()();
+      \u0275\u0275conditionalCreate(9, DashboardPage_Conditional_9_Template, 3, 6, "state-handler-component", 4)(10, DashboardPage_Conditional_10_Template, 4, 9, "state-handler-component", 5)(11, DashboardPage_Conditional_11_Template, 4, 9, "state-handler-component", 6)(12, DashboardPage_Conditional_12_Template, 37, 15);
       \u0275\u0275elementEnd();
-      \u0275\u0275element(14, "footer-component");
+      \u0275\u0275element(13, "footer-component");
     }
     if (rf & 2) {
       \u0275\u0275advance(4);
       \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(5, 3, "Dashboard.Title"));
-      \u0275\u0275advance(4);
-      \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(9, 5, "Dashboard.Text"), " ");
+      \u0275\u0275advance(3);
+      \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(8, 5, "Dashboard.Text"));
       \u0275\u0275advance(2);
-      \u0275\u0275conditional(ctx.isLoading() ? 10 : ctx.hasError() ? 11 : !ctx.hasData() ? 12 : 13);
+      \u0275\u0275conditional(ctx.isLoading() ? 9 : ctx.hasError() ? 10 : !ctx.hasData() ? 11 : 12);
     }
-  }, dependencies: [HeaderComponent, FooterComponent, StateHandlerComponent, BaseChartDirective, TranslatePipe], styles: ["\n\n.dashboard-section[_ngcontent-%COMP%] {\n  width: 100%;\n  margin-bottom: 1rem;\n}\n.ranking-list[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 1rem 0 0 0;\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n}\n.ranking-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-md);\n  box-shadow: var(--shadow-sm);\n  padding: 0.75rem 1.25rem;\n  text-align: left;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.ranking-item[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: var(--shadow-md);\n}\n.ranking-position[_ngcontent-%COMP%] {\n  flex-shrink: 0;\n  width: 2rem;\n  height: 2rem;\n  border-radius: var(--radius-full);\n  background-color: var(--button-color);\n  color: var(--button-text-color);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-weight: 900;\n}\n.ranking-name[_ngcontent-%COMP%] {\n  flex: 1;\n  font-weight: 700;\n  word-break: break-word;\n}\n.ranking-value[_ngcontent-%COMP%] {\n  flex-shrink: 0;\n  font-size: 1rem;\n}\n.chart-container[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 420px;\n}\n.best-score-card[_ngcontent-%COMP%] {\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-lg);\n  box-shadow: var(--shadow-sm);\n  padding: 1.5rem;\n  min-width: 280px;\n  max-width: 380px;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.best-score-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  box-shadow: var(--shadow-md);\n}\n@media (max-width: 768px) {\n  .ranking-item[_ngcontent-%COMP%] {\n    flex-wrap: wrap;\n  }\n  .chart-container[_ngcontent-%COMP%] {\n    height: 360px;\n  }\n}\n/*# sourceMappingURL=dashboard.page.css.map */"] });
+  }, dependencies: [HeaderComponent, FooterComponent, StateHandlerComponent, BaseChartDirective, TranslatePipe], styles: ["\n\n.dashboard-page[_ngcontent-%COMP%] {\n  display: block;\n  width: 100%;\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 2rem 1.5rem 3rem;\n  box-sizing: border-box;\n}\n.dashboard-hero[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  text-align: center;\n  gap: 0.5rem;\n  margin-bottom: 2rem;\n}\n.dashboard-layout[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1.1fr 1fr;\n  gap: 2rem;\n  align-items: start;\n  text-align: left;\n}\n.dashboard-panel[_ngcontent-%COMP%] {\n  padding: 1.75rem;\n  box-sizing: border-box;\n  min-width: 0;\n}\n.dashboard-section[_ngcontent-%COMP%] {\n  width: 100%;\n  text-align: left;\n  margin-top: 2.5rem;\n}\n.podium[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: flex-end;\n  justify-content: center;\n  gap: 1rem;\n  margin: 1.5rem 0;\n  flex-wrap: wrap;\n}\n.podium-place[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  text-align: center;\n  gap: 0.35rem;\n  background: var(--glass-bg);\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-lg);\n  padding: 1.1rem 1rem;\n  flex: 1;\n  min-width: 110px;\n  max-width: 180px;\n  box-sizing: border-box;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.podium-place[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n}\n.podium-place-1[_ngcontent-%COMP%] {\n  order: 2;\n  padding-top: 1.75rem;\n  padding-bottom: 1.5rem;\n  box-shadow: var(--shadow-md), 0 0 24px rgba(245, 197, 24, 0.25);\n  border-color: color-mix(in srgb, #f5c518 45%, var(--glass-border));\n}\n.podium-place-2[_ngcontent-%COMP%] {\n  order: 1;\n}\n.podium-place-3[_ngcontent-%COMP%] {\n  order: 3;\n}\n.podium-medal[_ngcontent-%COMP%] {\n  font-size: 1.9rem !important;\n}\n.podium-place-1[_ngcontent-%COMP%]   .podium-medal[_ngcontent-%COMP%] {\n  font-size: 2.3rem !important;\n  color: #f5c518;\n}\n.podium-place-2[_ngcontent-%COMP%]   .podium-medal[_ngcontent-%COMP%] {\n  color: #c0c0c0;\n}\n.podium-place-3[_ngcontent-%COMP%]   .podium-medal[_ngcontent-%COMP%] {\n  color: #cd7f32;\n}\n.podium-rank[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  font-weight: 800;\n  opacity: 0.55;\n}\n.podium-name[_ngcontent-%COMP%] {\n  font-weight: 700;\n  word-break: break-word;\n}\n.podium-value[_ngcontent-%COMP%] {\n  font-size: 0.8rem;\n  opacity: 0.75;\n}\n.ranking-list[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 1rem 0 0 0;\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n}\n.ranking-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-md);\n  box-shadow: var(--shadow-sm);\n  padding: 0.75rem 1.25rem;\n  text-align: left;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.ranking-item[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: var(--shadow-md);\n}\n.ranking-position[_ngcontent-%COMP%] {\n  flex-shrink: 0;\n  width: 2rem;\n  height: 2rem;\n  border-radius: var(--radius-full);\n  background-color: var(--button-color);\n  color: var(--button-text-color);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-weight: 900;\n}\n.ranking-position.rank-gold[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #f5c518,\n      #d4a017);\n  color: #3a2e00;\n}\n.ranking-position.rank-silver[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #e2e2e2,\n      #a9a9a9);\n  color: #2a2a2a;\n}\n.ranking-position.rank-bronze[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #cd7f32,\n      #a05a2c);\n  color: #ffffff;\n}\n.ranking-name[_ngcontent-%COMP%] {\n  flex: 1;\n  font-weight: 700;\n  word-break: break-word;\n}\n.ranking-value[_ngcontent-%COMP%] {\n  flex-shrink: 0;\n  font-size: 1rem;\n}\n.chart-container[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 380px;\n  margin-top: 1rem;\n}\n.difficulty-chart-container[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 200px;\n  margin-top: 1rem;\n}\n.best-score-card[_ngcontent-%COMP%] {\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-lg);\n  box-shadow: var(--shadow-sm);\n  padding: 1.5rem;\n  min-width: 300px;\n  max-width: 420px;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.best-score-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  box-shadow: var(--shadow-md);\n}\n@media (max-width: 900px) {\n  .dashboard-layout[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n}\n@media (max-width: 768px) {\n  .ranking-item[_ngcontent-%COMP%] {\n    flex-wrap: wrap;\n  }\n  .chart-container[_ngcontent-%COMP%] {\n    height: 320px;\n  }\n  .difficulty-chart-container[_ngcontent-%COMP%] {\n    height: 180px;\n  }\n}\n/*# sourceMappingURL=dashboard.page.css.map */"] });
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(DashboardPage, [{
     type: Component,
     args: [{ selector: "dashboard.page", imports: [TranslatePipe, HeaderComponent, FooterComponent, StateHandlerComponent, BaseChartDirective], template: `<header-component></header-component>
 
-<div class="display-vertical">
-  <div class="display-center-vertical-nogap">
+<div class="dashboard-page">
+  <div class="dashboard-hero">
     <h1 class="title light-color">{{ 'Dashboard.Title' | translate }}</h1>
-    <div class="normal-max-width">
-      <p class="text custom-max-width">
-        {{ 'Dashboard.Text' | translate }}
-      </p>
-    </div>
+    <p class="text custom-max-width">{{ 'Dashboard.Text' | translate }}</p>
   </div>
 
   @if (isLoading()) {
@@ -67309,42 +69365,80 @@ var DashboardPage = class _DashboardPage {
       (onClick)="handleGoToPlay()"
     />
   } @else {
-    <div class="normal-max-width display-vertical dashboard-section">
-      <h2 class="medium-title light-color">{{ 'Dashboard.TopPlayersTitle' | translate }}</h2>
-      <ol class="ranking-list custom-max-width">
-        @for (player of leaderboard()!.topPlayers; track player.username; let i = $index) {
-          <li class="ranking-item">
-            <span class="ranking-position">{{ i + 1 }}</span>
-            <span class="ranking-name text-color">{{ player.username }}</span>
-            <span class="ranking-value text">{{ 'Dashboard.TopPlayersRank' | translate: { games: player.gamesCompleted } }}</span>
-          </li>
+    <div class="dashboard-layout">
+      <section class="dashboard-panel glass-panel">
+        <h2 class="medium-title light-color section-title">
+          <span class="material-symbols-outlined">leaderboard</span>
+          {{ 'Dashboard.TopPlayersTitle' | translate }}
+        </h2>
+
+        <div class="podium">
+          @for (player of topThreePlayers(); track player.username; let i = $index) {
+            <div class="podium-place" [class.podium-place-1]="i === 0" [class.podium-place-2]="i === 1" [class.podium-place-3]="i === 2">
+              <span class="material-symbols-outlined podium-medal">military_tech</span>
+              <span class="podium-rank">#{{ i + 1 }}</span>
+              <span class="podium-name text-color">{{ player.username }}</span>
+              <span class="podium-value">{{ 'Dashboard.TopPlayersRank' | translate: { games: player.gamesCompleted } }}</span>
+            </div>
+          }
+        </div>
+
+        @if (restPlayers().length > 0) {
+          <ol class="ranking-list">
+            @for (player of restPlayers(); track player.username; let i = $index) {
+              <li class="ranking-item">
+                <span class="ranking-position">{{ i + 4 }}</span>
+                <span class="ranking-name text-color">{{ player.username }}</span>
+                <span class="ranking-value text">{{ 'Dashboard.TopPlayersRank' | translate: { games: player.gamesCompleted } }}</span>
+              </li>
+            }
+          </ol>
         }
-      </ol>
+      </section>
+
+      <section class="dashboard-panel glass-panel">
+        <h2 class="medium-title light-color section-title">
+          <span class="material-symbols-outlined">bar_chart</span>
+          {{ 'Dashboard.GamesPerDifficultyTitle' | translate }}
+        </h2>
+        <div class="chart-container">
+          <canvas baseChart [data]="chartData()" [options]="chartOptions()" type="bar"></canvas>
+        </div>
+      </section>
     </div>
 
-    <div class="normal-max-width display-vertical dashboard-section">
-      <h2 class="medium-title light-color">{{ 'Dashboard.GamesPerDifficultyTitle' | translate }}</h2>
-      <div class="chart-container custom-max-width">
-        <canvas baseChart [data]="chartData()" [options]="chartOptions()" type="bar"></canvas>
-      </div>
-    </div>
-
-    <div class="normal-max-width display-vertical dashboard-section">
-      <h2 class="medium-title light-color">{{ 'Dashboard.BestScoresTitle' | translate }}</h2>
+    <div class="dashboard-section">
+      <h2 class="medium-title light-color section-title">
+        <span class="material-symbols-outlined">emoji_events</span>
+        {{ 'Dashboard.BestScoresTitle' | translate }}
+      </h2>
       <div class="difficulty-container">
         @for (entry of leaderboard()!.bestScoresPerDifficulty; track entry.difficulty.id) {
           @if (entry.topScores.length > 0) {
             <div class="best-score-card">
               <h3 class="light-color">{{ entry.difficulty.label }}</h3>
-              <ol class="ranking-list">
-                @for (score of entry.topScores; track score.username + score.moves; let i = $index) {
-                  <li class="ranking-item">
-                    <span class="ranking-position">{{ i + 1 }}</span>
-                    <span class="ranking-name text-color">{{ score.username }}</span>
-                    <span class="ranking-value text">{{ 'Dashboard.BestScoresEntry' | translate: { moves: score.moves } }}</span>
-                  </li>
-                }
-              </ol>
+              <div class="difficulty-chart-container">
+                <canvas baseChart [data]="getScoreChartData(entry)" [options]="rankedChartOptions()" type="bar"></canvas>
+              </div>
+            </div>
+          }
+        }
+      </div>
+    </div>
+
+    <div class="dashboard-section">
+      <h2 class="medium-title light-color section-title">
+        <span class="material-symbols-outlined">timer</span>
+        {{ 'Dashboard.BestTimesTitle' | translate }}
+      </h2>
+      <div class="difficulty-container">
+        @for (entry of leaderboard()!.bestTimesPerDifficulty; track entry.difficulty.id) {
+          @if (entry.topTimes.length > 0) {
+            <div class="best-score-card">
+              <h3 class="light-color">{{ entry.difficulty.label }}</h3>
+              <div class="difficulty-chart-container">
+                <canvas baseChart [data]="getTimeChartData(entry)" [options]="timeChartOptions()" type="bar"></canvas>
+              </div>
             </div>
           }
         }
@@ -67354,11 +69448,790 @@ var DashboardPage = class _DashboardPage {
 </div>
 
 <footer-component></footer-component>
-`, styles: ["/* src/app/pages/dashboard/dashboard.page.css */\n.dashboard-section {\n  width: 100%;\n  margin-bottom: 1rem;\n}\n.ranking-list {\n  list-style: none;\n  padding: 0;\n  margin: 1rem 0 0 0;\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n}\n.ranking-item {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-md);\n  box-shadow: var(--shadow-sm);\n  padding: 0.75rem 1.25rem;\n  text-align: left;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.ranking-item:hover {\n  transform: translateY(-2px);\n  box-shadow: var(--shadow-md);\n}\n.ranking-position {\n  flex-shrink: 0;\n  width: 2rem;\n  height: 2rem;\n  border-radius: var(--radius-full);\n  background-color: var(--button-color);\n  color: var(--button-text-color);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-weight: 900;\n}\n.ranking-name {\n  flex: 1;\n  font-weight: 700;\n  word-break: break-word;\n}\n.ranking-value {\n  flex-shrink: 0;\n  font-size: 1rem;\n}\n.chart-container {\n  width: 100%;\n  height: 420px;\n}\n.best-score-card {\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-lg);\n  box-shadow: var(--shadow-sm);\n  padding: 1.5rem;\n  min-width: 280px;\n  max-width: 380px;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.best-score-card:hover {\n  transform: translateY(-4px);\n  box-shadow: var(--shadow-md);\n}\n@media (max-width: 768px) {\n  .ranking-item {\n    flex-wrap: wrap;\n  }\n  .chart-container {\n    height: 360px;\n  }\n}\n/*# sourceMappingURL=dashboard.page.css.map */\n"] }]
+`, styles: ["/* src/app/pages/dashboard/dashboard.page.css */\n.dashboard-page {\n  display: block;\n  width: 100%;\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 2rem 1.5rem 3rem;\n  box-sizing: border-box;\n}\n.dashboard-hero {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  text-align: center;\n  gap: 0.5rem;\n  margin-bottom: 2rem;\n}\n.dashboard-layout {\n  display: grid;\n  grid-template-columns: 1.1fr 1fr;\n  gap: 2rem;\n  align-items: start;\n  text-align: left;\n}\n.dashboard-panel {\n  padding: 1.75rem;\n  box-sizing: border-box;\n  min-width: 0;\n}\n.dashboard-section {\n  width: 100%;\n  text-align: left;\n  margin-top: 2.5rem;\n}\n.podium {\n  display: flex;\n  align-items: flex-end;\n  justify-content: center;\n  gap: 1rem;\n  margin: 1.5rem 0;\n  flex-wrap: wrap;\n}\n.podium-place {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  text-align: center;\n  gap: 0.35rem;\n  background: var(--glass-bg);\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-lg);\n  padding: 1.1rem 1rem;\n  flex: 1;\n  min-width: 110px;\n  max-width: 180px;\n  box-sizing: border-box;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.podium-place:hover {\n  transform: translateY(-4px);\n}\n.podium-place-1 {\n  order: 2;\n  padding-top: 1.75rem;\n  padding-bottom: 1.5rem;\n  box-shadow: var(--shadow-md), 0 0 24px rgba(245, 197, 24, 0.25);\n  border-color: color-mix(in srgb, #f5c518 45%, var(--glass-border));\n}\n.podium-place-2 {\n  order: 1;\n}\n.podium-place-3 {\n  order: 3;\n}\n.podium-medal {\n  font-size: 1.9rem !important;\n}\n.podium-place-1 .podium-medal {\n  font-size: 2.3rem !important;\n  color: #f5c518;\n}\n.podium-place-2 .podium-medal {\n  color: #c0c0c0;\n}\n.podium-place-3 .podium-medal {\n  color: #cd7f32;\n}\n.podium-rank {\n  font-size: 0.75rem;\n  font-weight: 800;\n  opacity: 0.55;\n}\n.podium-name {\n  font-weight: 700;\n  word-break: break-word;\n}\n.podium-value {\n  font-size: 0.8rem;\n  opacity: 0.75;\n}\n.ranking-list {\n  list-style: none;\n  padding: 0;\n  margin: 1rem 0 0 0;\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n}\n.ranking-item {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-md);\n  box-shadow: var(--shadow-sm);\n  padding: 0.75rem 1.25rem;\n  text-align: left;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.ranking-item:hover {\n  transform: translateY(-2px);\n  box-shadow: var(--shadow-md);\n}\n.ranking-position {\n  flex-shrink: 0;\n  width: 2rem;\n  height: 2rem;\n  border-radius: var(--radius-full);\n  background-color: var(--button-color);\n  color: var(--button-text-color);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-weight: 900;\n}\n.ranking-position.rank-gold {\n  background:\n    linear-gradient(\n      135deg,\n      #f5c518,\n      #d4a017);\n  color: #3a2e00;\n}\n.ranking-position.rank-silver {\n  background:\n    linear-gradient(\n      135deg,\n      #e2e2e2,\n      #a9a9a9);\n  color: #2a2a2a;\n}\n.ranking-position.rank-bronze {\n  background:\n    linear-gradient(\n      135deg,\n      #cd7f32,\n      #a05a2c);\n  color: #ffffff;\n}\n.ranking-name {\n  flex: 1;\n  font-weight: 700;\n  word-break: break-word;\n}\n.ranking-value {\n  flex-shrink: 0;\n  font-size: 1rem;\n}\n.chart-container {\n  width: 100%;\n  height: 380px;\n  margin-top: 1rem;\n}\n.difficulty-chart-container {\n  width: 100%;\n  height: 200px;\n  margin-top: 1rem;\n}\n.best-score-card {\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-lg);\n  box-shadow: var(--shadow-sm);\n  padding: 1.5rem;\n  min-width: 300px;\n  max-width: 420px;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.best-score-card:hover {\n  transform: translateY(-4px);\n  box-shadow: var(--shadow-md);\n}\n@media (max-width: 900px) {\n  .dashboard-layout {\n    grid-template-columns: 1fr;\n  }\n}\n@media (max-width: 768px) {\n  .ranking-item {\n    flex-wrap: wrap;\n  }\n  .chart-container {\n    height: 320px;\n  }\n  .difficulty-chart-container {\n    height: 180px;\n  }\n}\n/*# sourceMappingURL=dashboard.page.css.map */\n"] }]
   }], () => [], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(DashboardPage, { className: "DashboardPage", filePath: "src/app/pages/dashboard/dashboard.page.ts", lineNumber: 35 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(DashboardPage, { className: "DashboardPage", filePath: "src/app/pages/dashboard/dashboard.page.ts", lineNumber: 38 });
+})();
+
+// src/app/pages/friend-profile/friend-profile.page.ts
+var _c010 = ["class", "page"];
+var _forTrack06 = ($index, $item) => $item.difficulty.id;
+var _forTrack13 = ($index, $item) => $item.id;
+function FriendProfilePage_Conditional_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "state-handler-component", 1);
+    \u0275\u0275pipe(1, "translate");
+    \u0275\u0275pipe(2, "translate");
+  }
+  if (rf & 2) {
+    \u0275\u0275property("title", \u0275\u0275pipeBind1(1, 2, "Profile.Loading.Title"))("text", \u0275\u0275pipeBind1(2, 4, "Profile.Loading.Text"));
+  }
+}
+function FriendProfilePage_Conditional_3_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r1 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "state-handler-component", 3);
+    \u0275\u0275pipe(1, "translate");
+    \u0275\u0275pipe(2, "translate");
+    \u0275\u0275listener("onClick", function FriendProfilePage_Conditional_3_Template_state_handler_component_onClick_0_listener() {
+      \u0275\u0275restoreView(_r1);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.handleGoBack());
+    });
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275property("title", \u0275\u0275pipeBind1(1, 3, "Profile.Error.Title"))("text", ctx_r1.error())("buttonLabel", \u0275\u0275pipeBind1(2, 5, "Friends.BackButton"));
+  }
+}
+function FriendProfilePage_Conditional_4_Conditional_13_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "state-handler-component", 11);
+    \u0275\u0275pipe(1, "translate");
+    \u0275\u0275pipe(2, "translate");
+  }
+  if (rf & 2) {
+    \u0275\u0275property("title", \u0275\u0275pipeBind1(1, 2, "Profile.NoGamesTitle"))("text", \u0275\u0275pipeBind1(2, 4, "Profile.NoGamesText"));
+  }
+}
+function FriendProfilePage_Conditional_4_Conditional_14_For_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 13)(1, "h3", 14);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "div", 15)(4, "span", 16)(5, "span", 17);
+    \u0275\u0275text(6, "sports_esports");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(7);
+    \u0275\u0275pipe(8, "translate");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(9, "span", 18);
+    \u0275\u0275text(10);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(11, "div", 15)(12, "span", 16)(13, "span", 17);
+    \u0275\u0275text(14, "swipe");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(15);
+    \u0275\u0275pipe(16, "translate");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(17, "span", 18);
+    \u0275\u0275text(18);
+    \u0275\u0275pipe(19, "number");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(20, "div", 15)(21, "span", 16)(22, "span", 17);
+    \u0275\u0275text(23, "timer");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(24);
+    \u0275\u0275pipe(25, "translate");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(26, "span", 18);
+    \u0275\u0275text(27);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(28, "div", 15)(29, "span", 16)(30, "span", 17);
+    \u0275\u0275text(31, "emoji_events");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(32);
+    \u0275\u0275pipe(33, "translate");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(34, "span", 18);
+    \u0275\u0275text(35);
+    \u0275\u0275elementEnd()()();
+  }
+  if (rf & 2) {
+    const stat_r4 = ctx.$implicit;
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(stat_r4.difficulty.label);
+    \u0275\u0275advance(5);
+    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(8, 9, "Profile.Stats.GamesPlayed"), " ");
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(stat_r4.gamesPlayed);
+    \u0275\u0275advance(5);
+    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(16, 11, "Profile.Stats.AverageMoves"), " ");
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind2(19, 13, stat_r4.averageMovesPerGame, "1.0-1"));
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(25, 16, "Profile.Stats.AverageTime"), " ");
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(ctx_r1.formatTime(stat_r4.averageTimePerGame));
+    \u0275\u0275advance(5);
+    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(33, 18, "Profile.Stats.BestScore"), " ");
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(stat_r4.bestScore);
+  }
+}
+function FriendProfilePage_Conditional_4_Conditional_14_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 12);
+    \u0275\u0275repeaterCreate(1, FriendProfilePage_Conditional_4_Conditional_14_For_2_Template, 36, 20, "div", 13, _forTrack06);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance();
+    \u0275\u0275repeater(ctx_r1.playedStats());
+  }
+}
+function FriendProfilePage_Conditional_4_Conditional_21_For_7_Conditional_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 27);
+    \u0275\u0275text(1, "lock");
+    \u0275\u0275elementEnd();
+  }
+}
+function FriendProfilePage_Conditional_4_Conditional_21_For_7_Conditional_9_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 31);
+    \u0275\u0275text(1);
+    \u0275\u0275pipe(2, "date");
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const achievement_r5 = \u0275\u0275nextContext().$implicit;
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind2(2, 1, achievement_r5.unlockedAt, "dd/MM/yyyy"));
+  }
+}
+function FriendProfilePage_Conditional_4_Conditional_21_For_7_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 26);
+    \u0275\u0275conditionalCreate(1, FriendProfilePage_Conditional_4_Conditional_21_For_7_Conditional_1_Template, 2, 0, "span", 27);
+    \u0275\u0275elementStart(2, "span", 28)(3, "span", 29);
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(5, "h3", 14);
+    \u0275\u0275text(6);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(7, "p", 30);
+    \u0275\u0275text(8);
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(9, FriendProfilePage_Conditional_4_Conditional_21_For_7_Conditional_9_Template, 3, 4, "span", 31);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const achievement_r5 = ctx.$implicit;
+    \u0275\u0275classProp("locked", !achievement_r5.unlocked);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(!achievement_r5.unlocked ? 1 : -1);
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(achievement_r5.icon);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(achievement_r5.name);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(achievement_r5.description);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(achievement_r5.unlocked ? 9 : -1);
+  }
+}
+function FriendProfilePage_Conditional_4_Conditional_21_Conditional_8_For_7_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r7 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 35);
+    \u0275\u0275listener("click", function FriendProfilePage_Conditional_4_Conditional_21_Conditional_8_For_7_Template_button_click_0_listener() {
+      const page_r8 = \u0275\u0275restoreView(_r7).$implicit;
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.handleAchievementsGoToPage(page_r8));
+    });
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const page_r8 = ctx.$implicit;
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275classProp("active", ctx_r1.achievementsPage() === page_r8);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", page_r8, " ");
+  }
+}
+function FriendProfilePage_Conditional_4_Conditional_21_Conditional_8_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r6 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 25)(1, "button", 32);
+    \u0275\u0275pipe(2, "translate");
+    \u0275\u0275listener("click", function FriendProfilePage_Conditional_4_Conditional_21_Conditional_8_Template_button_click_1_listener() {
+      \u0275\u0275restoreView(_r6);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.handleAchievementsPrevPage());
+    });
+    \u0275\u0275elementStart(3, "span", 10);
+    \u0275\u0275text(4, "chevron_left");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(5, "div", 33);
+    \u0275\u0275repeaterCreate(6, FriendProfilePage_Conditional_4_Conditional_21_Conditional_8_For_7_Template, 2, 3, "button", 34, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(8, "button", 32);
+    \u0275\u0275pipe(9, "translate");
+    \u0275\u0275listener("click", function FriendProfilePage_Conditional_4_Conditional_21_Conditional_8_Template_button_click_8_listener() {
+      \u0275\u0275restoreView(_r6);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.handleAchievementsNextPage());
+    });
+    \u0275\u0275elementStart(10, "span", 10);
+    \u0275\u0275text(11, "chevron_right");
+    \u0275\u0275elementEnd()()();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275advance();
+    \u0275\u0275property("disabled", ctx_r1.achievementsPage() === 1);
+    \u0275\u0275attribute("aria-label", \u0275\u0275pipeBind1(2, 4, "Common.Previous"));
+    \u0275\u0275advance(5);
+    \u0275\u0275repeater(ctx_r1.achievementsPageNumbers());
+    \u0275\u0275advance(2);
+    \u0275\u0275property("disabled", ctx_r1.achievementsPage() === ctx_r1.totalAchievementsPages());
+    \u0275\u0275attribute("aria-label", \u0275\u0275pipeBind1(9, 6, "Common.Next"));
+  }
+}
+function FriendProfilePage_Conditional_4_Conditional_21_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 19)(1, "span", 20);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "div", 21);
+    \u0275\u0275element(4, "div", 22);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(5, "div", 23);
+    \u0275\u0275repeaterCreate(6, FriendProfilePage_Conditional_4_Conditional_21_For_7_Template, 10, 7, "div", 24, _forTrack13);
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(8, FriendProfilePage_Conditional_4_Conditional_21_Conditional_8_Template, 12, 8, "div", 25);
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate2("", ctx_r1.unlockedAchievementsCount(), " / ", ctx_r1.totalAchievementsCount());
+    \u0275\u0275advance(2);
+    \u0275\u0275styleProp("width", ctx_r1.achievementsProgress(), "%");
+    \u0275\u0275advance(2);
+    \u0275\u0275repeater(ctx_r1.pagedAchievements());
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(ctx_r1.totalAchievementsPages() > 1 ? 8 : -1);
+  }
+}
+function FriendProfilePage_Conditional_4_Conditional_28_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275element(0, "state-handler-component", 11);
+    \u0275\u0275pipe(1, "translate");
+    \u0275\u0275pipe(2, "translate");
+  }
+  if (rf & 2) {
+    \u0275\u0275property("title", \u0275\u0275pipeBind1(1, 2, "Profile.History.NoHistoryTitle"))("text", \u0275\u0275pipeBind1(2, 4, "Profile.History.NoHistoryText"));
+  }
+}
+function FriendProfilePage_Conditional_4_Conditional_29_For_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 37)(1, "span", 38);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "span", 39)(4, "span", 17);
+    \u0275\u0275text(5, "swipe");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(6);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(7, "span", 39)(8, "span", 17);
+    \u0275\u0275text(9, "timer");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(10);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(11, "span", 40);
+    \u0275\u0275text(12);
+    \u0275\u0275pipe(13, "date");
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const entry_r9 = ctx.$implicit;
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(entry_r9.difficulty.label);
+    \u0275\u0275advance(4);
+    \u0275\u0275textInterpolate1(" ", entry_r9.moves, " ");
+    \u0275\u0275advance(4);
+    \u0275\u0275textInterpolate1(" ", ctx_r1.formatTime(entry_r9.durationSeconds), " ");
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind2(13, 4, entry_r9.playedAt, "dd/MM/yyyy HH:mm"));
+  }
+}
+function FriendProfilePage_Conditional_4_Conditional_29_Conditional_3_For_7_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r11 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 35);
+    \u0275\u0275listener("click", function FriendProfilePage_Conditional_4_Conditional_29_Conditional_3_For_7_Template_button_click_0_listener() {
+      const page_r12 = \u0275\u0275restoreView(_r11).$implicit;
+      const ctx_r1 = \u0275\u0275nextContext(4);
+      return \u0275\u0275resetView(ctx_r1.handleHistoryGoToPage(page_r12));
+    });
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const page_r12 = ctx.$implicit;
+    const ctx_r1 = \u0275\u0275nextContext(4);
+    \u0275\u0275classProp("active", ctx_r1.historyPage() === page_r12);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", page_r12, " ");
+  }
+}
+function FriendProfilePage_Conditional_4_Conditional_29_Conditional_3_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r10 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 25)(1, "button", 32);
+    \u0275\u0275pipe(2, "translate");
+    \u0275\u0275listener("click", function FriendProfilePage_Conditional_4_Conditional_29_Conditional_3_Template_button_click_1_listener() {
+      \u0275\u0275restoreView(_r10);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.handleHistoryPrevPage());
+    });
+    \u0275\u0275elementStart(3, "span", 10);
+    \u0275\u0275text(4, "chevron_left");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(5, "div", 33);
+    \u0275\u0275repeaterCreate(6, FriendProfilePage_Conditional_4_Conditional_29_Conditional_3_For_7_Template, 2, 3, "button", 34, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(8, "button", 32);
+    \u0275\u0275pipe(9, "translate");
+    \u0275\u0275listener("click", function FriendProfilePage_Conditional_4_Conditional_29_Conditional_3_Template_button_click_8_listener() {
+      \u0275\u0275restoreView(_r10);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.handleHistoryNextPage());
+    });
+    \u0275\u0275elementStart(10, "span", 10);
+    \u0275\u0275text(11, "chevron_right");
+    \u0275\u0275elementEnd()()();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(3);
+    \u0275\u0275advance();
+    \u0275\u0275property("disabled", ctx_r1.historyPage() === 1);
+    \u0275\u0275attribute("aria-label", \u0275\u0275pipeBind1(2, 4, "Common.Previous"));
+    \u0275\u0275advance(5);
+    \u0275\u0275repeater(ctx_r1.historyPageNumbers());
+    \u0275\u0275advance(2);
+    \u0275\u0275property("disabled", ctx_r1.historyPage() === ctx_r1.historyTotalPages());
+    \u0275\u0275attribute("aria-label", \u0275\u0275pipeBind1(9, 6, "Common.Next"));
+  }
+}
+function FriendProfilePage_Conditional_4_Conditional_29_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 36);
+    \u0275\u0275repeaterCreate(1, FriendProfilePage_Conditional_4_Conditional_29_For_2_Template, 14, 7, "div", 37, _forTrack13);
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(3, FriendProfilePage_Conditional_4_Conditional_29_Conditional_3_Template, 12, 8, "div", 25);
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance();
+    \u0275\u0275repeater(ctx_r1.history());
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(ctx_r1.historyTotalPages() > 1 ? 3 : -1);
+  }
+}
+function FriendProfilePage_Conditional_4_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r3 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 4)(1, "div", 5);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "h1", 6);
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "generic-button-component", 7);
+    \u0275\u0275pipe(6, "translate");
+    \u0275\u0275listener("onClick", function FriendProfilePage_Conditional_4_Template_generic_button_component_onClick_5_listener() {
+      \u0275\u0275restoreView(_r3);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.handleGoBack());
+    });
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(7, "section", 8)(8, "h2", 9)(9, "span", 10);
+    \u0275\u0275text(10, "bar_chart");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(11);
+    \u0275\u0275pipe(12, "translate");
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(13, FriendProfilePage_Conditional_4_Conditional_13_Template, 3, 6, "state-handler-component", 11)(14, FriendProfilePage_Conditional_4_Conditional_14_Template, 3, 0, "div", 12);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(15, "section", 8)(16, "h2", 9)(17, "span", 10);
+    \u0275\u0275text(18, "emoji_events");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(19);
+    \u0275\u0275pipe(20, "translate");
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(21, FriendProfilePage_Conditional_4_Conditional_21_Template, 9, 5);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(22, "section", 8)(23, "h2", 9)(24, "span", 10);
+    \u0275\u0275text(25, "history");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(26);
+    \u0275\u0275pipe(27, "translate");
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(28, FriendProfilePage_Conditional_4_Conditional_28_Template, 3, 6, "state-handler-component", 11)(29, FriendProfilePage_Conditional_4_Conditional_29_Template, 4, 1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r1.initials());
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r1.profile().username);
+    \u0275\u0275advance();
+    \u0275\u0275property("label", \u0275\u0275pipeBind1(6, 9, "Friends.BackButton"));
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(12, 11, "Profile.GamesPlayedTitle"), " ");
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(!ctx_r1.hasPlayedAnyGame() ? 13 : 14);
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(20, 13, "Profile.Achievements.Title"), " ");
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(ctx_r1.totalAchievementsCount() > 0 ? 21 : -1);
+    \u0275\u0275advance(5);
+    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(27, 15, "Profile.History.Title"), " ");
+    \u0275\u0275advance(2);
+    \u0275\u0275conditional(ctx_r1.history().length === 0 ? 28 : 29);
+  }
+}
+var FriendProfilePage = class _FriendProfilePage {
+  route = inject2(ActivatedRoute);
+  friendsService = inject2(FriendsService);
+  navigationService = inject2(NavigationService);
+  languageService = inject2(LanguageService);
+  historyPageSize = 8;
+  achievementsPageSize = 6;
+  userId = signal(0, ...ngDevMode ? [{ debugName: "userId" }] : []);
+  profile = signal(null, ...ngDevMode ? [{ debugName: "profile" }] : []);
+  isLoading = signal(false, ...ngDevMode ? [{ debugName: "isLoading" }] : []);
+  error = signal(null, ...ngDevMode ? [{ debugName: "error" }] : []);
+  achievementsPage = signal(1, ...ngDevMode ? [{ debugName: "achievementsPage" }] : []);
+  initials = computed(() => (this.profile()?.username ?? "").slice(0, 2).toUpperCase(), ...ngDevMode ? [{ debugName: "initials" }] : []);
+  playedStats = computed(() => (this.profile()?.stats ?? []).filter((stat) => stat.gamesPlayed > 0), ...ngDevMode ? [{ debugName: "playedStats" }] : []);
+  hasPlayedAnyGame = computed(() => this.playedStats().length > 0, ...ngDevMode ? [{ debugName: "hasPlayedAnyGame" }] : []);
+  sortedAchievements = computed(() => {
+    const achievements = this.profile()?.achievements ?? [];
+    return [...achievements].sort((a, b) => Number(b.unlocked) - Number(a.unlocked));
+  }, ...ngDevMode ? [{ debugName: "sortedAchievements" }] : []);
+  unlockedAchievementsCount = computed(() => (this.profile()?.achievements ?? []).filter((a) => a.unlocked).length, ...ngDevMode ? [{ debugName: "unlockedAchievementsCount" }] : []);
+  totalAchievementsCount = computed(() => (this.profile()?.achievements ?? []).length, ...ngDevMode ? [{ debugName: "totalAchievementsCount" }] : []);
+  achievementsProgress = computed(() => {
+    const total = this.totalAchievementsCount();
+    return total === 0 ? 0 : Math.round(this.unlockedAchievementsCount() / total * 100);
+  }, ...ngDevMode ? [{ debugName: "achievementsProgress" }] : []);
+  totalAchievementsPages = computed(() => Math.max(1, Math.ceil(this.sortedAchievements().length / this.achievementsPageSize)), ...ngDevMode ? [{ debugName: "totalAchievementsPages" }] : []);
+  pagedAchievements = computed(() => {
+    const start = (this.achievementsPage() - 1) * this.achievementsPageSize;
+    return this.sortedAchievements().slice(start, start + this.achievementsPageSize);
+  }, ...ngDevMode ? [{ debugName: "pagedAchievements" }] : []);
+  achievementsPageNumbers = computed(() => Array.from({ length: this.totalAchievementsPages() }, (_, i) => i + 1), ...ngDevMode ? [{ debugName: "achievementsPageNumbers" }] : []);
+  history = computed(() => this.profile()?.history?.items ?? [], ...ngDevMode ? [{ debugName: "history" }] : []);
+  historyTotalPages = computed(() => {
+    const history = this.profile()?.history;
+    if (!history)
+      return 1;
+    return Math.max(1, Math.ceil(history.totalCount / history.pageSize));
+  }, ...ngDevMode ? [{ debugName: "historyTotalPages" }] : []);
+  historyPage = computed(() => this.profile()?.history?.page ?? 1, ...ngDevMode ? [{ debugName: "historyPage" }] : []);
+  historyPageNumbers = computed(() => Array.from({ length: this.historyTotalPages() }, (_, i) => i + 1), ...ngDevMode ? [{ debugName: "historyPageNumbers" }] : []);
+  constructor() {
+    effect(() => {
+      this.languageService.language();
+      const idParam = this.route.snapshot.paramMap.get("userId");
+      if (idParam) {
+        this.userId.set(Number(idParam));
+        this.loadProfile(1);
+      }
+    });
+  }
+  loadProfile(historyPage) {
+    this.isLoading.set(true);
+    this.error.set(null);
+    this.friendsService.getFriendProfile(this.userId(), historyPage, this.historyPageSize).subscribe({
+      next: (response) => {
+        this.isLoading.set(false);
+        if (response.success) {
+          this.profile.set(response.data);
+          this.achievementsPage.set(1);
+        } else {
+          this.error.set(response.message || "Errore nel caricamento dati");
+        }
+      },
+      error: () => {
+        this.isLoading.set(false);
+        this.error.set("Impossibile connettersi al server.");
+      }
+    });
+  }
+  handleAchievementsPrevPage() {
+    this.achievementsPage.update((page) => Math.max(1, page - 1));
+  }
+  handleAchievementsNextPage() {
+    this.achievementsPage.update((page) => Math.min(this.totalAchievementsPages(), page + 1));
+  }
+  handleAchievementsGoToPage(page) {
+    this.achievementsPage.set(page);
+  }
+  handleHistoryPrevPage() {
+    if (this.historyPage() > 1) {
+      this.loadProfile(this.historyPage() - 1);
+    }
+  }
+  handleHistoryNextPage() {
+    if (this.historyPage() < this.historyTotalPages()) {
+      this.loadProfile(this.historyPage() + 1);
+    }
+  }
+  handleHistoryGoToPage(page) {
+    this.loadProfile(page);
+  }
+  handleGoBack() {
+    this.navigationService.goToProfile();
+  }
+  formatTime(totalSeconds) {
+    return formatDuration(totalSeconds);
+  }
+  static \u0275fac = function FriendProfilePage_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _FriendProfilePage)();
+  };
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _FriendProfilePage, selectors: [["friend-profile", 8, "page"]], attrs: _c010, decls: 6, vars: 1, consts: [[1, "friend-profile-page"], ["type", "loading", 3, "title", "text"], ["type", "error", 3, "title", "text", "buttonLabel"], ["type", "error", 3, "onClick", "title", "text", "buttonLabel"], [1, "friend-profile-hero"], [1, "friend-profile-avatar"], [1, "title", "light-color"], [3, "onClick", "label"], [1, "profile-section"], [1, "medium-title", "light-color", "section-title"], [1, "material-symbols-outlined"], ["type", "noResult", 3, "title", "text"], [1, "profile-stats-grid"], [1, "profile-stat-card"], [1, "light-color"], [1, "profile-stat-row"], [1, "profile-stat-label"], [1, "material-symbols-outlined", "stat-icon"], [1, "profile-stat-value"], [1, "achievements-progress"], [1, "achievements-progress-label"], [1, "achievements-progress-track"], [1, "achievements-progress-fill"], [1, "profile-achievements-grid"], [1, "achievement-card", 3, "locked"], [1, "pager"], [1, "achievement-card"], [1, "material-symbols-outlined", "achievement-lock"], [1, "achievement-icon-badge"], [1, "material-symbols-outlined", "achievement-icon"], [1, "achievement-description"], [1, "achievement-unlocked-at"], ["type", "button", 1, "pager-nav", 3, "click", "disabled"], [1, "pager-pages"], ["type", "button", 1, "pager-page", 3, "active"], ["type", "button", 1, "pager-page", 3, "click"], [1, "history-list"], [1, "history-row"], [1, "history-difficulty", "light-color"], [1, "history-stat"], [1, "history-date"]], template: function FriendProfilePage_Template(rf, ctx) {
+    if (rf & 1) {
+      \u0275\u0275element(0, "header-component");
+      \u0275\u0275elementStart(1, "div", 0);
+      \u0275\u0275conditionalCreate(2, FriendProfilePage_Conditional_2_Template, 3, 6, "state-handler-component", 1)(3, FriendProfilePage_Conditional_3_Template, 3, 7, "state-handler-component", 2)(4, FriendProfilePage_Conditional_4_Template, 30, 17);
+      \u0275\u0275elementEnd();
+      \u0275\u0275element(5, "footer-component");
+    }
+    if (rf & 2) {
+      \u0275\u0275advance(2);
+      \u0275\u0275conditional(ctx.isLoading() && !ctx.profile() ? 2 : ctx.error() && !ctx.profile() ? 3 : ctx.profile() ? 4 : -1);
+    }
+  }, dependencies: [HeaderComponent, FooterComponent, GenericButtonComponent, StateHandlerComponent, TranslatePipe, DecimalPipe, DatePipe], styles: ["\n\n.friend-profile-page[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 2.5rem;\n  width: 100%;\n  max-width: 900px;\n  margin: 0 auto;\n  padding: 2rem 1.5rem 3rem;\n  box-sizing: border-box;\n}\n.friend-profile-hero[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.75rem;\n  text-align: center;\n}\n.friend-profile-avatar[_ngcontent-%COMP%] {\n  width: 88px;\n  height: 88px;\n  border-radius: var(--radius-full);\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n  color: var(--button-text-color);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 1.8rem;\n  font-weight: 800;\n  letter-spacing: 1px;\n  box-shadow: var(--shadow-md), 0 0 0 6px var(--accent-glow);\n}\n.profile-section[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n}\n.section-title[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.6rem;\n}\n.profile-stats-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));\n  gap: 1.5rem;\n  width: 100%;\n  margin-top: 1rem;\n  box-sizing: border-box;\n}\n.profile-stat-card[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-lg);\n  box-shadow: var(--shadow-sm);\n  padding: 1.5rem;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.profile-stat-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  box-shadow: var(--shadow-md);\n}\n.profile-stat-card[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin: 0 0 0.25rem 0;\n  text-align: center;\n}\n.profile-stat-row[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  border-top: 1px solid var(--glass-border);\n  padding-top: 0.5rem;\n}\n.profile-stat-label[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.4rem;\n  font-size: 0.9rem;\n  opacity: 0.7;\n}\n.stat-icon[_ngcontent-%COMP%] {\n  font-size: 1.1rem !important;\n  opacity: 0.8;\n}\n.profile-stat-value[_ngcontent-%COMP%] {\n  font-size: 1.3rem;\n  font-weight: 800;\n  color: var(--titles-color);\n}\n.achievements-progress[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  width: 100%;\n  max-width: 320px;\n  margin-top: 1.25rem;\n}\n.achievements-progress-label[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  font-weight: 700;\n  color: var(--titles-color);\n  white-space: nowrap;\n}\n.achievements-progress-track[_ngcontent-%COMP%] {\n  flex: 1;\n  height: 8px;\n  border-radius: var(--radius-full);\n  background: var(--glass-border);\n  overflow: hidden;\n}\n.achievements-progress-fill[_ngcontent-%COMP%] {\n  height: 100%;\n  border-radius: var(--radius-full);\n  background:\n    linear-gradient(\n      90deg,\n      var(--button-color),\n      var(--titles-color));\n  transition: width 0.4s ease;\n}\n.profile-achievements-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));\n  gap: 1.5rem;\n  width: 100%;\n  margin-top: 1.5rem;\n  box-sizing: border-box;\n}\n.achievement-card[_ngcontent-%COMP%] {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  text-align: center;\n  gap: 0.5rem;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-lg);\n  box-shadow: var(--shadow-sm);\n  padding: 1.5rem;\n  transition:\n    transform 0.25s ease,\n    box-shadow 0.25s ease,\n    opacity 0.25s ease;\n}\n.achievement-card[_ngcontent-%COMP%]:not(.locked) {\n  border-color: color-mix(in srgb, var(--titles-color) 35%, var(--glass-border));\n  box-shadow: var(--shadow-sm), 0 0 20px var(--accent-glow);\n}\n.achievement-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  box-shadow: var(--shadow-md);\n}\n.achievement-card.locked[_ngcontent-%COMP%] {\n  opacity: 0.6;\n}\n.achievement-lock[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 0.85rem;\n  right: 0.85rem;\n  font-size: 1.1rem !important;\n  opacity: 0.45;\n}\n.achievement-icon-badge[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 64px;\n  height: 64px;\n  border-radius: var(--radius-full);\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n  box-shadow: var(--shadow-sm);\n}\n.achievement-card.locked[_ngcontent-%COMP%]   .achievement-icon-badge[_ngcontent-%COMP%] {\n  background: var(--glass-border);\n  box-shadow: none;\n}\n.achievement-icon[_ngcontent-%COMP%] {\n  font-size: 2rem !important;\n  color: var(--button-text-color);\n}\n.achievement-card.locked[_ngcontent-%COMP%]   .achievement-icon[_ngcontent-%COMP%] {\n  color: var(--text-color);\n  opacity: 0.5;\n}\n.achievement-card[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin: 0;\n}\n.achievement-description[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  opacity: 0.8;\n  margin: 0;\n}\n.achievement-unlocked-at[_ngcontent-%COMP%] {\n  font-size: 0.8rem;\n  opacity: 0.6;\n  margin-top: 0.25rem;\n}\n.history-list[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  width: 100%;\n  margin-top: 1.25rem;\n  box-sizing: border-box;\n}\n.history-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 1rem;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-md, 10px);\n  padding: 0.75rem 1.25rem;\n  transition: transform 0.2s ease, box-shadow 0.2s ease;\n}\n.history-row[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: var(--shadow-sm);\n}\n.history-difficulty[_ngcontent-%COMP%] {\n  font-weight: 700;\n  min-width: 100px;\n}\n.history-stat[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.35rem;\n  font-size: 0.9rem;\n  opacity: 0.85;\n  min-width: 60px;\n}\n.history-date[_ngcontent-%COMP%] {\n  margin-left: auto;\n  font-size: 0.85rem;\n  opacity: 0.6;\n  white-space: nowrap;\n}\n.pager[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.5rem;\n  margin-top: 1.75rem;\n}\n.pager-nav[_ngcontent-%COMP%], \n.pager-page[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 36px;\n  height: 36px;\n  padding: 0 0.5rem;\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-md, 10px);\n  background: var(--glass-bg);\n  color: var(--text-color);\n  cursor: pointer;\n  font-size: 0.9rem;\n  font-weight: 600;\n  transition:\n    background-color 0.2s ease,\n    border-color 0.2s ease,\n    color 0.2s ease;\n}\n.pager-nav[_ngcontent-%COMP%]   .material-symbols-outlined[_ngcontent-%COMP%] {\n  font-size: 1.2rem !important;\n}\n.pager-nav[_ngcontent-%COMP%]:hover:not(:disabled), \n.pager-page[_ngcontent-%COMP%]:hover:not(.active) {\n  border-color: var(--titles-color);\n}\n.pager-nav[_ngcontent-%COMP%]:disabled {\n  opacity: 0.4;\n  cursor: not-allowed;\n}\n.pager-page.active[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n  color: var(--button-text-color);\n  border-color: transparent;\n}\n.pager-pages[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.4rem;\n}\n/*# sourceMappingURL=friend-profile.page.css.map */"] });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(FriendProfilePage, [{
+    type: Component,
+    args: [{ selector: "friend-profile.page", imports: [TranslatePipe, HeaderComponent, FooterComponent, GenericButtonComponent, StateHandlerComponent, DecimalPipe, DatePipe], template: `<header-component></header-component>
+
+<div class="friend-profile-page">
+  @if (isLoading() && !profile()) {
+    <state-handler-component
+      type="loading"
+      [title]="'Profile.Loading.Title' | translate"
+      [text]="'Profile.Loading.Text' | translate"
+    />
+  } @else if (error() && !profile()) {
+    <state-handler-component
+      type="error"
+      [title]="'Profile.Error.Title' | translate"
+      [text]="error()!"
+      [buttonLabel]="'Friends.BackButton' | translate"
+      (onClick)="handleGoBack()"
+    />
+  } @else if (profile()) {
+    <div class="friend-profile-hero">
+      <div class="friend-profile-avatar">{{ initials() }}</div>
+      <h1 class="title light-color">{{ profile()!.username }}</h1>
+      <generic-button-component [label]="'Friends.BackButton' | translate" (onClick)="handleGoBack()"></generic-button-component>
+    </div>
+
+    <section class="profile-section">
+      <h2 class="medium-title light-color section-title">
+        <span class="material-symbols-outlined">bar_chart</span>
+        {{ 'Profile.GamesPlayedTitle' | translate }}
+      </h2>
+
+      @if (!hasPlayedAnyGame()) {
+        <state-handler-component
+          type="noResult"
+          [title]="'Profile.NoGamesTitle' | translate"
+          [text]="'Profile.NoGamesText' | translate"
+        />
+      } @else {
+        <div class="profile-stats-grid">
+          @for (stat of playedStats(); track stat.difficulty.id) {
+            <div class="profile-stat-card">
+              <h3 class="light-color">{{ stat.difficulty.label }}</h3>
+
+              <div class="profile-stat-row">
+                <span class="profile-stat-label">
+                  <span class="material-symbols-outlined stat-icon">sports_esports</span>
+                  {{ 'Profile.Stats.GamesPlayed' | translate }}
+                </span>
+                <span class="profile-stat-value">{{ stat.gamesPlayed }}</span>
+              </div>
+              <div class="profile-stat-row">
+                <span class="profile-stat-label">
+                  <span class="material-symbols-outlined stat-icon">swipe</span>
+                  {{ 'Profile.Stats.AverageMoves' | translate }}
+                </span>
+                <span class="profile-stat-value">{{ stat.averageMovesPerGame | number:'1.0-1' }}</span>
+              </div>
+              <div class="profile-stat-row">
+                <span class="profile-stat-label">
+                  <span class="material-symbols-outlined stat-icon">timer</span>
+                  {{ 'Profile.Stats.AverageTime' | translate }}
+                </span>
+                <span class="profile-stat-value">{{ formatTime(stat.averageTimePerGame) }}</span>
+              </div>
+              <div class="profile-stat-row">
+                <span class="profile-stat-label">
+                  <span class="material-symbols-outlined stat-icon">emoji_events</span>
+                  {{ 'Profile.Stats.BestScore' | translate }}
+                </span>
+                <span class="profile-stat-value">{{ stat.bestScore }}</span>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </section>
+
+    <section class="profile-section">
+      <h2 class="medium-title light-color section-title">
+        <span class="material-symbols-outlined">emoji_events</span>
+        {{ 'Profile.Achievements.Title' | translate }}
+      </h2>
+
+      @if (totalAchievementsCount() > 0) {
+        <div class="achievements-progress">
+          <span class="achievements-progress-label">{{ unlockedAchievementsCount() }} / {{ totalAchievementsCount() }}</span>
+          <div class="achievements-progress-track">
+            <div class="achievements-progress-fill" [style.width.%]="achievementsProgress()"></div>
+          </div>
+        </div>
+
+        <div class="profile-achievements-grid">
+          @for (achievement of pagedAchievements(); track achievement.id) {
+            <div class="achievement-card" [class.locked]="!achievement.unlocked">
+              @if (!achievement.unlocked) {
+                <span class="material-symbols-outlined achievement-lock">lock</span>
+              }
+              <span class="achievement-icon-badge">
+                <span class="material-symbols-outlined achievement-icon">{{ achievement.icon }}</span>
+              </span>
+              <h3 class="light-color">{{ achievement.name }}</h3>
+              <p class="achievement-description">{{ achievement.description }}</p>
+              @if (achievement.unlocked) {
+                <span class="achievement-unlocked-at">{{ achievement.unlockedAt | date:'dd/MM/yyyy' }}</span>
+              }
+            </div>
+          }
+        </div>
+
+        @if (totalAchievementsPages() > 1) {
+          <div class="pager">
+            <button
+              type="button"
+              class="pager-nav"
+              [disabled]="achievementsPage() === 1"
+              (click)="handleAchievementsPrevPage()"
+              [attr.aria-label]="'Common.Previous' | translate"
+            >
+              <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+
+            <div class="pager-pages">
+              @for (page of achievementsPageNumbers(); track page) {
+                <button
+                  type="button"
+                  class="pager-page"
+                  [class.active]="achievementsPage() === page"
+                  (click)="handleAchievementsGoToPage(page)"
+                >
+                  {{ page }}
+                </button>
+              }
+            </div>
+
+            <button
+              type="button"
+              class="pager-nav"
+              [disabled]="achievementsPage() === totalAchievementsPages()"
+              (click)="handleAchievementsNextPage()"
+              [attr.aria-label]="'Common.Next' | translate"
+            >
+              <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+          </div>
+        }
+      }
+    </section>
+
+    <section class="profile-section">
+      <h2 class="medium-title light-color section-title">
+        <span class="material-symbols-outlined">history</span>
+        {{ 'Profile.History.Title' | translate }}
+      </h2>
+
+      @if (history().length === 0) {
+        <state-handler-component
+          type="noResult"
+          [title]="'Profile.History.NoHistoryTitle' | translate"
+          [text]="'Profile.History.NoHistoryText' | translate"
+        />
+      } @else {
+        <div class="history-list">
+          @for (entry of history(); track entry.id) {
+            <div class="history-row">
+              <span class="history-difficulty light-color">{{ entry.difficulty.label }}</span>
+              <span class="history-stat">
+                <span class="material-symbols-outlined stat-icon">swipe</span>
+                {{ entry.moves }}
+              </span>
+              <span class="history-stat">
+                <span class="material-symbols-outlined stat-icon">timer</span>
+                {{ formatTime(entry.durationSeconds) }}
+              </span>
+              <span class="history-date">{{ entry.playedAt | date:'dd/MM/yyyy HH:mm' }}</span>
+            </div>
+          }
+        </div>
+
+        @if (historyTotalPages() > 1) {
+          <div class="pager">
+            <button
+              type="button"
+              class="pager-nav"
+              [disabled]="historyPage() === 1"
+              (click)="handleHistoryPrevPage()"
+              [attr.aria-label]="'Common.Previous' | translate"
+            >
+              <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+
+            <div class="pager-pages">
+              @for (page of historyPageNumbers(); track page) {
+                <button
+                  type="button"
+                  class="pager-page"
+                  [class.active]="historyPage() === page"
+                  (click)="handleHistoryGoToPage(page)"
+                >
+                  {{ page }}
+                </button>
+              }
+            </div>
+
+            <button
+              type="button"
+              class="pager-nav"
+              [disabled]="historyPage() === historyTotalPages()"
+              (click)="handleHistoryNextPage()"
+              [attr.aria-label]="'Common.Next' | translate"
+            >
+              <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+          </div>
+        }
+      }
+    </section>
+  }
+</div>
+
+<footer-component></footer-component>
+`, styles: ["/* src/app/pages/friend-profile/friend-profile.page.css */\n.friend-profile-page {\n  display: flex;\n  flex-direction: column;\n  gap: 2.5rem;\n  width: 100%;\n  max-width: 900px;\n  margin: 0 auto;\n  padding: 2rem 1.5rem 3rem;\n  box-sizing: border-box;\n}\n.friend-profile-hero {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.75rem;\n  text-align: center;\n}\n.friend-profile-avatar {\n  width: 88px;\n  height: 88px;\n  border-radius: var(--radius-full);\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n  color: var(--button-text-color);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 1.8rem;\n  font-weight: 800;\n  letter-spacing: 1px;\n  box-shadow: var(--shadow-md), 0 0 0 6px var(--accent-glow);\n}\n.profile-section {\n  display: flex;\n  flex-direction: column;\n}\n.section-title {\n  display: flex;\n  align-items: center;\n  gap: 0.6rem;\n}\n.profile-stats-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));\n  gap: 1.5rem;\n  width: 100%;\n  margin-top: 1rem;\n  box-sizing: border-box;\n}\n.profile-stat-card {\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-lg);\n  box-shadow: var(--shadow-sm);\n  padding: 1.5rem;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.profile-stat-card:hover {\n  transform: translateY(-4px);\n  box-shadow: var(--shadow-md);\n}\n.profile-stat-card h3 {\n  margin: 0 0 0.25rem 0;\n  text-align: center;\n}\n.profile-stat-row {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  border-top: 1px solid var(--glass-border);\n  padding-top: 0.5rem;\n}\n.profile-stat-label {\n  display: flex;\n  align-items: center;\n  gap: 0.4rem;\n  font-size: 0.9rem;\n  opacity: 0.7;\n}\n.stat-icon {\n  font-size: 1.1rem !important;\n  opacity: 0.8;\n}\n.profile-stat-value {\n  font-size: 1.3rem;\n  font-weight: 800;\n  color: var(--titles-color);\n}\n.achievements-progress {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  width: 100%;\n  max-width: 320px;\n  margin-top: 1.25rem;\n}\n.achievements-progress-label {\n  font-size: 0.9rem;\n  font-weight: 700;\n  color: var(--titles-color);\n  white-space: nowrap;\n}\n.achievements-progress-track {\n  flex: 1;\n  height: 8px;\n  border-radius: var(--radius-full);\n  background: var(--glass-border);\n  overflow: hidden;\n}\n.achievements-progress-fill {\n  height: 100%;\n  border-radius: var(--radius-full);\n  background:\n    linear-gradient(\n      90deg,\n      var(--button-color),\n      var(--titles-color));\n  transition: width 0.4s ease;\n}\n.profile-achievements-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));\n  gap: 1.5rem;\n  width: 100%;\n  margin-top: 1.5rem;\n  box-sizing: border-box;\n}\n.achievement-card {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  text-align: center;\n  gap: 0.5rem;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-lg);\n  box-shadow: var(--shadow-sm);\n  padding: 1.5rem;\n  transition:\n    transform 0.25s ease,\n    box-shadow 0.25s ease,\n    opacity 0.25s ease;\n}\n.achievement-card:not(.locked) {\n  border-color: color-mix(in srgb, var(--titles-color) 35%, var(--glass-border));\n  box-shadow: var(--shadow-sm), 0 0 20px var(--accent-glow);\n}\n.achievement-card:hover {\n  transform: translateY(-4px);\n  box-shadow: var(--shadow-md);\n}\n.achievement-card.locked {\n  opacity: 0.6;\n}\n.achievement-lock {\n  position: absolute;\n  top: 0.85rem;\n  right: 0.85rem;\n  font-size: 1.1rem !important;\n  opacity: 0.45;\n}\n.achievement-icon-badge {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 64px;\n  height: 64px;\n  border-radius: var(--radius-full);\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n  box-shadow: var(--shadow-sm);\n}\n.achievement-card.locked .achievement-icon-badge {\n  background: var(--glass-border);\n  box-shadow: none;\n}\n.achievement-icon {\n  font-size: 2rem !important;\n  color: var(--button-text-color);\n}\n.achievement-card.locked .achievement-icon {\n  color: var(--text-color);\n  opacity: 0.5;\n}\n.achievement-card h3 {\n  margin: 0;\n}\n.achievement-description {\n  font-size: 0.9rem;\n  opacity: 0.8;\n  margin: 0;\n}\n.achievement-unlocked-at {\n  font-size: 0.8rem;\n  opacity: 0.6;\n  margin-top: 0.25rem;\n}\n.history-list {\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  width: 100%;\n  margin-top: 1.25rem;\n  box-sizing: border-box;\n}\n.history-row {\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 1rem;\n  background: var(--glass-bg);\n  backdrop-filter: blur(var(--glass-blur));\n  -webkit-backdrop-filter: blur(var(--glass-blur));\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-md, 10px);\n  padding: 0.75rem 1.25rem;\n  transition: transform 0.2s ease, box-shadow 0.2s ease;\n}\n.history-row:hover {\n  transform: translateY(-2px);\n  box-shadow: var(--shadow-sm);\n}\n.history-difficulty {\n  font-weight: 700;\n  min-width: 100px;\n}\n.history-stat {\n  display: flex;\n  align-items: center;\n  gap: 0.35rem;\n  font-size: 0.9rem;\n  opacity: 0.85;\n  min-width: 60px;\n}\n.history-date {\n  margin-left: auto;\n  font-size: 0.85rem;\n  opacity: 0.6;\n  white-space: nowrap;\n}\n.pager {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.5rem;\n  margin-top: 1.75rem;\n}\n.pager-nav,\n.pager-page {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 36px;\n  height: 36px;\n  padding: 0 0.5rem;\n  border: 1px solid var(--glass-border);\n  border-radius: var(--radius-md, 10px);\n  background: var(--glass-bg);\n  color: var(--text-color);\n  cursor: pointer;\n  font-size: 0.9rem;\n  font-weight: 600;\n  transition:\n    background-color 0.2s ease,\n    border-color 0.2s ease,\n    color 0.2s ease;\n}\n.pager-nav .material-symbols-outlined {\n  font-size: 1.2rem !important;\n}\n.pager-nav:hover:not(:disabled),\n.pager-page:hover:not(.active) {\n  border-color: var(--titles-color);\n}\n.pager-nav:disabled {\n  opacity: 0.4;\n  cursor: not-allowed;\n}\n.pager-page.active {\n  background:\n    linear-gradient(\n      135deg,\n      var(--button-color),\n      var(--titles-color));\n  color: var(--button-text-color);\n  border-color: transparent;\n}\n.pager-pages {\n  display: flex;\n  align-items: center;\n  gap: 0.4rem;\n}\n/*# sourceMappingURL=friend-profile.page.css.map */\n"] }]
+  }], () => [], null);
+})();
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(FriendProfilePage, { className: "FriendProfilePage", filePath: "src/app/pages/friend-profile/friend-profile.page.ts", lineNumber: 34 });
 })();
 
 // src/app/app.routes.ts
@@ -67374,6 +70247,7 @@ var routes = [
       { path: "profilo", component: ProfilePage, canActivate: [authGuard] },
       { path: "informazioni", component: AboutPage },
       { path: "classifica", component: DashboardPage },
+      { path: "amici/:userId", component: FriendProfilePage, canActivate: [authGuard] },
       { path: "", redirectTo: "home", pathMatch: "full" }
     ]
   },
@@ -67387,6 +70261,35 @@ var routes = [
       { path: "about", component: AboutPage },
       { path: "profile", component: ProfilePage, canActivate: [authGuard] },
       { path: "leaderboard", component: DashboardPage },
+      { path: "friends/:userId", component: FriendProfilePage, canActivate: [authGuard] },
+      { path: "", redirectTo: "home", pathMatch: "full" }
+    ]
+  },
+  {
+    path: "fr",
+    children: [
+      { path: "accueil", component: HomePage },
+      { path: "jouer", component: PlayPage },
+      { path: "connexion", component: LoginPage },
+      { path: "inscription", component: SignupPage },
+      { path: "a-propos", component: AboutPage },
+      { path: "profil", component: ProfilePage, canActivate: [authGuard] },
+      { path: "classement", component: DashboardPage },
+      { path: "amis/:userId", component: FriendProfilePage, canActivate: [authGuard] },
+      { path: "", redirectTo: "accueil", pathMatch: "full" }
+    ]
+  },
+  {
+    path: "de",
+    children: [
+      { path: "home", component: HomePage },
+      { path: "spielen", component: PlayPage },
+      { path: "anmelden", component: LoginPage },
+      { path: "registrieren", component: SignupPage },
+      { path: "info", component: AboutPage },
+      { path: "profil", component: ProfilePage, canActivate: [authGuard] },
+      { path: "rangliste", component: DashboardPage },
+      { path: "freunde/:userId", component: FriendProfilePage, canActivate: [authGuard] },
       { path: "", redirectTo: "home", pathMatch: "full" }
     ]
   }

@@ -26,6 +26,11 @@
             <span class="hud-label">{{ 'Play.CurrentAttempts' | translate }}</span>
             <span class="hud-value">{{ moves() }}</span>
         </div>
+
+        <div class="hud-group">
+            <span class="material-symbols-outlined hud-icon">timer</span>
+            <span class="hud-value">{{ formatTime(elapsedSeconds()) }}</span>
+        </div>
     </div>
 
     <div class="memory-grid" [style.--cols]="columns()">
@@ -67,6 +72,7 @@
             <span class="material-symbols-outlined completion-icon">emoji_events</span>
             <h2 class="completion-title light-color">{{ 'Play.CompletedTitle' | translate }}</h2>
             <p class="text">{{ 'Play.CompletedMessage' | translate: { moves: moves() } }}</p>
+            <p class="text">{{ 'Play.CompletedTime' | translate: { time: formatTime(elapsedSeconds()) } }}</p>
 
             <div class="customButton-container">
                 <generic-button-component [label]="'Play.NextLevel' | translate" (onClick)="nextDifficulty.emit(difficulty)" [disabled]="nextDifficultyDisabled"></generic-button-component>

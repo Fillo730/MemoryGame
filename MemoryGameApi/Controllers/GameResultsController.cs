@@ -30,6 +30,22 @@ public class GameResultsController (IGameResultsService gameResultsService) : Ba
     }
 
     [Authorize]
+    [HttpGet("history")]
+    public async Task<IActionResult> GetGameHistoryByUserId([FromQuery] string? lang, [FromQuery] int page = 1, [FromQuery] int pageSize = 8)
+    {
+        try
+        {
+            var result = await _gameResultService.GetGameHistoryForUserByIdAsync(GetUserIdFromToken(), GetLanguage(lang), page, pageSize);
+
+            return Ok(ApiResponse<PagedResultDto<GameResultDto>>.CreateSuccessResponse(result));
+        }
+        catch (Exception ex)
+        {
+            return Ok(ApiResponse<string>.CreateFailureResponse(ex.Message));
+        }
+    }
+
+    [Authorize]
     [HttpGet("userStats")]
     public async Task<IActionResult> GetStatsByUserId([FromQuery] string? lang)
     {

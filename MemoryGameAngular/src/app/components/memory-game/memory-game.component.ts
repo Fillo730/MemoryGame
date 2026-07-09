@@ -1,5 +1,5 @@
 //Angular
-import { Component, Input, Output, EventEmitter, OnInit, signal, effect, inject } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, signal, effect, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 //Components
@@ -17,6 +17,7 @@ import { GameResultsService } from '../../services/gameResults-service.service';
 //Helpers
 import { shuffleArray, sampleArray } from '../../helpers/arrayFunctions.helper';
 import { scrollToBottom } from '../../helpers/scrollFunctions.helper';
+import { formatDuration } from '../../helpers/timeFunctions.helper';
 
 //public
 import { defaultImages, placeholder } from '../../../../public/DefaultImages';
@@ -29,7 +30,7 @@ import { defaultImages, placeholder } from '../../../../public/DefaultImages';
   styleUrl: './memory-game.component.css'
 })
 
-export class MemoryGameComponent {
+export class MemoryGameComponent implements OnDestroy {
   private authService = inject(AuthService);
   private gameResultsService = inject(GameResultsService);
   private translateService = inject(TranslateService);
@@ -47,9 +48,11 @@ export class MemoryGameComponent {
   public moves = signal(0);
   public isCompleted = signal(false);
   public columns = signal(2);
+  public elapsedSeconds = signal(0);
 
   private static readonly MIN_COLUMNS = 2;
   private static readonly MAX_COLUMNS = 10;
+  private timerHandle: ReturnType<typeof setInterval> | null = null;
 
   constructor() {
     effect(() => {
@@ -66,6 +69,14 @@ export class MemoryGameComponent {
   ngOnChanges() {
     this.columns.set(this.getDefaultColumns());
     this.resetGame();
+  }
+
+  ngOnDestroy() {
+    this.stopTimer();
+  }
+
+  public formatTime(totalSeconds: number): string {
+    return formatDuration(totalSeconds);
   }
 
   public getMaxColumns(): number {
@@ -139,6 +150,20 @@ export class MemoryGameComponent {
     this.matchedIndexes.set([]);
     this.moves.set(0);
     this.isCompleted.set(false);
+    this.startTimer();
+  }
+
+  private startTimer(): void {
+    this.stopTimer();
+    this.elapsedSeconds.set(0);
+    this.timerHandle = setInterval(() => this.elapsedSeconds.update(s => s + 1), 1000);
+  }
+
+  private stopTimer(): void {
+    if (this.timerHandle !== null) {
+      clearInterval(this.timerHandle);
+      this.timerHandle = null;
+    }
   }
 
   public handleCardClick(index: number) {
@@ -166,6 +191,7 @@ export class MemoryGameComponent {
       this.selectedIndexes.set([]);
       
       if (this.matchedIndexes().length === images.length) {
+        this.stopTimer();
         this.isCompleted.set(true);
       }
     } else {
@@ -178,6 +204,7 @@ export class MemoryGameComponent {
   private saveScore() {
     const gameResult: GameResult = {
         moves: this.moves(),
+        durationSeconds: this.elapsedSeconds(),
         difficulty: this.difficulty,
         playedAt: new Date()
     };

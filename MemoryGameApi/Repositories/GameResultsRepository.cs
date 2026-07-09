@@ -21,6 +21,38 @@ public class GameResultsRepository (AppDbContext dbContext) : BaseRepository(dbC
             .ToListAsync();
     }
 
+    public async Task<(IEnumerable<GameResult> Items, int TotalCount)> GetGameHistoryForUserByIdAsync(int id, string lang, int page, int pageSize)
+    {
+        var query = _dbContext.GameResults
+            .Where(g => g.UserId == id)
+            .OrderByDescending(g => g.PlayedAt);
+
+        var totalCount = await query.CountAsync();
+
+        var items = await query
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .Select(g => new GameResult
+            {
+                Id = g.Id,
+                Moves = g.Moves,
+                DurationSeconds = g.DurationSeconds,
+                PlayedAt = g.PlayedAt,
+                DifficultyId = g.DifficultyId,
+                Difficulty = new Difficulty
+                {
+                    Id = g.Difficulty.Id,
+                    NumberOfPairs = g.Difficulty.NumberOfPairs,
+                    Translations = g.Difficulty.Translations
+                        .Where(t => t.LanguageCode == lang)
+                        .ToList()
+                }
+            })
+            .ToListAsync();
+
+        return (items, totalCount);
+    }
+
     public async Task<IEnumerable<UserStats>> GetUserStatsByIdAsync(int id, string lang)
     {
         var stats = await _dbContext.Difficulties
@@ -37,6 +69,7 @@ public class GameResultsRepository (AppDbContext dbContext) : BaseRepository(dbC
                 GamesPlayed = d.GameResults.Count(gr => gr.UserId == id),
                 TotalMoves = d.GameResults.Where(gr => gr.UserId == id).Sum(gr => (int?)gr.Moves) ?? 0,
                 BestScore = d.GameResults.Where(gr => gr.UserId == id).Min(gr => (int?)gr.Moves) ?? 0,
+                TotalDurationSeconds = d.GameResults.Where(gr => gr.UserId == id).Sum(gr => (int?)gr.DurationSeconds) ?? 0,
             })
             .ToListAsync();
 

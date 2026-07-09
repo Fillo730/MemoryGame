@@ -20,8 +20,19 @@ export interface DifficultyBestScores {
     topScores: BestScoreEntry[];
 }
 
+export interface BestTimeEntry {
+    username: string;
+    durationSeconds: number;
+}
+
+export interface DifficultyBestTimes {
+    difficulty: Difficulty;
+    topTimes: BestTimeEntry[];
+}
+
 export interface Leaderboard {
     topPlayers: TopPlayer[];
     gamesPerDifficulty: DifficultyGamesCount[];
     bestScoresPerDifficulty: DifficultyBestScores[];
+    bestTimesPerDifficulty: DifficultyBestTimes[];
 }

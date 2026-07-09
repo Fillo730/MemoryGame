@@ -81,15 +81,28 @@
           @if (entry.topScores.length > 0) {
             <div class="best-score-card">
               <h3 class="light-color">{{ entry.difficulty.label }}</h3>
-              <ol class="ranking-list">
-                @for (score of entry.topScores; track score.username + score.moves; let i = $index) {
-                  <li class="ranking-item">
-                    <span class="ranking-position" [class]="getRankClass(i)">{{ i + 1 }}</span>
-                    <span class="ranking-name text-color">{{ score.username }}</span>
-                    <span class="ranking-value text">{{ 'Dashboard.BestScoresEntry' | translate: { moves: score.moves } }}</span>
-                  </li>
-                }
-              </ol>
+              <div class="difficulty-chart-container">
+                <canvas baseChart [data]="getScoreChartData(entry)" [options]="rankedChartOptions()" type="bar"></canvas>
+              </div>
+            </div>
+          }
+        }
+      </div>
+    </div>
+
+    <div class="dashboard-section">
+      <h2 class="medium-title light-color section-title">
+        <span class="material-symbols-outlined">timer</span>
+        {{ 'Dashboard.BestTimesTitle' | translate }}
+      </h2>
+      <div class="difficulty-container">
+        @for (entry of leaderboard()!.bestTimesPerDifficulty; track entry.difficulty.id) {
+          @if (entry.topTimes.length > 0) {
+            <div class="best-score-card">
+              <h3 class="light-color">{{ entry.difficulty.label }}</h3>
+              <div class="difficulty-chart-container">
+                <canvas baseChart [data]="getTimeChartData(entry)" [options]="timeChartOptions()" type="bar"></canvas>
+              </div>
             </div>
           }
         }

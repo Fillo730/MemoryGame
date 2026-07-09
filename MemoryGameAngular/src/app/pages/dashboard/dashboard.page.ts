@@ -23,8 +23,11 @@ import { NavigationService } from '../../services/NavigationService.service';
 import { finalize } from 'rxjs';
 
 //Models
-import { Leaderboard } from '../../models/leaderboard/Leaderboard.model';
+import { Leaderboard, DifficultyBestScores, DifficultyBestTimes } from '../../models/leaderboard/Leaderboard.model';
 import { THEMES } from '../../models/types/Theme.model';
+
+//Helpers
+import { formatDuration } from '../../helpers/timeFunctions.helper';
 
 @Component({
   selector: 'dashboard.page',
@@ -97,6 +100,8 @@ export class DashboardPage {
     };
   });
 
+  private static readonly RANK_COLORS = ['#f5c518', '#c0c0c0', '#cd7f32'];
+
   constructor() {
     effect(() => {
       this.languageService.language();
@@ -108,9 +113,111 @@ export class DashboardPage {
     this.navigationService.goToPlay();
   }
 
-  public getRankClass(index: number): string {
-    return index === 0 ? 'rank-gold' : index === 1 ? 'rank-silver' : index === 2 ? 'rank-bronze' : '';
+  public formatTime(totalSeconds: number): string {
+    return formatDuration(totalSeconds);
   }
+
+  private getRankedBarColor(index: number): string {
+    const barColor = this.themeService.theme() === THEMES.DARK ? '#00bcd4' : '#1e3a8a';
+    return DashboardPage.RANK_COLORS[index] ?? barColor;
+  }
+
+  public getScoreChartData(entry: DifficultyBestScores): ChartData<'bar'> {
+    return {
+      labels: entry.topScores.map(s => s.username),
+      datasets: [{
+        data: entry.topScores.map(s => s.moves),
+        backgroundColor: entry.topScores.map((_, i) => this.getRankedBarColor(i)),
+        maxBarThickness: 22,
+        borderRadius: { topLeft: 0, bottomLeft: 0, topRight: 4, bottomRight: 4 },
+        borderSkipped: false,
+      }],
+    };
+  }
+
+  public getTimeChartData(entry: DifficultyBestTimes): ChartData<'bar'> {
+    return {
+      labels: entry.topTimes.map(t => t.username),
+      datasets: [{
+        data: entry.topTimes.map(t => t.durationSeconds),
+        backgroundColor: entry.topTimes.map((_, i) => this.getRankedBarColor(i)),
+        maxBarThickness: 22,
+        borderRadius: { topLeft: 0, bottomLeft: 0, topRight: 4, bottomRight: 4 },
+        borderSkipped: false,
+      }],
+    };
+  }
+
+  public rankedChartOptions = computed<ChartConfiguration<'bar'>['options']>(() => {
+    const isDark = this.themeService.theme() === THEMES.DARK;
+    const textColor = isDark ? '#ffffff' : '#0f172a';
+    const gridColor = isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(15, 23, 42, 0.08)';
+    const surfaceColor = isDark ? '#1e293b' : '#ffffff';
+
+    return {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: surfaceColor,
+          titleColor: textColor,
+          bodyColor: textColor,
+          borderColor: gridColor,
+          borderWidth: 1,
+        },
+      },
+      scales: {
+        x: {
+          beginAtZero: true,
+          ticks: { color: textColor, precision: 0 },
+          grid: { color: gridColor },
+        },
+        y: {
+          ticks: { color: textColor },
+          grid: { display: false },
+        },
+      },
+    };
+  });
+
+  public timeChartOptions = computed<ChartConfiguration<'bar'>['options']>(() => {
+    const isDark = this.themeService.theme() === THEMES.DARK;
+    const textColor = isDark ? '#ffffff' : '#0f172a';
+    const gridColor = isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(15, 23, 42, 0.08)';
+    const surfaceColor = isDark ? '#1e293b' : '#ffffff';
+
+    return {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: surfaceColor,
+          titleColor: textColor,
+          bodyColor: textColor,
+          borderColor: gridColor,
+          borderWidth: 1,
+          callbacks: {
+            label: (context) => this.formatTime(context.parsed.x ?? 0),
+          },
+        },
+      },
+      scales: {
+        x: {
+          beginAtZero: true,
+          ticks: { color: textColor, callback: (value) => this.formatTime(Number(value)) },
+          grid: { color: gridColor },
+        },
+        y: {
+          ticks: { color: textColor },
+          grid: { display: false },
+        },
+      },
+    };
+  });
 
   public loadLeaderboard(): void {
     this.isLoading.set(true);

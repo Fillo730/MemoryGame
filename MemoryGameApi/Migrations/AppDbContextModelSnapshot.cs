@@ -939,6 +939,47 @@ namespace MemoryGameApi.Migrations
                         });
                 });
 
+            modelBuilder.Entity("MemoryGame_API.Models.Friendship", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("AddresseeId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("RequesterId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("RespondedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddresseeId");
+
+                    b.HasIndex("RequesterId");
+
+                    b.ToTable("Friendships");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AddresseeId = 2,
+                            CreatedAt = new DateTime(2025, 6, 1, 9, 0, 0, 0, DateTimeKind.Utc),
+                            RequesterId = 1,
+                            RespondedAt = new DateTime(2025, 6, 1, 9, 30, 0, 0, DateTimeKind.Utc),
+                            Status = 1
+                        });
+                });
+
             modelBuilder.Entity("MemoryGame_API.Models.GameResult", b =>
                 {
                     b.Property<int>("Id")
@@ -946,6 +987,9 @@ namespace MemoryGameApi.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("DifficultyId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("DurationSeconds")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Moves")
@@ -970,6 +1014,7 @@ namespace MemoryGameApi.Migrations
                         {
                             Id = 1,
                             DifficultyId = 1,
+                            DurationSeconds = 28,
                             Moves = 6,
                             PlayedAt = new DateTime(2025, 6, 1, 10, 0, 0, 0, DateTimeKind.Utc),
                             UserId = 1
@@ -978,6 +1023,7 @@ namespace MemoryGameApi.Migrations
                         {
                             Id = 2,
                             DifficultyId = 1,
+                            DurationSeconds = 37,
                             Moves = 8,
                             PlayedAt = new DateTime(2025, 6, 2, 10, 0, 0, 0, DateTimeKind.Utc),
                             UserId = 1
@@ -986,6 +1032,7 @@ namespace MemoryGameApi.Migrations
                         {
                             Id = 3,
                             DifficultyId = 2,
+                            DurationSeconds = 64,
                             Moves = 14,
                             PlayedAt = new DateTime(2025, 6, 3, 10, 0, 0, 0, DateTimeKind.Utc),
                             UserId = 1
@@ -994,6 +1041,7 @@ namespace MemoryGameApi.Migrations
                         {
                             Id = 4,
                             DifficultyId = 3,
+                            DurationSeconds = 95,
                             Moves = 20,
                             PlayedAt = new DateTime(2025, 6, 4, 10, 0, 0, 0, DateTimeKind.Utc),
                             UserId = 1
@@ -1002,6 +1050,7 @@ namespace MemoryGameApi.Migrations
                         {
                             Id = 5,
                             DifficultyId = 1,
+                            DurationSeconds = 22,
                             Moves = 5,
                             PlayedAt = new DateTime(2025, 6, 1, 12, 0, 0, 0, DateTimeKind.Utc),
                             UserId = 2
@@ -1010,6 +1059,7 @@ namespace MemoryGameApi.Migrations
                         {
                             Id = 6,
                             DifficultyId = 2,
+                            DurationSeconds = 54,
                             Moves = 12,
                             PlayedAt = new DateTime(2025, 6, 2, 12, 0, 0, 0, DateTimeKind.Utc),
                             UserId = 2
@@ -1018,6 +1068,7 @@ namespace MemoryGameApi.Migrations
                         {
                             Id = 7,
                             DifficultyId = 2,
+                            DurationSeconds = 45,
                             Moves = 10,
                             PlayedAt = new DateTime(2025, 6, 5, 12, 0, 0, 0, DateTimeKind.Utc),
                             UserId = 2
@@ -1026,6 +1077,7 @@ namespace MemoryGameApi.Migrations
                         {
                             Id = 8,
                             DifficultyId = 4,
+                            DurationSeconds = 168,
                             Moves = 35,
                             PlayedAt = new DateTime(2025, 6, 6, 12, 0, 0, 0, DateTimeKind.Utc),
                             UserId = 2
@@ -1134,6 +1186,25 @@ namespace MemoryGameApi.Migrations
                         .IsRequired();
 
                     b.Navigation("Difficulty");
+                });
+
+            modelBuilder.Entity("MemoryGame_API.Models.Friendship", b =>
+                {
+                    b.HasOne("MemoryGame_API.Models.User", "Addressee")
+                        .WithMany()
+                        .HasForeignKey("AddresseeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("MemoryGame_API.Models.User", "Requester")
+                        .WithMany()
+                        .HasForeignKey("RequesterId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Addressee");
+
+                    b.Navigation("Requester");
                 });
 
             modelBuilder.Entity("MemoryGame_API.Models.GameResult", b =>

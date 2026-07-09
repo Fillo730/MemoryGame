@@ -18,7 +18,8 @@ export enum AppRoutes {
     PLAY = 'play',
     SIGNUP = 'signup',
     ABOUT = 'about',
-    DASHBOARD = 'dashboard'
+    DASHBOARD = 'dashboard',
+    FRIENDS = 'friends'
 }
 
 @Injectable({
@@ -64,6 +65,10 @@ export class NavigationService {
 
     public goToDashboard(): void {
         this.navigateTo(AppRoutes.DASHBOARD);
+    }
+
+    public goToFriendProfile(userId: number): void {
+        this.router.navigate([this.getLocalizedRoute(AppRoutes.FRIENDS), userId]);
     }
 
     public goBack() : void {

@@ -134,6 +134,13 @@
                 </div>
                 <div class="profile-stat-row">
                   <span class="profile-stat-label">
+                    <span class="material-symbols-outlined stat-icon">timer</span>
+                    {{ 'Profile.Stats.AverageTime' | translate }}
+                  </span>
+                  <span class="profile-stat-value">{{ formatTime(stat.averageTimePerGame) }}</span>
+                </div>
+                <div class="profile-stat-row">
+                  <span class="profile-stat-label">
                     <span class="material-symbols-outlined stat-icon">emoji_events</span>
                     {{ 'Profile.Stats.BestScore' | translate }}
                   </span>
@@ -215,6 +222,187 @@
             </div>
           }
         }
+      </section>
+
+      <section class="profile-section">
+        <h2 class="medium-title light-color section-title">
+          <span class="material-symbols-outlined">history</span>
+          {{ 'Profile.History.Title' | translate }}
+        </h2>
+        <p class="text normal-max-width">{{ 'Profile.History.Text' | translate }}</p>
+
+        @if (isGameHistoryLoading()) {
+          <state-handler-component
+            type="loading"
+            [title]="'Profile.History.Loading.Title' | translate"
+            [text]="'Profile.History.Loading.Text' | translate"
+          />
+        } @else if (!hasGameHistory()) {
+          <state-handler-component
+            type="noResult"
+            [title]="'Profile.History.NoHistoryTitle' | translate"
+            [text]="'Profile.History.NoHistoryText' | translate"
+            [buttonLabel]="'Home.PlayNow' | translate"
+            (onClick)="handleGoToPlay()"
+          />
+        } @else {
+          <div class="history-list">
+            @for (entry of gameHistory(); track entry.id) {
+              <div class="history-row">
+                <span class="history-difficulty light-color">{{ entry.difficulty.label }}</span>
+                <span class="history-stat">
+                  <span class="material-symbols-outlined stat-icon">swipe</span>
+                  {{ entry.moves }}
+                </span>
+                <span class="history-stat">
+                  <span class="material-symbols-outlined stat-icon">timer</span>
+                  {{ formatTime(entry.durationSeconds) }}
+                </span>
+                <span class="history-date">{{ entry.playedAt | date:'dd/MM/yyyy HH:mm' }}</span>
+              </div>
+            }
+          </div>
+
+          @if (gameHistoryTotalPages() > 1) {
+            <div class="pager">
+              <button
+                type="button"
+                class="pager-nav"
+                [disabled]="gameHistoryPage() === 1"
+                (click)="handleGameHistoryPrevPage()"
+                [attr.aria-label]="'Common.Previous' | translate"
+              >
+                <span class="material-symbols-outlined">chevron_left</span>
+              </button>
+
+              <div class="pager-pages">
+                @for (page of gameHistoryPageNumbers(); track page) {
+                  <button
+                    type="button"
+                    class="pager-page"
+                    [class.active]="gameHistoryPage() === page"
+                    (click)="handleGameHistoryGoToPage(page)"
+                  >
+                    {{ page }}
+                  </button>
+                }
+              </div>
+
+              <button
+                type="button"
+                class="pager-nav"
+                [disabled]="gameHistoryPage() === gameHistoryTotalPages()"
+                (click)="handleGameHistoryNextPage()"
+                [attr.aria-label]="'Common.Next' | translate"
+              >
+                <span class="material-symbols-outlined">chevron_right</span>
+              </button>
+            </div>
+          }
+        }
+      </section>
+
+      <section class="profile-section">
+        <h2 class="medium-title light-color section-title">
+          <span class="material-symbols-outlined">group</span>
+          {{ 'Friends.Title' | translate }}
+        </h2>
+        <p class="text normal-max-width">{{ 'Friends.Text' | translate }}</p>
+
+        <div class="friends-subsection">
+          <h3 class="light-color friends-subsection-title">{{ 'Friends.Search.Title' | translate }}</h3>
+
+          <input
+            type="text"
+            class="input-field friends-search-input"
+            [placeholder]="'Friends.Search.Placeholder' | translate"
+            (input)="handleFriendSearchInput($any($event.target).value)"
+          />
+
+          @if (hasSearched()) {
+            @if (isSearching()) {
+              <p class="text friends-hint">{{ 'Friends.Search.Searching' | translate }}</p>
+            } @else if ((searchResults() ?? []).length === 0) {
+              <p class="text friends-hint">{{ 'Friends.Search.NoResults' | translate }}</p>
+            } @else {
+              <div class="friends-list">
+                @for (result of searchResults(); track result.userId) {
+                  <div class="friend-row">
+                    <span class="friend-username light-color">{{ result.username }}</span>
+
+                    @switch (result.status) {
+                      @case ('None') {
+                        <generic-button-component [label]="'Friends.Search.AddButton' | translate" (onClick)="handleSendFriendRequest(result.userId)"></generic-button-component>
+                      }
+                      @case ('PendingOutgoing') {
+                        <span class="friend-status-pill">{{ 'Friends.Search.PendingLabel' | translate }}</span>
+                      }
+                      @case ('PendingIncoming') {
+                        <span class="friend-status-pill">{{ 'Friends.Search.PendingIncomingLabel' | translate }}</span>
+                      }
+                      @case ('Friends') {
+                        <span class="friend-status-pill friend-status-accepted">{{ 'Friends.Search.FriendsLabel' | translate }}</span>
+                      }
+                      @case ('Declined') {
+                        <span class="friend-status-pill">{{ 'Friends.Search.DeclinedLabel' | translate }}</span>
+                      }
+                    }
+                  </div>
+                }
+              </div>
+            }
+          }
+        </div>
+
+        <div class="friends-subsection">
+          <h3 class="light-color friends-subsection-title">{{ 'Friends.Requests.Title' | translate }}</h3>
+
+          @if (!hasIncomingRequests()) {
+            <p class="text friends-hint">{{ 'Friends.Requests.Empty' | translate }}</p>
+          } @else {
+            <div class="friends-list">
+              @for (request of incomingRequests(); track request.friendshipId) {
+                <div class="friend-row">
+                  <span class="friend-username light-color">{{ request.fromUsername }}</span>
+                  <div class="friend-row-actions">
+                    <generic-button-component [label]="'Common.Accept' | translate" (onClick)="handleAcceptFriendRequest(request.friendshipId)"></generic-button-component>
+                    <generic-button-component [label]="'Common.Decline' | translate" (onClick)="handleDeclineFriendRequest(request.friendshipId)"></generic-button-component>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="friends-subsection">
+          <h3 class="light-color friends-subsection-title">{{ 'Friends.MyFriends.Title' | translate }}</h3>
+
+          @if (isFriendsLoading()) {
+            <state-handler-component
+              type="loading"
+              [title]="'Friends.MyFriends.Loading.Title' | translate"
+              [text]="'Friends.MyFriends.Loading.Text' | translate"
+            />
+          } @else if (!hasFriends()) {
+            <state-handler-component
+              type="noResult"
+              [title]="'Friends.MyFriends.EmptyTitle' | translate"
+              [text]="'Friends.MyFriends.EmptyText' | translate"
+            />
+          } @else {
+            <div class="friends-list">
+              @for (friend of friends(); track friend.friendshipId) {
+                <div class="friend-row">
+                  <span class="friend-username light-color">{{ friend.username }}</span>
+                  <div class="friend-row-actions">
+                    <generic-button-component [label]="'Friends.MyFriends.ViewButton' | translate" (onClick)="handleViewFriendProfile(friend.userId)"></generic-button-component>
+                    <generic-button-component [label]="'Friends.MyFriends.RemoveButton' | translate" (onClick)="handleRemoveFriend(friend.friendshipId)"></generic-button-component>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        </div>
       </section>
     </main>
   </div>
