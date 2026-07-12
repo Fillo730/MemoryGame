@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/generic-button/generic-button.component.css"],
+  "sourcesContent": [".generic-button {\n    background-color: var(--button-color);\n    color: var(--button-text-color);\n    border: none;\n    padding: 0.6rem 1.3rem;\n    border-radius: var(--radius-full);\n    cursor: pointer;\n    font-size: 1rem;\n    font-weight: 600;\n    box-shadow: var(--shadow-sm);\n    transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;\n}\n\n.generic-button:hover {\n    background-color: var(--button-hover-color);\n    transform: translateY(-2px);\n    box-shadow: var(--shadow-md);\n}"],
+  "mappings": ";AAAA,CAAC;AACG,oBAAkB,IAAI;AACtB,SAAO,IAAI;AACX,UAAQ;AACR,WAAS,OAAO;AAChB,iBAAe,IAAI;AACnB,UAAQ;AACR,aAAW;AACX,eAAa;AACb,cAAY,IAAI;AAChB;AAAA,IAAY,iBAAiB,MAAM,IAAI;AAAA,IAAE,UAAU,MAAM,IAAI;AAAA,IAAE,WAAW,MAAM;AACpF;AAEA,CAbC,cAac;AACX,oBAAkB,IAAI;AACtB,aAAW,WAAW;AACtB,cAAY,IAAI;AACpB;",
+  "names": []
+}

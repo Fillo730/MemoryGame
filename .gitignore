@@ -14,7 +14,6 @@ x86/
 bin/
 obj/
 /build/
-
 ## Cache e impostazioni di Visual Studio
 .vs/
 *.suo

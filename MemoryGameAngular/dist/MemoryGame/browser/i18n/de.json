@@ -1,0 +1,234 @@
+{
+  "Routes": {
+    "profile": "profil",
+    "home": "home",
+    "play": "spielen",
+    "login": "anmelden",
+    "signup": "registrieren",
+    "about": "info",
+    "dashboard": "rangliste",
+    "friends": "freunde"
+  },
+  "Header": {
+    "Home": "Home",
+    "Play": "Spielen",
+    "About": "Info",
+    "Login": "Anmelden",
+    "SignUp": "Registrieren",
+    "Dashboard": "Rangliste",
+    "Greeting": "Hallo {{ name }}"
+  },
+  "About": {
+    "WhoAmITitle": "Wer bin ich?",
+    "WhoAmIDescription": "Hallo! Ich bin Softwareentwickler mit einer Leidenschaft für Webentwicklung und Game Design. Ich habe dieses Memory-Spiel als Projekt erstellt, um meine Fähigkeiten zu verbessern und ein unterhaltsames Erlebnis zu bieten. Ich hoffe, es macht dir genauso viel Spaß, es zu spielen, wie es mir gemacht hat, es zu entwickeln!",
+    "SourceCodeTitle": "Quellcode",
+    "SourceCodeDescription": "Wenn du am Quellcode interessiert bist, findest du ihn in meinem GitHub-Repository. Schau gerne vorbei, trage bei oder nutze ihn als Referenz.",
+    "ConnectTitle": "Bleiben wir in Kontakt",
+    "ConnectDescription": "Ich würde mich freuen, mit dir in Kontakt zu treten und Feedback zum Spiel zu erhalten!",
+    "githubButtonLabel": "Github-Profil",
+    "LinkedinButtonLabel": "Linkedin-Profil"
+  },
+  "Home": {
+    "WhatIsItTitle": "Was ist dieses Memory Game?",
+    "WhatIsItText": "Eine einfache und effektive Website, mit der du dein Gehirn und deinen Geist trainieren und deine Statistiken und Leistungen im Laufe der Zeit verfolgen kannst. Das Spiel ist einfach: Du musst Kartenpaare mit demselben Bild finden.<br/>Viel Glück und viel Spaß!",
+    "WhyNatureTitle": "Warum Natur?",
+    "WhyNatureText": "Die in diesem Spiel verwendeten Bilder stehen alle im Zusammenhang mit der Natur. Die Natur ist eine großartige Quelle der Inspiration und Schönheit und schafft eine entspannende und angenehme Atmosphäre während des Spiels. Außerdem sind Naturbilder visuell anregend und können helfen, die Gedächtnisleistung zu verbessern.",
+    "WhereFromTitle": "Woher stammen diese Bilder?",
+    "WhereFromText": "Die verwendeten Bilder stammen von Unsplash, einer Website, die hochwertige, urheberrechtsfreie Fotografien bereitstellt. Weitere Informationen zu den Bildern und ihren Urhebern findest du direkt auf der Unsplash-Website.",
+    "PlayNow": "Jetzt spielen",
+    "LoadMoreButtonLabel": "Mehr laden",
+    "LoadMoreText": "Schau dir diese wunderschönen Bilder an. Wir haben ganze <strong class=\"light-color\">{{numberOfImages}}</strong> verfügbar!",
+    "CommunityTitle": "Die Community in Zahlen",
+    "CommunityPlayers": "Registrierte Spieler",
+    "CommunityGamesPlayed": "Gespielte Partien",
+    "CommunityPopularDifficulty": "Beliebtester Schwierigkeitsgrad",
+    "CompareTitle": "Vergleiche dich mit deinen Freunden",
+    "CompareLoginPrompt": "Melde dich an, um deine Statistiken mit denen deiner Freunde zu vergleichen.",
+    "CompareLoading": "Vergleich wird geladen...",
+    "CompareNoFriends": "Du hast noch keine Freunde. Füge welche über dein Profil hinzu, um Ergebnisse zu vergleichen!",
+    "CompareGoToProfile": "Zum Profil",
+    "CompareYouTag": "Du",
+    "CompareGamesPlayed": "{{ games }} Partien"
+  },
+  "Play": {
+    "SelectDifficulty": "Schwierigkeit auswählen",
+    "DifficultyDescription": "Jede großartige Geschichte beginnt mit einer Entscheidung. Wähle den Schwierigkeitsgrad und beweise, dass du ein preisverdächtiges Gedächtnis hast.",
+    "ChooseWisely": "Wähle weise: Eine zu einfache Herausforderung stärkt das Gedächtnis nicht, eine zu schwere könnte dich verwirren.",
+    "LoginWarning": "Du bist nicht angemeldet, dein Fortschritt wird nicht gespeichert.",
+    "SelectedDifficulty": "Du hast die Schwierigkeit ausgewählt",
+    "CurrentAttempts": "Aktuelle Versuche",
+    "CompletedTitle": "Gut gemacht!",
+    "CompletedMessage": "Du hast die Herausforderung in {{moves}} Zügen abgeschlossen!",
+    "CompletedTime": "Benötigte Zeit: {{time}}",
+    "NextLevel": "Nächstes Level",
+    "PlayAgain": "Erneut versuchen",
+    "GoBack": "Zurück",
+    "PlayInstructions": "Alle Karten liegen verdeckt. Klicke auf eine Karte, um sie umzudrehen, und suche ihr Gegenstück. Bei einem Fehlversuch werden sie wieder verdeckt: Merke dir ihre Position!",
+    "ColumnsLabel": "Spalten",
+    "CardAriaLabel": "Karte Zeile {{ row }}, Spalte {{ col }}, {{ state }}",
+    "CardStateCovered": "verdeckt",
+    "CardStateRevealed": "aufgedeckt",
+    "CardStateMatched": "gefunden",
+    "Loading": {
+      "Title": "Level werden vorbereitet",
+      "Text": "Wir bereiten die verfügbaren Herausforderungen vor. Wähle die, die am besten zu dir passt!"
+    },
+    "Error": {
+      "Title": "Hoppla! Etwas ist schiefgelaufen",
+      "Text": "Die Schwierigkeitsgrade konnten nicht vom Server abgerufen werden. Überprüfe deine Verbindung und versuche es erneut.",
+      "ActionButtonLabel": "Erneut versuchen"
+    }
+  },
+  "Login": {
+    "Title": "Anmelden",
+    "Label": "Anmelden",
+    "SignUpLabel": "Registrieren",
+    "GoBackLabel": "Zurück",
+    "UsernameLabel": "Benutzername",
+    "PasswordLabel": "Passwort",
+    "LoginError": "Falsche Anmeldedaten",
+    "HttpError": "Anmeldung nicht möglich",
+    "Loading": "Wird geladen..."
+  },
+  "Signup": {
+    "Label": "Konto erstellen",
+    "UsernameLabel": "Benutzername",
+    "EmailLabel": "Email",
+    "PasswordLabel": "Passwort",
+    "ConfirmPasswordLabel": "Passwort bestätigen",
+    "SignupLabel": "Registrieren",
+    "GoToLoginLabel": "Hast du schon ein Konto?",
+    "GoBackLabel": "Zurück",
+    "Loading": "Konto wird erstellt...",
+    "InvalidForm": "Überprüfe die eingegebenen Daten, bevor du fortfährst.",
+    "HttpError": "Fehler bei der Registrierung. Bitte versuche es später erneut."
+  },
+  "Profile": {
+    "Greetings": "Hallo {{ name }}",
+    "EditProfileButtonLabel": "Profil bearbeiten",
+    "GamesPlayedTitle": "Statistiken der gespielten Partien",
+    "LogoutLabel": "Abmelden",
+    "NoGamesTitle": "Noch keine Partien",
+    "NoGamesText": "Du hast noch keine Partie gespielt. Spiele deine erste Herausforderung!",
+    "Stats": {
+      "GamesPlayed": "Gespielte Partien",
+      "AverageMoves": "Durchschnittliche Züge",
+      "AverageTime": "Durchschnittliche Zeit",
+      "BestScore": "Bester Punktestand"
+    },
+    "Kpi": {
+      "TotalGames": "Partien insgesamt",
+      "Achievements": "Erfolge",
+      "FavoriteDifficulty": "Bevorzugte Schwierigkeit"
+    },
+    "Info": {
+      "Username": "Benutzername",
+      "Email": "Email",
+      "Country": "Land",
+      "BirthDate": "Geburtsdatum"
+    },
+    "Loading": {
+      "Title": "Statistiken werden geladen",
+      "Text": "Wir rufen deine Partien ab."
+    },
+    "Error": {
+      "Title": "Hoppla! Etwas ist schiefgelaufen"
+    },
+    "EditModal": {
+      "Title": "Profil bearbeiten",
+      "Description": "Hier kannst du die Informationen deines Profils bearbeiten",
+      "UsernameLabel": "Benutzername",
+      "EmailLabel": "Email",
+      "CountryLabel": "Land",
+      "BirthDateLabel": "Geburtsdatum",
+      "BioLabel": "Biografie"
+    },
+    "Achievements": {
+      "Title": "Erfolge",
+      "Text": "Schalte Abzeichen frei, indem du spielst und deine Partien verbesserst."
+    },
+    "History": {
+      "Title": "Spielverlauf",
+      "Text": "Sieh dir deine letzten Partien an.",
+      "NoHistoryTitle": "Noch keine Partien",
+      "NoHistoryText": "Du hast noch keine Partie gespielt. Spiele deine erste Herausforderung!",
+      "Loading": {
+        "Title": "Verlauf wird geladen",
+        "Text": "Wir rufen deine letzten Partien ab."
+      }
+    }
+  },
+  "Dashboard": {
+    "Title": "Rangliste",
+    "Text": "Finde heraus, wer das Memory Game dominiert: die aktivsten Spieler, die meistgespielten Schwierigkeitsgrade und die besten Punktestände aller Zeiten.",
+    "TopPlayersTitle": "Top 10 Spieler nach abgeschlossenen Partien",
+    "TopPlayersRank": "Abgeschlossene Partien: {{ games }}",
+    "GamesPerDifficultyTitle": "Abgeschlossene Partien pro Schwierigkeit",
+    "BestScoresTitle": "Bester Punktestand pro Schwierigkeit",
+    "BestScoresEntry": "{{ moves }} Züge",
+    "BestTimesTitle": "Beste Zeit pro Schwierigkeit",
+    "BestTimesEntry": "{{ time }}",
+    "NoResultTitle": "Keine Daten verfügbar",
+    "NoResultText": "Es wurden noch keine Partien aufgezeichnet. Spiele eine Herausforderung, um Erster in der Rangliste zu werden!",
+    "Loading": {
+      "Title": "Rangliste wird geladen",
+      "Text": "Wir sammeln die Statistiken aller Spieler."
+    },
+    "Error": {
+      "Title": "Hoppla! Etwas ist schiefgelaufen",
+      "Text": "Die Rangliste konnte nicht vom Server abgerufen werden. Überprüfe deine Verbindung und versuche es erneut.",
+      "ActionButtonLabel": "Erneut versuchen"
+    }
+  },
+  "Components": {
+    "GenericCard": {
+      "CardLabel": "{{ n }} Karten"
+    }
+  },
+  "Common": {
+    "Note": "Hinweis",
+    "Save": "Speichern",
+    "Cancel": "Abbrechen",
+    "Previous": "Zurück",
+    "Next": "Weiter",
+    "Accept": "Annehmen",
+    "Decline": "Ablehnen"
+  },
+  "Friends": {
+    "Title": "Freunde",
+    "Text": "Suche nach anderen Spielern, verwalte Freundschaftsanfragen und vergleiche Statistiken.",
+    "BackButton": "Zurück zum Profil",
+    "Search": {
+      "Title": "Spieler suchen",
+      "Placeholder": "Nach Benutzername suchen...",
+      "Searching": "Suche läuft...",
+      "NoResults": "Keine Benutzer gefunden.",
+      "AddButton": "Hinzufügen",
+      "PendingLabel": "Anfrage gesendet",
+      "PendingIncomingLabel": "Hat dir eine Anfrage gesendet",
+      "FriendsLabel": "Befreundet",
+      "DeclinedLabel": "Anfrage abgelehnt"
+    },
+    "Requests": {
+      "Title": "Eingehende Anfragen",
+      "Empty": "Keine ausstehenden Anfragen."
+    },
+    "MyFriends": {
+      "Title": "Meine Freunde",
+      "ViewButton": "Profil ansehen",
+      "RemoveButton": "Entfernen",
+      "EmptyTitle": "Noch keine Freunde",
+      "EmptyText": "Suche oben nach anderen Spielern, um Freunde hinzuzufügen.",
+      "Loading": {
+        "Title": "Freunde werden geladen",
+        "Text": "Wir rufen deine Freundesliste ab."
+      }
+    }
+  },
+  "Errors": {
+    "Required": "Dieses Feld ist erforderlich",
+    "MinLength": "Dieses Feld muss mindestens {{ min }} Zeichen enthalten",
+    "InvalidEmail": "Bitte gib eine gültige Email-Adresse ein",
+    "PasswordMismatch": "Die Passwörter stimmen nicht überein"
+  }
+}

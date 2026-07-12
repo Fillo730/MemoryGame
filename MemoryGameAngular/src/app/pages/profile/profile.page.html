@@ -61,6 +61,39 @@
         <generic-button-component [label]="'Profile.EditProfileButtonLabel' | translate" (onClick)="handleEditProfile()" />
         <generic-button-component [label]="'Profile.LogoutLabel' | translate" (onClick)="handleLogout()" />
       </div>
+
+      <div class="sidebar-friends">
+        <h2 class="light-color section-title sidebar-friends-title">
+          <span class="material-symbols-outlined">group</span>
+          {{ 'Friends.MyFriends.Title' | translate }}
+        </h2>
+
+        @if (isFriendsLoading()) {
+          <state-handler-component
+            type="loading"
+            [title]="'Friends.MyFriends.Loading.Title' | translate"
+            [text]="'Friends.MyFriends.Loading.Text' | translate"
+          />
+        } @else if (!hasFriends()) {
+          <state-handler-component
+            type="noResult"
+            [title]="'Friends.MyFriends.EmptyTitle' | translate"
+            [text]="'Friends.MyFriends.EmptyText' | translate"
+          />
+        } @else {
+          <div class="friends-list sidebar-friends-list">
+            @for (friend of friends(); track friend.friendshipId) {
+              <div class="friend-row sidebar-friend-row">
+                <span class="friend-username light-color">{{ friend.username }}</span>
+                <div class="friend-row-actions">
+                  <generic-button-component [label]="'Friends.MyFriends.ViewButton' | translate" (onClick)="handleViewFriendProfile(friend.userId)"></generic-button-component>
+                  <generic-button-component [label]="'Friends.MyFriends.RemoveButton' | translate" (onClick)="handleRemoveFriend(friend.friendshipId)"></generic-button-component>
+                </div>
+              </div>
+            }
+          </div>
+        }
+      </div>
     </aside>
 
     <main class="profile-main">
@@ -367,36 +400,6 @@
                   <div class="friend-row-actions">
                     <generic-button-component [label]="'Common.Accept' | translate" (onClick)="handleAcceptFriendRequest(request.friendshipId)"></generic-button-component>
                     <generic-button-component [label]="'Common.Decline' | translate" (onClick)="handleDeclineFriendRequest(request.friendshipId)"></generic-button-component>
-                  </div>
-                </div>
-              }
-            </div>
-          }
-        </div>
-
-        <div class="friends-subsection">
-          <h3 class="light-color friends-subsection-title">{{ 'Friends.MyFriends.Title' | translate }}</h3>
-
-          @if (isFriendsLoading()) {
-            <state-handler-component
-              type="loading"
-              [title]="'Friends.MyFriends.Loading.Title' | translate"
-              [text]="'Friends.MyFriends.Loading.Text' | translate"
-            />
-          } @else if (!hasFriends()) {
-            <state-handler-component
-              type="noResult"
-              [title]="'Friends.MyFriends.EmptyTitle' | translate"
-              [text]="'Friends.MyFriends.EmptyText' | translate"
-            />
-          } @else {
-            <div class="friends-list">
-              @for (friend of friends(); track friend.friendshipId) {
-                <div class="friend-row">
-                  <span class="friend-username light-color">{{ friend.username }}</span>
-                  <div class="friend-row-actions">
-                    <generic-button-component [label]="'Friends.MyFriends.ViewButton' | translate" (onClick)="handleViewFriendProfile(friend.userId)"></generic-button-component>
-                    <generic-button-component [label]="'Friends.MyFriends.RemoveButton' | translate" (onClick)="handleRemoveFriend(friend.friendshipId)"></generic-button-component>
                   </div>
                 </div>
               }

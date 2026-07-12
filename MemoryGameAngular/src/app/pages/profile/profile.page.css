@@ -159,6 +159,64 @@
     width: 100%;
 }
 
+.sidebar-friends {
+    width: 100%;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--glass-border);
+    text-align: left;
+}
+
+.sidebar-friends-title {
+    justify-content: center;
+    font-size: 1rem;
+    margin: 0 0 0.75rem;
+}
+
+.sidebar-friends-title .material-symbols-outlined {
+    font-size: 1.3rem !important;
+}
+
+.sidebar-friends-list {
+    margin-top: 0;
+    gap: 0.5rem;
+}
+
+.sidebar-friend-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0.65rem 0.85rem;
+}
+
+.sidebar-friend-row .friend-row-actions {
+    width: 100%;
+}
+
+.sidebar-friend-row .friend-row-actions ::ng-deep .generic-button {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem;
+}
+
+.sidebar-friends ::ng-deep .state-handler-container {
+    min-height: 0;
+    padding: 1rem 0.5rem;
+}
+
+.sidebar-friends ::ng-deep .state-icon {
+    width: 3.5rem;
+    height: 3.5rem;
+    font-size: 1.8rem;
+}
+
+.sidebar-friends ::ng-deep .state-title {
+    font-size: 1rem;
+}
+
+.sidebar-friends ::ng-deep .state-text {
+    font-size: 0.85rem;
+}
+
 .profile-main {
     display: flex;
     flex-direction: column;
