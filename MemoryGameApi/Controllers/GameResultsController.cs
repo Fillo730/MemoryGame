@@ -57,7 +57,7 @@ public class GameResultsController (IGameResultsService gameResultsService) : Ba
         }
         catch (Exception ex)
         {
-            return Ok(ApiResponse<string>.CreateSuccessResponse(ex.Message));
+            return Ok(ApiResponse<string>.CreateFailureResponse(ex.Message));
         }
     }
 }
