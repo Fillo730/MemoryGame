@@ -10,22 +10,43 @@ namespace MemoryGame_API.Controllers;
 [Authorize]
 [ApiController]
 [Route("api/[controller]")]
-public class GameResultsController (IGameResultsService gameResultsService) : BaseController
+public class GameResultsController (IGameResultsService gameResultsService, ILogger<GameResultsController> logger) : BaseController
 {
     private readonly IGameResultsService _gameResultService = gameResultsService;
+
+    private readonly ILogger<GameResultsController> _logger = logger;
 
     [HttpPost]
     public async Task<IActionResult> AddGameResultForUserByIdAsync([FromBody] GameResultDto gameResultDto)
     {
         try
         {
-            var result = await _gameResultService.AddGameResutlAsync(gameResultDto, GetUserIdFromToken());
+            if (gameResultDto.Difficulty is null)
+            {
+                return Ok(ApiResponse<string>.CreateFailureResponse("Difficulty not specified."));
+            }
+
+            if (gameResultDto.Moves <= 0 || gameResultDto.DurationSeconds < 0)
+            {
+                return Ok(ApiResponse<string>.CreateFailureResponse("Invalid moves or game duration."));
+            }
+
+            var userId = GetUserIdFromToken();
+
+            if (userId <= 0)
+            {
+                return Ok(ApiResponse<string>.CreateFailureResponse("Invalid user."));
+            }
+
+            var result = await _gameResultService.AddGameResutlAsync(gameResultDto, userId);
 
             return Ok(ApiResponse<GameResultDto>.CreateSuccessResponse(result));
         }
         catch (Exception ex)
         {
-            return Ok(ApiResponse<string>.CreateFailureResponse(ex.Message));
+            _logger.LogError(ex, "Failed to add game result for user {UserId}", GetUserIdFromToken());
+
+            return Ok(ApiResponse<string>.CreateFailureResponse(AppConstants.GENERIC_ERROR_MESSAGE));
         }
     }
 
@@ -35,13 +56,18 @@ public class GameResultsController (IGameResultsService gameResultsService) : Ba
     {
         try
         {
-            var result = await _gameResultService.GetGameHistoryForUserByIdAsync(GetUserIdFromToken(), GetLanguage(lang), page, pageSize);
+            var safePage = page < 1 ? 1 : page;
+            var safePageSize = pageSize < 1 ? 8 : Math.Min(pageSize, 50);
+
+            var result = await _gameResultService.GetGameHistoryForUserByIdAsync(GetUserIdFromToken(), GetLanguage(lang), safePage, safePageSize);
 
             return Ok(ApiResponse<PagedResultDto<GameResultDto>>.CreateSuccessResponse(result));
         }
         catch (Exception ex)
         {
-            return Ok(ApiResponse<string>.CreateFailureResponse(ex.Message));
+            _logger.LogError(ex, "Failed to get game history for user {UserId}", GetUserIdFromToken());
+
+            return Ok(ApiResponse<string>.CreateFailureResponse(AppConstants.GENERIC_ERROR_MESSAGE));
         }
     }
 
@@ -57,7 +83,9 @@ public class GameResultsController (IGameResultsService gameResultsService) : Ba
         }
         catch (Exception ex)
         {
-            return Ok(ApiResponse<string>.CreateFailureResponse(ex.Message));
+            _logger.LogError(ex, "Failed to get user stats for user {UserId}", GetUserIdFromToken());
+            
+            return Ok(ApiResponse<string>.CreateFailureResponse(AppConstants.GENERIC_ERROR_MESSAGE));
         }
     }
 }

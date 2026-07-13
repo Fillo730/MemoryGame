@@ -70,3 +70,4 @@ src/environments/environment.local.ts
 # -------------------------------------------------------------------------
 .DS_Store
 Thumbs.db
+MemoryGameApi/Sqlite.db

@@ -7,9 +7,11 @@ namespace MemoryGame_API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class DifficultiesController (IDifficultiesService difficultiesService) : BaseController
+public class DifficultiesController (IDifficultiesService difficultiesService, ILogger<DifficultiesController> logger) : BaseController
 {
     private readonly IDifficultiesService _difficultiesService = difficultiesService;
+
+    private readonly ILogger<DifficultiesController> _logger = logger;
 
     [HttpGet]
     public async Task<IActionResult> GetAllDifficulties([FromQuery] string? lang)
@@ -22,7 +24,8 @@ public class DifficultiesController (IDifficultiesService difficultiesService) :
         }
         catch (Exception ex)
         {
-            return Ok(ApiResponse<string>.CreateFailureResponse(ex.Message));
+            _logger.LogError(ex, "Failed to get difficulties list");
+            return Ok(ApiResponse<string>.CreateFailureResponse(AppConstants.GENERIC_ERROR_MESSAGE));
         }
     }
 }

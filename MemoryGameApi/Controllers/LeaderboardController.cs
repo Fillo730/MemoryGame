@@ -7,9 +7,11 @@ namespace MemoryGame_API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class LeaderboardController (ILeaderboardService leaderboardService) : BaseController
+public class LeaderboardController (ILeaderboardService leaderboardService, ILogger<LeaderboardController> logger) : BaseController
 {
     private readonly ILeaderboardService _leaderboardService = leaderboardService;
+
+    private readonly ILogger<LeaderboardController> _logger = logger;
 
     [HttpGet]
     public async Task<IActionResult> GetLeaderboard([FromQuery] string? lang)
@@ -22,7 +24,8 @@ public class LeaderboardController (ILeaderboardService leaderboardService) : Ba
         }
         catch (Exception ex)
         {
-            return Ok(ApiResponse<string>.CreateFailureResponse(ex.Message));
+            _logger.LogError(ex, "Failed to get leaderboard");
+            return Ok(ApiResponse<string>.CreateFailureResponse(AppConstants.GENERIC_ERROR_MESSAGE));
         }
     }
 
@@ -37,7 +40,8 @@ public class LeaderboardController (ILeaderboardService leaderboardService) : Ba
         }
         catch (Exception ex)
         {
-            return Ok(ApiResponse<string>.CreateFailureResponse(ex.Message));
+            _logger.LogError(ex, "Failed to get platform stats");
+            return Ok(ApiResponse<string>.CreateFailureResponse(AppConstants.GENERIC_ERROR_MESSAGE));
         }
     }
 }

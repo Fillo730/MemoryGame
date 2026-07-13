@@ -9,9 +9,11 @@ namespace MemoryGame_API.Controllers;
 [Authorize]
 [ApiController]
 [Route("api/[controller]")]
-public class FriendsController (IFriendsService friendsService) : BaseController
+public class FriendsController (IFriendsService friendsService, ILogger<FriendsController> logger) : BaseController
 {
     private readonly IFriendsService _friendsService = friendsService;
+
+    private readonly ILogger<FriendsController> _logger = logger;
 
     [HttpGet]
     public async Task<IActionResult> GetFriends()
@@ -24,7 +26,8 @@ public class FriendsController (IFriendsService friendsService) : BaseController
         }
         catch (Exception ex)
         {
-            return Ok(ApiResponse<string>.CreateFailureResponse(ex.Message));
+            _logger.LogError(ex, "Failed to get friends list for user {UserId}", GetUserIdFromToken());
+            return Ok(ApiResponse<string>.CreateFailureResponse(AppConstants.GENERIC_ERROR_MESSAGE));
         }
     }
 
@@ -39,7 +42,8 @@ public class FriendsController (IFriendsService friendsService) : BaseController
         }
         catch (Exception ex)
         {
-            return Ok(ApiResponse<string>.CreateFailureResponse(ex.Message));
+            _logger.LogError(ex, "Failed to get incoming friend requests for user {UserId}", GetUserIdFromToken());
+            return Ok(ApiResponse<string>.CreateFailureResponse(AppConstants.GENERIC_ERROR_MESSAGE));
         }
     }
 
@@ -48,13 +52,19 @@ public class FriendsController (IFriendsService friendsService) : BaseController
     {
         try
         {
-            var result = await _friendsService.SearchUsersAsync(GetUserIdFromToken(), query ?? string.Empty);
+            if (string.IsNullOrWhiteSpace(query) || query.Trim().Length < 2)
+            {
+                return Ok(ApiResponse<IEnumerable<UserSearchResultDto>>.CreateSuccessResponse([]));
+            }
+
+            var result = await _friendsService.SearchUsersAsync(GetUserIdFromToken(), query.Trim());
 
             return Ok(ApiResponse<IEnumerable<UserSearchResultDto>>.CreateSuccessResponse(result));
         }
         catch (Exception ex)
         {
-            return Ok(ApiResponse<string>.CreateFailureResponse(ex.Message));
+            _logger.LogError(ex, "Failed to search users with query {Query}", query);
+            return Ok(ApiResponse<string>.CreateFailureResponse(AppConstants.GENERIC_ERROR_MESSAGE));
         }
     }
 
@@ -63,18 +73,24 @@ public class FriendsController (IFriendsService friendsService) : BaseController
     {
         try
         {
+            if (userId <= 0)
+            {
+                return Ok(ApiResponse<string>.CreateFailureResponse("Invalid user id."));
+            }
+
             var result = await _friendsService.SendFriendRequestAsync(GetUserIdFromToken(), userId);
 
             if (result is null)
             {
-                return Ok(ApiResponse<string>.CreateFailureResponse("Impossibile inviare la richiesta di amicizia."));
+                return Ok(ApiResponse<string>.CreateFailureResponse("Unable to send friend request."));
             }
 
             return Ok(ApiResponse<FriendRequestDto>.CreateSuccessResponse(result));
         }
         catch (Exception ex)
         {
-            return Ok(ApiResponse<string>.CreateFailureResponse(ex.Message));
+            _logger.LogError(ex, "Failed to send friend request from user {UserId} to {TargetUserId}", GetUserIdFromToken(), userId);
+            return Ok(ApiResponse<string>.CreateFailureResponse(AppConstants.GENERIC_ERROR_MESSAGE));
         }
     }
 
@@ -83,18 +99,24 @@ public class FriendsController (IFriendsService friendsService) : BaseController
     {
         try
         {
+            if (friendshipId <= 0)
+            {
+                return Ok(ApiResponse<string>.CreateFailureResponse("Invalid request id."));
+            }
+
             var success = await _friendsService.RespondToRequestAsync(friendshipId, GetUserIdFromToken(), true);
 
             if (!success)
             {
-                return Ok(ApiResponse<string>.CreateFailureResponse("Richiesta non trovata."));
+                return Ok(ApiResponse<string>.CreateFailureResponse("Request not found."));
             }
 
             return Ok(ApiResponse<bool>.CreateSuccessResponse(true));
         }
         catch (Exception ex)
         {
-            return Ok(ApiResponse<string>.CreateFailureResponse(ex.Message));
+            _logger.LogError(ex, "Failed to accept friend request {FriendshipId}", friendshipId);
+            return Ok(ApiResponse<string>.CreateFailureResponse(AppConstants.GENERIC_ERROR_MESSAGE));
         }
     }
 
@@ -103,18 +125,24 @@ public class FriendsController (IFriendsService friendsService) : BaseController
     {
         try
         {
+            if (friendshipId <= 0)
+            {
+                return Ok(ApiResponse<string>.CreateFailureResponse("Invalid request id."));
+            }
+
             var success = await _friendsService.RespondToRequestAsync(friendshipId, GetUserIdFromToken(), false);
 
             if (!success)
             {
-                return Ok(ApiResponse<string>.CreateFailureResponse("Richiesta non trovata."));
+                return Ok(ApiResponse<string>.CreateFailureResponse("Request not found."));
             }
 
             return Ok(ApiResponse<bool>.CreateSuccessResponse(true));
         }
         catch (Exception ex)
         {
-            return Ok(ApiResponse<string>.CreateFailureResponse(ex.Message));
+            _logger.LogError(ex, "Failed to decline friend request {FriendshipId}", friendshipId);
+            return Ok(ApiResponse<string>.CreateFailureResponse(AppConstants.GENERIC_ERROR_MESSAGE));
         }
     }
 
@@ -123,18 +151,24 @@ public class FriendsController (IFriendsService friendsService) : BaseController
     {
         try
         {
+            if (friendshipId <= 0)
+            {
+                return Ok(ApiResponse<string>.CreateFailureResponse("Invalid friendship id."));
+            }
+
             var success = await _friendsService.RemoveFriendAsync(friendshipId, GetUserIdFromToken());
 
             if (!success)
             {
-                return Ok(ApiResponse<string>.CreateFailureResponse("Amicizia non trovata."));
+                return Ok(ApiResponse<string>.CreateFailureResponse("Friendship not found."));
             }
 
             return Ok(ApiResponse<bool>.CreateSuccessResponse(true));
         }
         catch (Exception ex)
         {
-            return Ok(ApiResponse<string>.CreateFailureResponse(ex.Message));
+            _logger.LogError(ex, "Failed to remove friendship {FriendshipId}", friendshipId);
+            return Ok(ApiResponse<string>.CreateFailureResponse(AppConstants.GENERIC_ERROR_MESSAGE));
         }
     }
 
@@ -149,7 +183,8 @@ public class FriendsController (IFriendsService friendsService) : BaseController
         }
         catch (Exception ex)
         {
-            return Ok(ApiResponse<string>.CreateFailureResponse(ex.Message));
+            _logger.LogError(ex, "Failed to get friends comparison for user {UserId}", GetUserIdFromToken());
+            return Ok(ApiResponse<string>.CreateFailureResponse(AppConstants.GENERIC_ERROR_MESSAGE));
         }
     }
 
@@ -158,18 +193,27 @@ public class FriendsController (IFriendsService friendsService) : BaseController
     {
         try
         {
-            var result = await _friendsService.GetFriendProfileAsync(GetUserIdFromToken(), userId, GetLanguage(lang), historyPage, historyPageSize);
+            if (userId <= 0)
+            {
+                return Ok(ApiResponse<string>.CreateFailureResponse("Invalid user id."));
+            }
+
+            var safePage = historyPage < 1 ? 1 : historyPage;
+            var safePageSize = historyPageSize < 1 ? 8 : Math.Min(historyPageSize, 50);
+
+            var result = await _friendsService.GetFriendProfileAsync(GetUserIdFromToken(), userId, GetLanguage(lang), safePage, safePageSize);
 
             if (result is null)
             {
-                return Ok(ApiResponse<string>.CreateFailureResponse("Potete vedere solo il profilo dei vostri amici."));
+                return Ok(ApiResponse<string>.CreateFailureResponse("You can only view the profile of your friends."));
             }
 
             return Ok(ApiResponse<FriendProfileDto>.CreateSuccessResponse(result));
         }
         catch (Exception ex)
         {
-            return Ok(ApiResponse<string>.CreateFailureResponse(ex.Message));
+            _logger.LogError(ex, "Failed to get friend profile {TargetUserId} for user {UserId}", userId, GetUserIdFromToken());
+            return Ok(ApiResponse<string>.CreateFailureResponse(AppConstants.GENERIC_ERROR_MESSAGE));
         }
     }
 }
