@@ -1,10 +1,12 @@
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MemoryGameApi", "MemoryGameApi", "{FEB4F0E7-DCBD-88A2-8006-D77D06F7A30D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemoryGameApi", "MemoryGameApi\MemoryGameApi.csproj", "{EBFC51E6-F21D-4A9A-5F61-710B3F38DA93}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemoryGameApi.Tests", "MemoryGameApi.Tests\MemoryGameApi.Tests.csproj", "{3D7D1B3B-FB00-4235-9AF5-F22A438F6C1A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,6 +18,10 @@ Global
 		{EBFC51E6-F21D-4A9A-5F61-710B3F38DA93}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBFC51E6-F21D-4A9A-5F61-710B3F38DA93}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBFC51E6-F21D-4A9A-5F61-710B3F38DA93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D7D1B3B-FB00-4235-9AF5-F22A438F6C1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D7D1B3B-FB00-4235-9AF5-F22A438F6C1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D7D1B3B-FB00-4235-9AF5-F22A438F6C1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D7D1B3B-FB00-4235-9AF5-F22A438F6C1A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

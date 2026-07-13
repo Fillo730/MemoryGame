@@ -26,17 +26,13 @@ jobs:
       - run: npx ng build --configuration production
 
   backend:
-    name: Build backend (.NET)
+    name: Build & test backend (.NET)
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: MemoryGameApi
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
-
       - run: dotnet restore
       - run: dotnet build --configuration Release --no-restore
+      - run: dotnet test --configuration Release --no-build --verbosity normal
