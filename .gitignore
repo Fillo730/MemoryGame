@@ -39,6 +39,7 @@ efbundle.exe
 # -------------------------------------------------------------------------
 ## Dipendenze (Node Modules)
 node_modules/
+.angular/
 
 ## Output di Build Angular e cache del compilatore
 /dist/
