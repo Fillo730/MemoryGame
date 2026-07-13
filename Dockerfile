@@ -17,11 +17,17 @@ RUN dotnet publish -c Release -o /app/publish
 # --- STEP 3: Runtime ---
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
-COPY --from=build-backend /app/publish .
 
-COPY --from=build-frontend /app/frontend/dist/MemoryGame/browser/. ./wwwroot
-USER root
-RUN chmod -R 777 /app
+# Dedicated non-root user: owns only /app and /var/data (SQLite storage), no shell, no home dir.
+RUN groupadd --system --gid 1000 appgroup \
+ && useradd --system --uid 1000 --gid appgroup --no-create-home --shell /usr/sbin/nologin appuser \
+ && mkdir -p /var/data \
+ && chown -R appuser:appgroup /app /var/data
+
+COPY --from=build-backend --chown=appuser:appgroup /app/publish .
+COPY --from=build-frontend --chown=appuser:appgroup /app/frontend/dist/MemoryGame/browser/. ./wwwroot
+
+USER appuser
 
 ENV ASPNETCORE_URLS=http://+:10000
 EXPOSE 10000
