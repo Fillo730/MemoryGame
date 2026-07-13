@@ -116,6 +116,10 @@
       "AverageTime": "Durchschnittliche Zeit",
       "BestScore": "Bester Punktestand"
     },
+    "Charts": {
+      "PieTitle": "Spieleverteilung nach Schwierigkeitsgrad",
+      "BarTitle": "Gespielte Spiele nach Schwierigkeitsgrad"
+    },
     "Kpi": {
       "TotalGames": "Partien insgesamt",
       "Achievements": "Erfolge",

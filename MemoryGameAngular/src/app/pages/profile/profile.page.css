@@ -260,12 +260,39 @@
     flex-direction: column;
 }
 
+.profile-charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    margin-top: 1rem;
+    box-sizing: border-box;
+}
+
+.profile-chart-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    box-sizing: border-box;
+}
+
+.chart-card-title {
+    margin: 0 0 0.5rem;
+    text-align: center;
+}
+
+.profile-chart-container {
+    width: 100%;
+    height: 260px;
+    margin-top: 0.5rem;
+}
+
 .profile-stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 1.5rem;
     width: 100%;
-    margin-top: 1rem;
+    margin-top: 2rem;
     box-sizing: border-box;
 }
 
@@ -617,5 +644,11 @@
 
     .profile-sidebar {
         position: static;
+    }
+}
+
+@media (max-width: 768px) {
+    .profile-chart-container {
+        height: 220px;
     }
 }

@@ -8,6 +8,10 @@ import { GenericButtonComponent } from '../../components/generic-button/generic-
 import { StateHandlerComponent } from '../../components/state-handler/state-handler.component';
 import { UpdateProfileComponent } from '../../components/update-profile/update-profile.component';
 
+//Charts
+import { BaseChartDirective } from 'ng2-charts';
+import { ChartConfiguration, ChartData } from 'chart.js';
+
 //pipe
 import { DecimalPipe, DatePipe } from '@angular/common';
 
@@ -22,6 +26,7 @@ import { UsersService } from '../../services/users-service.service';
 import { LanguageService } from '../../services/language-service.service';
 import { AchievementsService } from '../../services/achievements-service.service';
 import { FriendsService } from '../../services/friends-service.service';
+import { ThemeService } from '../../services/theme-service.service';
 
 //rxjs
 import { finalize } from 'rxjs';
@@ -35,13 +40,14 @@ import { GameResult } from '../../models/entitiesDto/GameResult.model';
 import { Friend } from '../../models/entitiesDto/Friend.model';
 import { FriendRequest } from '../../models/entitiesDto/FriendRequest.model';
 import { UserSearchResult } from '../../models/entitiesDto/UserSearchResult.model';
+import { THEMES } from '../../models/types/Theme.model';
 
 //Helpers
 import { formatDuration } from '../../helpers/timeFunctions.helper';
 
 @Component({
   selector: 'profile.page',
-  imports: [TranslatePipe, HeaderComponent, FooterComponent, GenericButtonComponent, StateHandlerComponent, DecimalPipe, DatePipe, UpdateProfileComponent],
+  imports: [TranslatePipe, HeaderComponent, FooterComponent, GenericButtonComponent, StateHandlerComponent, DecimalPipe, DatePipe, UpdateProfileComponent, BaseChartDirective],
   templateUrl: './profile.page.html',
   styleUrl: './profile.page.css',
 })
@@ -53,6 +59,7 @@ export class ProfilePage {
   private languageService = inject(LanguageService);
   private achievementsService = inject(AchievementsService);
   private friendsService = inject(FriendsService);
+  public themeService = inject(ThemeService);
 
   public currentUser = computed(() => this.authService.currentUser()!);
   public userData = computed<UpdateProfile>(() => ({
@@ -72,6 +79,111 @@ export class ProfilePage {
     if (stats.length === 0) return null;
 
     return stats.reduce((max, stat) => stat.gamesPlayed > max.gamesPlayed ? stat : max).difficulty;
+  });
+
+  private static readonly DIFFICULTY_COLORS_LIGHT = ['#2a78d6', '#1baf7a', '#eda100', '#008300', '#4a3aa7', '#e34948', '#e87ba4', '#eb6834'];
+  private static readonly DIFFICULTY_COLORS_DARK = ['#3987e5', '#199e70', '#c98500', '#008300', '#9085e9', '#e66767', '#d55181', '#d95926'];
+
+  public gamesPlayedPieChartData = computed<ChartData<'pie'>>(() => {
+    const stats = this.playedStats();
+    const isDark = this.themeService.theme() === THEMES.DARK;
+    const colors = isDark ? ProfilePage.DIFFICULTY_COLORS_DARK : ProfilePage.DIFFICULTY_COLORS_LIGHT;
+    const surfaceColor = isDark ? '#1e293b' : '#ffffff';
+
+    return {
+      labels: stats.map(stat => stat.difficulty.label),
+      datasets: [{
+        data: stats.map(stat => stat.gamesPlayed),
+        backgroundColor: stats.map((_, i) => colors[i % colors.length]),
+        hoverBackgroundColor: stats.map((_, i) => colors[i % colors.length]),
+        borderColor: surfaceColor,
+        borderWidth: 2,
+      }],
+    };
+  });
+
+  public gamesPlayedPieChartOptions = computed<ChartConfiguration<'pie'>['options']>(() => {
+    const isDark = this.themeService.theme() === THEMES.DARK;
+    const textColor = isDark ? '#ffffff' : '#0f172a';
+    const gridColor = isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(15, 23, 42, 0.08)';
+    const surfaceColor = isDark ? '#1e293b' : '#ffffff';
+    const total = this.totalGamesPlayed();
+
+    return {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: { color: textColor, boxWidth: 12, padding: 16 },
+        },
+        tooltip: {
+          backgroundColor: surfaceColor,
+          titleColor: textColor,
+          bodyColor: textColor,
+          borderColor: gridColor,
+          borderWidth: 1,
+          callbacks: {
+            label: (context) => {
+              const value = Number(context.parsed) || 0;
+              const percentage = total === 0 ? 0 : Math.round((value / total) * 100);
+              return ` ${context.label}: ${value} (${percentage}%)`;
+            },
+          },
+        },
+      },
+    };
+  });
+
+  public gamesPlayedBarChartData = computed<ChartData<'bar'>>(() => {
+    const stats = this.playedStats();
+    const barColor = this.themeService.theme() === THEMES.DARK ? '#00bcd4' : '#1e3a8a';
+
+    return {
+      labels: stats.map(stat => stat.difficulty.label),
+      datasets: [{
+        data: stats.map(stat => stat.gamesPlayed),
+        backgroundColor: barColor,
+        hoverBackgroundColor: barColor,
+        maxBarThickness: 24,
+        borderRadius: { topLeft: 0, bottomLeft: 0, topRight: 4, bottomRight: 4 },
+        borderSkipped: false,
+      }],
+    };
+  });
+
+  public gamesPlayedBarChartOptions = computed<ChartConfiguration<'bar'>['options']>(() => {
+    const isDark = this.themeService.theme() === THEMES.DARK;
+    const textColor = isDark ? '#ffffff' : '#0f172a';
+    const gridColor = isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(15, 23, 42, 0.08)';
+    const surfaceColor = isDark ? '#1e293b' : '#ffffff';
+
+    return {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: surfaceColor,
+          titleColor: textColor,
+          bodyColor: textColor,
+          borderColor: gridColor,
+          borderWidth: 1,
+        },
+      },
+      scales: {
+        x: {
+          beginAtZero: true,
+          ticks: { color: textColor, precision: 0 },
+          grid: { color: gridColor },
+        },
+        y: {
+          ticks: { color: textColor },
+          grid: { display: false },
+        },
+      },
+    };
   });
 
   public sortedAchievements = computed(() => {

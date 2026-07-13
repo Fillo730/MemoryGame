@@ -116,6 +116,10 @@
       "AverageTime": "Average time",
       "BestScore": "Best score"
     },
+    "Charts": {
+      "PieTitle": "Games distribution by difficulty",
+      "BarTitle": "Games played by difficulty"
+    },
     "Kpi": {
       "TotalGames": "Total games",
       "Achievements": "Achievements",

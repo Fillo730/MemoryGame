@@ -116,6 +116,10 @@
       "AverageTime": "Tempo medio",
       "BestScore": "Miglior punteggio"
     },
+    "Charts": {
+      "PieTitle": "Distribuzione partite per difficoltà",
+      "BarTitle": "Partite giocate per difficoltà"
+    },
     "Kpi": {
       "TotalGames": "Partite totali",
       "Achievements": "Achievement",

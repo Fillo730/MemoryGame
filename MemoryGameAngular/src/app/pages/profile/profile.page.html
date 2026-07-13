@@ -146,6 +146,21 @@
             (onClick)="handleGoToPlay()"
           />
         } @else {
+          <div class="profile-charts-grid">
+            <div class="profile-chart-card glass-panel">
+              <h3 class="light-color chart-card-title">{{ 'Profile.Charts.PieTitle' | translate }}</h3>
+              <div class="profile-chart-container">
+                <canvas baseChart [data]="gamesPlayedPieChartData()" [options]="gamesPlayedPieChartOptions()" type="pie"></canvas>
+              </div>
+            </div>
+            <div class="profile-chart-card glass-panel">
+              <h3 class="light-color chart-card-title">{{ 'Profile.Charts.BarTitle' | translate }}</h3>
+              <div class="profile-chart-container">
+                <canvas baseChart [data]="gamesPlayedBarChartData()" [options]="gamesPlayedBarChartOptions()" type="bar"></canvas>
+              </div>
+            </div>
+          </div>
+
           <div class="profile-stats-grid">
             @for (stat of playedStats(); track stat.difficulty.id) {
               <div class="profile-stat-card">
